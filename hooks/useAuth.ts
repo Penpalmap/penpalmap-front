@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-type User = {
+type UserInput = {
   email: string;
   password: string;
 };
@@ -14,9 +14,7 @@ const useAuth = () => {
 
   const router = useRouter();
 
-  const login = async (user: User) => {
-    // TODO: Login logic
-
+  const login = async (user: UserInput) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
@@ -29,9 +27,11 @@ const useAuth = () => {
         }
       );
 
+      console.log("response", response);
       if (response.data.message) {
         setError(response.data.message);
       } else {
+        setUser(response.data.user);
         setIsAuthenticated(true);
         router.push("/");
       }

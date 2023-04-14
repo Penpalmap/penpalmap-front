@@ -1,12 +1,20 @@
 import { Box, Text } from "@chakra-ui/react";
+import Login from "../components/Auth/Login";
+import { useState } from "react";
+import Register from "../components/Auth/Register";
 
 const Connexion = () => {
   // Il va y avoir la map de la page de login
 
+  const [isLogin, setIsLogin] = useState(true);
+
   return (
     <Box>
-      <h1>Page de login</h1>
-      <Text>Il va y avoir la map de la page de login</Text>
+      {isLogin ? (
+        <Login setIsLogin={setIsLogin} />
+      ) : (
+        <Register setIsLogin={setIsLogin} />
+      )}
     </Box>
   );
 };
