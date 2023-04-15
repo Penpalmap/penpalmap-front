@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { RegisterUserInput } from "../../types";
-import registerUser from "../../api/authApi";
+import { registerUser } from "../../api/authApi";
 
 type Props = {
   setIsLogin: (isLogin: boolean) => void;

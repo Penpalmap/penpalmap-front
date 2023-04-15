@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { checkAuthStatus } from "../api/authApi";
 
 type UserInput = {
   email: string;
@@ -8,7 +9,6 @@ type UserInput = {
 };
 
 const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
@@ -32,8 +32,7 @@ const useAuth = () => {
         setError(response.data.message);
       } else {
         setUser(response.data.user);
-        setIsAuthenticated(true);
-        router.push("/");
+        router.push("/map");
       }
     } catch (error) {
       setError(error.response.data.message);
@@ -44,9 +43,23 @@ const useAuth = () => {
     // TODO: Logout logic
   };
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await checkAuthStatus();
+        console.log("response", response);
+        setUser(response.user);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   return {
-    isAuthenticated,
     user,
+    isLoggingIn: user !== null,
     login,
     logout,
   };

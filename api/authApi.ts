@@ -14,4 +14,18 @@ const registerUser = async (user: RegisterUserInput) => {
   }
 };
 
-export default registerUser;
+const checkAuthStatus = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/success`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export { registerUser, checkAuthStatus };
