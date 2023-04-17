@@ -47,7 +47,6 @@ const useAuth = () => {
     const checkAuth = async () => {
       try {
         const response = await checkAuthStatus();
-        console.log("response", response);
         setUser(response.user);
       } catch (error) {
         console.log(error);
