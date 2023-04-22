@@ -1,6 +1,8 @@
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   FormControl,
@@ -12,7 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 interface LoginFormData {
   email: string;
@@ -24,7 +26,7 @@ type Props = {
 };
 
 const Login = ({ setIsLogin }: Props) => {
-  const { login } = useAuth();
+  const { login, error } = useAuth();
 
   const {
     register,
@@ -41,6 +43,13 @@ const Login = ({ setIsLogin }: Props) => {
       <Heading as="h1" size="lg" mb={6}>
         Connexion
       </Heading>
+      <GoogleLoginButton />
+      {error && (
+        <Alert status="error" my={4}>
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
           <FormControl isInvalid={!!errors.email}>

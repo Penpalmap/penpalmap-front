@@ -1,8 +1,10 @@
+import { Box } from "@chakra-ui/react";
+
 const map = () => {
   return (
-    <div>
+    <Box>
       <h1>Map</h1>
-    </div>
+    </Box>
   );
 };
 

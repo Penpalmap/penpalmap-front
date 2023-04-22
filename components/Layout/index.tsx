@@ -3,7 +3,7 @@ import Header from "./header";
 
 const Layout = ({ children }) => {
   return (
-    <Box h={"100vh"} w={"100vw"} bg={"gray.100"}>
+    <Box h={"100vh"} w={"100vw"}>
       <Header />
       {children}
     </Box>

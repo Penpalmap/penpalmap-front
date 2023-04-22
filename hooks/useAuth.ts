@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { checkAuthStatus } from "../api/authApi";
+import { checkAuthStatus, logoutUser } from "../api/authApi";
 
 type UserInput = {
   email: string;
@@ -27,7 +27,6 @@ const useAuth = () => {
         }
       );
 
-      console.log("response", response);
       if (response.data.message) {
         setError(response.data.message);
       } else {
@@ -39,8 +38,15 @@ const useAuth = () => {
     }
   };
 
-  const logout = () => {
-    // TODO: Logout logic
+  const logout = async () => {
+    const response = await logoutUser();
+
+    if (!response.success) {
+      setError(response.message);
+    } else {
+      setUser(null);
+      router.push("/");
+    }
   };
 
   useEffect(() => {
@@ -61,6 +67,7 @@ const useAuth = () => {
     isLoggingIn: user !== null,
     login,
     logout,
+    error,
   };
 };
 

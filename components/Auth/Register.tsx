@@ -1,9 +1,12 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
   Stack,
   Text,
@@ -11,25 +14,50 @@ import {
 import { useForm } from "react-hook-form";
 import { RegisterUserInput } from "../../types";
 import { registerUser } from "../../api/authApi";
+import useAuth from "../../hooks/useAuth";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import GoogleLoginButton from "./GoogleLoginButton";
+import { GoogleLogin } from "@react-oauth/google";
 
 type Props = {
   setIsLogin: (isLogin: boolean) => void;
 };
 
 const Register = ({ setIsLogin }: Props) => {
+  const router = useRouter();
+
+  const [error, setError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterUserInput>();
-  const onSubmit = (data: RegisterUserInput) => {
+  const onSubmit = async (data: RegisterUserInput) => {
     // request to api axios post
-    console.log(data);
-    registerUser(data);
+    const response = await registerUser(data);
+
+    if (response.success) {
+      // redirect to map
+      router.push("/map");
+    } else {
+      console.log(response);
+      setError(response.message);
+    }
   };
 
   return (
     <Box p={8}>
+      <Heading as="h1" size="lg" mb={6}>
+        Inscrivez-vous
+      </Heading>
+      {error && (
+        <Alert status="error" my={4}>
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
+      <GoogleLoginButton />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={4}>
           <FormControl isInvalid={!!errors.email}>
@@ -59,7 +87,6 @@ const Register = ({ setIsLogin }: Props) => {
           <Button type="submit">Register</Button>
         </Stack>
       </form>
-
       <Box mt={4}>
         <Text>
           Vous avez déjà un compte ?{" "}
