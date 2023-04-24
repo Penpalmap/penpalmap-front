@@ -10,9 +10,10 @@ import {
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAuth from "../../hooks/useAuth";
+import { signOut } from "next-auth/react";
 
 const Header = () => {
-  const { logout } = useAuth();
+  // const { logout } = useAuth();
 
   return (
     <HStack as="header" bg={"gray"} p={4} justifyContent={"space-between"}>
@@ -27,7 +28,7 @@ const Header = () => {
         <MenuList bg={"white"} borderRadius={4}>
           <MenuItem>Mon profil</MenuItem>
           <MenuItem>Paramètres</MenuItem>
-          <MenuItem onClick={logout}>Se déconnecter</MenuItem>
+          <MenuItem onClick={() => signOut()}>Se déconnecter</MenuItem>
         </MenuList>
       </Menu>
     </HStack>

@@ -18,7 +18,6 @@ import useAuth from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
-import { GoogleLogin } from "@react-oauth/google";
 
 type Props = {
   setIsLogin: (isLogin: boolean) => void;
@@ -41,7 +40,6 @@ const Register = ({ setIsLogin }: Props) => {
       // redirect to map
       router.push("/map");
     } else {
-      console.log(response);
       setError(response.message);
     }
   };

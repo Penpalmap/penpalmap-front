@@ -15,18 +15,19 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { useSession } from "next-auth/react";
+
+// type Props = {
+//   setIsLogin: (isLogin: boolean) => void;
+// };
 
 interface LoginFormData {
   email: string;
   password: string;
 }
 
-type Props = {
-  setIsLogin: (isLogin: boolean) => void;
-};
-
-const Login = ({ setIsLogin }: Props) => {
-  const { login, error } = useAuth();
+const SignIn = () => {
+  // const { login, error } = useAuth();
 
   const {
     register,
@@ -35,8 +36,11 @@ const Login = ({ setIsLogin }: Props) => {
   } = useForm<LoginFormData>();
 
   const onSubmit = async (data: LoginFormData) => {
-    await login(data);
+    // await login(data);
   };
+
+  const { data: session } = useSession();
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <Box p={8}>
@@ -97,4 +101,4 @@ const Login = ({ setIsLogin }: Props) => {
   );
 };
 
-export default Login;
+export default SignIn;

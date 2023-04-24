@@ -5,21 +5,19 @@ import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
+import customTheme from "../styles/customTheme";
+import { SessionProvider } from "next-auth/react";
 
 const { Button } = chakraTheme.components;
 
-const theme = extendBaseTheme({
-  components: {
-    Button,
-  },
-});
-
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   // Utilisation de ChakraProvider pour envelopper tous les composants
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={customTheme}>
       <Layout>
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </Layout>
     </ChakraProvider>
   );

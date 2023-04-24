@@ -1,28 +1,28 @@
 import { useRouter } from "next/router";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { Box } from "@chakra-ui/react";
-import Login from "../components/Auth/Login";
+import { Box, Text } from "@chakra-ui/react";
+import Login from "../components/Auth/SignIn";
 import Register from "../components/Auth/Register";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const Home = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const router = useRouter();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const { data: session } = useSession();
 
-  useEffect(() => {
-    if (user) {
-      router.push("/map");
-    }
-  }, [router, user]);
-  // Il va y avoir la map de la page de login
   return (
     <Box>
-      {isLogin ? (
-        <Login setIsLogin={setIsLogin} />
+      <Text fontSize="4xl">Bienvenue sur la page de login</Text>
+      <Link href="/auth/signin">
+        <Text fontSize="2xl">Se connecter</Text>
+      </Link>
+      {session ? (
+        <Text fontSize="2xl">Vous êtes connecté</Text>
       ) : (
-        <Register setIsLogin={setIsLogin} />
+        <Text fontSize="2xl">Vous n'êtes pas connecté</Text>
       )}
     </Box>
   );
