@@ -5,3 +5,10 @@ export type RegisterUserInput = {
   name: string;
   password: string;
 };
+
+export type ProfileFormData = {
+  photo: FileList;
+  birthday: string;
+  location: Array<Float32Array>;
+  gender: string;
+};

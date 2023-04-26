@@ -19,11 +19,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
 
-type Props = {
-  setIsLogin: (isLogin: boolean) => void;
-};
-
-const Register = ({ setIsLogin }: Props) => {
+const Register = () => {
   const router = useRouter();
 
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +34,7 @@ const Register = ({ setIsLogin }: Props) => {
 
     if (response.success) {
       // redirect to map
-      router.push("/map");
+      router.push("/create-account");
     } else {
       setError(response.message);
     }

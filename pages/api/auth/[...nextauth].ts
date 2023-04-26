@@ -1,11 +1,33 @@
 import axios from "axios";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { getSession } from "next-auth/react";
 import { getUserByEmail } from "../../../api/userApi";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export default NextAuth({
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const user = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/credentials`,
+          {
+            email: credentials.email,
+            password: credentials.password,
+          }
+        );
+
+        if (user.data.user) {
+          return user.data.user;
+        } else {
+          return null;
+        }
+      },
+    }),
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_ID,

@@ -15,7 +15,9 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import GoogleLoginButton from "./GoogleLoginButton";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 // type Props = {
 //   setIsLogin: (isLogin: boolean) => void;
@@ -29,6 +31,8 @@ interface LoginFormData {
 const SignIn = () => {
   // const { login, error } = useAuth();
 
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -36,7 +40,26 @@ const SignIn = () => {
   } = useForm<LoginFormData>();
 
   const onSubmit = async (data: LoginFormData) => {
-    // await login(data);
+    // await login(data)
+    try {
+      // Call the signIn function from NextAuth.js
+      const responseSignin = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      // If the response is successful, redirect to the profile page
+      if (responseSignin.ok) {
+        router.push("/");
+      } else {
+        // Display the error message on the form
+        setError("Identifiants incorrects");
+      }
+    } catch (error) {
+      // Display the error message on the form
+      setError("Authentication failed");
+    }
   };
 
   const { data: session } = useSession();
@@ -87,14 +110,11 @@ const SignIn = () => {
       <Box mt={4}>
         <Text>
           Vous n'avez pas de compte ?{" "}
-          <Text
-            as="span"
-            color="blue.500"
-            cursor="pointer"
-            onClick={() => setIsLogin(false)}
-          >
-            Inscrivez-vous
-          </Text>
+          <Link href="/auth/signup">
+            <Text as="span" color="blue.500" cursor="pointer">
+              Créer un compte
+            </Text>
+          </Link>
         </Text>
       </Box>
     </Box>

@@ -13,6 +13,9 @@ const Home = () => {
 
   const { data: session } = useSession();
 
+  useEffect(() => {
+    console.log("session", session?.user);
+  }, [session]);
   return (
     <Box>
       <Text fontSize="4xl">Bienvenue sur la page de login</Text>
