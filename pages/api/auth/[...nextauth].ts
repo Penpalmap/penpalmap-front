@@ -38,7 +38,7 @@ export default NextAuth({
       // fetch user data from database
       const userInfos = await getUserByEmail(session.user.email);
 
-      session.user.userId = userInfos.data.user.user_id;
+      session.user.userId = userInfos.user.user_id;
       return session;
     },
 
@@ -56,6 +56,8 @@ export default NextAuth({
 
           if (createUser.data.isAlreadyRegistered) {
             return true;
+          } else {
+            return "/create-profile";
           }
         } catch (error) {}
       }

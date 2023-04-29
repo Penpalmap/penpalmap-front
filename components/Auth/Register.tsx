@@ -18,6 +18,7 @@ import useAuth from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
+import Link from "next/link";
 
 const Register = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const Register = () => {
 
     if (response.success) {
       // redirect to map
-      router.push("/create-account");
+      router.push("/create-profile");
     } else {
       setError(response.message);
     }
@@ -84,14 +85,11 @@ const Register = () => {
       <Box mt={4}>
         <Text>
           Vous avez déjà un compte ?{" "}
-          <Text
-            as="span"
-            color="blue.500"
-            cursor="pointer"
-            onClick={() => setIsLogin(true)}
-          >
-            Connectez vous
-          </Text>
+          <Link href="/auth/signup">
+            <Text as="span" color="blue.500" cursor="pointer">
+              Créer un compte
+            </Text>
+          </Link>
         </Text>
       </Box>
     </Box>

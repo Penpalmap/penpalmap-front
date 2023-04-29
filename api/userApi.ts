@@ -5,7 +5,15 @@ const getUserByEmail = async (email: string) => {
     `${process.env.NEXT_PUBLIC_API_URL}/api/users/email/${email}`
   );
 
-  return userInfos;
+  return userInfos.data;
 };
 
-export { getUserByEmail };
+const getUserById = async (id: string) => {
+  const userInfos = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`
+  );
+
+  return userInfos.data;
+};
+
+export { getUserByEmail, getUserById };
