@@ -1,17 +1,33 @@
-import { Box } from '@chakra-ui/react'
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { Box, HStack, Text } from '@chakra-ui/react'
+import { UseFormSetValue } from 'react-hook-form'
+import { ProfileFormData } from '../../types'
 
 type Props = {
     onNextStep?: () => void
     onPreviousStep?: () => void
-    register?: UseFormRegister<FormData>
-    setValue?: UseFormSetValue<FormData>
+    setValue: UseFormSetValue<ProfileFormData>
 }
 
 const ProfileGenderInput = (props: Props) => {
+    const { onNextStep, onPreviousStep, setValue } = props
+    const handleClick = (gender: string) => {
+        setValue('gender', gender)
+    }
+
     return (
         <Box>
-            <h1>create profile Gender</h1>
+            <h1>ProfileGenderInput</h1>
+            <HStack>
+                <Box onClick={() => handleClick('female')} cursor={'pointer'}>
+                    <Text>Women</Text>
+                </Box>
+                <Box onClick={() => handleClick('men')}>
+                    <Text>Men</Text>
+                </Box>
+                <Box onClick={() => handleClick('other')}>
+                    <Text>Other</Text>
+                </Box>
+            </HStack>
         </Box>
     )
 }

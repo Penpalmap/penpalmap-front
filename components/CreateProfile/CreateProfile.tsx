@@ -14,10 +14,12 @@ const CreateProfile = () => {
     const { data: session, status } = useSession()
     const router = useRouter()
 
-    const { register, handleSubmit, setValue } = useForm<ProfileFormData>({
-        mode: 'onChange',
-    })
+    const { register, handleSubmit, setValue, watch, getValues } =
+        useForm<ProfileFormData>({
+            mode: 'onChange',
+        })
 
+    console.log(watch())
     //check avec getUserById si l'utilisateur a déjà un profil
     //si oui, on redirige vers la page de profil
     //si non, on continue
@@ -36,7 +38,7 @@ const CreateProfile = () => {
             }
         }
         checkCreationProfile()
-    }, [session])
+    }, [router, session, status])
 
     const [step, setStep] = useState(1)
 
@@ -55,13 +57,18 @@ const CreateProfile = () => {
     const renderStep = () => {
         switch (step) {
             case 1:
-                return <ProfileGenderInput />
+                return <ProfileGenderInput setValue={setValue} />
             case 2:
-                return <ProfileBirthdayInput />
+                return <ProfileBirthdayInput register={register} />
             case 3:
-                return <ProfilePhotoUpload />
+                return (
+                    <ProfilePhotoUpload
+                        register={register}
+                        getValues={getValues}
+                    />
+                )
             case 4:
-                return <ProfileLocationInput />
+                return <ProfileLocationInput setValue={setValue} />
             default:
                 return null
         }

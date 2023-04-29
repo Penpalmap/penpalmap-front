@@ -5,6 +5,11 @@ import { getUserByEmail } from '../../../api/userApi'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export default NextAuth({
+    secret: process.env.NEXT_PUBLIC_JWT_SECRET,
+    session: {
+        strategy: 'jwt',
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+    },
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -34,12 +39,18 @@ export default NextAuth({
         }),
     ],
     callbacks: {
-        async session({ session }) {
-            // fetch user data from database
-            const userInfos = await getUserByEmail(session.user.email)
-
+        async session({ session, token }) {
+            const userInfos = await getUserByEmail(token.email)
             session.user.userId = userInfos.user.user_id
+
             return session
+        },
+        async jwt({ token, account }) {
+            // Persist the OAuth access_token to the token right after signin
+            if (account) {
+                token.accessToken = account.access_token
+            }
+            return token
         },
 
         async signIn({ user, account }) {

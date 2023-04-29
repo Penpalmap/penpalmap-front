@@ -1,19 +1,24 @@
-import { Box } from "@chakra-ui/react";
-import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { Box } from '@chakra-ui/react'
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { ProfileFormData } from '../../types'
 
 type Props = {
-  onNextStep?: () => void;
-  onPreviousStep?: () => void;
-  register?: UseFormRegister<FormData>;
-  setValue?: UseFormSetValue<FormData>;
-};
+    onNextStep?: () => void
+    onPreviousStep?: () => void
+    register?: UseFormRegister<ProfileFormData>
+    setValue?: UseFormSetValue<ProfileFormData>
+}
 
 const ProfileBirthdayInput = (props: Props) => {
-  return (
-    <Box>
-      <h1>create profile birthday</h1>
-    </Box>
-  );
-};
+    const { register } = props
 
-export default ProfileBirthdayInput;
+    return (
+        <Box>
+            <h1>create profile birthday</h1>
+
+            <input type="date" {...register('birthday')} />
+        </Box>
+    )
+}
+
+export default ProfileBirthdayInput
