@@ -1,11 +1,28 @@
-import { Box, HStack, Text } from '@chakra-ui/react'
-import { useRef, useState } from 'react'
+import {
+    Box,
+    Button,
+    HStack,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Text,
+    useDisclosure,
+} from '@chakra-ui/react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
     UseFormGetValues,
     UseFormRegister,
     UseFormSetValue,
 } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
+import Cropper from 'react-easy-crop'
+import CropImage from './CropImage'
+import { uploadProfileImage } from '../../api/profileApi'
+import { useSession } from 'next-auth/react'
 
 type Props = {
     onNextStep?: () => void
@@ -15,25 +32,74 @@ type Props = {
     getValues?: UseFormGetValues<ProfileFormData>
 }
 
-const ProfilePhotoUpload = (props: Props) => {
-    const { register, getValues } = props
+const ProfilePhotoUpload = () => {
+    const { data: session } = useSession()
+
     const fileInputRef = useRef<HTMLInputElement>(null)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const [img, setImg] = useState<File>(null)
+    const [imgsCrop, setImgsCrop] = useState<Array<File>>([])
 
     const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onOpen()
         const file = e.target.files[0]
-
-        let files = getValues?.('photo')
-
-        if (files && files.length > 0) {
-            files.push(file)
-        } else {
-            files = [file]
-        }
-        register('photo', { value: files })
+        setImg(file)
     }
+
+    useEffect(() => {
+        const uploadCroppedImage = async () => {
+            console.log('uploadCroppedImage', imgsCrop)
+            try {
+                const formData = new FormData()
+
+                // take the last photo in imgsCrop
+                const imgCrop = imgsCrop[imgsCrop.length - 1]
+                formData.append('profileImage', imgCrop as Blob)
+                formData.append('position', `${imgsCrop.length}`)
+                const response = await uploadProfileImage(
+                    formData,
+                    session?.user?.userId
+                )
+                console.log('response', response)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        if (imgsCrop.length > 0) {
+            uploadCroppedImage()
+        }
+    }, [imgsCrop, session?.user?.userId])
 
     return (
         <Box>
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Editer votre image</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Box position={'relative'} height={'sm'}>
+                            {img && (
+                                <CropImage
+                                    imgUrl={URL.createObjectURL(img)}
+                                    setImgsCrop={setImgsCrop}
+                                    position={imgsCrop.length}
+                                    onClose={onClose}
+                                />
+                            )}
+                        </Box>
+                    </ModalBody>
+
+                    {/* <ModalFooter>
+                        <Button mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                        <Button colorScheme="blue">Valider</Button>
+                    </ModalFooter> */}
+                </ModalContent>
+            </Modal>
             <h1>create profile Photo</h1>
             <HStack spacing="24px">
                 <Box
