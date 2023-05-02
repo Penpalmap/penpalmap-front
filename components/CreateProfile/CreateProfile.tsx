@@ -9,6 +9,7 @@ import ProfileLocationInput from './ProfileLocationInput'
 import { useSession } from 'next-auth/react'
 import { getUserById } from '../../api/userApi'
 import { useRouter } from 'next/router'
+import { updateProfile } from '../../api/profileApi'
 
 const CreateProfile = () => {
     const { data: session, status } = useSession()
@@ -50,8 +51,11 @@ const CreateProfile = () => {
         setStep(step - 1)
     }
 
-    const onSubmit = (data: ProfileFormData) => {
-        console.log(data) // Ici vous pouvez envoyer les données du formulaire vers votre serveur
+    const onSubmit = async (data: ProfileFormData) => {
+        console.log('onSubmit ', data) // Ici vous pouvez envoyer les données du formulaire vers votre serveur
+        const response = await updateProfile(data, session.user.userId)
+
+        console.log('response', response)
     }
 
     const renderStep = () => {
@@ -61,12 +65,7 @@ const CreateProfile = () => {
             case 2:
                 return <ProfileBirthdayInput register={register} />
             case 3:
-                return (
-                    <ProfilePhotoUpload
-                        register={register}
-                        getValues={getValues}
-                    />
-                )
+                return <ProfilePhotoUpload />
             case 4:
                 return <ProfileLocationInput setValue={setValue} />
             default:

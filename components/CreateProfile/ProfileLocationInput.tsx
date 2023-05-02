@@ -1,24 +1,27 @@
 import { Box } from '@chakra-ui/react'
-import { Map } from 'ol'
+import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import OSM from 'ol/source/OSM'
 import View from 'ol/View'
 import { ProfileFormData } from '../../types'
 import { transform } from 'ol/proj'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
     onNextStep?: () => void
     onPreviousStep?: () => void
-    register?: UseFormRegister<ProfileFormData>
     setValue?: UseFormSetValue<ProfileFormData>
 }
 
 const ProfileLocationInput = (props: Props) => {
-    const { register, setValue } = props
+    const { setValue } = props
     const mapRef = useRef<Map>(null)
     const ref = useRef<HTMLDivElement>(null)
+    const markerRef = useRef<HTMLDivElement>(null)
+    const [showMarker, setShowMarker] = useState(false)
 
     useEffect(() => {
         if (ref.current && !mapRef.current) {
@@ -39,10 +42,23 @@ const ProfileLocationInput = (props: Props) => {
                 const coordinates = mapRef.current.getCoordinateFromPixel(
                     e.pixel
                 )
-                setValue(
-                    'location',
-                    transform(coordinates, 'EPSG:3857', 'EPSG:4326')
+                const transformedCoordinates = transform(
+                    coordinates,
+                    'EPSG:3857',
+                    'EPSG:4326'
                 )
+
+                const marker = new Overlay({
+                    position: coordinates,
+                    element: markerRef.current,
+                    positioning: 'bottom-center',
+                    stopEvent: false,
+                })
+
+                mapRef.current.addOverlay(marker)
+
+                setValue('location', transformedCoordinates)
+                setShowMarker(true)
             }
 
             mapRef.current.on('click', handleClicked)
@@ -50,8 +66,16 @@ const ProfileLocationInput = (props: Props) => {
     }, [ref, mapRef, setValue])
 
     return (
-        <Box ref={ref} height="sm" width="3xl">
+        <Box>
             <h1>create profile Location</h1>
+
+            <Box ref={ref} height="sm" width="3xl">
+                {showMarker && (
+                    <Box ref={markerRef}>
+                        <FontAwesomeIcon icon={faLocationDot} size="lg" />
+                    </Box>
+                )}
+            </Box>
         </Box>
     )
 }

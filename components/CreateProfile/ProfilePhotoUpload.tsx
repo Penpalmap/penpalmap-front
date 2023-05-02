@@ -2,6 +2,7 @@ import {
     Box,
     Button,
     HStack,
+    Image,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -23,6 +24,7 @@ import Cropper from 'react-easy-crop'
 import CropImage from './CropImage'
 import { uploadProfileImage } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
+import 'ol/ol.css'
 
 type Props = {
     onNextStep?: () => void
@@ -101,17 +103,26 @@ const ProfilePhotoUpload = () => {
                 </ModalContent>
             </Modal>
             <h1>create profile Photo</h1>
-            <HStack spacing="24px">
+            <HStack spacing="24px" alignItems={'center'}>
                 <Box
                     borderWidth={2}
                     borderColor="gray.400"
                     p={4}
                     mb={4}
+                    w={'100px'}
                     onClick={() => {
                         fileInputRef.current.click()
                     }}
                     cursor="pointer"
                 >
+                    {imgsCrop.length > 0 ? (
+                        <Image
+                            src={URL.createObjectURL(imgsCrop[0])}
+                            alt="First image profile"
+                        />
+                    ) : (
+                        <Text color="gray.500">Add photo </Text>
+                    )}
                     <input
                         type="file"
                         id="file-upload"
@@ -120,7 +131,6 @@ const ProfilePhotoUpload = () => {
                         accept="image/*"
                         ref={fileInputRef}
                     />
-                    <Text color="gray.500">Add photo </Text>
                 </Box>
                 <Box
                     borderWidth={2}
@@ -130,8 +140,17 @@ const ProfilePhotoUpload = () => {
                     onClick={() => {
                         fileInputRef.current.click()
                     }}
+                    w={'100px'}
                     cursor="pointer"
                 >
+                    {imgsCrop.length > 1 ? (
+                        <Image
+                            src={URL.createObjectURL(imgsCrop[1])}
+                            alt="First image profile"
+                        />
+                    ) : (
+                        <Text color="gray.500">Add photo </Text>
+                    )}
                     <input
                         type="file"
                         id="file-upload"
@@ -140,7 +159,6 @@ const ProfilePhotoUpload = () => {
                         accept="image/*"
                         ref={fileInputRef}
                     />
-                    <Text color="gray.500">Add photo </Text>
                 </Box>{' '}
                 <Box
                     borderWidth={2}
@@ -151,7 +169,16 @@ const ProfilePhotoUpload = () => {
                         fileInputRef.current.click()
                     }}
                     cursor="pointer"
+                    w={'100px'}
                 >
+                    {imgsCrop.length > 2 ? (
+                        <Image
+                            src={URL.createObjectURL(imgsCrop[2])}
+                            alt="First image profile"
+                        />
+                    ) : (
+                        <Text color="gray.500">Add photo </Text>
+                    )}
                     <input
                         type="file"
                         id="file-upload"
@@ -160,7 +187,6 @@ const ProfilePhotoUpload = () => {
                         accept="image/*"
                         ref={fileInputRef}
                     />
-                    <Text color="gray.500">Add photo </Text>
                 </Box>{' '}
             </HStack>
         </Box>
