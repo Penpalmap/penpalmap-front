@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { useEffect, useRef, useState } from 'react'
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { UseFormSetValue } from 'react-hook-form'
 import OSM from 'ol/source/OSM'
 import View from 'ol/View'
 import { ProfileFormData } from '../../types'
@@ -57,7 +57,7 @@ const ProfileLocationInput = (props: Props) => {
 
                 mapRef.current.addOverlay(marker)
 
-                setValue('location', transformedCoordinates)
+                setValue('coordinate', transformedCoordinates)
                 setShowMarker(true)
             }
 

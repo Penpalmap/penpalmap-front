@@ -9,13 +9,13 @@ import ProfileLocationInput from './ProfileLocationInput'
 import { useSession } from 'next-auth/react'
 import { getUserById } from '../../api/userApi'
 import { useRouter } from 'next/router'
-import { updateProfile } from '../../api/profileApi'
+import { createProfile } from '../../api/profileApi'
 
 const CreateProfile = () => {
     const { data: session, status } = useSession()
     const router = useRouter()
 
-    const { register, handleSubmit, setValue, watch, getValues } =
+    const { register, handleSubmit, setValue, watch } =
         useForm<ProfileFormData>({
             mode: 'onChange',
         })
@@ -52,10 +52,11 @@ const CreateProfile = () => {
     }
 
     const onSubmit = async (data: ProfileFormData) => {
-        console.log('onSubmit ', data) // Ici vous pouvez envoyer les données du formulaire vers votre serveur
-        const response = await updateProfile(data, session.user.userId)
+        const response = await createProfile(data, session.user.userId)
 
-        console.log('response', response)
+        if (response) {
+            router.push('/')
+        }
     }
 
     const renderStep = () => {

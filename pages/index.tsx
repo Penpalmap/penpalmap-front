@@ -1,11 +1,7 @@
 import { useRouter } from 'next/router'
-import useAuth from '../hooks/useAuth'
-import { useEffect, useState } from 'react'
-import { Box, Text } from '@chakra-ui/react'
-import Login from '../components/Auth/SignIn'
-import Register from '../components/Auth/Register'
+import { Box } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
-import Link from 'next/link'
+import Map from '../components/Map/Map'
 
 const Home = () => {
     // const { user } = useAuth();
@@ -15,15 +11,9 @@ const Home = () => {
 
     return (
         <Box>
-            <Text fontSize="4xl">Bienvenue sur la page de login</Text>
-            <Link href="/auth/signin">
-                <Text fontSize="2xl">Se connecter</Text>
-            </Link>
-            {session ? (
-                <Text fontSize="2xl">Vous êtes connecté</Text>
-            ) : (
-                <Text fontSize="2xl">Vous n'êtes pas connecté</Text>
-            )}
+            <Box w="100%" h="calc(100vh - 64px)">
+                <Map />
+            </Box>
         </Box>
     )
 }

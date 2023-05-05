@@ -5,8 +5,7 @@ export type RegisterUserInput = {
 }
 
 export type ProfileFormData = {
-    photo: File[]
     birthday: string
-    location: Array<number>
+    coordinate: Array<number>
     gender: string
 }
