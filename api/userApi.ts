@@ -16,4 +16,12 @@ const getUserById = async (id: string) => {
     return userInfos.data
 }
 
-export { getUserByEmail, getUserById }
+const getUsersInMap = async () => {
+    const users = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/map/users`
+    )
+
+    return users.data
+}
+
+export { getUserByEmail, getUserById, getUsersInMap }

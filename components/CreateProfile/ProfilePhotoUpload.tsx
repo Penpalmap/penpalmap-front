@@ -1,38 +1,22 @@
 import {
     Box,
-    Button,
     HStack,
     Image,
     Modal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
-    ModalFooter,
     ModalHeader,
     ModalOverlay,
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import {
-    UseFormGetValues,
-    UseFormRegister,
-    UseFormSetValue,
-} from 'react-hook-form'
-import { ProfileFormData } from '../../types'
-import Cropper from 'react-easy-crop'
+import { useEffect, useRef, useState } from 'react'
+
 import CropImage from './CropImage'
 import { uploadProfileImage } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
 import 'ol/ol.css'
-
-type Props = {
-    onNextStep?: () => void
-    onPreviousStep?: () => void
-    register?: UseFormRegister<ProfileFormData>
-    setValue?: UseFormSetValue<ProfileFormData>
-    getValues?: UseFormGetValues<ProfileFormData>
-}
 
 const ProfilePhotoUpload = () => {
     const { data: session } = useSession()
@@ -54,11 +38,10 @@ const ProfilePhotoUpload = () => {
             console.log('uploadCroppedImage', imgsCrop)
             try {
                 const formData = new FormData()
-
                 // take the last photo in imgsCrop
                 const imgCrop = imgsCrop[imgsCrop.length - 1]
                 formData.append('profileImage', imgCrop as Blob)
-                formData.append('position', `${imgsCrop.length}`)
+                formData.append('position', `${imgsCrop.length - 1}`)
                 const response = await uploadProfileImage(
                     formData,
                     session?.user?.userId
