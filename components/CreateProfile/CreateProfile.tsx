@@ -20,7 +20,6 @@ const CreateProfile = () => {
             mode: 'onChange',
         })
 
-    console.log(watch())
     //check avec getUserById si l'utilisateur a déjà un profil
     //si oui, on redirige vers la page de profil
     //si non, on continue
