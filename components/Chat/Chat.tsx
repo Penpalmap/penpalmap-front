@@ -2,16 +2,36 @@ import { Box } from '@chakra-ui/react'
 import ChatHeader from './ChatHeader'
 import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Message } from '../../types'
-import { getMessages } from '../../api/chatApi'
+import { getMessages, getRoomOfTwoUsers } from '../../api/chatApi'
+import { AppContext } from '../../context/AppContext'
+import { useSession } from 'next-auth/react'
 
-type Props = {
-    roomId: string
-}
-
-const Chat = ({ roomId }: Props) => {
+const Chat = () => {
     const [messages, setMessages] = useState<Message[]>([])
+    const [roomId, setRoomId] = useState<string>(null)
+    const [appData] = useContext(AppContext)
+    const { data: session } = useSession()
+
+    console.log('session', session?.user?.userId)
+
+    console.log('appData', appData)
+    useEffect(() => {
+        const getRoomId = async () => {
+            const roomId = await getRoomOfTwoUsers(
+                appData.userTarget.user_id,
+                session?.user?.userId
+            )
+            setRoomId(roomId)
+
+            console.log('roomId', roomId)
+        }
+
+        if (appData?.userTarget) {
+            getRoomId()
+        }
+    }, [appData, session?.user?.userId])
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -25,13 +45,13 @@ const Chat = ({ roomId }: Props) => {
     return (
         <Box display="flex" flexDirection="column" height="100%">
             <ChatHeader
-                name="Colin"
-                photoUrl="https://media.licdn.com/dms/image/D4E03AQE0Xtk2AYoDjQ/profile-displayphoto-shrink_800_800/0/1678535679471?e=2147483647&v=beta&t=WCN4Pm5xV1gd-Wj3QRMX744nIDIzTc8T4ZP-4VY1tjY"
+                name={appData?.userTarget?.name}
+                photoUrl={appData?.userTarget?.img_small}
                 status="online"
             />
             <ChatMessages messages={messages} />
 
-            <ChatInput roomId={null} senderId="012" />
+            <ChatInput roomId={null} senderId={session?.user?.userId} />
         </Box>
     )
 }

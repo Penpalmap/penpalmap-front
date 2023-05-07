@@ -25,3 +25,7 @@ export type MessageInput = {
     senderId: string
     receiverId: string
 }
+
+export type ContextStateData = {
+    userTarget: any
+}

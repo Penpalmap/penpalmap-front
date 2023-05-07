@@ -26,4 +26,16 @@ const getMessages = async (roomId: string): Promise<Message[] | void> => {
     }
 }
 
-export { createMessage, getMessages }
+const getRoomOfTwoUsers = async (user1Id: string, user2Id: string) => {
+    try {
+        const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/room/${user1Id}/${user2Id}`
+        )
+
+        return response.data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export { createMessage, getMessages, getRoomOfTwoUsers }

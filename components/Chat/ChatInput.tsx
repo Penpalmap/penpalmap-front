@@ -1,8 +1,9 @@
 import { Box, Button, FormControl, Input } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { MessageInput } from '../../types'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { createMessage } from '../../api/chatApi'
+import { AppContext } from '../../context/AppContext'
 
 type Props = {
     roomId: string
@@ -10,15 +11,18 @@ type Props = {
 }
 
 const ChatInput = ({ roomId, senderId }: Props) => {
-    const { register, handleSubmit } = useForm<MessageInput>()
+    const { register, handleSubmit, setValue } = useForm<MessageInput>()
+    const [appData] = useContext(AppContext)
 
     useEffect(() => {
-        register('roomId', { value: roomId })
-        register('senderId', { value: senderId })
-    }, [register, roomId, senderId])
+        setValue('roomId', roomId)
+        setValue('senderId', senderId)
+        setValue('receiverId', appData?.userTarget?.user_id)
+    }, [appData?.userTarget?.user_id, roomId, senderId, setValue])
 
     const onSubmitHandler = async (data: MessageInput) => {
         console.log(data)
+        debugger
         const response = await createMessage(data)
         console.log(response)
     }
