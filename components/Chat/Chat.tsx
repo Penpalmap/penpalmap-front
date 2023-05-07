@@ -16,7 +16,7 @@ const Chat = ({ roomId }: Props) => {
     useEffect(() => {
         const fetchMessages = async () => {
             const data = await getMessages(roomId)
-            setMessages(data)
+            data && setMessages(data)
         }
 
         if (roomId) fetchMessages()
