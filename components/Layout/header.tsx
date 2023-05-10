@@ -13,8 +13,6 @@ import useAuth from '../../hooks/useAuth'
 import { signOut } from 'next-auth/react'
 
 const Header = () => {
-    // const { logout } = useAuth();
-
     return (
         <HStack
             as="header"

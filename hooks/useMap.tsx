@@ -3,14 +3,13 @@ import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
 import { fromLonLat } from 'ol/proj'
-import { Feature, MapEvent, Map as OLMap } from 'ol'
+import { Feature, Map as OLMap } from 'ol'
 import { getUsersInMap } from '../api/userApi'
 import VectorSource from 'ol/source/Vector'
 import Cluster from 'ol/source/Cluster'
 import VectorLayer from 'ol/layer/Vector'
 import { Point } from 'ol/geom'
 import clusterStyle from '../styles/openlayer/ClusterStyle'
-import { MapEventHandler } from 'ol/Map'
 import { AppContext } from '../context/AppContext'
 
 interface UseMapOptions {
@@ -35,6 +34,15 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         const users = await getUsersInMap()
         setUsers(users)
     }
+
+    // Pour changer le style du curseur quand il survole un user
+    const onPointermove = useCallback((e) => {
+        e.preventDefault()
+        if (!mapObj.current) return
+        const pixel = mapObj.current.getEventPixel(e.originalEvent)
+        const hit = mapObj.current.hasFeatureAtPixel(pixel)
+        mapObj.current.getTarget().style.cursor = hit ? 'pointer' : ''
+    }, [])
 
     const getUserInCluster = (feature) => {
         // Verifie si ce n'est pas l'utilisateur connecté
@@ -142,7 +150,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         userSource.addFeatures(features)
 
         mapObj.current.on('click', onClick)
-    }, [onClick, users])
+        mapObj.current.on('pointermove', onPointermove)
+    }, [onClick, onPointermove, users])
 
     return { mapObj, mapContainerRef }
 }

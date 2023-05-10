@@ -27,7 +27,6 @@ const clusterStyle = function (feature) {
 
         if (!style) {
             const photo = featureMaxUser.img_small
-            console.log(photo)
             style = styleCache[uid] = new Style({
                 image: new Photo({
                     src: photo

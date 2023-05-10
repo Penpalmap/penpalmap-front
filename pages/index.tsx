@@ -3,11 +3,20 @@ import { Box } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import Map from '../components/Map/Map'
 import Chat from '../components/Chat/Chat'
-import { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import { useEffect } from 'react'
 
 const Home = () => {
-    return (
+    const { status } = useSession()
+    const router = useRouter()
+
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/auth/signin')
+        }
+    }, [router, status])
+    return status === 'loading' ? (
+        <div>Loading...</div>
+    ) : (
         <Box w="100%" h="calc(100vh - 64px)" display={'flex'}>
             <Box flex={3}>
                 <Map />
