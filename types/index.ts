@@ -29,3 +29,11 @@ export type MessageInput = {
 export type ContextStateData = {
     userTarget: any
 }
+
+export type Profile = {
+    name: string
+    description: string
+    birthdate: string
+    age: number
+    images: Array<any>
+}

@@ -13,11 +13,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return (
         <ChakraProvider theme={customTheme}>
             <AppProvider>
-                <Layout>
-                    <SessionProvider session={session}>
+                <SessionProvider session={session}>
+                    <Layout>
                         <Component {...pageProps} />
-                    </SessionProvider>
-                </Layout>
+                    </Layout>
+                </SessionProvider>
             </AppProvider>
         </ChakraProvider>
     )

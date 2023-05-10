@@ -40,4 +40,16 @@ const updateProfile = async (profile: ProfileFormData, userId: string) => {
     }
 }
 
-export { uploadProfileImage, updateProfile, createProfile }
+const getProfile = async (userId: string) => {
+    try {
+        const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile`
+        )
+
+        return response.data
+    } catch (error) {
+        console.error('Error while getting profile', error)
+    }
+}
+
+export { uploadProfileImage, updateProfile, createProfile, getProfile }
