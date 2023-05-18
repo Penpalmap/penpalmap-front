@@ -53,3 +53,11 @@ Le serveur de développement démarrera sur http://localhost:3000.
 - **ESLint** pour trouver et fixer les erreurs
 - **Prettier** pour le formatage du code
 - **FontAwesome** pour les icons
+
+## Contribuer
+Si vous souhaitez contribuer directement au code, nous vous encourageons à soumettre une pull request sur GitHub. Assurez-vous de suivre ces étapes pour faciliter l'examen et l'acceptation de votre contribution :  
+
+- Créez une branche distincte pour votre fonctionnalité ou correction de bug.  
+- Effectuez vos modifications sur cette branche.
+- Créer une pull request en fournissant une description de ce que fait votre contribution.
+- Votre pull request sera accepté après relecture du code
