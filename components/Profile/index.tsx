@@ -89,7 +89,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                 <Divider />
                 <Box p={4}>
                     <Text>A PROPOS</Text>
-                    <Text>Je suis une femme qui cherche un homme</Text>
+                    <Text>Je suis une femmetest qui cherche un homme</Text>
                 </Box>
 
                 <Image
