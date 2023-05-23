@@ -1,21 +1,27 @@
 import {
     Box,
-    Button,
+    ButtonGroup,
+    CheckboxIcon,
     CloseButton,
-    Divider,
+    Editable,
+    EditableInput,
+    EditablePreview,
+    Flex,
+    FormControl,
+    FormLabel,
     HStack,
-    Icon,
+    Heading,
     IconButton,
     Image,
-    Link,
+    Input,
     Modal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
     ModalHeader,
     ModalOverlay,
-    StepSeparator,
     Text,
+    useEditableControls,
 } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
 import { getProfile } from '../../api/profileApi'
@@ -34,7 +40,6 @@ const Profile = ({ isOpen, onClose }: Props) => {
     const { data: session } = useSession()
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
-
     useEffect(() => {
         const getProfileData = async () => {
             const profileData = await getProfile(session.user.userId)
@@ -45,65 +50,98 @@ const Profile = ({ isOpen, onClose }: Props) => {
         if (session?.user?.userId) getProfileData()
     }, [session?.user?.userId])
 
+    function EditableControls() {
+        const {
+            isEditing,
+            getSubmitButtonProps,
+            getCancelButtonProps,
+            getEditButtonProps,
+        } = useEditableControls()
+
+        return isEditing ? (
+            <ButtonGroup
+                justifyContent="center"
+                size="sm"
+                position="absolute"
+                bottom={0}
+                right={0}
+            >
+                <IconButton
+                    icon={<FontAwesomeIcon icon={faHome} />}
+                    {...getSubmitButtonProps()}
+                />
+                <IconButton
+                    icon={<CheckboxIcon />}
+                    {...getCancelButtonProps()}
+                />
+            </ButtonGroup>
+        ) : (
+            <Flex
+                justifyContent="center"
+                position="absolute"
+                bottom={0}
+                right={0}
+            >
+                <IconButton
+                    size="sm"
+                    icon={<FontAwesomeIcon icon={faHome} />}
+                    {...getEditButtonProps()}
+                />
+            </Flex>
+        )
+    }
+
     const renderProfile = useMemo(() => {
         return (
             <>
-                <CloseButton
-                    position="absolute"
-                    top="20px"
-                    right="20px"
-                    aria-label="Search database"
-                />
-
-                <Image
-                    borderTopRadius={'2xl'}
-                    w={350}
-                    h={350}
-                    src={
-                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
-                    }
-                    alt="premiere photo de profil"
-                />
-                <HStack p={'4'} justifyContent={'space-between'}>
-                    <Box>
-                        <HStack>
-                            <Text>Louise,</Text> <Text>25 ans</Text>
-                        </HStack>
-
-                        <HStack>
-                            <Icon name="location" />
-                            <Text>Paris</Text>
-                        </HStack>
-                    </Box>
-                    <Box>
-                        <Button
-                            variant="outline"
-                            colorScheme="teal"
-                            size="sm"
-                            onClick={() => setIsEditing(true)}
-                        >
-                            Modifier
-                        </Button>
-                    </Box>
-                </HStack>
-                <Divider />
-                <Box p={4}>
-                    <Text>A PROPOS</Text>
-                    <Text>Je suis une femmetest qui cherche un homme</Text>
+                <Box mb={4}>
+                    <Text fontSize={'2xl'} fontWeight={'bold'}>
+                        {profile?.name}
+                    </Text>
+                </Box>
+                <Box mb={4}>
+                    <Text fontWeight={'semibold'} fontSize={'lg'}>
+                        Photos
+                    </Text>
+                    <Text mb={2} fontSize={'small'}>
+                        Ajouter des photos
+                    </Text>
+                    <Flex
+                        flexWrap="wrap"
+                        gap={3}
+                        justifyContent="space-between"
+                        mb={4}
+                    >
+                        {profile?.images?.map((photo, index) => (
+                            <Box key={index} bgColor="blue.300" w={170} h={170}>
+                                {photo.src ? (
+                                    <Image
+                                        src={photo.src}
+                                        alt={`Photo ${index + 1}`}
+                                    />
+                                ) : (
+                                    <Text>Ajouter une photo</Text>
+                                )}
+                            </Box>
+                        ))}
+                    </Flex>
                 </Box>
 
-                <Image
-                    w={350}
-                    h={350}
-                    borderBottomRadius={'2xl'}
-                    src={
-                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
-                    }
-                    alt="Deuxieme photo de profil"
-                />
+                <Box mb={4}>
+                    <FormControl>
+                        <FormLabel fontWeight={'semibold'}>
+                            Description
+                        </FormLabel>
+                        <Editable defaultValue="Take some chakra">
+                            <EditablePreview />
+                            <EditableInput />
+                            <EditableControls />
+                        </Editable>
+                    </FormControl>
+                </Box>
             </>
         )
-    }, [])
+    }, [profile?.images, profile?.name])
 
     const renderEditProfile = useMemo(() => {
         return (
@@ -120,15 +158,31 @@ const Profile = ({ isOpen, onClose }: Props) => {
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay bg="rgba(0, 0, 0, 0.3)" />
-            <ModalContent w={350} borderRadius={'2xl'}>
-                {/* <ModalHeader> */}
-                {/* back button */}
-                {/* <Link onClick={() => setIsEditing(false)}>Retour</Link> */}
-                {/* Mon profil
-                </ModalHeader> */}
-                {/* <ModalCloseButton /> */}
-                <ModalBody p={0}>
+            <ModalOverlay
+                bg="blackAlpha.600"
+                backdropFilter="auto"
+                backdropBlur="10px"
+            />
+            <ModalContent
+                w={400}
+                h={'container.sm'}
+                overflow={'hidden'}
+                alignSelf={'center'}
+                borderRadius={'2xl'}
+            >
+                <ModalHeader borderBottom={'1px solid #ededed'}>
+                    <Text>Mon profil</Text>
+                </ModalHeader>
+                <ModalCloseButton />
+
+                <ModalBody
+                    overflowY="scroll"
+                    css={{
+                        '&::-webkit-scrollbar': {
+                            display: 'none',
+                        },
+                    }}
+                >
                     {!isEditing ? renderProfile : renderEditProfile}
                 </ModalBody>
             </ModalContent>
