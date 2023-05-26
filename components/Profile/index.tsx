@@ -23,12 +23,18 @@ import {
     Text,
     useEditableControls,
 } from '@chakra-ui/react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { getProfile } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
 import { Profile } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome } from '@fortawesome/free-solid-svg-icons'
+import {
+    faCheck,
+    faCross,
+    faHome,
+    faMapMarker,
+    faXmark,
+} from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
     isOpen: boolean
@@ -38,6 +44,8 @@ type Props = {
 const Profile = ({ isOpen, onClose }: Props) => {
     const [profile, setProfile] = useState({} as Profile)
     const { data: session } = useSession()
+
+    const refInputFile = useRef<HTMLInputElement>(null)
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
     useEffect(() => {
@@ -51,43 +59,30 @@ const Profile = ({ isOpen, onClose }: Props) => {
     }, [session?.user?.userId])
 
     function EditableControls() {
-        const {
-            isEditing,
-            getSubmitButtonProps,
-            getCancelButtonProps,
-            getEditButtonProps,
-        } = useEditableControls()
+        const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
+            useEditableControls()
 
-        return isEditing ? (
-            <ButtonGroup
-                justifyContent="center"
-                size="sm"
-                position="absolute"
-                bottom={0}
-                right={0}
-            >
-                <IconButton
-                    icon={<FontAwesomeIcon icon={faHome} />}
-                    {...getSubmitButtonProps()}
-                />
-                <IconButton
-                    icon={<CheckboxIcon />}
-                    {...getCancelButtonProps()}
-                />
-            </ButtonGroup>
-        ) : (
-            <Flex
-                justifyContent="center"
-                position="absolute"
-                bottom={0}
-                right={0}
-            >
-                <IconButton
+        return (
+            isEditing && (
+                <ButtonGroup
+                    justifyContent="center"
                     size="sm"
-                    icon={<FontAwesomeIcon icon={faHome} />}
-                    {...getEditButtonProps()}
-                />
-            </Flex>
+                    position="absolute"
+                    bottom={-30}
+                    right={0}
+                >
+                    <IconButton
+                        aria-label="Valider"
+                        icon={<FontAwesomeIcon icon={faCheck} />}
+                        {...getSubmitButtonProps()}
+                    />
+                    <IconButton
+                        aria-label="Annuler"
+                        icon={<FontAwesomeIcon icon={faXmark} />}
+                        {...getCancelButtonProps()}
+                    />
+                </ButtonGroup>
+            )
         )
     }
 
@@ -113,14 +108,35 @@ const Profile = ({ isOpen, onClose }: Props) => {
                         mb={4}
                     >
                         {profile?.images?.map((photo, index) => (
-                            <Box key={index} bgColor="blue.300" w={170} h={170}>
+                            <Box key={index} w={170} h={170}>
                                 {photo.src ? (
                                     <Image
                                         src={photo.src}
                                         alt={`Photo ${index + 1}`}
+                                        borderRadius={'xl'}
                                     />
                                 ) : (
-                                    <Text>Ajouter une photo</Text>
+                                    <Box
+                                        w={'full'}
+                                        h={'full'}
+                                        bgColor={'red.100'}
+                                        borderRadius={'xl'}
+                                        display={'flex'}
+                                        justifyContent={'center'}
+                                        alignItems={'center'}
+                                        cursor={'pointer'}
+                                        // Ouvrir la modal d'ajout de photo
+                                        onClick={() =>
+                                            refInputFile?.current?.click()
+                                        }
+                                    >
+                                        <FontAwesomeIcon icon={faMapMarker} />
+                                        <Input
+                                            type={'file'}
+                                            display={'none'}
+                                            ref={refInputFile}
+                                        />
+                                    </Box>
                                 )}
                             </Box>
                         ))}
@@ -132,8 +148,11 @@ const Profile = ({ isOpen, onClose }: Props) => {
                         <FormLabel fontWeight={'semibold'}>
                             Description
                         </FormLabel>
-                        <Editable defaultValue="Take some chakra">
-                            <EditablePreview />
+                        <Editable
+                            defaultValue="Take some chakra"
+                            border={'2px solid black'}
+                        >
+                            <EditablePreview w={'full'} />
                             <EditableInput />
                             <EditableControls />
                         </Editable>
@@ -182,6 +201,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                             display: 'none',
                         },
                     }}
+                    mb={4}
                 >
                     {!isEditing ? renderProfile : renderEditProfile}
                 </ModalBody>

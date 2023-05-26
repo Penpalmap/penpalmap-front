@@ -11,6 +11,7 @@ import VectorLayer from 'ol/layer/Vector'
 import { Point } from 'ol/geom'
 import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
+import { useSession } from 'next-auth/react'
 
 interface UseMapOptions {
     center: [number, number]
@@ -27,12 +28,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapObj = useRef<OLMap | null>(null)
     const [users, setUsers] = useState([])
     const [data, setData] = useContext(AppContext)
-
-    console.log('appData', data)
+    const { data: session } = useSession()
 
     const getUsers = async () => {
         const users = await getUsersInMap()
-        setUsers(users)
+        const userwWhithoutMe = users.filter(
+            (user: any) => user.user_id !== session?.user?.userId
+        )
+        setUsers(userwWhithoutMe)
     }
 
     // Pour changer le style du curseur quand il survole un user
