@@ -68,7 +68,10 @@ const Chat = () => {
         <Box display="flex" flexDirection="column" height="100%">
             <ChatHeader
                 name={appData?.userTarget?.name}
-                photoUrl={appData?.userTarget?.img_small}
+                photoUrl={
+                    appData?.userTarget?.img_small ||
+                    'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg'
+                }
                 status="online"
             />
             <ChatMessages messages={messages} />
