@@ -1,15 +1,16 @@
 import {
+    Avatar,
     Box,
     Button,
     HStack,
     Menu,
     MenuButton,
+    MenuDivider,
     MenuItem,
     MenuList,
+    Text,
     useDisclosure,
 } from '@chakra-ui/react'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { signOut } from 'next-auth/react'
 import Profile from '../Profile'
 
@@ -17,26 +18,35 @@ const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
     return (
         <>
-            <HStack
-                as="header"
-                bg={'gray'}
-                p={4}
-                justifyContent={'space-between'}
-                h={'16'}
-            >
-                <Box>Logo</Box>
+            <HStack as="header" p={4} justifyContent={'space-between'} h={'14'}>
+                <Text fontSize={'xl'} fontWeight={'bold'}>
+                    PenpalMap
+                </Text>
                 <Menu>
                     <MenuButton
-                        as={Button}
-                        rightIcon={<FontAwesomeIcon icon={faCaretDown} />}
-                    >
-                        Actions
-                    </MenuButton>
-                    <MenuList bg={'white'} borderRadius={4}>
+                        as={Avatar}
+                        size="sm"
+                        name="John Doe"
+                        cursor="pointer"
+                    />
+                    <MenuList>
+                        <MenuItem>
+                            <Box display="flex" alignItems="center">
+                                <Avatar
+                                    size="sm"
+                                    name="John Doe"
+                                    src="/path/to/profile-image.jpg"
+                                    marginRight={2}
+                                />
+                                <Text fontWeight="bold">John Doe</Text>
+                            </Box>
+                        </MenuItem>
+                        <MenuDivider />
                         <MenuItem onClick={onOpen}>Mon profil</MenuItem>
                         <MenuItem>Paramètres</MenuItem>
+                        <MenuDivider />
                         <MenuItem onClick={() => signOut()}>
-                            Se déconnecter
+                            Déconnexion
                         </MenuItem>
                     </MenuList>
                 </Menu>
