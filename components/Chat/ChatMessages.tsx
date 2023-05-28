@@ -21,25 +21,33 @@ const ChatMessages = ({ messages }: Props) => {
                 // OWN MESSAGE
                 return (
                     <Box
+                        mb={1}
                         key={index}
-                        border={'2px'}
-                        bg={'blue.400'}
+                        bg={'blue.500'}
+                        px={3}
+                        py={'6px'}
+                        borderRadius={'2xl'}
                         alignSelf={'flex-end'}
-                        maxW={'60%'}
+                        maxW={'70%'}
                     >
-                        <Text>{message.text}</Text>
+                        <Text fontSize={'.8em'} color={'white'}>
+                            {message.text}
+                        </Text>
                     </Box>
                 )
             }
             return (
                 <Box
                     key={index}
-                    border={'2px'}
-                    bg={'red.400'}
+                    mb={1}
+                    bg={'gray.200'}
+                    px={3}
+                    py={'6px'}
+                    borderRadius={'2xl'}
                     alignSelf={'flex-start'}
-                    maxW={'60%'}
+                    maxW={'70%'}
                 >
-                    {message.text}
+                    <Text fontSize={'.8em'}>{message.text}</Text>{' '}
                 </Box>
             )
         })
