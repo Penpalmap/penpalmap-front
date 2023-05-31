@@ -3,13 +3,17 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { getUserByEmail } from '../../../api/userApi'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaClient } from '@prisma/client'
 
+const prisma = new PrismaClient()
 export default NextAuth({
     secret: process.env.NEXT_PUBLIC_JWT_SECRET,
     session: {
         strategy: 'jwt',
         maxAge: 30 * 24 * 60 * 60, // 30 days
     },
+    adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -21,8 +25,8 @@ export default NextAuth({
                 const user = await axios.post(
                     `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/credentials`,
                     {
-                        email: credentials.email,
-                        password: credentials.password,
+                        email: credentials?.email,
+                        password: credentials?.password,
                     }
                 )
 
@@ -54,7 +58,7 @@ export default NextAuth({
         },
 
         async signIn({ user, account }) {
-            if (account.provider === 'google') {
+            if (account?.provider === 'google') {
                 try {
                     const createUser = await axios.post(
                         `${process.env.NEXT_PUBLIC_API_URL}/api/users/register/google`,
@@ -67,8 +71,6 @@ export default NextAuth({
 
                     if (createUser.data.isAlreadyRegistered) {
                         return true
-                    } else {
-                        return '/create-profile'
                     }
                 } catch (error) {}
             }
@@ -77,5 +79,6 @@ export default NextAuth({
     },
     pages: {
         signIn: '/auth/signin',
+        newUser: '/create-profile',
     },
 })

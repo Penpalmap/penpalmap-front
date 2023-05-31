@@ -25,8 +25,8 @@ const CreateProfile = () => {
     //si non, on continue
     useEffect(() => {
         const checkCreationProfile = async () => {
+            debugger
             if (status === 'loading') return // Do nothing while loading
-
             if (session) {
                 const user = await getUserById(session.user.userId)
                 if (user && user.profile_completed) {
@@ -51,7 +51,7 @@ const CreateProfile = () => {
     }
 
     const onSubmit = async (data: ProfileFormData) => {
-        const response = await createProfile(data, session.user.userId)
+        const response = await createProfile(data, session?.user.userId)
 
         if (response) {
             router.push('/')

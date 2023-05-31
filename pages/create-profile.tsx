@@ -1,6 +1,6 @@
-import CreateProfile from "../components/CreateProfile/CreateProfile";
+import CreateProfile from '../components/CreateProfile/CreateProfile'
 
 const createProfile = () => {
-  return <CreateProfile />;
-};
-export default createProfile;
+    return <CreateProfile />
+}
+export default createProfile

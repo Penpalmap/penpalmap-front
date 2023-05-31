@@ -1,0 +1,196 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model countries {
+  country_id Int     @id @default(autoincrement()) @db.SmallInt
+  name       String  @db.VarChar
+  flag       String? @db.VarChar
+}
+
+model interests {
+  interest_id    Int              @id @default(autoincrement()) @db.SmallInt
+  name           String           @db.VarChar
+  icon           String?          @db.VarChar
+  user_interests user_interests[] @ignore
+}
+
+model languages {
+  language_id    Int              @id(map: "Languages_pkey") @default(autoincrement()) @db.SmallInt
+  name           String           @db.VarChar
+  user_languages user_languages[] @ignore
+}
+
+model mails {
+  mail_id    BigInt    @id @default(autoincrement())
+  to         String?   @db.VarChar
+  created_at DateTime? @db.Date
+}
+
+model messages {
+  message_id BigInt    @id @default(autoincrement())
+  room_id    String    @db.VarChar
+  text       String?
+  sender_id  String?   @db.VarChar
+  seen       Boolean?
+  created_at DateTime? @db.Timestamptz(6)
+  rooms      rooms     @relation(fields: [room_id], references: [room_id], onDelete: NoAction, onUpdate: NoAction, map: "msg_room_fkey")
+
+  @@index([room_id], map: "messages_room_fkey")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model room_users {
+  room_id String @db.VarChar
+  user_id String @db.VarChar
+  rooms   rooms  @relation(fields: [room_id], references: [room_id], onDelete: NoAction, onUpdate: NoAction, map: "room_fkey")
+  users   users  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_fkey")
+
+  @@unique([room_id, user_id])
+
+  @@index([user_id], map: "fki_f")
+  @@index([room_id], map: "fki_room_fkey")
+}
+
+model rooms {
+  room_id    String       @id @db.VarChar
+  created_at DateTime?    @db.Date
+  messages   messages[]
+  room_users room_users[] @ignore
+}
+
+model user_details {
+  user_id     String    @id @db.VarChar
+  gender      String?   @db.VarChar
+  birthdate   DateTime? @db.Date
+  description String?
+  work        String?   @db.VarChar
+  education   String?   @db.VarChar
+  users       users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_fkey")
+
+  @@index([user_id], map: "fki_user_fkey")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model user_images {
+  user_id  String  @db.VarChar
+  src      String? @db.VarChar
+  position Int    @db.SmallInt
+  users    users   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_fkey")
+
+  @@unique([user_id, position])
+
+  @@index([user_id], map: "fki_s")
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model user_interests {
+  user_id     String    @db.VarChar
+  interest_id Int       @db.SmallInt
+  interests   interests @relation(fields: [interest_id], references: [interest_id], onDelete: NoAction, onUpdate: NoAction, map: "interest_fkey")
+  users       users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_fkey")
+
+  @@index([interest_id], map: "fki_interest_fkey")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model user_languages {
+  user_id     String    @db.VarChar
+  language_id Int       @db.SmallInt
+  languages   languages @relation(fields: [language_id], references: [language_id], onDelete: NoAction, onUpdate: NoAction, map: "language_fkey")
+  users       users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_fkey")
+
+  @@index([language_id], map: "fki_language_fkey")
+  @@ignore
+}
+
+model user_settings {
+  user_id            String   @id @db.VarChar
+  age_preference     Int[]    @db.SmallInt
+  country_preference String[] @db.VarChar
+  users              users    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_fkey")
+}
+
+model users {
+  user_id           String           @id @db.VarChar
+  name              String?          @db.VarChar
+  email             String?          @db.VarChar
+  password          String?          @db.VarChar
+  googleid          String?          @db.VarChar
+  longitude         Float?           @db.Real
+  latitude          Float?           @db.Real
+  geom              String?          @db.VarChar
+  account_completed Boolean?
+  profile_completed Boolean?
+  img_small         String?          @db.VarChar
+  points            BigInt?          @default(0)
+  room_users        room_users[]     @ignore
+  user_details      user_details?
+  user_images       user_images[]    @ignore
+  user_interests    user_interests[] @ignore
+  user_languages    user_languages[] @ignore
+  user_settings     user_settings?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model users_fictive {
+  latitude  Float?  @db.Real
+  longitude Float?  @db.Real
+  image_url String? @db.VarChar
+
+  @@ignore
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
