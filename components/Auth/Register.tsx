@@ -14,15 +14,14 @@ import {
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
 import { registerUser } from '../../api/authApi'
-import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 
 const Register = () => {
     const router = useRouter()
-
     const [error, setError] = useState<string | null>(null)
     const {
         register,
@@ -34,6 +33,12 @@ const Register = () => {
         const response = await registerUser(data)
 
         if (response.success) {
+            // connect user (login)
+            await signIn('credentials', {
+                email: data.email,
+                password: data.password,
+                redirect: false,
+            })
             // redirect to map
             router.push('/create-profile')
         } else {
