@@ -37,3 +37,14 @@ export type Profile = {
     age: number
     images: Array<any>
 }
+
+export type Conversation = {
+    room_id: string
+    members: Array<Member>
+}
+
+export type Member = {
+    userId: string
+    userImg: string
+    userName: string
+}
