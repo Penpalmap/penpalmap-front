@@ -88,8 +88,6 @@ const Profile = ({ isOpen, onClose }: Props) => {
         const file = e.target?.files?.[0]
 
         if (file) {
-            debugger
-
             const formData = new FormData()
             formData.append('profileImage', file)
 
@@ -105,7 +103,6 @@ const Profile = ({ isOpen, onClose }: Props) => {
                     formData,
                     session?.user.userId
                 )
-                debugger
 
                 // Mettre à jour le profil avec l'image téléchargée et la position
                 const images = [...profile.images]
