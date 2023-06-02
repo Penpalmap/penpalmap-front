@@ -20,7 +20,6 @@ const Chat = () => {
 
     useEffect(() => {
         const getRoomId = async () => {
-            debugger
             const { room } = await getRoomOfTwoUsers(
                 appData.userTarget.user_id,
                 session?.user?.userId
