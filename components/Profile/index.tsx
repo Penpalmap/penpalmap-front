@@ -30,11 +30,11 @@ import { Profile } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCheck,
-    faCross,
     faHome,
     faMapMarker,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
+import { uploadProfileImage } from '../../api/profileApi'
 
 type Props = {
     isOpen: boolean
@@ -62,28 +62,66 @@ const Profile = ({ isOpen, onClose }: Props) => {
         const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
             useEditableControls()
 
-        return (
-            isEditing && (
-                <ButtonGroup
-                    justifyContent="center"
-                    size="sm"
-                    position="absolute"
-                    bottom={-30}
-                    right={0}
-                >
-                    <IconButton
-                        aria-label="Valider"
-                        icon={<FontAwesomeIcon icon={faCheck} />}
-                        {...getSubmitButtonProps()}
-                    />
-                    <IconButton
-                        aria-label="Annuler"
-                        icon={<FontAwesomeIcon icon={faXmark} />}
-                        {...getCancelButtonProps()}
-                    />
-                </ButtonGroup>
+        return isEditing ? (
+            <ButtonGroup
+                justifyContent="center"
+                size="sm"
+                position="absolute"
+                bottom={-30}
+                right={0}
+            >
+                <IconButton
+                    aria-label="Valider"
+                    icon={<FontAwesomeIcon icon={faCheck} />}
+                    {...getSubmitButtonProps()}
+                />
+                <IconButton
+                    aria-label="Annuler"
+                    icon={<FontAwesomeIcon icon={faXmark} />}
+                    {...getCancelButtonProps()}
+                />
+            </ButtonGroup>
+        ) : null
+    }
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target?.files?.[0]
+
+        if (file) {
+            debugger
+
+            const formData = new FormData()
+            formData.append('profileImage', file)
+
+            const nullSrcIndex = profile.images.findIndex(
+                (image) => image.src === null
             )
-        )
+
+            formData.append('position', nullSrcIndex.toString())
+
+            try {
+                // Effectuer la requête API pour télécharger l'image
+                const uploadedImage = await uploadProfileImage(
+                    formData,
+                    session?.user.userId
+                )
+                debugger
+
+                // Mettre à jour le profil avec l'image téléchargée et la position
+                const images = [...profile.images]
+                images[nullSrcIndex].src = uploadedImage.uploadImgSrc
+
+                setProfile({
+                    ...profile,
+                    images,
+                })
+            } catch (error) {
+                console.error(
+                    "Une erreur s'est produite lors de la requête API pour télécharger l'image",
+                    error
+                )
+            }
+        }
     }
 
     const renderProfile = useMemo(() => {
@@ -109,7 +147,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                     >
                         {profile?.images?.map((photo, index) => (
                             <Box key={index} w={170} h={170}>
-                                {photo.src ? (
+                                {photo?.src ? (
                                     <Image
                                         src={photo.src}
                                         alt={`Photo ${index + 1}`}
@@ -135,6 +173,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                                             type={'file'}
                                             display={'none'}
                                             ref={refInputFile}
+                                            onChange={handleFileChange}
                                         />
                                     </Box>
                                 )}
