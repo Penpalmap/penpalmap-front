@@ -25,7 +25,6 @@ const CreateProfile = () => {
     //si non, on continue
     useEffect(() => {
         const checkCreationProfile = async () => {
-            debugger
             if (status === 'loading') return // Do nothing while loading
             if (session) {
                 const user = await getUserById(session.user.userId)

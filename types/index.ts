@@ -40,11 +40,15 @@ export type Profile = {
 
 export type Conversation = {
     room_id: string
-    members: Array<Member>
+    members: Array<User>
+    lastMessage: any
+    countUnreadMessages: number
 }
 
-export type Member = {
+export type User = {
     userId: string
-    userImg: string
-    userName: string
+    img_small: string
+    name: string
+    latitude: number
+    longitude: number
 }

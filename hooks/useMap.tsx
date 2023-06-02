@@ -88,6 +88,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             )
 
             if (feature) {
+                console.log(getUserInCluster(feature))
                 setData((data) => ({
                     ...data,
                     userTarget: getUserInCluster(feature),

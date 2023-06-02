@@ -20,9 +20,7 @@ const Home = () => {
     ) : (
         <>
             <Box w="100%" h="calc(100vh - 64px)" display={'flex'}>
-                <Box flex={1}>
-                    <ConversationList />
-                </Box>
+                <ConversationList />
                 <Box flex={3}>
                     <Map />
                 </Box>
