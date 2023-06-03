@@ -6,6 +6,7 @@ export const AppContext = React.createContext(null)
 export const AppProvider = ({ children }) => {
     const [data, setData] = useState<ContextStateData>({
         userTarget: null,
+        user: null,
     })
 
     return (

@@ -10,11 +10,13 @@ import {
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Profile from '../Profile'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
+
+    const { data: session } = useSession()
     return (
         <>
             <HStack as="header" p={4} justifyContent={'space-between'} h={'14'}>
@@ -27,6 +29,7 @@ const Header = () => {
                         size="sm"
                         name="John Doe"
                         cursor="pointer"
+                        src={session?.user?.image}
                     />
                     <MenuList>
                         <MenuItem>
@@ -34,7 +37,7 @@ const Header = () => {
                                 <Avatar
                                     size="sm"
                                     name="John Doe"
-                                    src="/path/to/profile-image.jpg"
+                                    src={session?.user?.image}
                                     marginRight={2}
                                 />
                                 <Text fontWeight="bold">John Doe</Text>

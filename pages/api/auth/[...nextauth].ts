@@ -46,6 +46,7 @@ export default NextAuth({
         async session({ session, token }) {
             const userInfos = await getUserByEmail(token.email)
             session.user.userId = userInfos.user.user_id
+            session.user.image = userInfos.user.img_small
 
             return session
         },

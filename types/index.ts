@@ -27,7 +27,7 @@ export type MessageInput = {
 }
 
 export type ContextStateData = {
-    userTarget: any
+    userTarget: User | null
 }
 
 export type Profile = {
