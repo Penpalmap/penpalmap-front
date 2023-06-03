@@ -14,6 +14,18 @@ const uploadProfileImage = async (formData: FormData, userId: string) => {
     }
 }
 
+const deleteProfileImage = async (position: number, userId: string) => {
+    try {
+        const response = await axios.delete(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile/images/${position}`
+        )
+
+        return response.data
+    } catch (error) {
+        console.error('Error while deleting profile image', error)
+    }
+}
+
 const createProfile = async (profile: ProfileFormData, userId: string) => {
     try {
         const response = await axios.post(
@@ -52,4 +64,10 @@ const getProfile = async (userId: string) => {
     }
 }
 
-export { uploadProfileImage, updateProfile, createProfile, getProfile }
+export {
+    uploadProfileImage,
+    updateProfile,
+    createProfile,
+    getProfile,
+    deleteProfileImage,
+}

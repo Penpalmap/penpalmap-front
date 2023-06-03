@@ -24,7 +24,7 @@ import {
     useEditableControls,
 } from '@chakra-ui/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { getProfile } from '../../api/profileApi'
+import { deleteProfileImage, getProfile } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
 import { Profile } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -32,6 +32,7 @@ import {
     faCheck,
     faHome,
     faMapMarker,
+    faTrash,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { uploadProfileImage } from '../../api/profileApi'
@@ -84,44 +85,57 @@ const Profile = ({ isOpen, onClose }: Props) => {
         ) : null
     }
 
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target?.files?.[0]
+    const renderProfile = useMemo(() => {
+        const handleFileChange = async (
+            e: React.ChangeEvent<HTMLInputElement>
+        ) => {
+            const file = e.target?.files?.[0]
 
-        if (file) {
-            const formData = new FormData()
-            formData.append('profileImage', file)
+            if (file) {
+                const formData = new FormData()
+                formData.append('profileImage', file)
 
-            const nullSrcIndex = profile.images.findIndex(
-                (image) => image.src === null
-            )
-
-            formData.append('position', nullSrcIndex.toString())
-
-            try {
-                // Effectuer la requête API pour télécharger l'image
-                const uploadedImage = await uploadProfileImage(
-                    formData,
-                    session?.user.userId
+                const nullSrcIndex = profile.images.findIndex(
+                    (image) => image.src === null
                 )
 
-                // Mettre à jour le profil avec l'image téléchargée et la position
-                const images = [...profile.images]
-                images[nullSrcIndex].src = uploadedImage.uploadImgSrc
+                formData.append('position', nullSrcIndex.toString())
 
-                setProfile({
-                    ...profile,
-                    images,
-                })
-            } catch (error) {
-                console.error(
-                    "Une erreur s'est produite lors de la requête API pour télécharger l'image",
-                    error
-                )
+                try {
+                    // Effectuer la requête API pour télécharger l'image
+                    const uploadedImage = await uploadProfileImage(
+                        formData,
+                        session?.user.userId
+                    )
+
+                    // Mettre à jour le profil avec l'image téléchargée et la position
+                    const images = [...profile.images]
+                    images[nullSrcIndex].src = uploadedImage.uploadImgSrc
+
+                    setProfile({
+                        ...profile,
+                        images,
+                    })
+                } catch (error) {
+                    console.error(
+                        "Une erreur s'est produite lors de la requête API pour télécharger l'image",
+                        error
+                    )
+                }
             }
         }
-    }
 
-    const renderProfile = useMemo(() => {
+        const handleDeleteImage = async (position: number) => {
+            const images = [...profile.images]
+            images[position].src = null
+
+            await deleteProfileImage(position, session?.user.userId)
+            setProfile({
+                ...profile,
+                images,
+            })
+        }
+
         return (
             <>
                 <Box mb={4}>
@@ -143,13 +157,31 @@ const Profile = ({ isOpen, onClose }: Props) => {
                         mb={4}
                     >
                         {profile?.images?.map((photo, index) => (
-                            <Box key={index} w={170} h={170}>
+                            <Box
+                                key={index}
+                                w={170}
+                                h={170}
+                                position={'relative'}
+                            >
                                 {photo?.src ? (
-                                    <Image
-                                        src={photo.src}
-                                        alt={`Photo ${index + 1}`}
-                                        borderRadius={'xl'}
-                                    />
+                                    <>
+                                        <Image
+                                            src={photo.src}
+                                            alt={`Photo ${index + 1}`}
+                                            borderRadius={'xl'}
+                                        />
+                                        <Box
+                                            position="absolute"
+                                            top={2}
+                                            right={2}
+                                            cursor="pointer"
+                                            onClick={() =>
+                                                handleDeleteImage(index)
+                                            }
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </Box>
+                                    </>
                                 ) : (
                                     <Box
                                         w={'full'}
@@ -196,7 +228,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                 </Box>
             </>
         )
-    }, [profile?.images, profile?.name])
+    }, [profile, session?.user.userId])
 
     const renderEditProfile = useMemo(() => {
         return (
