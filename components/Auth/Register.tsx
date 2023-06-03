@@ -102,9 +102,9 @@ const Register = () => {
             <Box mt={4}>
                 <Text>
                     Vous avez déjà un compte ?{' '}
-                    <Link href="/auth/signup">
+                    <Link href="/auth/signin">
                         <Text as="span" color="blue.500" cursor="pointer">
-                            Créer un compte
+                            Connectez-vous
                         </Text>
                     </Link>
                 </Text>
