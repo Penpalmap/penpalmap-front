@@ -38,4 +38,17 @@ const getRoomOfTwoUsers = async (user1Id: string, user2Id: string) => {
     }
 }
 
-export { createMessage, getMessages, getRoomOfTwoUsers }
+const updateMessage = async (messageId: string, message: any) => {
+    try {
+        const response = await axios.put(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/messages/${messageId}`,
+            message
+        )
+
+        return response.data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export { createMessage, getMessages, getRoomOfTwoUsers, updateMessage }

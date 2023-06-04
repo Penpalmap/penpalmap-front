@@ -2,6 +2,7 @@ import {
     Box,
     ButtonGroup,
     CheckboxIcon,
+    Circle,
     CloseButton,
     Editable,
     EditableInput,
@@ -170,17 +171,27 @@ const Profile = ({ isOpen, onClose }: Props) => {
                                             alt={`Photo ${index + 1}`}
                                             borderRadius={'xl'}
                                         />
-                                        <Box
+                                        <Circle
+                                            bg={'red.400'}
+                                            size={6}
                                             position="absolute"
-                                            top={2}
-                                            right={2}
+                                            top={-2}
+                                            right={-2}
                                             cursor="pointer"
                                             onClick={() =>
                                                 handleDeleteImage(index)
                                             }
+                                            boxShadow={'dark-lg'}
+                                            _hover={{
+                                                bgColor: 'red.500',
+                                            }}
                                         >
-                                            <FontAwesomeIcon icon={faTrash} />
-                                        </Box>
+                                            <FontAwesomeIcon
+                                                icon={faTrash}
+                                                color="white"
+                                                size="xs"
+                                            />
+                                        </Circle>
                                     </>
                                 ) : (
                                     <Box

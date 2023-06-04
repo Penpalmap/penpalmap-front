@@ -84,15 +84,17 @@ const ConversationList = () => {
                         }
                         cursor={'pointer'}
                     >
-                        <AvatarBadge
-                            borderColor="papayawhip"
-                            bg="tomato"
-                            boxSize="1.2em"
-                        >
-                            <Text fontSize={'xs'} color={'white'}>
-                                {conversation.countUnreadMessages}
-                            </Text>
-                        </AvatarBadge>
+                        {conversation.countUnreadMessages > 0 && (
+                            <AvatarBadge
+                                borderColor="papayawhip"
+                                bg="tomato"
+                                boxSize="1.2em"
+                            >
+                                <Text fontSize={'xs'} color={'white'}>
+                                    {conversation.countUnreadMessages}
+                                </Text>
+                            </AvatarBadge>
+                        )}
                     </Avatar>
                 )
             })}

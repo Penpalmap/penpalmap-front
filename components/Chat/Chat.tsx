@@ -4,7 +4,11 @@ import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
 import { useContext, useEffect, useState } from 'react'
 import { Message } from '../../types'
-import { getMessages, getRoomOfTwoUsers } from '../../api/chatApi'
+import {
+    getMessages,
+    getRoomOfTwoUsers,
+    updateMessage,
+} from '../../api/chatApi'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import io, { Socket } from 'socket.io-client'
@@ -21,9 +25,10 @@ const Chat = () => {
     useEffect(() => {
         const getRoomId = async () => {
             const { room } = await getRoomOfTwoUsers(
-                appData.userTarget.user_id,
-                session?.user?.userId
+                session?.user?.userId,
+                appData.userTarget.user_id
             )
+
             setRoomId(room?.room_id)
         }
 
@@ -36,6 +41,22 @@ const Chat = () => {
         setMessages([])
         const fetchMessages = async () => {
             const { messages } = await getMessages(roomId)
+
+            const messagesNotRead = messages.filter((message) => {
+                return (
+                    message.seen === false &&
+                    message.sender_id !== session?.user?.userId
+                )
+            })
+
+            if (messagesNotRead.length > 0) {
+                messagesNotRead.forEach(async (message) => {
+                    await updateMessage(message.message_id, {
+                        seen: true,
+                    })
+                })
+            }
+
             messages && setMessages(messages)
             console.log(messages)
         }
@@ -43,7 +64,7 @@ const Chat = () => {
         if (roomId) {
             fetchMessages()
         }
-    }, [roomId])
+    }, [roomId, session?.user?.userId])
 
     // initialize socket.io
     useEffect(() => {
