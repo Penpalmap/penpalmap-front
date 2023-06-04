@@ -203,6 +203,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                                             display={'none'}
                                             ref={refInputFile}
                                             onChange={handleFileChange}
+                                            accept={'image/*'}
                                         />
                                     </Box>
                                 )}
