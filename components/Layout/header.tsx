@@ -27,7 +27,7 @@ const Header = () => {
                     <MenuButton
                         as={Avatar}
                         size="sm"
-                        name="John Doe"
+                        name={session?.user?.name}
                         cursor="pointer"
                         src={session?.user?.image}
                     />
@@ -36,11 +36,13 @@ const Header = () => {
                             <Box display="flex" alignItems="center">
                                 <Avatar
                                     size="sm"
-                                    name="John Doe"
+                                    name={session?.user?.name}
                                     src={session?.user?.image}
                                     marginRight={2}
                                 />
-                                <Text fontWeight="bold">John Doe</Text>
+                                <Text fontWeight="bold">
+                                    {session?.user?.name}
+                                </Text>
                             </Box>
                         </MenuItem>
                         <MenuDivider />
