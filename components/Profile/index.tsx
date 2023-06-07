@@ -53,7 +53,6 @@ const Profile = ({ isOpen, onClose }: Props) => {
     useEffect(() => {
         const getProfileData = async () => {
             const profileData = await getProfile(session.user.userId)
-            console.log(profileData)
             setProfile(profileData)
         }
 

@@ -58,7 +58,6 @@ const Chat = () => {
             }
 
             messages && setMessages(messages)
-            console.log(messages)
         }
 
         if (roomId) {

@@ -42,7 +42,9 @@ const ConversationList = () => {
     // }
 
     const clickOnConversation = (members: User[]) => {
-        const user = members?.find((member) => member !== session?.user?.userId)
+        const user = members?.find(
+            (member) => member.user_id !== session?.user?.userId
+        )
         if (user) {
             setAppData({
                 userTarget: user,
@@ -70,12 +72,14 @@ const ConversationList = () => {
                         key={index}
                         src={
                             conversation?.members?.find(
-                                (member) => member !== session?.user?.userId
+                                (member) =>
+                                    member.user_id !== session?.user?.userId
                             )?.img_small
                         }
                         name={
                             conversation?.members?.find(
-                                (member) => member !== session?.user?.userId
+                                (member) =>
+                                    member.user_id !== session?.user?.userId
                             )?.name
                         }
                         size={'md'}
