@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 
 type Props = {
-    messages: Array<Message>
+    messages: Array<Message> | undefined
 }
 
 const ChatMessages = ({ messages }: Props) => {
@@ -17,7 +17,7 @@ const ChatMessages = ({ messages }: Props) => {
 
     const renderMessages = useMemo(() => {
         return messages?.map((message, index) => {
-            if (session?.user?.userId === message.sender_id) {
+            if (session?.user?.id === message.senderId) {
                 // OWN MESSAGE
                 return (
                     <Box
@@ -31,7 +31,7 @@ const ChatMessages = ({ messages }: Props) => {
                         maxW={'70%'}
                     >
                         <Text fontSize={'.8em'} color={'white'}>
-                            {message.text}
+                            {message.content}
                         </Text>
                     </Box>
                 )
@@ -47,11 +47,11 @@ const ChatMessages = ({ messages }: Props) => {
                     alignSelf={'flex-start'}
                     maxW={'70%'}
                 >
-                    <Text fontSize={'.8em'}>{message.text}</Text>{' '}
+                    <Text fontSize={'.8em'}>{message.content}</Text>{' '}
                 </Box>
             )
         })
-    }, [messages, session?.user?.userId])
+    }, [messages, session?.user?.id])
 
     return (
         <Box flex={1} display={'flex'} flexDirection={'column'} p={2}>

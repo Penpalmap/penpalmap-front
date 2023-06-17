@@ -23,7 +23,7 @@ export type Message = {
 }
 
 export type MessageInput = {
-    text: string
+    content: string
     roomId: string | null | undefined
     senderId: string
     receiverId: string

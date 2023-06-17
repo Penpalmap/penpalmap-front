@@ -3,7 +3,7 @@ import ChatHeader from './ChatHeader'
 import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
 import { useContext, useEffect, useState } from 'react'
-import { Message } from '../../types'
+import { Message, Room } from '../../types'
 import {
     getMessages,
     getRoomOfTwoUsers,
@@ -14,74 +14,58 @@ import { useSession } from 'next-auth/react'
 import io, { Socket } from 'socket.io-client'
 
 const Chat = () => {
-    const [messages, setMessages] = useState<Message[]>([])
-    const [roomId, setRoomId] = useState<string>(null)
-    const [appData] = useContext(AppContext)
     const { data: session } = useSession()
-
-    // SOCKET.IO
-    const [socket, setSocket] = useState<Socket>(null)
+    const [appData] = useContext(AppContext)
+    const [room, setRoom] = useState<Room | null>(null)
+    const [socket, setSocket] = useState<Socket | null>(null)
 
     useEffect(() => {
-        const getRoomId = async () => {
-            const { room } = await getRoomOfTwoUsers(
-                session?.user?.id,
-                appData.userTarget.id
-            )
+        const fetchRoom = async () => {
+            if (session?.user?.id) {
+                const room = await getRoomOfTwoUsers(
+                    session?.user?.id,
+                    appData.userTarget.id
+                )
 
-            setRoomId(room?.room_id)
+                console.log(room)
+                setRoom(room)
+            }
         }
 
         if (appData?.userTarget) {
-            getRoomId()
+            fetchRoom()
         }
     }, [appData.userTarget, session?.user?.id])
 
-    useEffect(() => {
-        setMessages([])
-        const fetchMessages = async () => {
-            const { messages } = await getMessages(roomId)
+    const addMessage = (message: Message) => {
+        setRoom((room) => {
+            if (room) {
+                console.log('Room is null', room)
 
-            const messagesNotRead = messages.filter((message) => {
-                return (
-                    message.seen === false &&
-                    message.sender_id !== session?.user?.id
-                )
-            })
-
-            if (messagesNotRead.length > 0) {
-                messagesNotRead.forEach(async (message) => {
-                    await updateMessage(message.message_id, {
-                        seen: true,
-                    })
-                })
+                return {
+                    ...room,
+                    messages: [...room.messages, message],
+                }
             }
 
-            messages && setMessages(messages)
-        }
+            return null
+        })
+    }
 
-        if (roomId) {
-            fetchMessages()
-        }
-    }, [roomId, session?.user?.id])
-
-    // initialize socket.io
     useEffect(() => {
-        if (roomId) {
+        if (room) {
             const socket = io(process.env.NEXT_PUBLIC_API_URL)
             setSocket(socket)
 
-            socket.emit('join-room', roomId)
+            socket.emit('join-room', room.id)
 
             socket.on('NEW_CHAT_MESSAGE_EVENT', (data) => {
-                // If the message is yours, don't add it to the state
                 if (data.senderId === session?.user?.id) {
                     return
                 }
-                setMessages((messages) => [...messages, data])
             })
         }
-    }, [roomId, session?.user?.id])
+    }, [session?.user?.id, room])
 
     return (
         <Box display="flex" flexDirection="column" height="100%">
@@ -93,15 +77,17 @@ const Chat = () => {
                 }
                 status="online"
             />
-            <ChatMessages messages={messages} />
+            <ChatMessages messages={room?.messages} />
 
-            <ChatInput
-                roomId={roomId}
-                setRoomId={setRoomId}
-                senderId={session?.user?.id}
-                setMessages={setMessages}
-                socket={socket}
-            />
+            {session?.user?.id && (
+                <ChatInput
+                    room={room}
+                    setRoom={setRoom}
+                    addMessage={addMessage}
+                    socket={socket}
+                    senderId={session?.user?.id}
+                />
+            )}
         </Box>
     )
 }

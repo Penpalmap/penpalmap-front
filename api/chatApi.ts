@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageInput, Room } from '../types'
+import { Message, MessageInput, Room } from '../types'
 
 const createMessage = async (message: MessageInput) => {
     try {
@@ -14,7 +14,7 @@ const createMessage = async (message: MessageInput) => {
     }
 }
 
-const getMessages = async (roomId: string) => {
+const getMessages = async (roomId: string): Promise<Message[]> => {
     try {
         const response = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${roomId}/messages`
@@ -22,7 +22,7 @@ const getMessages = async (roomId: string) => {
 
         return response.data
     } catch (error) {
-        console.error(error)
+        return error
     }
 }
 
