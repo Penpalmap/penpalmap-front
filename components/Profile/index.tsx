@@ -27,7 +27,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { deleteProfileImage, getProfile } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
-import { Profile } from '../../types'
+import { Profile, UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCheck,
@@ -37,6 +37,7 @@ import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { uploadProfileImage } from '../../api/profileApi'
+import useUploadUserImage from '../../hooks/useUploadUserImage'
 
 type Props = {
     isOpen: boolean
@@ -45,19 +46,12 @@ type Props = {
 
 const Profile = ({ isOpen, onClose }: Props) => {
     const [profile, setProfile] = useState({} as Profile)
-    const { data: session } = useSession()
+    const { data: session, update: updateSession } = useSession()
+    const { uploadImage } = useUploadUserImage()
 
     const refInputFile = useRef<HTMLInputElement>(null)
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
-    useEffect(() => {
-        const getProfileData = async () => {
-            const profileData = await getProfile(session.user.userId)
-            setProfile(profileData)
-        }
-
-        if (session?.user?.userId) getProfileData()
-    }, [session?.user?.userId])
 
     function EditableControls() {
         const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
@@ -86,42 +80,55 @@ const Profile = ({ isOpen, onClose }: Props) => {
     }
 
     const renderProfile = useMemo(() => {
+        const handleAddImage = () => {
+            if (refInputFile.current) {
+                refInputFile.current.click()
+            }
+        }
+
         const handleFileChange = async (
             e: React.ChangeEvent<HTMLInputElement>
         ) => {
             const file = e.target?.files?.[0]
 
             if (file) {
-                const formData = new FormData()
-                formData.append('profileImage', file)
-
-                const nullSrcIndex = profile.images.findIndex(
-                    (image) => image.src === null
+                uploadImage(
+                    file,
+                    session?.user?.userImages?.length,
+                    session?.user.id
                 )
 
-                formData.append('position', nullSrcIndex.toString())
+                updateSession()
+                // const formData = new FormData()d
+                // formData.append('profileImage', file)
 
-                try {
-                    // Effectuer la requête API pour télécharger l'image
-                    const uploadedImage = await uploadProfileImage(
-                        formData,
-                        session?.user.userId
-                    )
+                // const nullSrcIndex = profile.images.findIndex(
+                //     (image) => image.src === null
+                // )
 
-                    // Mettre à jour le profil avec l'image téléchargée et la position
-                    const images = [...profile.images]
-                    images[nullSrcIndex].src = uploadedImage.uploadImgSrc
+                // // formData.append('position', nullSrcIndex.toString())
 
-                    setProfile({
-                        ...profile,
-                        images,
-                    })
-                } catch (error) {
-                    console.error(
-                        "Une erreur s'est produite lors de la requête API pour télécharger l'image",
-                        error
-                    )
-                }
+                // try {
+                //     // Effectuer la requête API pour télécharger l'image
+                //     const uploadedImage = await uploadProfileImage(
+                //         formData,
+                //         session?.user.id
+                //     )
+
+                //     // Mettre à jour le profil avec l'image téléchargée et la position
+                //     const images = [...profile.images]
+                //     images[nullSrcIndex].src = uploadedImage.uploadImgSrc
+
+                //     setProfile({
+                //         ...profile,
+                //         images,
+                //     })
+                // } catch (error) {
+                //     console.error(
+                //         "Une erreur s'est produite lors de la requête API pour télécharger l'image",
+                //         error
+                //     )
+                // }
             }
         }
 
@@ -129,7 +136,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
             const images = [...profile.images]
             images[position].src = null
 
-            await deleteProfileImage(position, session?.user.userId)
+            await deleteProfileImage(position, session?.user.id)
             setProfile({
                 ...profile,
                 images,
@@ -156,69 +163,74 @@ const Profile = ({ isOpen, onClose }: Props) => {
                         justifyContent="space-between"
                         mb={4}
                     >
-                        {profile?.images?.map((photo, index) => (
-                            <Box
-                                key={index}
-                                w={170}
-                                h={170}
-                                position={'relative'}
-                            >
-                                {photo?.src ? (
-                                    <>
-                                        <Image
-                                            src={photo.src}
-                                            alt={`Photo ${index + 1}`}
-                                            borderRadius={'xl'}
-                                        />
-                                        <Circle
-                                            bg={'red.400'}
-                                            size={6}
-                                            position="absolute"
-                                            top={-2}
-                                            right={-2}
+                        {[0, 1, 2, 3].map((index) => {
+                            const image = session?.user?.userImages?.find(
+                                (img: UserImage) => img.position === index
+                            )
+                            return (
+                                <Box
+                                    key={index}
+                                    w={170}
+                                    h={170}
+                                    position="relative"
+                                >
+                                    {image ? (
+                                        <>
+                                            <Image
+                                                src={image.src}
+                                                alt={`Photo ${index}`}
+                                                borderRadius="xl"
+                                            />
+                                            <Circle
+                                                bg="red.400"
+                                                size={6}
+                                                position="absolute"
+                                                top={-2}
+                                                right={-2}
+                                                cursor="pointer"
+                                                onClick={() =>
+                                                    handleDeleteImage(
+                                                        image.userId
+                                                    )
+                                                }
+                                                boxShadow="dark-lg"
+                                                _hover={{
+                                                    bgColor: 'red.500',
+                                                }}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faTrash}
+                                                    color="white"
+                                                    size="xs"
+                                                />
+                                            </Circle>
+                                        </>
+                                    ) : (
+                                        <Box
+                                            w="full"
+                                            h="full"
+                                            bgColor="red.100"
+                                            borderRadius="xl"
+                                            display="flex"
+                                            justifyContent="center"
+                                            alignItems="center"
                                             cursor="pointer"
-                                            onClick={() =>
-                                                handleDeleteImage(index)
-                                            }
-                                            boxShadow={'dark-lg'}
-                                            _hover={{
-                                                bgColor: 'red.500',
-                                            }}
+                                            onClick={() => handleAddImage()}
                                         >
                                             <FontAwesomeIcon
-                                                icon={faTrash}
-                                                color="white"
-                                                size="xs"
+                                                icon={faMapMarker}
                                             />
-                                        </Circle>
-                                    </>
-                                ) : (
-                                    <Box
-                                        w={'full'}
-                                        h={'full'}
-                                        bgColor={'red.100'}
-                                        borderRadius={'xl'}
-                                        display={'flex'}
-                                        justifyContent={'center'}
-                                        alignItems={'center'}
-                                        cursor={'pointer'}
-                                        // Ouvrir la modal d'ajout de photo
-                                        onClick={() =>
-                                            refInputFile?.current?.click()
-                                        }
-                                    >
-                                        <FontAwesomeIcon icon={faMapMarker} />
-                                        <Input
-                                            type={'file'}
-                                            display={'none'}
-                                            ref={refInputFile}
-                                            onChange={handleFileChange}
-                                            accept={'image/*'}
-                                        />
-                                    </Box>
-                                )}
-                            </Box>
-                        ))}
+                                        </Box>
+                                    )}
+                                </Box>
+                            )
+                        })}
+                        <Input
+                            type="file"
+                            ref={refInputFile}
+                            display="none"
+                            onChange={handleFileChange}
+                        />
                     </Flex>
                 </Box>
 
@@ -239,7 +251,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                 </Box>
             </>
         )
-    }, [profile, session?.user.userId])
+    }, [profile, session?.user.id, session?.user.userImages])
 
     const renderEditProfile = useMemo(() => {
         return (

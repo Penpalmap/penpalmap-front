@@ -31,8 +31,7 @@ const Register = () => {
     const onSubmit = async (data: RegisterUserInput) => {
         // request to api axios post
         const response = await registerUser(data)
-
-        if (response.success) {
+        if (!response.error) {
             // connect user (login)
             await signIn('credentials', {
                 email: data.email,

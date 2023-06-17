@@ -1,6 +1,7 @@
 import Style from 'ol/style/Style'
 import Stroke from 'ol/style/Stroke'
 import Photo from './../openlayer/Photo'
+import { User } from '../../types'
 
 export const styleCache = {}
 
@@ -8,7 +9,7 @@ const clusterStyle = function (feature) {
     const size = feature.get('features').length
     // Cluster de plusieurs personnes
     if (size > 1) {
-        let featureMaxUser = null
+        let featureMaxUser: User | null = null
         let max = null
         for (let I = 0; I < size; I++) {
             // A FIX : Point == null
@@ -22,11 +23,11 @@ const clusterStyle = function (feature) {
             }
         }
 
-        const uid = featureMaxUser.user_id
+        const uid = featureMaxUser?.id
         let style = styleCache[uid]
 
         if (!style) {
-            const photo = featureMaxUser.img_small
+            const photo = featureMaxUser?.image
             style = styleCache[uid] = new Style({
                 image: new Photo({
                     src: photo

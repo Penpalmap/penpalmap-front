@@ -12,6 +12,7 @@ import { Point } from 'ol/geom'
 import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
 import { useSession } from 'next-auth/react'
+import { User } from '../types'
 
 interface UseMapOptions {
     center: [number, number]
@@ -26,7 +27,7 @@ interface UseMapResult {
 const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapContainerRef = useRef<HTMLDivElement>(null)
     const mapObj = useRef<OLMap | null>(null)
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState<User[]>([])
     const [data, setData] = useContext(AppContext)
     const { data: session } = useSession()
 

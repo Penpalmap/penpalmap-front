@@ -7,18 +7,16 @@ import ProfileBirthdayInput from './ProfileBirthdayInput'
 import ProfilePhotoUpload from './ProfilePhotoUpload'
 import ProfileLocationInput from './ProfileLocationInput'
 import { useSession } from 'next-auth/react'
-import { getUserById } from '../../api/userApi'
+import { getUserById, updateUser } from '../../api/userApi'
 import { useRouter } from 'next/router'
-import { createProfile } from '../../api/profileApi'
 
 const CreateProfile = () => {
-    const { data: session, status } = useSession()
+    const { data: session, status, update: updateSession } = useSession()
     const router = useRouter()
 
-    const { register, handleSubmit, setValue, watch } =
-        useForm<ProfileFormData>({
-            mode: 'onChange',
-        })
+    const { register, handleSubmit, setValue } = useForm<ProfileFormData>({
+        mode: 'onChange',
+    })
 
     //check avec getUserById si l'utilisateur a déjà un profil
     //si oui, on redirige vers la page de profil
@@ -27,8 +25,8 @@ const CreateProfile = () => {
         const checkCreationProfile = async () => {
             if (status === 'loading') return // Do nothing while loading
             if (session) {
-                const user = await getUserById(session.user.userId)
-                if (user && user.profile_completed) {
+                const user = await getUserById(session.user.id)
+                if (user && user.isNewUser === false) {
                     //rediriger vers la page de profil
                     router.push('/')
                 }
@@ -50,7 +48,16 @@ const CreateProfile = () => {
     }
 
     const onSubmit = async (data: ProfileFormData) => {
-        const response = await createProfile(data, session?.user.userId)
+        await updateUser(
+            {
+                isNewUser: false,
+            },
+            session?.user.id
+        )
+
+        updateSession()
+
+        const response = await updateUser(data, session?.user.id)
 
         if (response) {
             router.push('/')

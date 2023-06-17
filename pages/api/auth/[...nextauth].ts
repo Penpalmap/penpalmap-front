@@ -1,19 +1,15 @@
 import axios from 'axios'
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
-import { getUserByEmail } from '../../../api/userApi'
+import { getUserByEmail, getUserByGoogleId } from '../../../api/userApi'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
 export default NextAuth({
     secret: process.env.NEXT_PUBLIC_JWT_SECRET,
     session: {
         strategy: 'jwt',
         maxAge: 30 * 24 * 60 * 60, // 30 days
     },
-    adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -29,8 +25,7 @@ export default NextAuth({
                         password: credentials?.password,
                     }
                 )
-
-                if (user.data.user) {
+                if (user) {
                     return user.data.user
                 } else {
                     return null
@@ -45,8 +40,7 @@ export default NextAuth({
     callbacks: {
         async session({ session, token }) {
             const userInfos = await getUserByEmail(token.email)
-            session.user.userId = userInfos.user.user_id
-            session.user.image = userInfos.user.img_small
+            session.user = userInfos
 
             return session
         },
@@ -59,27 +53,46 @@ export default NextAuth({
         },
 
         async signIn({ user, account }) {
-            if (account?.provider === 'google') {
-                try {
-                    const createUser = await axios.post(
-                        `${process.env.NEXT_PUBLIC_API_URL}/api/users/register/google`,
-                        {
-                            email: user.email,
-                            name: user.name,
-                            googleid: user.id,
-                        }
-                    )
+            try {
+                if (account?.provider === 'google') {
+                    try {
+                        const userGoogleExists = await getUserByGoogleId(
+                            user.id
+                        )
 
-                    if (createUser.data.isAlreadyRegistered) {
-                        return true
+                        // User already exists, connect directly
+                        if (userGoogleExists) {
+                            return true
+                        } else {
+                            const createUser = await axios.post(
+                                `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
+                                {
+                                    email: user.email,
+                                    name: user.name,
+                                    googleId: user.id,
+                                }
+                            )
+
+                            // User created
+                            if (createUser) {
+                                console.log('User created', createUser)
+                                return true
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error while creating user', error)
+                        return false
                     }
-                } catch (error) {}
+                }
+                return true
+            } catch (error) {
+                console.error('Error while creating user', error)
+                return false
             }
-            return true
         },
     },
     pages: {
         signIn: '/auth/signin',
-        newUser: '/create-profile',
+        // newUser: '/create-profile',
     },
 })

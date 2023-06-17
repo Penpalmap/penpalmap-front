@@ -5,12 +5,11 @@ import getCroppedImg from '../../utils/cropImageFunctions'
 
 type Props = {
     imgUrl: string
-    setImgsCrop: (imgCrop: any) => void
+    setImgCrop: (imgCrop: Blob) => void
     onClose: () => void
-    position?: number
 }
 
-const CropImage = ({ imgUrl, setImgsCrop, onClose, position }: Props) => {
+const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 })
     const [zoom, setZoom] = useState(1)
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
@@ -30,21 +29,13 @@ const CropImage = ({ imgUrl, setImgsCrop, onClose, position }: Props) => {
                 croppedAreaPixels
             )) as Blob
 
-            console.log('donee', croppedImage)
-            setImgsCrop((prevImgsCrop) => [
-                ...prevImgsCrop,
-                new File([croppedImage], `image${position}.jpeg`, {
-                    type: 'image/jpeg',
-                }),
-            ])
-
-            // add croppedImage to imgsCrop (array of cropped images (type File))
+            setImgCrop(croppedImage)
 
             onClose()
         } catch (e) {
             console.error(e)
         }
-    }, [croppedAreaPixels, imgUrl, onClose, position, setImgsCrop])
+    }, [croppedAreaPixels, imgUrl, onClose, setImgCrop])
 
     const renderCrop = useMemo(
         () => (

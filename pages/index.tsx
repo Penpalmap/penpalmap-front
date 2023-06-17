@@ -3,22 +3,27 @@ import { Box } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import Map from '../components/Map/Map'
 import Chat from '../components/Chat/Chat'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import ConversationList from '../components/Conversation/ConversationList'
 import Loading from '../components/Layout/loading'
-import { AppContext } from '../context/AppContext'
-import { getUserById } from '../api/userApi'
 
 const Home = () => {
-    const { status } = useSession()
+    const { data: session, status } = useSession()
     const router = useRouter()
 
     useEffect(() => {
+        console.log('sessicocouon', session)
+        if (session?.user?.isNewUser) {
+            router.push('/create-profile')
+        }
+
         if (status === 'unauthenticated') {
             router.push('/auth/signin')
         }
-    }, [router, status])
-    return status === 'loading' || status === 'unauthenticated' ? (
+    }, [router, session, status])
+    return status === 'loading' ||
+        status === 'unauthenticated' ||
+        session?.user?.isNewUser ? (
         <Loading />
     ) : (
         <>

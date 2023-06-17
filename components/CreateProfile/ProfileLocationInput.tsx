@@ -55,9 +55,17 @@ const ProfileLocationInput = (props: Props) => {
                     stopEvent: false,
                 })
 
-                mapRef.current.addOverlay(marker)
+                mapRef?.current?.addOverlay(marker)
 
-                setValue('coordinate', transformedCoordinates)
+                if (
+                    setValue &&
+                    transformedCoordinates[0] &&
+                    transformedCoordinates[1]
+                ) {
+                    setValue('latitude', transformedCoordinates[0])
+                    setValue('longitude', transformedCoordinates[1])
+                }
+
                 setShowMarker(true)
             }
 

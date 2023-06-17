@@ -4,7 +4,7 @@ import { ProfileFormData } from '../types'
 const uploadProfileImage = async (formData: FormData, userId: string) => {
     try {
         const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile/images`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/image`,
             formData
         )
 
@@ -29,7 +29,7 @@ const deleteProfileImage = async (position: number, userId: string) => {
 const createProfile = async (profile: ProfileFormData, userId: string) => {
     try {
         const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/details`,
             profile
         )
 

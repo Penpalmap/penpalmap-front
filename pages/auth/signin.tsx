@@ -1,9 +1,7 @@
-import { Box, Button, Heading } from "@chakra-ui/react";
-import { signIn } from "next-auth/react";
-import SignIn from "../../components/Auth/SignIn";
+import SignIn from '../../components/Auth/SignIn'
 
 const signin = () => {
-  return <SignIn />;
-};
+    return <SignIn />
+}
 
-export default signin;
+export default signin

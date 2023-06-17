@@ -6,17 +6,20 @@ export type RegisterUserInput = {
 
 export type ProfileFormData = {
     birthday: string
-    coordinate: Array<number>
+    latitude: number
+    longitude: number
     gender: string
 }
 
 export type Message = {
-    message_id: string
-    sender_id: string
-    room_id: string
-    text: string
-    created_at: string
-    seen: boolean
+    id: string
+    content: string
+    isSeen: boolean
+    senderId: string
+    sender: User
+    roomId: string
+    room: Room
+    createdAt: string
 }
 
 export type MessageInput = {
@@ -30,14 +33,6 @@ export type ContextStateData = {
     userTarget: User | null
 }
 
-export type Profile = {
-    name: string
-    description: string
-    birthdate: string
-    age: number
-    images: Array<any>
-}
-
 export type Conversation = {
     room_id: string
     members: Array<User>
@@ -46,9 +41,29 @@ export type Conversation = {
 }
 
 export type User = {
-    userId: string
-    img_small: string
+    id: string
+    email: string
+    image: string
     name: string
     latitude: number
     longitude: number
+    points: number
+    gender: string
+    birthday: Date
+    bio: string
+    userImages: Array<UserImage>
+    isNewUser: boolean
+}
+
+export type UserImage = {
+    src: string
+    position: number
+    userId: string
+    user: User
+}
+
+export type Room = {
+    id: string
+    members: Array<User>
+    messages: Array<Message>
 }
