@@ -25,8 +25,8 @@ const Chat = () => {
     useEffect(() => {
         const getRoomId = async () => {
             const { room } = await getRoomOfTwoUsers(
-                session?.user?.userId,
-                appData.userTarget.user_id
+                session?.user?.id,
+                appData.userTarget.id
             )
 
             setRoomId(room?.room_id)
@@ -35,7 +35,7 @@ const Chat = () => {
         if (appData?.userTarget) {
             getRoomId()
         }
-    }, [appData.userTarget, session?.user?.userId])
+    }, [appData.userTarget, session?.user?.id])
 
     useEffect(() => {
         setMessages([])
@@ -45,7 +45,7 @@ const Chat = () => {
             const messagesNotRead = messages.filter((message) => {
                 return (
                     message.seen === false &&
-                    message.sender_id !== session?.user?.userId
+                    message.sender_id !== session?.user?.id
                 )
             })
 
@@ -63,7 +63,7 @@ const Chat = () => {
         if (roomId) {
             fetchMessages()
         }
-    }, [roomId, session?.user?.userId])
+    }, [roomId, session?.user?.id])
 
     // initialize socket.io
     useEffect(() => {
@@ -75,20 +75,20 @@ const Chat = () => {
 
             socket.on('NEW_CHAT_MESSAGE_EVENT', (data) => {
                 // If the message is yours, don't add it to the state
-                if (data.senderId === session?.user?.userId) {
+                if (data.senderId === session?.user?.id) {
                     return
                 }
                 setMessages((messages) => [...messages, data])
             })
         }
-    }, [roomId, session?.user?.userId])
+    }, [roomId, session?.user?.id])
 
     return (
         <Box display="flex" flexDirection="column" height="100%">
             <ChatHeader
                 name={appData?.userTarget?.name}
                 photoUrl={
-                    appData?.userTarget?.img_small ||
+                    appData?.userTarget?.image ||
                     'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg'
                 }
                 status="online"
@@ -98,7 +98,7 @@ const Chat = () => {
             <ChatInput
                 roomId={roomId}
                 setRoomId={setRoomId}
-                senderId={session?.user?.userId}
+                senderId={session?.user?.id}
                 setMessages={setMessages}
                 socket={socket}
             />

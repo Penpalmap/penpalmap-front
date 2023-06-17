@@ -12,7 +12,6 @@ const Home = () => {
     const router = useRouter()
 
     useEffect(() => {
-        console.log('sessicocouon', session)
         if (session?.user?.isNewUser) {
             router.push('/create-profile')
         }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { User } from '../types'
 
-const getUserByEmail = async (email: string) => {
+const getUserByEmail = async (email: string): Promise<User> => {
     try {
         const userInfos = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/users/email/${email}`
@@ -14,7 +14,7 @@ const getUserByEmail = async (email: string) => {
     }
 }
 
-const getUserByGoogleId = async (googleId: string) => {
+const getUserByGoogleId = async (googleId: string): Promise<User> => {
     try {
         const userInfos = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/users/googleId/${googleId}`
@@ -27,7 +27,7 @@ const getUserByGoogleId = async (googleId: string) => {
     }
 }
 
-const getUserById = async (id: string) => {
+const getUserById = async (id: string): Promise<User> => {
     try {
         const userInfos = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`

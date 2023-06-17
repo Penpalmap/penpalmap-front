@@ -34,7 +34,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const getUsers = async () => {
         const users = await getUsersInMap()
         const userwWhithoutMe = users.filter(
-            (user: any) => user.user_id !== session?.user?.userId
+            (user) => user.id !== session?.user?.id
         )
         setUsers(userwWhithoutMe)
     }

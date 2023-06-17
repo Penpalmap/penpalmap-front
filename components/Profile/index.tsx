@@ -24,8 +24,8 @@ import {
     Text,
     useEditableControls,
 } from '@chakra-ui/react'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { deleteProfileImage, getProfile } from '../../api/profileApi'
+import { useMemo, useRef, useState } from 'react'
+import { deleteProfileImage } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
 import { Profile, UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -36,7 +36,6 @@ import {
     faTrash,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
-import { uploadProfileImage } from '../../api/profileApi'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 
 type Props = {
@@ -99,36 +98,6 @@ const Profile = ({ isOpen, onClose }: Props) => {
                 )
 
                 updateSession()
-                // const formData = new FormData()d
-                // formData.append('profileImage', file)
-
-                // const nullSrcIndex = profile.images.findIndex(
-                //     (image) => image.src === null
-                // )
-
-                // // formData.append('position', nullSrcIndex.toString())
-
-                // try {
-                //     // Effectuer la requête API pour télécharger l'image
-                //     const uploadedImage = await uploadProfileImage(
-                //         formData,
-                //         session?.user.id
-                //     )
-
-                //     // Mettre à jour le profil avec l'image téléchargée et la position
-                //     const images = [...profile.images]
-                //     images[nullSrcIndex].src = uploadedImage.uploadImgSrc
-
-                //     setProfile({
-                //         ...profile,
-                //         images,
-                //     })
-                // } catch (error) {
-                //     console.error(
-                //         "Une erreur s'est produite lors de la requête API pour télécharger l'image",
-                //         error
-                //     )
-                // }
             }
         }
 
@@ -251,7 +220,13 @@ const Profile = ({ isOpen, onClose }: Props) => {
                 </Box>
             </>
         )
-    }, [profile, session?.user.id, session?.user.userImages])
+    }, [
+        profile,
+        session?.user?.id,
+        session?.user?.userImages,
+        updateSession,
+        uploadImage,
+    ])
 
     const renderEditProfile = useMemo(() => {
         return (

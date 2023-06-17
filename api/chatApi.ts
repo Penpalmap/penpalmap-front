@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageInput } from '../types'
+import { MessageInput, Room } from '../types'
 
 const createMessage = async (message: MessageInput) => {
     try {
@@ -26,7 +26,10 @@ const getMessages = async (roomId: string) => {
     }
 }
 
-const getRoomOfTwoUsers = async (user1Id: string, user2Id: string) => {
+const getRoomOfTwoUsers = async (
+    user1Id: string,
+    user2Id: string
+): Promise<Room> => {
     try {
         const response = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${user1Id}/${user2Id}`
@@ -34,7 +37,7 @@ const getRoomOfTwoUsers = async (user1Id: string, user2Id: string) => {
 
         return response.data
     } catch (error) {
-        console.error(error)
+        return error
     }
 }
 

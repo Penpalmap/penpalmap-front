@@ -49,12 +49,12 @@ const clusterStyle = function (feature) {
 
     // Cluster d'une seule personne
     else {
-        const user = feature.get('features')[0].get('element')
-        const uid = user.user_id
+        const user: User = feature.get('features')[0].get('element')
+        const uid = user.id
         let style = styleCache[uid]
 
         if (!style) {
-            const photo = user.img_small
+            const photo = user.image
 
             style = styleCache[uid] = new Style({
                 image: new Photo({
