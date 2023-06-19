@@ -18,7 +18,6 @@ const Chat = () => {
     const [appData] = useContext(AppContext)
     const [room, setRoom] = useState<Room | null>(null)
     const [socket, setSocket] = useState<Socket | null>(null)
-
     useEffect(() => {
         const fetchRoom = async () => {
             if (session?.user?.id) {
@@ -27,7 +26,6 @@ const Chat = () => {
                     appData.userTarget.id
                 )
 
-                console.log(room)
                 setRoom(room)
             }
         }
@@ -37,21 +35,6 @@ const Chat = () => {
         }
     }, [appData.userTarget, session?.user?.id])
 
-    const addMessage = (message: Message) => {
-        setRoom((room) => {
-            if (room) {
-                console.log('Room is null', room)
-
-                return {
-                    ...room,
-                    messages: [...room.messages, message],
-                }
-            }
-
-            return null
-        })
-    }
-
     useEffect(() => {
         if (room) {
             const socket = io(process.env.NEXT_PUBLIC_API_URL)
@@ -60,12 +43,36 @@ const Chat = () => {
             socket.emit('join-room', room.id)
 
             socket.on('NEW_CHAT_MESSAGE_EVENT', (data) => {
-                if (data.senderId === session?.user?.id) {
-                    return
+                if (data.senderId !== session?.user?.id) {
+                    addMessage(data)
                 }
             })
+
+            return () => {
+                socket.disconnect()
+            }
         }
-    }, [session?.user?.id, room])
+    }, [room, session?.user?.id])
+
+    const addMessage = (message: Message) => {
+        setRoom((prevRoom) => {
+            if (prevRoom) {
+                // La room existe, donc nous pouvons la mettre à jour
+                return {
+                    ...prevRoom,
+                    messages: [...prevRoom.messages, message],
+                }
+            } else {
+                // La room n'existe pas, donc nous devons la créer avec le message initial
+                const newRoom: Room = {
+                    id: message.roomId,
+                    members: [],
+                    messages: [message],
+                }
+                return newRoom
+            }
+        })
+    }
 
     return (
         <Box display="flex" flexDirection="column" height="100%">

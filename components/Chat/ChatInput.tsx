@@ -27,17 +27,8 @@ const ChatInput = ({ room, setRoom, senderId, addMessage, socket }: Props) => {
     const onSubmitHandler = async (data: MessageInput) => {
         const newMessage: Message = await createMessage(data)
 
-        if (!room) {
-            setRoom(newMessage.room)
-            socket?.emit('join-room', newMessage.room.id)
-
-            addMessage(newMessage)
-        } else {
-            socket?.emit('join-room', room.id)
-            socket?.emit('NEW_CHAT_MESSAGE_EVENT', data)
-
-            addMessage(newMessage)
-        }
+        socket?.emit('NEW_CHAT_MESSAGE_EVENT', data)
+        addMessage(newMessage)
         setValue('content', '')
     }
 
