@@ -23,9 +23,7 @@ const ConversationList = () => {
     useEffect(() => {
         async function fetchConversationsData() {
             try {
-                const data = await getConversations(
-                    session?.user?.userId as string
-                )
+                const data = await getConversations(session?.user?.id as string)
                 setConversations(data.rooms)
             } catch (error) {
                 // Gérer les erreurs
@@ -33,7 +31,7 @@ const ConversationList = () => {
         }
 
         fetchConversationsData()
-    }, [session?.user?.userId])
+    }, [session?.user?.id])
 
     // const clickOnConversation = (user: User) => {
     //     setAppData({
@@ -42,9 +40,7 @@ const ConversationList = () => {
     // }
 
     const clickOnConversation = (members: User[]) => {
-        const user = members?.find(
-            (member) => member.user_id !== session?.user?.userId
-        )
+        const user = members?.find((member) => member.id !== session?.user?.id)
         if (user) {
             setAppData({
                 userTarget: user,
@@ -67,19 +63,18 @@ const ConversationList = () => {
             </Box>
             <Divider />
             {conversations?.map((conversation, index) => {
+                console.log(conversation)
                 return (
                     <Avatar
                         key={index}
                         src={
                             conversation?.members?.find(
-                                (member) =>
-                                    member.user_id !== session?.user?.userId
-                            )?.img_small
+                                (member) => member.id !== session?.user?.id
+                            )?.image
                         }
                         name={
                             conversation?.members?.find(
-                                (member) =>
-                                    member.user_id !== session?.user?.userId
+                                (member) => member.id !== session?.user?.id
                             )?.name
                         }
                         size={'md'}

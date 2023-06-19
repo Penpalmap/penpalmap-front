@@ -49,6 +49,7 @@ const Chat = () => {
             })
 
             return () => {
+                socket.emit('leave-room', room.id)
                 socket.disconnect()
             }
         }
