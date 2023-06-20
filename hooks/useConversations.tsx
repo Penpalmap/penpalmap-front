@@ -1,30 +1,38 @@
-import { useEffect, useState, useCallback } from 'react'
-import { Conversation } from '../types'
 import { getConversations } from '../api/conversationApi'
+import { AppContext } from '../context/AppContext'
+import { useCallback, useContext, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 
 const useConversations = () => {
-    const [conversations, setConversations] = useState<Conversation[]>([])
+    const [data, setData] = useContext(AppContext)
+
+    const { conversations } = data
+
     const { data: session } = useSession()
 
-    const fetchConversationsData = useCallback(async () => {
-        try {
-            const data = await getConversations(session?.user?.id as string)
-            setConversations(data.rooms)
-        } catch (error) {
-            // Gérer les erreurs
+    const fetchConversations = useCallback(async () => {
+        debugger
+        if (session?.user?.id) {
+            const { rooms } = await getConversations(session?.user?.id)
+            setData((prevData) => ({
+                ...prevData,
+                conversations: rooms,
+            }))
         }
-    }, [session?.user?.id])
+    }, [session?.user?.id, setData])
 
     useEffect(() => {
-        fetchConversationsData()
-    }, [fetchConversationsData])
+        fetchConversations()
+    }, [fetchConversations])
 
-    const refetch = useCallback(() => {
-        fetchConversationsData()
-    }, [fetchConversationsData])
+    const refetch = () => {
+        fetchConversations()
+    }
 
-    return { conversations, refetch }
+    return {
+        conversations,
+        refetch,
+    }
 }
 
 export default useConversations

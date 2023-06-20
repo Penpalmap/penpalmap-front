@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import {
     Avatar,
     AvatarBadge,
@@ -14,14 +14,21 @@ import useConversations from '../../hooks/useConversations'
 import { useSession } from 'next-auth/react'
 
 const ConversationList = () => {
-    const { conversations } = useConversations()
     const { data: session } = useSession()
-    const [appData, setAppData] = useContext(AppContext)
+    const [, setAppData] = useContext(AppContext)
+
+    const { conversations } = useConversations()
+
+    useEffect(() => {
+        console.log('conversations', conversations)
+    }, [conversations])
 
     const clickOnConversation = (members) => {
+        debugger
         const user = members?.find((member) => member.id !== session?.user?.id)
         if (user) {
             setAppData({
+                ...appData,
                 userTarget: user,
             })
         }

@@ -20,6 +20,7 @@ const Chat = () => {
     const [room, setRoom] = useState<Room | null>(null)
     const [socket, setSocket] = useState<Socket | null>(null)
     const { refetch } = useConversations()
+
     useEffect(() => {
         const fetchRoom = async () => {
             if (session?.user?.id) {
@@ -37,30 +38,26 @@ const Chat = () => {
         }
     }, [appData.userTarget, session?.user?.id])
 
-    const addMessage = useCallback(
-        (message: Message) => {
-            setRoom((prevRoom) => {
-                if (prevRoom) {
-                    // La room existe, donc nous pouvons la mettre à jour
-                    return {
-                        ...prevRoom,
-                        messages: [...prevRoom.messages, message],
-                    }
-                } else {
-                    // La room n'existe pas, donc nous devons la créer avec le message initial
-                    const newRoom: Room = {
-                        id: message.roomId,
-                        members: [],
-                        messages: [message],
-                    }
-                    refetch()
-
-                    return newRoom
+    const addMessage = useCallback(async (message: Message) => {
+        setRoom((prevRoom) => {
+            if (prevRoom) {
+                // La room existe, donc nous pouvons la mettre à jour
+                return {
+                    ...prevRoom,
+                    messages: [...prevRoom.messages, message],
                 }
-            })
-        },
-        [refetch]
-    )
+            } else {
+                // La room n'existe pas, donc nous devons la créer avec le message initial
+                const newRoom: Room = {
+                    id: message.roomId,
+                    members: [],
+                    messages: [message],
+                }
+
+                return newRoom
+            }
+        })
+    }, [])
 
     useEffect(() => {
         if (room) {
@@ -80,7 +77,7 @@ const Chat = () => {
                 socket.disconnect()
             }
         }
-    }, [addMessage, room, session?.user?.id])
+    }, [room, session?.user?.id])
 
     return (
         <Box display="flex" flexDirection="column" height="100%">

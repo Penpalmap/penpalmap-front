@@ -3,6 +3,7 @@ import {
     AlertIcon,
     Box,
     Button,
+    Divider,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -19,6 +20,7 @@ import { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
+import MapConnexion from '../Map/MapConnexion'
 
 const Register = () => {
     const router = useRouter()
@@ -28,6 +30,7 @@ const Register = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterUserInput>()
+
     const onSubmit = async (data: RegisterUserInput) => {
         // request to api axios post
         const response = await registerUser(data)
@@ -46,67 +49,92 @@ const Register = () => {
     }
 
     return (
-        <Box p={8}>
-            <Heading as="h1" size="lg" mb={6}>
-                Inscrivez-vous
-            </Heading>
-            {error && (
-                <Alert status="error" my={4}>
-                    <AlertIcon />
-                    {error}
-                </Alert>
-            )}
-            <GoogleLoginButton />
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Stack spacing={4}>
-                    <FormControl isInvalid={!!errors.email}>
-                        <FormLabel>Email</FormLabel>
-                        <Input
-                            type="email"
-                            {...register('email', {
-                                required: 'Email is required',
-                            })}
-                        />
-                        <FormErrorMessage>
-                            {errors.email?.message}
-                        </FormErrorMessage>
-                    </FormControl>
-                    <FormControl isInvalid={!!errors.name}>
-                        <FormLabel>Name</FormLabel>
-                        <Input
-                            type="text"
-                            {...register('name', {
-                                required: 'Name is required',
-                            })}
-                        />
-                        <FormErrorMessage>
-                            {errors.name?.message}
-                        </FormErrorMessage>
-                    </FormControl>
-                    <FormControl isInvalid={!!errors.password}>
-                        <FormLabel>Password</FormLabel>
-                        <Input
-                            type="password"
-                            {...register('password', {
-                                required: 'Password is required',
-                            })}
-                        />
-                        <FormErrorMessage>
-                            {errors.password?.message}
-                        </FormErrorMessage>
-                    </FormControl>
-                    <Button type="submit">Register</Button>
-                </Stack>
-            </form>
-            <Box mt={4}>
-                <Text>
-                    Vous avez déjà un compte ?{' '}
-                    <Link href="/auth/signin">
-                        <Text as="span" color="blue.500" cursor="pointer">
-                            Connectez-vous
-                        </Text>
-                    </Link>
-                </Text>
+        <Box position="relative" h={'full'} w={'full'}>
+            <MapConnexion />
+            <Box
+                position={'absolute'}
+                left={'50%'}
+                top={'50%'}
+                transform={'translate(-50%, -50%)'}
+                w={'400px'}
+                p={6}
+                bg="whiteAlpha.700"
+                backdropFilter="blur(6px)"
+                rounded={'lg'}
+                display={'flex'}
+                flexDirection={'column'}
+                alignItems={'center'}
+            >
+                <Heading as="h1" size="lg" mb={6}>
+                    Inscrivez-vous
+                </Heading>
+                <GoogleLoginButton />
+                <Divider my={6} />
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    style={{ width: '90%' }}
+                >
+                    <Stack spacing={4}>
+                        <FormControl isInvalid={!!errors.email}>
+                            <FormLabel>Email</FormLabel>
+                            <Input
+                                type="email"
+                                {...register('email', {
+                                    required: 'Email is required',
+                                })}
+                                bg={'white'}
+                            />
+                            <FormErrorMessage>
+                                {errors.email?.message}
+                            </FormErrorMessage>
+                        </FormControl>
+                        <FormControl isInvalid={!!errors.name}>
+                            <FormLabel>Name</FormLabel>
+                            <Input
+                                type="text"
+                                {...register('name', {
+                                    required: 'Name is required',
+                                })}
+                                bg={'white'}
+                            />
+                            <FormErrorMessage>
+                                {errors.name?.message}
+                            </FormErrorMessage>
+                        </FormControl>
+                        <FormControl isInvalid={!!errors.password}>
+                            <FormLabel>Password</FormLabel>
+                            <Input
+                                type="password"
+                                {...register('password', {
+                                    required: 'Password is required',
+                                })}
+                                bg={'white'}
+                            />
+                            <FormErrorMessage>
+                                {errors.password?.message}
+                            </FormErrorMessage>
+                        </FormControl>
+                        {error && (
+                            <Alert status="error" my={4}>
+                                <AlertIcon />
+                                {error}
+                            </Alert>
+                        )}
+                        <Button type="submit" colorScheme="blue">
+                            S&apos;inscrire
+                        </Button>
+                    </Stack>
+                </form>
+                <Box mt={4}>
+                    <Text fontSize={'small'}>
+                        Vous avez déjà un compte ?{' '}
+                        <Link href="/auth/signin">
+                            <Text as="span" color="blue.500" cursor="pointer">
+                                Connectez-vous
+                            </Text>
+                        </Link>
+                    </Text>
+                </Box>
             </Box>
         </Box>
     )

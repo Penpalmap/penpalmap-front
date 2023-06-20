@@ -7,6 +7,7 @@ import { AppContext } from '../../context/AppContext'
 import { Socket } from 'socket.io-client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import useConversations from '../../hooks/useConversations'
 
 type Props = {
     room: Room | null
@@ -19,6 +20,7 @@ type Props = {
 const ChatInput = ({ room, setRoom, senderId, addMessage, socket }: Props) => {
     const { register, handleSubmit, setValue } = useForm<MessageInput>()
     const [appData] = useContext(AppContext)
+    const { refetch } = useConversations()
 
     useEffect(() => {
         setValue('roomId', room?.id)
@@ -29,6 +31,7 @@ const ChatInput = ({ room, setRoom, senderId, addMessage, socket }: Props) => {
     const onSubmitHandler = async (data: MessageInput) => {
         const newMessage: Message = await createMessage(data)
 
+        refetch()
         socket?.emit('NEW_CHAT_MESSAGE_EVENT', data)
         addMessage(newMessage)
         setValue('content', '')

@@ -20,8 +20,8 @@ interface UseMapOptions {
 }
 
 interface UseMapResult {
-    mapObj: React.MutableRefObject<OLMap>
-    mapContainerRef: React.MutableRefObject<HTMLDivElement>
+    mapObj: React.RefObject<OLMap>
+    mapContainerRef: React.RefObject<HTMLDivElement>
 }
 
 const useMap = ({}: UseMapOptions): UseMapResult => {

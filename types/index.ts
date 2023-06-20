@@ -31,6 +31,7 @@ export type MessageInput = {
 
 export type ContextStateData = {
     userTarget: User | null
+    conversations: Array<Conversation> | null
 }
 
 export type Conversation = {
