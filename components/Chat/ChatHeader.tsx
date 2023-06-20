@@ -3,6 +3,7 @@ import {
     AvatarBadge,
     Box,
     Divider,
+    Flex,
     Image,
     Text,
 } from '@chakra-ui/react'
@@ -16,25 +17,20 @@ type Props = {
 const ChatHeader = ({ name, photoUrl, status }: Props) => {
     return (
         <>
-            <Box
-                height={58}
-                display={'flex'}
-                alignItems={'center'}
-                py={10}
-                px={4}
-            >
+            <Flex display={'flex'} alignItems={'center'} py={2} px={4}>
                 <Avatar name={name} src={photoUrl}>
                     <AvatarBadge
                         boxSize="1em"
                         bgColor={status === 'online' ? 'green.500' : 'red.500'}
+                        borderWidth={3}
                     />
                 </Avatar>
-                <Box>
-                    <Text fontWeight={'bold'}>{name}</Text>
-                    <Text>{status}</Text>
+                <Box ml={4}>
+                    <Text fontWeight={'semibold'}>{name}</Text>
+                    <Text fontSize={'sm'}>{status}</Text>
                 </Box>
-            </Box>
-            <Divider />
+            </Flex>
+            <Divider borderColor={'gray.300'} boxShadow={'base'} />
         </>
     )
 }

@@ -1,7 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
-import { Conversation, User } from '../../types'
-import { getConversations } from '../../api/conversationApi'
-import { useSession } from 'next-auth/react'
+import { useContext, useEffect } from 'react'
 import {
     Avatar,
     AvatarBadge,
@@ -13,33 +10,15 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from '../../context/AppContext'
+import useConversations from '../../hooks/useConversations'
+import { useSession } from 'next-auth/react'
 
 const ConversationList = () => {
-    const [conversations, setConversations] = useState<Conversation[]>([])
-
+    const { conversations } = useConversations()
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
 
-    useEffect(() => {
-        async function fetchConversationsData() {
-            try {
-                const data = await getConversations(session?.user?.id as string)
-                setConversations(data.rooms)
-            } catch (error) {
-                // Gérer les erreurs
-            }
-        }
-
-        fetchConversationsData()
-    }, [session?.user?.id])
-
-    // const clickOnConversation = (user: User) => {
-    //     setAppData({
-    //         userTarget: user,
-    //     })
-    // }
-
-    const clickOnConversation = (members: User[]) => {
+    const clickOnConversation = (members) => {
         const user = members?.find((member) => member.id !== session?.user?.id)
         if (user) {
             setAppData({
@@ -62,8 +41,7 @@ const ConversationList = () => {
                 <FontAwesomeIcon icon={faBars} />
             </Box>
             <Divider />
-            {conversations?.map((conversation, index) => {
-                console.log(conversation)
+            {conversations.map((conversation, index) => {
                 return (
                     <Avatar
                         key={index}

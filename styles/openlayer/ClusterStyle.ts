@@ -27,6 +27,7 @@ const clusterStyle = function (feature) {
         let style = styleCache[uid]
 
         if (!style) {
+            console.log(featureMaxUser)
             const photo = featureMaxUser?.image
             style = styleCache[uid] = new Style({
                 image: new Photo({

@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import ChatHeader from './ChatHeader'
 import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Message, Room } from '../../types'
 import {
     getMessages,
@@ -12,12 +12,14 @@ import {
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import io, { Socket } from 'socket.io-client'
+import useConversations from '../../hooks/useConversations'
 
 const Chat = () => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
     const [room, setRoom] = useState<Room | null>(null)
     const [socket, setSocket] = useState<Socket | null>(null)
+    const { refetch } = useConversations()
     useEffect(() => {
         const fetchRoom = async () => {
             if (session?.user?.id) {
@@ -34,6 +36,31 @@ const Chat = () => {
             fetchRoom()
         }
     }, [appData.userTarget, session?.user?.id])
+
+    const addMessage = useCallback(
+        (message: Message) => {
+            setRoom((prevRoom) => {
+                if (prevRoom) {
+                    // La room existe, donc nous pouvons la mettre à jour
+                    return {
+                        ...prevRoom,
+                        messages: [...prevRoom.messages, message],
+                    }
+                } else {
+                    // La room n'existe pas, donc nous devons la créer avec le message initial
+                    const newRoom: Room = {
+                        id: message.roomId,
+                        members: [],
+                        messages: [message],
+                    }
+                    refetch()
+
+                    return newRoom
+                }
+            })
+        },
+        [refetch]
+    )
 
     useEffect(() => {
         if (room) {
@@ -53,27 +80,7 @@ const Chat = () => {
                 socket.disconnect()
             }
         }
-    }, [room, session?.user?.id])
-
-    const addMessage = (message: Message) => {
-        setRoom((prevRoom) => {
-            if (prevRoom) {
-                // La room existe, donc nous pouvons la mettre à jour
-                return {
-                    ...prevRoom,
-                    messages: [...prevRoom.messages, message],
-                }
-            } else {
-                // La room n'existe pas, donc nous devons la créer avec le message initial
-                const newRoom: Room = {
-                    id: message.roomId,
-                    members: [],
-                    messages: [message],
-                }
-                return newRoom
-            }
-        })
-    }
+    }, [addMessage, room, session?.user?.id])
 
     return (
         <Box display="flex" flexDirection="column" height="100%">
