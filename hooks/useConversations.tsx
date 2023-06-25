@@ -11,7 +11,6 @@ const useConversations = () => {
     const { data: session } = useSession()
 
     const fetchConversations = useCallback(async () => {
-        debugger
         if (session?.user?.id) {
             const { rooms } = await getConversations(session?.user?.id)
             setData((prevData) => ({

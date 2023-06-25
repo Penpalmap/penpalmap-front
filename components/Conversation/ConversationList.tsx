@@ -15,7 +15,7 @@ import { useSession } from 'next-auth/react'
 
 const ConversationList = () => {
     const { data: session } = useSession()
-    const [, setAppData] = useContext(AppContext)
+    const [appData, setAppData] = useContext(AppContext)
 
     const { conversations } = useConversations()
 
@@ -24,7 +24,6 @@ const ConversationList = () => {
     }, [conversations])
 
     const clickOnConversation = (members) => {
-        debugger
         const user = members?.find((member) => member.id !== session?.user?.id)
         if (user) {
             setAppData({
@@ -43,6 +42,7 @@ const ConversationList = () => {
             bg={'white'}
             h={'full'}
             gap={2}
+            width={'20'}
         >
             <Box my={2}>
                 <FontAwesomeIcon icon={faBars} />

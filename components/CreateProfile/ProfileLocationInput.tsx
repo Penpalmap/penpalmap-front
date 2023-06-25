@@ -8,6 +8,8 @@ import View from 'ol/View'
 import { ProfileFormData } from '../../types'
 import { transform } from 'ol/proj'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import 'ol/ol.css'
+
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
@@ -74,16 +76,12 @@ const ProfileLocationInput = (props: Props) => {
     }, [ref, mapRef, setValue])
 
     return (
-        <Box>
-            <h1>create profile Location</h1>
-
-            <Box ref={ref} height="sm" width="3xl">
-                {showMarker && (
-                    <Box ref={markerRef}>
-                        <FontAwesomeIcon icon={faLocationDot} size="lg" />
-                    </Box>
-                )}
-            </Box>
+        <Box ref={ref} height="sm" width="3xl">
+            {showMarker && (
+                <Box ref={markerRef}>
+                    <FontAwesomeIcon icon={faLocationDot} size="lg" />
+                </Box>
+            )}
         </Box>
     )
 }

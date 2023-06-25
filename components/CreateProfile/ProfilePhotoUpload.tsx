@@ -3,6 +3,8 @@ import { useState } from 'react'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { useSession } from 'next-auth/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const ProfileUploadPhoto = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -28,6 +30,13 @@ const ProfileUploadPhoto = () => {
         onClose()
     }
 
+    const clickOnBtn = (index: number) => {
+        const fileInput = document.getElementById(
+            `file-upload-${index}`
+        ) as HTMLInputElement
+        fileInput.click()
+    }
+
     return (
         <Box>
             <ModalImageCropped
@@ -37,31 +46,30 @@ const ProfileUploadPhoto = () => {
                 setImgCrop={handleImageCrop}
             />
 
-            <h1>Create Profile Photo</h1>
             <HStack spacing="24px" alignItems="center">
                 {[0, 1, 2].map((index) => (
                     <Box
                         key={index}
-                        borderWidth={2}
-                        borderColor="gray.400"
-                        p={4}
-                        mb={4}
-                        w="100px"
-                        onClick={() => {
-                            const fileInput = document.getElementById(
-                                `file-upload-${index}`
-                            ) as HTMLInputElement
-                            fileInput.click()
-                        }}
+                        onClick={() => clickOnBtn(index)}
                         cursor="pointer"
+                        w="150px"
+                        h="150px"
+                        borderRadius="lg"
+                        display={'flex'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        bg={'gray.100'}
                     >
                         {croppedImages[index] ? (
                             <Image
                                 src={URL.createObjectURL(croppedImages[index])}
                                 alt={`Profile Image ${index + 1}`}
+                                w="100%"
+                                h="100%"
+                                borderRadius="lg"
                             />
                         ) : (
-                            <Text color="gray.500">Add photo</Text>
+                            <FontAwesomeIcon icon={faPlus} size="2x" />
                         )}
                         <input
                             type="file"
