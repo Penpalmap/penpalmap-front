@@ -1,26 +1,22 @@
-import { Box, Button, FormControl, IconButton, Input } from '@chakra-ui/react'
-import { set, useForm } from 'react-hook-form'
-import { Message, MessageInput, Room } from '../../types'
-import { SetStateAction, useContext, useEffect } from 'react'
-import { createMessage, getMessages } from '../../api/chatApi'
+import { FormControl, IconButton, Input } from '@chakra-ui/react'
+import { useForm } from 'react-hook-form'
+import { MessageInput, Room } from '../../types'
+import { useContext, useEffect } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { Socket } from 'socket.io-client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import useConversations from '../../hooks/useConversations'
 
 type Props = {
     room: Room | null
-    setRoom: any
     senderId: string
-    addMessage: any
     socket: Socket | null
+    sendMessage: (data: MessageInput) => void
 }
 
-const ChatInput = ({ room, setRoom, senderId, addMessage, socket }: Props) => {
+const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     const { register, handleSubmit, setValue } = useForm<MessageInput>()
     const [appData] = useContext(AppContext)
-    const { refetch } = useConversations()
 
     useEffect(() => {
         setValue('roomId', room?.id)
@@ -29,11 +25,7 @@ const ChatInput = ({ room, setRoom, senderId, addMessage, socket }: Props) => {
     }, [appData?.userTarget?.id, room?.id, senderId, setValue])
 
     const onSubmitHandler = async (data: MessageInput) => {
-        const newMessage: Message = await createMessage(data)
-
-        refetch()
-        socket?.emit('NEW_CHAT_MESSAGE_EVENT', data)
-        addMessage(newMessage)
+        sendMessage(data)
         setValue('content', '')
     }
 
@@ -51,9 +43,6 @@ const ChatInput = ({ room, setRoom, senderId, addMessage, socket }: Props) => {
                         required: 'Message is empty',
                     })}
                 />
-                {/* <Button colorScheme="blue" type="submit">
-                    Send
-                </Button> */}
                 <IconButton
                     borderRadius={'full'}
                     colorScheme="blue"

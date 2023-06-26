@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ContextStateData } from '../types'
 
-export const AppContext = React.createContext(null)
+export const AppContext = React.createContext([] as any)
 
 export const AppProvider = ({ children }) => {
     const [data, setData] = useState<ContextStateData>({
