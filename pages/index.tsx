@@ -26,16 +26,14 @@ const Home = () => {
         <Loading />
     ) : (
         <>
-            <Box w={'full'} h={'full'} display={'flex'}>
+            <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
                 <Box position={'relative'}>
                     <ConversationList />
                 </Box>
                 <Box flex={3}>
                     <Map />
                 </Box>
-                <Box flex={1}>
-                    <Chat />
-                </Box>
+                <Chat />
             </Box>
         </>
     )

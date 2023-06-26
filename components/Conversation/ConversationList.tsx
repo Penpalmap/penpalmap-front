@@ -29,6 +29,7 @@ const ConversationList = () => {
             setAppData({
                 ...appData,
                 userTarget: user,
+                chatOpen: true,
             })
         }
     }
@@ -43,6 +44,7 @@ const ConversationList = () => {
             h={'full'}
             gap={2}
             width={'20'}
+            overflowY={'scroll'}
         >
             <Box my={2}>
                 <FontAwesomeIcon icon={faBars} />

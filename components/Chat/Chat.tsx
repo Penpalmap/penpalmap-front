@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, useDisclosure } from '@chakra-ui/react'
 import ChatHeader from './ChatHeader'
 import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
@@ -21,7 +21,17 @@ const Chat = () => {
     }, [connectToRoom, room?.id])
 
     return (
-        <Box display="flex" flexDirection="column" height="100%">
+        <Box
+            position={'absolute'}
+            right={'10'}
+            bottom={'0'}
+            background={'white'}
+            h={'sm'}
+            flexDirection={'column'}
+            w={'80'}
+            display={appData.chatOpen ? 'flex' : 'none'}
+            borderTopRadius={'8'}
+        >
             <ChatHeader
                 name={appData?.userTarget?.name}
                 photoUrl={

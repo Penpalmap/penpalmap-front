@@ -54,7 +54,14 @@ const ChatMessages = ({ messages }: Props) => {
     }, [messages, session?.user?.id])
 
     return (
-        <Box flex={1} display={'flex'} flexDirection={'column'} p={2}>
+        <Box
+            flex={1}
+            display={'flex'}
+            flexDirection={'column'}
+            p={2}
+            h={'full'}
+            overflowY={'scroll'}
+        >
             {renderMessages}
             <Box ref={messagesEndRef} />
         </Box>

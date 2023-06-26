@@ -7,6 +7,7 @@ export const AppProvider = ({ children }) => {
     const [data, setData] = useState<ContextStateData>({
         userTarget: null,
         conversations: [],
+        chatOpen: false,
     })
 
     return (

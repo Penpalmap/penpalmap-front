@@ -32,6 +32,7 @@ export type MessageInput = {
 export type ContextStateData = {
     userTarget: User | null
     conversations: Array<Conversation> | null
+    chatOpen: boolean
 }
 
 export type Conversation = {
