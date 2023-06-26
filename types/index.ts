@@ -55,6 +55,7 @@ export type User = {
     bio: string
     userImages: Array<UserImage>
     isNewUser: boolean
+    strokeColor: string
 }
 
 export type UserImage = {

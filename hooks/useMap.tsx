@@ -33,10 +33,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     const getUsers = async () => {
         const users = await getUsersInMap()
-        const userwWhithoutMe = users.filter(
-            (user) => user.id !== session?.user?.id
-        )
-        setUsers(userwWhithoutMe)
+        setUsers(users)
     }
 
     // Pour changer le style du curseur quand il survole un user
@@ -147,7 +144,11 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             const { latitude, longitude } = user
             return new Feature({
                 geometry: new Point(fromLonLat([latitude, longitude])),
-                element: user,
+                element: {
+                    ...user,
+                    strokeColor:
+                        user.id === session?.user?.id ? '#9de0fc' : '#FFFFFF',
+                },
             })
         })
 
