@@ -37,7 +37,7 @@ const clusterStyle = function (feature) {
                     radius: 30,
                     crop: true,
                     kind: 'circle',
-                    shadow: 10,
+                    shadow: 5,
                     stroke: new Stroke({
                         color: featureMaxUser?.strokeColor,
                         width: 3,

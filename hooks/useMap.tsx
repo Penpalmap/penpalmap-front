@@ -3,7 +3,7 @@ import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
 import { fromLonLat } from 'ol/proj'
-import { Feature, Map as OLMap } from 'ol'
+import { Feature, Map as OLMap, Overlay } from 'ol'
 import { getUsersInMap } from '../api/userApi'
 import VectorSource from 'ol/source/Vector'
 import Cluster from 'ol/source/Cluster'
@@ -13,6 +13,10 @@ import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { User } from '../types'
+import { createPortal } from 'react-dom'
+import { createRoot } from 'react-dom/client'
+import { Badge, Box, Text } from '@chakra-ui/react'
+import OverlayProfileMap from '../components/Map/OverlayProfileMap'
 
 interface UseMapOptions {
     center: [number, number]
@@ -30,6 +34,9 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const [users, setUsers] = useState<User[]>([])
     const [data, setData] = useContext(AppContext)
     const { data: session } = useSession()
+
+    const overlayRef = useRef<Overlay | null>(null)
+    const overlayContentRef = useRef<HTMLDivElement>(null)
 
     const getUsers = async () => {
         const users = await getUsersInMap()
@@ -77,6 +84,38 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         }
     }
 
+    const closeOverlay = useCallback(() => {
+        if (!mapObj.current || !overlayRef.current) return
+        mapObj.current.removeOverlay(overlayRef.current)
+    }, [])
+
+    const showUserOverlay = useCallback((user: User) => {
+        if (
+            !mapObj.current ||
+            !overlayRef.current ||
+            !overlayContentRef.current
+        )
+            return
+
+        const { latitude, longitude, name } = user
+
+        const coordinate = fromLonLat([latitude, longitude])
+
+        overlayRef.current.setPosition(coordinate)
+
+        createRoot(overlayContentRef.current).render(
+            <OverlayProfileMap user={user} closeOverlay={closeOverlay} />
+        )
+
+        mapObj.current.addOverlay(overlayRef.current)
+
+        return () => {
+            if (mapObj?.current && overlayRef?.current) {
+                mapObj?.current.removeOverlay(overlayRef?.current)
+            }
+        }
+    }, [])
+
     const onClick = useCallback(
         (evt) => {
             if (!mapObj.current) return
@@ -86,13 +125,17 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             )
 
             if (feature) {
+                const user = getUserInCluster(feature)
+
+                if (!user) return
                 setData((data) => ({
                     ...data,
-                    userTarget: getUserInCluster(feature),
+                    userTarget: user,
                 }))
+                showUserOverlay(user)
             }
         },
-        [setData]
+        [setData, showUserOverlay]
     )
 
     // Initialize the map
@@ -153,10 +196,20 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         })
 
         userSource.addFeatures(features)
+        const overlayElement = document.createElement('div')
+        overlayElement.classList.add('user-overlay')
+        overlayContentRef.current = overlayElement
+
+        overlayRef.current = new Overlay({
+            element: overlayElement,
+            positioning: 'bottom-center',
+            offset: [0, -50],
+            stopEvent: false,
+        })
 
         mapObj.current.on('click', onClick)
         mapObj.current.on('pointermove', onPointermove)
-    }, [onClick, onPointermove, users])
+    }, [onClick, onPointermove, session?.user?.id, users])
 
     return { mapObj, mapContainerRef }
 }
