@@ -14,9 +14,14 @@ import { faMessage } from '@fortawesome/free-solid-svg-icons'
 type OverlayProfileMapProps = {
     user: User
     closeOverlay: () => void
+    onOpenChat: (user: User) => void
 }
 
-const OverlayProfileMap = ({ user, closeOverlay }: OverlayProfileMapProps) => {
+const OverlayProfileMap = ({
+    user,
+    closeOverlay,
+    onOpenChat,
+}: OverlayProfileMapProps) => {
     return (
         <Flex
             position={'relative'}
@@ -35,11 +40,14 @@ const OverlayProfileMap = ({ user, closeOverlay }: OverlayProfileMapProps) => {
                 />
             </Flex>
             <Flex flex={'1'} p={'2px 12px'} direction={'column'}>
-                <Text fontSize={'20px'} fontWeight={'bold'}>
-                    {user.name}
-                </Text>
+                <Flex alignItems={'center'}>
+                    <Text fontSize={'20px'} fontWeight={'bold'}>
+                        {user.name}
+                    </Text>
+                    <Text fontSize={'20px'}>, 21</Text>
+                </Flex>
                 <Text>France</Text>
-                <Box background={'#BFFFDD'} w={'80px'} px={'4px'} py={'2px'}>
+                <Box background={'#BFFFDD'} w={'90px'} px={'4px'} py={'2px'}>
                     <Text
                         fontSize={'14px'}
                         textAlign={'center'}
@@ -56,7 +64,11 @@ const OverlayProfileMap = ({ user, closeOverlay }: OverlayProfileMapProps) => {
                 top={'15px'}
                 right={'15px'}
                 aria-label="Chat"
+                padding={'5px'}
+                borderRadius={'4px'}
+                _hover={{ color: '#2b2b2b' }}
                 icon={<FontAwesomeIcon icon={faMessage} />}
+                onClick={() => onOpenChat(user)}
             />
             <CloseButton
                 bg={'#3F3F3F50'}

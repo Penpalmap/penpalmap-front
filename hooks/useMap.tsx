@@ -89,6 +89,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         mapObj.current.removeOverlay(overlayRef.current)
     }, [])
 
+    const onOpenChat = (user: User) => {
+        setData({
+            ...data,
+            chatOpen: true,
+            userTarget: user,
+        })
+    }
+
     const showUserOverlay = useCallback((user: User) => {
         if (
             !mapObj.current ||
@@ -104,7 +112,11 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         overlayRef.current.setPosition(coordinate)
 
         createRoot(overlayContentRef.current).render(
-            <OverlayProfileMap user={user} closeOverlay={closeOverlay} />
+            <OverlayProfileMap
+                user={user}
+                closeOverlay={closeOverlay}
+                onOpenChat={onOpenChat}
+            />
         )
 
         mapObj.current.addOverlay(overlayRef.current)
