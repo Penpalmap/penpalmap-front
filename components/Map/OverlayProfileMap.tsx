@@ -1,6 +1,7 @@
 import {
     Badge,
     Box,
+    Button,
     CloseButton,
     Flex,
     IconButton,
@@ -9,7 +10,13 @@ import {
 } from '@chakra-ui/react'
 import { User } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMessage } from '@fortawesome/free-solid-svg-icons'
+import {
+    faLocationDot,
+    faMapPin,
+    faMessage,
+    faPerson,
+    faUser,
+} from '@fortawesome/free-solid-svg-icons'
 
 type OverlayProfileMapProps = {
     user: User | null
@@ -40,37 +47,77 @@ const OverlayProfileMap = ({
                     borderLeftRadius={'10px'}
                 />
             </Flex>
-            <Flex flex={'1'} p={'2px 12px'} direction={'column'}>
-                <Flex alignItems={'center'}>
-                    <Text fontSize={'20px'} fontWeight={'bold'}>
-                        {user?.name}
-                    </Text>
-                    <Text fontSize={'20px'}>, 21</Text>
+            <Flex
+                flex={'1'}
+                p={'12px'}
+                direction={'column'}
+                justifyContent={'space-between'}
+            >
+                <Box>
+                    <Flex alignItems={'center'}>
+                        <Text
+                            fontSize={'18px'}
+                            fontWeight={'bold'}
+                            textTransform={'capitalize'}
+                        >
+                            {user?.name}
+                        </Text>
+                        <Text fontSize={'18px'}>, 21</Text>
+                    </Flex>
+                    <Flex
+                        alignItems={'center'}
+                        justifyContent={'space-between'}
+                        mb={'3'}
+                    >
+                        <Flex alignItems={'center'} mt={'1'}>
+                            <FontAwesomeIcon
+                                icon={faLocationDot}
+                                color="#595959"
+                            />
+                            <Text fontSize={'sm'} ml={2} color={'#595959'}>
+                                France
+                            </Text>
+                        </Flex>
+                        <Badge colorScheme="green">En ligne</Badge>
+                    </Flex>
+
+                    <Text fontSize={'sm'}>Salut je suis un exemple de Bio</Text>
+                </Box>
+                <Flex justifyContent={'space-between'} gap={'12px'}>
+                    <Button
+                        flex={'2'}
+                        leftIcon={<FontAwesomeIcon icon={faUser} />}
+                        colorScheme="teal"
+                        variant="solid"
+                        fontSize={'12px'}
+                        onClick={() => user && onOpenChat(user)}
+                    >
+                        View profile
+                    </Button>
+                    <IconButton
+                        // position={'absolute'}
+                        // top={'15px'}
+                        // right={'15px'}
+                        flex={'1'}
+                        colorScheme="teal"
+                        aria-label="Chat"
+                        variant={'outline'}
+                        padding={'5px'}
+                        borderRadius={'4px'}
+                        _hover={{ color: '#2b2b2b' }}
+                        icon={<FontAwesomeIcon icon={faMessage} />}
+                        onClick={() => user && onOpenChat(user)}
+                    />
                 </Flex>
-                <Text>France</Text>
-
-                <Badge colorScheme="green">En ligne</Badge>
-
-                <Text fontSize={'14px'}>Salut je suis un exemple de Bio</Text>
             </Flex>
-            <IconButton
-                position={'absolute'}
-                top={'15px'}
-                right={'15px'}
-                aria-label="Chat"
-                padding={'5px'}
-                borderRadius={'4px'}
-                _hover={{ color: '#2b2b2b' }}
-                icon={<FontAwesomeIcon icon={faMessage} />}
-                onClick={() => user && onOpenChat(user)}
-            />
+
             <CloseButton
-                bg={'#3F3F3F50'}
-                color={'#DFDFDF'}
+                // bg={'#3F3F3F50'}
+                color={'gray.800'}
                 padding={'5px'}
                 position={'absolute'}
-                top={'15px'}
-                left={'15px'}
+                top={'5px'}
+                right={'5px'}
                 fontSize={'12px'}
                 borderRadius={'4px'}
                 onClick={closeOverlay}
