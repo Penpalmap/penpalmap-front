@@ -82,7 +82,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     const showUserOverlay = useCallback((user: User) => {
         if (!mapObj.current) return
-        console.log('user', user)
         const { latitude, longitude } = user
 
         const coordinate = fromLonLat([latitude, longitude])

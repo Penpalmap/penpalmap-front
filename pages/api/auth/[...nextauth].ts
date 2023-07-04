@@ -75,7 +75,6 @@ export default NextAuth({
 
                             // User created
                             if (createUser) {
-                                console.log('User created', createUser)
                                 return true
                             }
                         }

@@ -19,10 +19,6 @@ const ConversationList = () => {
 
     const { conversations } = useConversations()
 
-    useEffect(() => {
-        console.log('conversations', conversations)
-    }, [conversations])
-
     const clickOnConversation = (members) => {
         const user = members?.find((member) => member.id !== session?.user?.id)
         if (user) {

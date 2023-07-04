@@ -74,7 +74,6 @@ const useChat = () => {
 
     useEffect(() => {
         socket.on(SocketEvents.NewMessage, (message: Message) => {
-            console.log('New message received', message)
             if (message.senderId !== session?.user?.id) {
                 addMessageToRoom(message)
             }

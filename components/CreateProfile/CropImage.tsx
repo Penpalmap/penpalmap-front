@@ -16,7 +16,6 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
 
     const onCropComplete = useCallback(
         (croppedArea, croppedAreaPixels) => {
-            console.log(croppedArea, croppedAreaPixels)
             setCroppedAreaPixels(croppedAreaPixels)
         },
         [setCroppedAreaPixels]
