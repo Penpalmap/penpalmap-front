@@ -63,7 +63,6 @@ const useChat = () => {
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
-
             refetch()
             socket.emit(SocketEvents.NewMessage, message)
 

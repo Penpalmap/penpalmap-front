@@ -17,6 +17,7 @@ import {
     faPerson,
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
+import { useSession } from 'next-auth/react'
 
 type OverlayProfileMapProps = {
     user: User | null
@@ -29,6 +30,8 @@ const OverlayProfileMap = ({
     closeOverlay,
     onOpenChat,
 }: OverlayProfileMapProps) => {
+    const { data: session } = useSession()
+
     return (
         <Flex
             id="overlay-profile"
@@ -91,13 +94,11 @@ const OverlayProfileMap = ({
                         variant="solid"
                         fontSize={'12px'}
                         onClick={() => user && onOpenChat(user)}
+                        isDisabled={session?.user?.id === user?.id}
                     >
                         View profile
                     </Button>
                     <IconButton
-                        // position={'absolute'}
-                        // top={'15px'}
-                        // right={'15px'}
                         flex={'1'}
                         colorScheme="teal"
                         aria-label="Chat"
@@ -107,6 +108,7 @@ const OverlayProfileMap = ({
                         _hover={{ color: '#2b2b2b' }}
                         icon={<FontAwesomeIcon icon={faMessage} />}
                         onClick={() => user && onOpenChat(user)}
+                        isDisabled={session?.user?.id === user?.id}
                     />
                 </Flex>
             </Flex>
