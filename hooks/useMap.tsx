@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
-import { fromLonLat } from 'ol/proj'
+import { fromLonLat, transformExtent } from 'ol/proj'
 import { Feature, Map as OLMap, Overlay } from 'ol'
 import { getUsersInMap } from '../api/userApi'
 import VectorSource from 'ol/source/Vector'
@@ -13,6 +13,8 @@ import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { User } from '../types'
+import XYZ from 'ol/source/XYZ'
+import Control from 'ol/control/Control'
 
 interface UseMapOptions {
     center: [number, number]
@@ -128,19 +130,39 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     // Initialize the map
     useEffect(() => {
-        if (!mapContainerRef.current) return null
+        if (!mapContainerRef.current || !session?.user) return null
 
         const map = new OLMap({
             target: mapContainerRef.current,
             layers: [
                 new TileLayer({
-                    source: new OSM(),
+                    // source: new OSM(),
+                    preload: Infinity,
+                    zIndex: 0,
+
+                    source: new XYZ({
+                        url: 'https://api.mapbox.com/styles/v1/gabnoire/cjpzpqvr03a5h2sqidpht5qhm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Fibm9pcmUiLCJhIjoiY2p0ZmhtYTVvMDVqcDQzb2NiYXY1YW4xMyJ9.9AquqYCdPTiPiDNmh7dMhQ',
+                        crossOrigin: 'anonymous',
+                    }),
                 }),
             ],
             view: new View({
-                center: [0, 0],
-                zoom: 2,
+                center: fromLonLat([
+                    session?.user?.latitude,
+                    session?.user?.longitude,
+                ]),
+                zoom: 4.5,
+                minZoom: 3.5,
+                maxZoom: 9,
+                extent: transformExtent(
+                    [-999.453125, -58.813742, 999.453125, 70.004962],
+                    'EPSG:4326',
+                    'EPSG:3857'
+                ),
             }),
+
+            //     controls: attribution : false,
+            //   zoom : false,
         })
 
         getUsers()
@@ -150,7 +172,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         return () => {
             map.setTarget(null)
         }
-    }, [])
+    }, [session?.user])
 
     // Add users to the map
     useEffect(() => {
