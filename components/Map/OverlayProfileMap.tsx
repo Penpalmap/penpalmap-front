@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMessage } from '@fortawesome/free-solid-svg-icons'
 
 type OverlayProfileMapProps = {
-    user: User
+    user: User | null
     closeOverlay: () => void
     onOpenChat: (user: User) => void
 }
@@ -24,6 +24,7 @@ const OverlayProfileMap = ({
 }: OverlayProfileMapProps) => {
     return (
         <Flex
+            id="overlay-profile"
             position={'relative'}
             bg="white"
             boxShadow="md"
@@ -33,29 +34,22 @@ const OverlayProfileMap = ({
         >
             <Flex flex={'1'} w="200px" h="200px">
                 <Image
-                    src={user.image}
+                    src={user?.image}
                     w={'100%'}
-                    alt={user.name}
+                    alt={user?.name}
                     borderLeftRadius={'10px'}
                 />
             </Flex>
             <Flex flex={'1'} p={'2px 12px'} direction={'column'}>
                 <Flex alignItems={'center'}>
                     <Text fontSize={'20px'} fontWeight={'bold'}>
-                        {user.name}
+                        {user?.name}
                     </Text>
                     <Text fontSize={'20px'}>, 21</Text>
                 </Flex>
                 <Text>France</Text>
-                <Box background={'#BFFFDD'} w={'90px'} px={'4px'} py={'2px'}>
-                    <Text
-                        fontSize={'14px'}
-                        textAlign={'center'}
-                        textTransform={'uppercase'}
-                    >
-                        En ligne
-                    </Text>
-                </Box>
+
+                <Badge colorScheme="green">En ligne</Badge>
 
                 <Text fontSize={'14px'}>Salut je suis un exemple de Bio</Text>
             </Flex>
@@ -68,7 +62,7 @@ const OverlayProfileMap = ({
                 borderRadius={'4px'}
                 _hover={{ color: '#2b2b2b' }}
                 icon={<FontAwesomeIcon icon={faMessage} />}
-                onClick={() => onOpenChat(user)}
+                onClick={() => user && onOpenChat(user)}
             />
             <CloseButton
                 bg={'#3F3F3F50'}

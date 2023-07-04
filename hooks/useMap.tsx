@@ -13,10 +13,6 @@ import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { User } from '../types'
-import { createPortal } from 'react-dom'
-import { createRoot } from 'react-dom/client'
-import { Badge, Box, Text } from '@chakra-ui/react'
-import OverlayProfileMap from '../components/Map/OverlayProfileMap'
 
 interface UseMapOptions {
     center: [number, number]
@@ -26,6 +22,7 @@ interface UseMapOptions {
 interface UseMapResult {
     mapObj: React.RefObject<OLMap>
     mapContainerRef: React.RefObject<HTMLDivElement>
+    overlayRef: Overlay | null
 }
 
 const useMap = ({}: UseMapOptions): UseMapResult => {
@@ -36,7 +33,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const { data: session } = useSession()
 
     const overlayRef = useRef<Overlay | null>(null)
-    const overlayContentRef = useRef<HTMLDivElement>(null)
 
     const getUsers = async () => {
         const users = await getUsersInMap()
@@ -84,40 +80,21 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         }
     }
 
-    const closeOverlay = useCallback(() => {
-        if (!mapObj.current || !overlayRef.current) return
-        mapObj.current.removeOverlay(overlayRef.current)
-    }, [])
-
-    const onOpenChat = (user: User) => {
-        setData({
-            ...data,
-            chatOpen: true,
-            userTarget: user,
-        })
-    }
-
     const showUserOverlay = useCallback((user: User) => {
-        if (
-            !mapObj.current ||
-            !overlayRef.current ||
-            !overlayContentRef.current
-        )
-            return
-
-        const { latitude, longitude, name } = user
+        if (!mapObj.current) return
+        console.log('user', user)
+        const { latitude, longitude } = user
 
         const coordinate = fromLonLat([latitude, longitude])
 
-        overlayRef.current.setPosition(coordinate)
+        overlayRef.current = new Overlay({
+            element: document.getElementById('overlay-profile') as HTMLElement,
+            positioning: 'bottom-center',
+            offset: [0, -50],
+            stopEvent: true,
+        })
 
-        createRoot(overlayContentRef.current).render(
-            <OverlayProfileMap
-                user={user}
-                closeOverlay={closeOverlay}
-                onOpenChat={onOpenChat}
-            />
-        )
+        overlayRef.current.setPosition(coordinate)
 
         mapObj.current.addOverlay(overlayRef.current)
 
@@ -208,22 +185,12 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         })
 
         userSource.addFeatures(features)
-        const overlayElement = document.createElement('div')
-        overlayElement.classList.add('user-overlay')
-        overlayContentRef.current = overlayElement
-
-        overlayRef.current = new Overlay({
-            element: overlayElement,
-            positioning: 'bottom-center',
-            offset: [0, -50],
-            stopEvent: false,
-        })
 
         mapObj.current.on('click', onClick)
         mapObj.current.on('pointermove', onPointermove)
     }, [onClick, onPointermove, session?.user?.id, users])
 
-    return { mapObj, mapContainerRef }
+    return { mapObj, mapContainerRef, overlayRef: overlayRef.current }
 }
 
 export default useMap
