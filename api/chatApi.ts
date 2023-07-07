@@ -41,7 +41,7 @@ const getRoomOfTwoUsers = async (
     }
 }
 
-const updateMessage = async (messageId: string, message: any) => {
+const updateMessage = async (messageId: string, message: Message) => {
     try {
         const response = await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/api/messages/${messageId}`,
@@ -54,4 +54,22 @@ const updateMessage = async (messageId: string, message: any) => {
     }
 }
 
-export { createMessage, getMessages, getRoomOfTwoUsers, updateMessage }
+const updateMessageIsReadByRoom = async (roomId: string, userId: string) => {
+    try {
+        const response = await axios.put(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${roomId}/messages/users/${userId}/read`
+        )
+
+        return response.data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export {
+    createMessage,
+    getMessages,
+    getRoomOfTwoUsers,
+    updateMessage,
+    updateMessageIsReadByRoom,
+}

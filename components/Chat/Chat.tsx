@@ -15,10 +15,10 @@ const Chat = () => {
     const { room, connectToRoom, disconnectFromRoom, sendMessage } = useChat()
 
     useEffect(() => {
-        if (room?.id) {
-            connectToRoom(room?.id)
-        }
-    }, [connectToRoom, room?.id])
+        appData?.conversations.forEach((conversation) => {
+            connectToRoom(conversation.id)
+        })
+    }, [appData?.conversations, connectToRoom])
 
     return (
         <Box

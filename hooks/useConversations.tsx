@@ -12,10 +12,10 @@ const useConversations = () => {
 
     const fetchConversations = useCallback(async () => {
         if (session?.user?.id) {
-            const { rooms } = await getConversations(session?.user?.id)
+            const conversationsData = await getConversations(session?.user?.id)
             setData((prevData) => ({
                 ...prevData,
-                conversations: rooms,
+                conversations: conversationsData?.rooms,
             }))
         }
     }, [session?.user?.id, setData])

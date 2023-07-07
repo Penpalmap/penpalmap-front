@@ -12,21 +12,37 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from '../../context/AppContext'
 import useConversations from '../../hooks/useConversations'
 import { useSession } from 'next-auth/react'
+import { updateMessageIsReadByRoom } from '../../api/chatApi'
 
 const ConversationList = () => {
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
-
     const { conversations } = useConversations()
 
-    const clickOnConversation = (members) => {
+    const clickOnConversation = async (members) => {
         const user = members?.find((member) => member.id !== session?.user?.id)
         if (user) {
-            setAppData({
-                ...appData,
-                userTarget: user,
-                chatOpen: true,
-            })
+            const room = conversations.find((conversation) =>
+                conversation.members.includes(user)
+            )
+            if (room) {
+                setAppData({
+                    ...appData,
+                    userTarget: user,
+                    chatOpen: true,
+                    conversations: conversations.map((conversation) => {
+                        if (conversation.id === room.id) {
+                            return {
+                                ...conversation,
+                                countUnreadMessages: 0,
+                            }
+                        }
+                        return conversation
+                    }),
+                })
+
+                await updateMessageIsReadByRoom(room.id, user.id)
+            }
         }
     }
 
@@ -69,10 +85,10 @@ const ConversationList = () => {
                         {conversation.countUnreadMessages > 0 && (
                             <AvatarBadge
                                 borderColor="papayawhip"
-                                bg="tomato"
+                                bg="red.400"
                                 boxSize="1.2em"
                             >
-                                <Text fontSize={'xs'} color={'white'}>
+                                <Text fontSize={'x-small'} color={'white'}>
                                     {conversation.countUnreadMessages}
                                 </Text>
                             </AvatarBadge>
