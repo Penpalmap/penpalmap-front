@@ -3,14 +3,12 @@ import { useForm } from 'react-hook-form'
 import { MessageInput, Room } from '../../types'
 import { useContext, useEffect } from 'react'
 import { AppContext } from '../../context/AppContext'
-import { Socket } from 'socket.io-client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
     room: Room | null
     senderId: string
-    socket: Socket | null
     sendMessage: (data: MessageInput) => void
 }
 

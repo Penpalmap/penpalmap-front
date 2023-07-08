@@ -11,14 +11,8 @@ import { useContext, useEffect, useState } from 'react'
 const Chat = () => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
-    const [socket, setSocket] = useState<Socket | null>(null)
-    const { room, connectToRoom, disconnectFromRoom, sendMessage } = useChat()
-
-    useEffect(() => {
-        appData?.conversations.forEach((conversation) => {
-            connectToRoom(conversation.id)
-        })
-    }, [appData?.conversations, connectToRoom])
+    const [socket] = useState<Socket | null>(null)
+    const { room, connectToRoom, sendMessage } = useChat()
 
     return (
         <Box

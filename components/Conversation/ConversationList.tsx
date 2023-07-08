@@ -13,6 +13,12 @@ import { AppContext } from '../../context/AppContext'
 import useConversations from '../../hooks/useConversations'
 import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
+import {
+    connectToSocketServer,
+    joinRoom,
+    leaveRoom,
+    onNewMessage,
+} from '../../sockets/socketManager'
 
 const ConversationList = () => {
     const { data: session } = useSession()
@@ -45,6 +51,53 @@ const ConversationList = () => {
             }
         }
     }
+
+    useEffect(() => {
+        conversations.forEach((conversation) => {
+            console.log('join room', conversation)
+            joinRoom(conversation.id)
+        })
+
+        return () => {
+            // Se désabonner des rooms lors du démontage du composant
+            conversations.forEach((conversation) => {
+                leaveRoom(conversation.id)
+            })
+        }
+    }, [conversations])
+
+    useEffect(() => {
+        onNewMessage((message) => {
+            if (message.senderId !== session?.user?.id) {
+                setAppData({
+                    ...appData,
+                    conversations: conversations.map((conversation) => {
+                        if (conversation.UserRoom.roomId === message.roomId) {
+                            if (
+                                conversation.countUnreadMessages ===
+                                    undefined ||
+                                conversation.countUnreadMessages === null
+                            ) {
+                                return {
+                                    ...conversation,
+                                    countUnreadMessages: 1,
+                                }
+                            } else {
+                                return {
+                                    ...conversation,
+                                    countUnreadMessages:
+                                        parseInt(
+                                            conversation.countUnreadMessages
+                                        ) + 1,
+                                }
+                            }
+                        }
+                        return conversation
+                    }),
+                })
+            }
+        })
+    }, [appData, conversations, session?.user?.id, setAppData])
 
     return (
         <VStack

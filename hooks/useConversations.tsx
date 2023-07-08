@@ -1,14 +1,21 @@
 import { getConversations } from '../api/conversationApi'
 import { AppContext } from '../context/AppContext'
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { Conversation } from '../types'
 
 const useConversations = () => {
     const [data, setData] = useContext(AppContext)
 
-    const { conversations } = data
+    const [conversations, setConversations] = useState<Conversation[]>([])
 
     const { data: session } = useSession()
+
+    useEffect(() => {
+        if (data.conversations) {
+            setConversations(data.conversations)
+        }
+    }, [data.conversations])
 
     const fetchConversations = useCallback(async () => {
         if (session?.user?.id) {

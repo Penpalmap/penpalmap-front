@@ -20,6 +20,7 @@ export type Message = {
     roomId: string
     room: Room
     createdAt: string
+    isNewRoom: boolean
 }
 
 export type MessageInput = {
@@ -36,10 +37,18 @@ export type ContextStateData = {
 }
 
 export type Conversation = {
-    room_id: string
+    roomId: string
     members: Array<User>
     lastMessage: any
-    countUnreadMessages: number
+    countUnreadMessages: string
+    UserRoom: UserRoom
+}
+
+export type UserRoom = {
+    createdAt: string
+    roomId: string
+    updatedAt: string
+    userId: string
 }
 
 export type User = {

@@ -1,11 +1,16 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import socket from '../utils/socket'
 import { SocketEvents } from '../constants/socketEnum'
 import { Message, MessageInput, Room } from '../types'
 import { useSession } from 'next-auth/react'
 import { createMessage, getRoomOfTwoUsers } from '../api/chatApi'
 import useConversations from './useConversations'
 import { AppContext } from '../context/AppContext'
+import {
+    leaveRoom,
+    onNewMessage,
+    sendMessageSocket,
+    socket,
+} from '../sockets/socketManager'
 
 const useChat = () => {
     const [room, setRoom] = useState<Room | null>(null)
@@ -35,7 +40,7 @@ const useChat = () => {
     }, [])
 
     const disconnectFromRoom = useCallback((roomId: string) => {
-        socket.emit(SocketEvents.LeaveRoom, roomId)
+        leaveRoom(roomId)
         socket.disconnect()
     }, [])
 
@@ -63,16 +68,19 @@ const useChat = () => {
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
-            refetch()
-            socket.emit(SocketEvents.NewMessage, message)
+            if (newMessage.isNewRoom) {
+                refetch()
+            }
+            console.log('message', message)
 
+            sendMessageSocket(newMessage)
             addMessageToRoom(newMessage)
         },
         [addMessageToRoom, refetch]
     )
 
     useEffect(() => {
-        socket.on(SocketEvents.NewMessage, (message: Message) => {
+        onNewMessage((message) => {
             if (message.senderId !== session?.user?.id) {
                 addMessageToRoom(message)
             }
