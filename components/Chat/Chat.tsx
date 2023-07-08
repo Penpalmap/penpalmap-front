@@ -45,7 +45,6 @@ const Chat = () => {
             {session?.user?.id && (
                 <ChatInput
                     room={room}
-                    socket={socket}
                     senderId={session?.user?.id}
                     sendMessage={sendMessage}
                 />
