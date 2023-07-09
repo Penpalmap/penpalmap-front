@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
 import { Message } from '../types'
 
-export const socket = io(process.env.NEXT_PUBLIC_API_URL)
+export const socket = io(process.env.NEXT_PUBLIC_API_URL as string)
 
 export const connectToSocketServer = () => {
     // Se connecter au serveur WebSocket

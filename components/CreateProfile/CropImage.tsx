@@ -1,5 +1,5 @@
 import { Box, Button } from '@chakra-ui/react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import Cropper from 'react-easy-crop'
 import getCroppedImg from '../../utils/cropImageFunctions'
 
@@ -15,7 +15,7 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
 
     const onCropComplete = useCallback(
-        (croppedArea, croppedAreaPixels) => {
+        (croppedAreaPixels) => {
             setCroppedAreaPixels(croppedAreaPixels)
         },
         [setCroppedAreaPixels]

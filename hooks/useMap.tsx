@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
 import { fromLonLat, transformExtent } from 'ol/proj'
 import { Feature, Map as OLMap, Overlay } from 'ol'
 import { getUsersInMap } from '../api/userApi'
@@ -14,7 +13,6 @@ import { AppContext } from '../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { User } from '../types'
 import XYZ from 'ol/source/XYZ'
-import Control from 'ol/control/Control'
 
 interface UseMapOptions {
     center: [number, number]
@@ -31,7 +29,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapContainerRef = useRef<HTMLDivElement>(null)
     const mapObj = useRef<OLMap | null>(null)
     const [users, setUsers] = useState<User[]>([])
-    const [data, setData] = useContext(AppContext)
+    const [, setData] = useContext(AppContext)
     const { data: session } = useSession()
 
     const overlayRef = useRef<Overlay | null>(null)
@@ -47,19 +45,20 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         if (!mapObj.current) return
         const pixel = mapObj.current.getEventPixel(e.originalEvent)
         const hit = mapObj.current.hasFeatureAtPixel(pixel)
-        mapObj.current.getTarget().style.cursor = hit ? 'pointer' : ''
+        const target = mapObj.current.getTarget() as HTMLElement
+        target.style.cursor = hit ? 'pointer' : ''
     }, [])
 
     const getUserInCluster = (feature) => {
+        let user = null
+
         // Verifie si ce n'est pas l'utilisateur connecté
         if (feature.get('features')) {
             const size = feature.get('features').length
 
-            let user = null
-
             // Cluster de plusieurs personnes
             if (size > 1) {
-                let max = null
+                let max = 0
                 for (let I = 0; I < size; I++) {
                     if (
                         parseInt(
@@ -77,9 +76,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             else {
                 user = feature.get('features')[0].get('element')
             }
-
-            return user
         }
+        return user
     }
 
     const showUserOverlay = useCallback((user: User) => {
@@ -130,7 +128,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     // Initialize the map
     useEffect(() => {
-        if (!mapContainerRef.current || !session?.user) return null
+        if (!mapContainerRef.current || !session?.user) return undefined
 
         const map = new OLMap({
             target: mapContainerRef.current,
@@ -170,13 +168,13 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         mapObj.current = map
 
         return () => {
-            map.setTarget(null)
+            map.setTarget(undefined)
         }
     }, [session?.user])
 
     // Add users to the map
     useEffect(() => {
-        if (!mapObj.current) return null
+        if (!mapObj.current) return undefined
 
         const userSource = new VectorSource()
 
@@ -209,6 +207,12 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         mapObj.current.on('click', onClick)
         mapObj.current.on('pointermove', onPointermove)
+
+        return () => {
+            mapObj.current?.removeLayer(userLayer)
+            mapObj.current?.un('click', onClick)
+            mapObj.current?.un('pointermove', onPointermove)
+        }
     }, [onClick, onPointermove, session?.user?.id, users])
 
     return { mapObj, mapContainerRef, overlayRef: overlayRef.current }

@@ -12,9 +12,7 @@ import { User } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faLocationDot,
-    faMapPin,
     faMessage,
-    faPerson,
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSession } from 'next-auth/react'

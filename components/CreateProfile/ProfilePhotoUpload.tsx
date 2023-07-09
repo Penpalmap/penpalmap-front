@@ -1,4 +1,4 @@
-import { Box, HStack, Image, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, HStack, Image, useDisclosure } from '@chakra-ui/react'
 import { useState } from 'react'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
@@ -17,7 +17,8 @@ const ProfileUploadPhoto = () => {
     const handleImageUpload = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        const file = event.target.files[0]
+        const file = event?.target?.files?.[0]
+        if (!file) return
         setSelectedImage(file)
         onOpen()
     }
@@ -26,8 +27,10 @@ const ProfileUploadPhoto = () => {
         setCroppedImages((prevImages) => [...prevImages, croppedImage])
 
         const position = croppedImages.length
-        uploadImage(croppedImage, position, session?.user?.id)
-        onClose()
+        if (session?.user?.id) {
+            uploadImage(croppedImage, position, session?.user?.id)
+            onClose()
+        }
     }
 
     const clickOnBtn = (index: number) => {

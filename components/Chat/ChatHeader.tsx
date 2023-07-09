@@ -5,7 +5,6 @@ import {
     CloseButton,
     Divider,
     Flex,
-    Image,
     Text,
 } from '@chakra-ui/react'
 import { useContext } from 'react'

@@ -20,7 +20,8 @@ type Props = {
 
 const ProfileLocationInput = (props: Props) => {
     const { setValue } = props
-    const mapRef = useRef<Map>(null)
+    const mapRef = useRef<Map | null>(null)
+
     const ref = useRef<HTMLDivElement>(null)
     const markerRef = useRef<HTMLDivElement>(null)
     const [showMarker, setShowMarker] = useState(false)
@@ -41,23 +42,26 @@ const ProfileLocationInput = (props: Props) => {
             })
 
             const handleClicked = (e: any) => {
-                const coordinates = mapRef.current.getCoordinateFromPixel(
+                const coordinates = mapRef?.current?.getCoordinateFromPixel(
                     e.pixel
                 )
+
+                if (!coordinates) return
                 const transformedCoordinates = transform(
                     coordinates,
                     'EPSG:3857',
                     'EPSG:4326'
                 )
 
-                const marker = new Overlay({
-                    position: coordinates,
-                    element: markerRef.current,
-                    positioning: 'bottom-center',
-                    stopEvent: false,
-                })
-
-                mapRef?.current?.addOverlay(marker)
+                if (markerRef.current) {
+                    const marker = new Overlay({
+                        position: coordinates,
+                        element: markerRef.current,
+                        positioning: 'bottom-center',
+                        stopEvent: false,
+                    })
+                    mapRef?.current?.addOverlay(marker)
+                }
 
                 if (
                     setValue &&

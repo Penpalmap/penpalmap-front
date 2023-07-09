@@ -1,18 +1,8 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
-import { fromLonLat } from 'ol/proj'
-import { Feature, Map as OLMap } from 'ol'
-import { getUsersInMap } from '../api/userApi'
-import VectorSource from 'ol/source/Vector'
-import Cluster from 'ol/source/Cluster'
-import VectorLayer from 'ol/layer/Vector'
-import { Point } from 'ol/geom'
-import clusterStyle from '../styles/openlayer/ClusterStyle'
-import { AppContext } from '../context/AppContext'
-import { useSession } from 'next-auth/react'
-import { User } from '../types'
+import { Map as OLMap } from 'ol'
 
 interface UseMapOptions {
     center: [number, number]
@@ -30,7 +20,7 @@ const useMapConnexion = ({}: UseMapOptions): UseMapConnexionResult => {
 
     // Initialize the map
     useEffect(() => {
-        if (!mapContainerRef.current) return null
+        if (!mapContainerRef.current) return undefined
 
         const map = new OLMap({
             target: mapContainerRef.current,

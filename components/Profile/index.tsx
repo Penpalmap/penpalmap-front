@@ -1,17 +1,13 @@
 import {
     Box,
     ButtonGroup,
-    CheckboxIcon,
     Circle,
-    CloseButton,
     Editable,
     EditableInput,
     EditablePreview,
     Flex,
     FormControl,
     FormLabel,
-    HStack,
-    Heading,
     IconButton,
     Image,
     Input,
@@ -27,7 +23,7 @@ import {
 import { useMemo, useRef, useState } from 'react'
 import { deleteProfileImage } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
-import { Profile, UserImage } from '../../types'
+import { UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCheck,
@@ -43,8 +39,14 @@ type Props = {
     onClose: () => void
 }
 
+type Profile = {
+    images: Array<UserImage | null>
+}
+
 const Profile = ({ isOpen, onClose }: Props) => {
-    const [profile, setProfile] = useState({} as Profile)
+    const [profile, setProfile] = useState<Profile>({
+        images: [null, null, null, null],
+    })
     const { data: session, update: updateSession } = useSession()
     const { uploadImage } = useUploadUserImage()
 
@@ -90,7 +92,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
         ) => {
             const file = e.target?.files?.[0]
 
-            if (file) {
+            if (file && session?.user?.id) {
                 uploadImage(
                     file,
                     session?.user?.userImages?.length,
@@ -103,22 +105,19 @@ const Profile = ({ isOpen, onClose }: Props) => {
 
         const handleDeleteImage = async (position: number) => {
             const images = [...profile.images]
-            images[position].src = null
+            images[position] = null
 
-            await deleteProfileImage(position, session?.user.id)
-            setProfile({
-                ...profile,
-                images,
-            })
+            if (session?.user?.id) {
+                await deleteProfileImage(position, session?.user.id)
+                setProfile({
+                    ...profile,
+                    images,
+                })
+            }
         }
 
         return (
             <>
-                <Box mb={4}>
-                    <Text fontSize={'2xl'} fontWeight={'bold'}>
-                        {profile?.name}
-                    </Text>
-                </Box>
                 <Box mb={4}>
                     <Text fontWeight={'semibold'} fontSize={'lg'}>
                         Photos
@@ -159,7 +158,7 @@ const Profile = ({ isOpen, onClose }: Props) => {
                                                 cursor="pointer"
                                                 onClick={() =>
                                                     handleDeleteImage(
-                                                        image.userId
+                                                        image.position
                                                     )
                                                 }
                                                 boxShadow="dark-lg"

@@ -3,6 +3,7 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { getUserByEmail, getUserByGoogleId } from '../../../api/userApi'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { User } from '../../../types'
 
 export default NextAuth({
     secret: process.env.NEXT_PUBLIC_JWT_SECRET,
@@ -33,14 +34,18 @@ export default NextAuth({
             },
         }),
         GoogleProvider({
-            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_ID,
+            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
+            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_ID || '',
         }),
     ],
     callbacks: {
         async session({ session, token }) {
-            const userInfos = await getUserByEmail(token.email)
-            session.user = userInfos
+            let userInfos: User | null = null
+
+            if (token.email && session) {
+                userInfos = await getUserByEmail(token.email)
+                session.user = userInfos
+            }
 
             return session
         },
@@ -92,6 +97,5 @@ export default NextAuth({
     },
     pages: {
         signIn: '/auth/signin',
-        // newUser: '/create-profile',
     },
 })

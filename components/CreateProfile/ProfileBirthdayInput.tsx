@@ -1,4 +1,4 @@
-import { Box, Input } from '@chakra-ui/react'
+import { Input } from '@chakra-ui/react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 

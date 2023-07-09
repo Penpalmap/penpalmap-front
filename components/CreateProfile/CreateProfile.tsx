@@ -1,4 +1,4 @@
-import { Box, useSteps } from '@chakra-ui/react'
+import { useSteps } from '@chakra-ui/react'
 import { useEffect, useMemo } from 'react'
 import { ProfileFormData } from '../../types'
 import { useForm } from 'react-hook-form'
@@ -46,6 +46,7 @@ const CreateProfile = () => {
     }, [router, session, status])
 
     const onSubmit = async (data: ProfileFormData) => {
+        if (!session?.user.id) return
         await updateUser(
             {
                 isNewUser: false,

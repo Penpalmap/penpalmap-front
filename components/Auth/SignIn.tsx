@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import GoogleLoginButton from './GoogleLoginButton'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import MapConnexion from '../Map/MapConnexion'
@@ -44,7 +44,7 @@ const SignIn = () => {
             })
 
             // If the response is successful, redirect to the profile page
-            if (responseSignin.ok) {
+            if (responseSignin?.ok) {
                 router.push('/')
             } else {
                 // Display the error message on the form

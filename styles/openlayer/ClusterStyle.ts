@@ -16,6 +16,7 @@ const clusterStyle = function (feature) {
             if (
                 parseInt(feature.get('features')[I].get('element').points) ===
                     0 ||
+                max === null ||
                 feature.get('features')[I].get('element').points > max
             ) {
                 max = feature.get('features')[I].get('element').points
@@ -23,8 +24,11 @@ const clusterStyle = function (feature) {
             }
         }
 
+        if (!featureMaxUser) {
+            return null
+        }
         const uid = featureMaxUser?.id
-        let style = styleCache[uid]
+        let style: Style = styleCache[uid]
 
         if (!style) {
             const photo = featureMaxUser?.image
