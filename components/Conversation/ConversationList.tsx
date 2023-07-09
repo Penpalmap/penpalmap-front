@@ -50,12 +50,25 @@ const ConversationList = () => {
             position={'absolute'}
             left={0}
             zIndex={1}
-            px={4}
             bg={'white'}
             h={'full'}
+            px={2}
             gap={2}
-            width={'20'}
-            overflowY={'scroll'}
+            overflowY={'auto'}
+            background={'whiteAlpha.600'}
+            backdropFilter={'blur(4px)'}
+            sx={{
+                '&::-webkit-scrollbar': {
+                    width: '4px',
+                },
+                '&::-webkit-scrollbar-track': {
+                    width: '6px',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: 'gray.300',
+                    borderRadius: '24px',
+                },
+            }}
         >
             <Box my={2}>
                 <FontAwesomeIcon icon={faBars} />
@@ -78,6 +91,8 @@ const ConversationList = () => {
                         size={'md'}
                         onClick={() => clickOnConversation(room.members)}
                         cursor={'pointer'}
+                        borderWidth={'thin'}
+                        borderColor={'white'}
                     >
                         {parseInt(room.countUnreadMessages) > 0 && (
                             <AvatarBadge
