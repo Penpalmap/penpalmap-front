@@ -3,7 +3,7 @@ import { SocketEvents } from '../constants/socketEnum'
 import { Message, MessageInput, Room } from '../types'
 import { useSession } from 'next-auth/react'
 import { createMessage, getRoomOfTwoUsers } from '../api/chatApi'
-import useConversations from './useConversations'
+import useRooms from './useRooms'
 import { AppContext } from '../context/AppContext'
 import {
     leaveRoom,
@@ -11,11 +11,12 @@ import {
     sendMessageSocket,
     socket,
 } from '../sockets/socketManager'
+import dayjs from 'dayjs'
 
 const useChat = () => {
     const [room, setRoom] = useState<Room | null>(null)
     const { data: session } = useSession()
-    const { refetch } = useConversations()
+    const { refetch } = useRooms()
     const [appData] = useContext(AppContext)
 
     useEffect(() => {
@@ -58,6 +59,10 @@ const useChat = () => {
                     id: message.roomId,
                     members: [],
                     messages: [message],
+                    countUnreadMessages: '0',
+                    createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+                    updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+                    UserRoom: null,
                 }
 
                 return newRoom

@@ -32,16 +32,8 @@ export type MessageInput = {
 
 export type ContextStateData = {
     userTarget: User | null
-    conversations: Array<Conversation> | null
+    rooms: Array<Room> | null
     chatOpen: boolean
-}
-
-export type Conversation = {
-    roomId: string
-    members: Array<User>
-    lastMessage: any
-    countUnreadMessages: string
-    UserRoom: UserRoom
 }
 
 export type UserRoom = {
@@ -78,4 +70,8 @@ export type Room = {
     id: string
     members: Array<User>
     messages: Array<Message>
+    UserRoom: UserRoom | null
+    createdAt: string
+    updatedAt: string
+    countUnreadMessages: string
 }

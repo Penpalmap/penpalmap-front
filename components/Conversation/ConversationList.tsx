@@ -10,40 +10,33 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from '../../context/AppContext'
-import useConversations from '../../hooks/useConversations'
 import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
-import {
-    connectToSocketServer,
-    joinRoom,
-    leaveRoom,
-    onNewMessage,
-} from '../../sockets/socketManager'
+import useRooms from '../../hooks/useRooms'
 
 const ConversationList = () => {
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
-    const { conversations } = useConversations()
+    const { rooms } = useRooms()
 
+    //  TODO : mettre dans le hook useConversations
     const clickOnConversation = async (members) => {
         const user = members?.find((member) => member.id !== session?.user?.id)
         if (user) {
-            const room = conversations.find((conversation) =>
-                conversation.members.includes(user)
-            )
+            const room = rooms.find((room) => room.members.includes(user))
             if (room) {
                 setAppData({
                     ...appData,
                     userTarget: user,
                     chatOpen: true,
-                    conversations: conversations.map((conversation) => {
-                        if (conversation.id === room.id) {
+                    rooms: rooms.map((room) => {
+                        if (room.id === room.id) {
                             return {
-                                ...conversation,
-                                countUnreadMessages: 0,
+                                ...room,
+                                countUnreadMessages: '0',
                             }
                         }
-                        return conversation
+                        return room
                     }),
                 })
 
@@ -51,53 +44,6 @@ const ConversationList = () => {
             }
         }
     }
-
-    useEffect(() => {
-        conversations.forEach((conversation) => {
-            console.log('join room', conversation)
-            joinRoom(conversation.id)
-        })
-
-        return () => {
-            // Se désabonner des rooms lors du démontage du composant
-            conversations.forEach((conversation) => {
-                leaveRoom(conversation.id)
-            })
-        }
-    }, [conversations])
-
-    useEffect(() => {
-        onNewMessage((message) => {
-            if (message.senderId !== session?.user?.id) {
-                setAppData({
-                    ...appData,
-                    conversations: conversations.map((conversation) => {
-                        if (conversation.UserRoom.roomId === message.roomId) {
-                            if (
-                                conversation.countUnreadMessages ===
-                                    undefined ||
-                                conversation.countUnreadMessages === null
-                            ) {
-                                return {
-                                    ...conversation,
-                                    countUnreadMessages: 1,
-                                }
-                            } else {
-                                return {
-                                    ...conversation,
-                                    countUnreadMessages:
-                                        parseInt(
-                                            conversation.countUnreadMessages
-                                        ) + 1,
-                                }
-                            }
-                        }
-                        return conversation
-                    }),
-                })
-            }
-        })
-    }, [appData, conversations, session?.user?.id, setAppData])
 
     return (
         <VStack
@@ -115,34 +61,32 @@ const ConversationList = () => {
                 <FontAwesomeIcon icon={faBars} />
             </Box>
             <Divider />
-            {conversations.map((conversation, index) => {
+            {rooms.map((room, index) => {
                 return (
                     <Avatar
                         key={index}
                         src={
-                            conversation?.members?.find(
+                            room?.members?.find(
                                 (member) => member.id !== session?.user?.id
                             )?.image
                         }
                         name={
-                            conversation?.members?.find(
+                            room?.members?.find(
                                 (member) => member.id !== session?.user?.id
                             )?.name
                         }
                         size={'md'}
-                        onClick={() =>
-                            clickOnConversation(conversation.members)
-                        }
+                        onClick={() => clickOnConversation(room.members)}
                         cursor={'pointer'}
                     >
-                        {conversation.countUnreadMessages > 0 && (
+                        {parseInt(room.countUnreadMessages) > 0 && (
                             <AvatarBadge
                                 borderColor="papayawhip"
                                 bg="red.400"
                                 boxSize="1.2em"
                             >
                                 <Text fontSize={'x-small'} color={'white'}>
-                                    {conversation.countUnreadMessages}
+                                    {room.countUnreadMessages}
                                 </Text>
                             </AvatarBadge>
                         )}

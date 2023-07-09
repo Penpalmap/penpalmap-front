@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { Conversation } from '../types'
+import { Room } from '../types'
 
 type ConversationResponse = {
-    rooms: Array<Conversation>
+    rooms: Array<Room>
 }
 
-const getConversations = async (
+const getRooms = async (
     userId: string
 ): Promise<ConversationResponse | null> => {
     try {
@@ -19,4 +19,4 @@ const getConversations = async (
     }
 }
 
-export { getConversations }
+export { getRooms }
