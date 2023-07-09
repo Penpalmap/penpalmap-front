@@ -34,6 +34,7 @@ export type ContextStateData = {
     userTarget: User | null
     rooms: Array<Room> | null
     chatOpen: boolean
+    userChat: User | null
 }
 
 export type UserRoom = {

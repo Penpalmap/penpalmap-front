@@ -27,7 +27,7 @@ const ConversationList = () => {
             if (room) {
                 setAppData({
                     ...appData,
-                    userTarget: user,
+                    userChat: user,
                     chatOpen: true,
                     rooms: rooms.map((room) => {
                         if (room.id === room.id) {
@@ -91,7 +91,7 @@ const ConversationList = () => {
                         size={'md'}
                         onClick={() => clickOnConversation(room.members)}
                         cursor={'pointer'}
-                        borderWidth={'thin'}
+                        borderWidth={'medium'}
                         borderColor={'white'}
                     >
                         {parseInt(room.countUnreadMessages) > 0 && (

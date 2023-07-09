@@ -4,9 +4,8 @@ import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
-import { Socket } from 'socket.io-client'
 import useChat from '../../hooks/useChat'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Message } from '../../types'
 
 const Chat = () => {
@@ -31,9 +30,9 @@ const Chat = () => {
             borderTopRadius={'8'}
         >
             <ChatHeader
-                name={appData?.userTarget?.name}
+                name={appData?.userChat?.name}
                 photoUrl={
-                    appData?.userTarget?.image ||
+                    appData?.userChat?.image ||
                     'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg'
                 }
                 status="online"

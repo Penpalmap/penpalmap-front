@@ -6,7 +6,8 @@ export const AppContext = React.createContext([] as any)
 export const AppProvider = ({ children }) => {
     const [data, setData] = useState<ContextStateData>({
         userTarget: null,
-        conversations: [],
+        userChat: null,
+        rooms: [],
         chatOpen: false,
     })
 

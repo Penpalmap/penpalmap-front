@@ -30,7 +30,13 @@ const Map = () => {
                 <OverlayProfileMap
                     user={data.userTarget}
                     closeOverlay={closeOverlay}
-                    onOpenChat={() => setData({ ...data, chatOpen: true })}
+                    onOpenChat={() =>
+                        setData({
+                            ...data,
+                            chatOpen: true,
+                            userChat: data.userTarget,
+                        })
+                    }
                 />
             </Box>
         </>

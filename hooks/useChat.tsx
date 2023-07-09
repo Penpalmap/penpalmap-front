@@ -24,17 +24,17 @@ const useChat = () => {
             if (session?.user?.id) {
                 const room = await getRoomOfTwoUsers(
                     session?.user?.id,
-                    appData.userTarget.id
+                    appData.userChat.id
                 )
 
                 setRoom(room)
             }
         }
 
-        if (appData?.userTarget) {
+        if (appData?.userChat) {
             fetchRoom()
         }
-    }, [appData.userTarget, session?.user?.id])
+    }, [appData.userChat, session?.user?.id])
 
     const connectToRoom = useCallback((roomId: string) => {
         socket.emit(SocketEvents.JoinRoom, roomId)
@@ -76,7 +76,6 @@ const useChat = () => {
             if (newMessage.isNewRoom) {
                 refetch()
             }
-            console.log('message', message)
 
             sendMessageSocket(newMessage)
             addMessageToRoom(newMessage)
