@@ -47,7 +47,7 @@ const ChatMessages = ({ messages }: Props) => {
                     alignSelf={'flex-start'}
                     maxW={'70%'}
                 >
-                    <Text fontSize={'.8em'}>{message.content}</Text>{' '}
+                    <Text fontSize={'.8em'}>{message.content} </Text>
                 </Box>
             )
         })

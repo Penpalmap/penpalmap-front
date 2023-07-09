@@ -1,4 +1,4 @@
-import { Box, useDisclosure } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import ChatHeader from './ChatHeader'
 import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
@@ -6,13 +6,17 @@ import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { Socket } from 'socket.io-client'
 import useChat from '../../hooks/useChat'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
+import { Message } from '../../types'
 
 const Chat = () => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
-    const [socket] = useState<Socket | null>(null)
-    const { room, connectToRoom, sendMessage } = useChat()
+    const { room, sendMessage } = useChat()
+
+    const sortByDate = (a: Message, b: Message) => {
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    }
 
     return (
         <Box
@@ -34,7 +38,7 @@ const Chat = () => {
                 }
                 status="online"
             />
-            <ChatMessages messages={room?.messages} />
+            <ChatMessages messages={room?.messages.sort(sortByDate)} />
 
             {session?.user?.id && (
                 <ChatInput
