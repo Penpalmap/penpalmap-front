@@ -17,7 +17,6 @@ export const disconnectFromSocketServer = () => {
 export const joinRoom = (roomId: string) => {
     // Rejoindre une room spécifique
     socket.emit(SocketEvents.JoinRoom, roomId)
-    console.log('joinRoom')
 }
 
 export const leaveRoom = (roomId: string) => {
@@ -28,12 +27,10 @@ export const leaveRoom = (roomId: string) => {
 export const sendMessageSocket = (message: Message) => {
     // Envoyer un message à une room spécifique
     socket.emit(SocketEvents.SendMessage, message)
-    console.log('sendMessage')
 }
 
 export const onNewMessage = (callback: (message: Message) => void) => {
     // Écouter les nouveaux messages
-    console.log('onNewMessage')
     socket.on(SocketEvents.NewMessage, (message: Message) => {
         callback(message)
     })

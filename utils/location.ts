@@ -4,7 +4,6 @@ export const getCountryByCoords = async (
     lat: number,
     lon: number
 ): Promise<string | null> => {
-    console.log(lat, lon)
     // get data with nomitatim
     const response = await axios.get(
         `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
