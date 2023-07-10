@@ -16,6 +16,9 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSession } from 'next-auth/react'
+import { getCountryByCoords } from '../../utils/location'
+import { useEffect, useState } from 'react'
+import { fromLonLat } from 'ol/proj'
 
 type OverlayProfileMapProps = {
     user: User | null
@@ -29,6 +32,30 @@ const OverlayProfileMap = ({
     onOpenChat,
 }: OverlayProfileMapProps) => {
     const { data: session } = useSession()
+    const [country, setCountry] = useState<string | null>(null)
+
+    useEffect(() => {
+        if (user) {
+            const getCountry = async () => {
+                const coords = fromLonLat(
+                    [user?.longitude, user?.latitude],
+                    'EPSG:4326'
+                )
+
+                if (coords[0] && coords[1]) {
+                    const country = await getCountryByCoords(
+                        coords[0],
+                        coords[1]
+                    )
+                    setCountry(country)
+                } else {
+                    setCountry(null)
+                }
+            }
+
+            getCountry()
+        }
+    }, [user])
 
     return (
         <Flex
@@ -70,15 +97,18 @@ const OverlayProfileMap = ({
                         justifyContent={'space-between'}
                         mb={'3'}
                     >
-                        <Flex alignItems={'center'} mt={'1'}>
-                            <FontAwesomeIcon
-                                icon={faLocationDot}
-                                color="#595959"
-                            />
-                            <Text fontSize={'sm'} ml={2} color={'#595959'}>
-                                France
-                            </Text>
-                        </Flex>
+                        {country && (
+                            <Flex alignItems={'center'} mt={'1'}>
+                                <FontAwesomeIcon
+                                    icon={faLocationDot}
+                                    color="#595959"
+                                />
+                                <Text fontSize={'sm'} ml={2} color={'#595959'}>
+                                    {country}
+                                </Text>
+                            </Flex>
+                        )}
+
                         <Badge colorScheme="green">En ligne</Badge>
                     </Flex>
 
