@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { RegisterUserInput, User } from '../types'
+import { RegisterUserInput } from '../types'
 
-const registerUser = async (user: RegisterUserInput): Promise<User> => {
+const registerUser = async (user: RegisterUserInput): Promise<any> => {
     try {
         const response = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
@@ -10,7 +10,7 @@ const registerUser = async (user: RegisterUserInput): Promise<User> => {
 
         return response.data
     } catch (error) {
-        return error.response.data
+        return { error: error }
     }
 }
 

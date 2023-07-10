@@ -32,9 +32,10 @@ const Register = () => {
     } = useForm<RegisterUserInput>()
 
     const onSubmit = async (data: RegisterUserInput) => {
-        // request to api axios post
         const response = await registerUser(data)
-        if (!response.error) {
+        if (response.error) {
+            setError('Une erreur est survenue, veuillez réessayer.')
+        } else {
             // connect user (login)
             await signIn('credentials', {
                 email: data.email,
@@ -43,8 +44,6 @@ const Register = () => {
             })
             // redirect to map
             router.push('/create-profile')
-        } else {
-            setError(response.message)
         }
     }
 

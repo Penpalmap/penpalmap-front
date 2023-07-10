@@ -65,7 +65,9 @@ const ProfileUploadPhoto = () => {
                     >
                         {croppedImages[index] ? (
                             <Image
-                                src={URL.createObjectURL(croppedImages[index])}
+                                src={URL.createObjectURL(
+                                    croppedImages[index] as Blob
+                                )}
                                 alt={`Profile Image ${index + 1}`}
                                 w="100%"
                                 h="100%"
