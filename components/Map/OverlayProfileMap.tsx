@@ -19,6 +19,7 @@ import { useSession } from 'next-auth/react'
 import { getCountryByCoords } from '../../utils/location'
 import { useEffect, useState } from 'react'
 import { fromLonLat } from 'ol/proj'
+import Link from 'next/link'
 
 type OverlayProfileMapProps = {
     user: User | null
@@ -115,17 +116,23 @@ const OverlayProfileMap = ({
                     <Text fontSize={'sm'}>Salut je suis un exemple de Bio</Text>
                 </Box>
                 <Flex justifyContent={'space-between'} gap={'12px'}>
-                    <Button
-                        flex={'2'}
-                        leftIcon={<FontAwesomeIcon icon={faUser} />}
-                        colorScheme="teal"
-                        variant="solid"
-                        fontSize={'12px'}
-                        onClick={() => user && onOpenChat(user)}
-                        isDisabled={session?.user?.id === user?.id}
+                    <Link
+                        href={`/?profileId=${user?.id}`}
+                        as={`/profile/${user?.id}`}
                     >
-                        View profile
-                    </Button>
+                        <Button
+                            flex={'2'}
+                            leftIcon={<FontAwesomeIcon icon={faUser} />}
+                            colorScheme="teal"
+                            variant="solid"
+                            fontSize={'12px'}
+                            // onClick={() => user && onOpenChat(user)}
+                            isDisabled={session?.user?.id === user?.id}
+                        >
+                            View profile
+                        </Button>
+                    </Link>
+
                     <IconButton
                         flex={'1'}
                         colorScheme="teal"

@@ -11,7 +11,7 @@ import {
     useDisclosure,
 } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
-import Profile from '../Profile'
+import MyProfile from '../MyProfile'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
@@ -55,7 +55,7 @@ const Header = () => {
                     </MenuList>
                 </Menu>
             </HStack>
-            <Profile onClose={onClose} isOpen={isOpen} />
+            <MyProfile onClose={onClose} isOpen={isOpen} />
         </>
     )
 }

@@ -8,7 +8,6 @@
         "start": "next start",
         "lint": "next lint",
         "type-check": "tsc --noEmit"
-
     },
     "dependencies": {
         "@chakra-ui/react": "^2.5.5",
@@ -34,6 +33,7 @@
         "react-dom": "^18.2.0",
         "react-easy-crop": "^4.7.4",
         "react-hook-form": "^7.43.9",
+        "react-modal": "^3.16.1",
         "sequelize": "^6.32.0",
         "socket.io-client": "^4.6.1"
     },

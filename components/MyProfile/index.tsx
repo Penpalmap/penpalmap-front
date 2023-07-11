@@ -43,7 +43,7 @@ type Profile = {
     images: Array<UserImage | null>
 }
 
-const Profile = ({ isOpen, onClose }: Props) => {
+const MyProfile = ({ isOpen, onClose }: Props) => {
     const [profile, setProfile] = useState<Profile>({
         images: [null, null, null, null],
     })
@@ -275,4 +275,4 @@ const Profile = ({ isOpen, onClose }: Props) => {
     )
 }
 
-export default Profile
+export default MyProfile
