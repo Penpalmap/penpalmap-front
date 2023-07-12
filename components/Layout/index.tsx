@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import Header from './header'
 import Modal from 'react-modal'
 import { useRouter } from 'next/router'
-import Profile from '../../pages/profile/[profileId]'
+import ProfilePage from '../../pages/profile/[profileId]'
 
 Modal.setAppElement('#__next')
 const Layout = ({ children }) => {
@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             width: '80%',
-            height: '70%',
+            height: '90%',
             backgroundColor: 'white',
         },
     }
@@ -39,7 +39,7 @@ const Layout = ({ children }) => {
                 }}
                 style={customStyles}
             >
-                <Profile />
+                <ProfilePage />
             </Modal>
         </>
     )

@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
+import Profile from '../../components/Profile'
 
-const Profile = () => {
+const ProfilePage = () => {
     const router = useRouter()
-    const { profileId } = router.query
+    const { profileId } = router.query as { profileId: string }
 
-    return <div>Profile: {profileId}</div>
+    return profileId ? <Profile profileId={profileId} /> : <></>
 }
 
-export default Profile
+export default ProfilePage

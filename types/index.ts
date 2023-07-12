@@ -53,7 +53,7 @@ export type User = {
     longitude: number
     points: number
     gender: string
-    birthday: Date
+    birthday: string
     bio: string
     userImages: Array<UserImage>
     isNewUser: boolean

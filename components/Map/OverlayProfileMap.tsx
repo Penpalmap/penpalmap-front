@@ -38,15 +38,10 @@ const OverlayProfileMap = ({
     useEffect(() => {
         if (user) {
             const getCountry = async () => {
-                const coords = fromLonLat(
-                    [user?.longitude, user?.latitude],
-                    'EPSG:4326'
-                )
-
-                if (coords[0] && coords[1]) {
+                if (user.latitude && user.longitude) {
                     const country = await getCountryByCoords(
-                        coords[0],
-                        coords[1]
+                        user.latitude,
+                        user.longitude
                     )
                     setCountry(country)
                 } else {
