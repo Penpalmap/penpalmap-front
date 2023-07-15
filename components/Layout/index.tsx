@@ -21,6 +21,7 @@ const Layout = ({ children }) => {
             width: '80%',
             height: '90%',
             backgroundColor: 'white',
+            borderRadius: '10px',
         },
     }
 

@@ -1,11 +1,12 @@
 import {
     Box,
+    Button,
+    CloseButton,
+    Divider,
     Flex,
     HStack,
-    Heading,
     Image,
     Text,
-    position,
 } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { User } from '../../types'
@@ -13,16 +14,21 @@ import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getCountryByCoords } from '../../utils/location'
-import { faMarker } from '@fortawesome/free-solid-svg-icons'
-import { Feature, Map as OLMap, Overlay, View } from 'ol'
+import {
+    faArrowRight,
+    faMapMarked,
+    faMapPin,
+    faPaperPlane,
+} from '@fortawesome/free-solid-svg-icons'
+import { Feature, Map as OLMap, View } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { fromLonLat, transformExtent } from 'ol/proj'
 import XYZ from 'ol/source/XYZ'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import { Point } from 'ol/geom'
-import { cp } from 'fs'
 import userStyle from '../../styles/openlayer/UserStyle'
+import { useRouter } from 'next/router'
 
 type Props = {
     profileId: string
@@ -35,6 +41,8 @@ const Profile = ({ profileId }: Props) => {
     const mapRef = useRef<OLMap | null>(null)
     const mapRefContainer = useRef<HTMLDivElement>(null)
 
+    const router = useRouter()
+
     useEffect(() => {
         if (!user || !mapRefContainer.current) return undefined
 
@@ -42,7 +50,6 @@ const Profile = ({ profileId }: Props) => {
             target: mapRefContainer.current,
             layers: [
                 new TileLayer({
-                    // source: new OSM(),
                     preload: Infinity,
                     zIndex: 0,
 
@@ -73,7 +80,7 @@ const Profile = ({ profileId }: Props) => {
     }, [user])
 
     useEffect(() => {
-        if (!mapRef.current) return undefined
+        if (!mapRef.current || !user) return undefined
 
         const userSource = new VectorSource()
 
@@ -85,7 +92,7 @@ const Profile = ({ profileId }: Props) => {
         mapRef.current.addLayer(userLayer)
 
         const userFeature = new Feature({
-            geometry: new Point(fromLonLat([user?.latitude, user?.longitude])),
+            geometry: new Point(fromLonLat([user.latitude, user.longitude])),
             element: {
                 ...user,
                 strokeColor: '#FFFFFF',
@@ -123,24 +130,95 @@ const Profile = ({ profileId }: Props) => {
         fetchCountry()
     }, [user])
 
+    const onClose = () => {
+        router.push('/')
+    }
+
     return (
         user && (
-            <Box>
-                <Text fontWeight={'bold'} fontSize={'2xl'}>
-                    {user?.name}
-                </Text>
-                <Flex alignItems={'center'}>
-                    <FontAwesomeIcon icon={faMarker} color="#494949" />
-                    <Text ml={'2'} color={'gray.800'}>
-                        {country}
+            <Box p={'8'}>
+                <CloseButton
+                    position={'absolute'}
+                    top={'4'}
+                    right={'4'}
+                    onClick={onClose}
+                />
+                <Flex alignItems={'center'} mb={'8'}>
+                    <Box mr={'8'}>
+                        <Image
+                            src={user?.image}
+                            alt="profile image"
+                            boxSize="150px"
+                            objectFit="cover"
+                            borderRadius={'full'}
+                        />
+                    </Box>
+                    <Box>
+                        <Text fontWeight={'bold'} fontSize={'4xl'}>
+                            {user?.name}
+                        </Text>
+                        <Box>
+                            <HStack
+                                spacing={'2'}
+                                mb={'2'}
+                                alignItems={'center'}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faMapMarked}
+                                    color="#494949"
+                                />
+                                <Text color={'gray.800'}>{country}</Text>
+                            </HStack>
+                            <HStack
+                                spacing={'2'}
+                                alignItems={'center'}
+                                mb={'2'}
+                            >
+                                <Text>
+                                    {user.gender === 'women' ? '👩' : '👨'}
+                                </Text>
+                                <Text color={'gray.800'}>{user.gender}</Text>
+                            </HStack>
+                            <HStack
+                                spacing={'2'}
+                                alignItems={'center'}
+                                mb={'2'}
+                            >
+                                <Text>🎂</Text>
+                                <Text color={'gray.800'}>
+                                    {getAgeByDate(user.birthday)}
+                                </Text>
+                            </HStack>
+                        </Box>
+                    </Box>
+                </Flex>
+                <HStack spacing={'2'} mb={'8'}>
+                    <Button
+                        leftIcon={<FontAwesomeIcon icon={faPaperPlane} />}
+                        colorScheme="teal"
+                        variant="solid"
+                    >
+                        Message
+                    </Button>
+                    <Button
+                        rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                        colorScheme="teal"
+                        variant="outline"
+                    >
+                        Add to friends
+                    </Button>
+                </HStack>
+
+                <Divider mb={'8'} />
+
+                <Box mb={'8'}>
+                    <Text
+                        fontWeight={'semibold'}
+                        letterSpacing={'wider'}
+                        color={'gray.600'}
+                    >
+                        A PROPOS
                     </Text>
-                </Flex>
-                <Flex>
-                    <Text>{getAgeByDate(user.birthday)}</Text>
-                    <Text>, 👩 Femme</Text>
-                </Flex>
-                <Box>
-                    <Text>A PROPOS</Text>
                     <Text>
                         {user.bio} Lorem ipsum, dolor sit amet consectetur
                         adipisicing elit. Quisquam expedita aliquid, ducimus
@@ -158,18 +236,29 @@ const Profile = ({ profileId }: Props) => {
                                 alt="profile image"
                                 boxSize="300px"
                                 objectFit="cover"
-                                borderRadius={'md'}
+                                borderRadius={'xl'}
                             />
                         </Box>
                     ))}
                 </HStack>
 
-                {/* Map zoom on position of the user with the image of the user */}
+                <HStack alignItems={'cneter'} mb={'2'}>
+                    <FontAwesomeIcon icon={faMapPin} color="#494949" />
+                    <Text
+                        fontWeight={'semibold'}
+                        letterSpacing={'wider'}
+                        color={'gray.600'}
+                    >
+                        Around
+                    </Text>
+                    <Text fontWeight={'bold'}>{country}</Text>
+                </HStack>
                 <Box
                     ref={mapRefContainer}
                     h={'500px'}
                     w={'full'}
                     className="map"
+                    borderRadius={'xl'}
                 ></Box>
             </Box>
         )
