@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Box, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import Map from '../components/Map/Map'
 import Chat from '../components/Chat/Chat'

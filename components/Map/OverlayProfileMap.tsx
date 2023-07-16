@@ -18,7 +18,6 @@ import {
 import { useSession } from 'next-auth/react'
 import { getCountryByCoords } from '../../utils/location'
 import { useEffect, useState } from 'react'
-import { fromLonLat } from 'ol/proj'
 import Link from 'next/link'
 
 type OverlayProfileMapProps = {
