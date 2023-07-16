@@ -20,7 +20,6 @@ const useRooms = () => {
 
     useEffect(() => {
         rooms.forEach((room) => {
-            console.log('join room', room)
             joinRoom(room.id)
         })
 
