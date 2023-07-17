@@ -41,7 +41,7 @@ const ProfileLocationInput = (props: Props) => {
                 }),
             })
 
-            const handleClicked = (e: any) => {
+            const handleClicked = (e) => {
                 const coordinates = mapRef?.current?.getCoordinateFromPixel(
                     e.pixel
                 )
