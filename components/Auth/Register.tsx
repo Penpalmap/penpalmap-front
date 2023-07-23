@@ -120,7 +120,7 @@ const Register = () => {
                             </Alert>
                         )}
                         <Button type="submit" colorScheme="blue">
-                            S&apos;inscrire
+                            {process.env.NEXT_PUBLIC_API_URL}
                         </Button>
                     </Stack>
                 </form>
