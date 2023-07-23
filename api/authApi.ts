@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../utils/axios'
 import { RegisterUserInput } from '../types'
 
 const registerUser = async (user: RegisterUserInput): Promise<any> => {
