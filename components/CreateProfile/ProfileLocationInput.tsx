@@ -24,7 +24,7 @@ const ProfileLocationInput = (props: Props) => {
 
     const ref = useRef<HTMLDivElement>(null)
     const markerRef = useRef<HTMLDivElement>(null)
-    const [_showMarker, setShowMarker] = useState(false)
+    const [, setShowMarker] = useState(false)
 
     useEffect(() => {
         if (ref.current && !mapRef.current) {
