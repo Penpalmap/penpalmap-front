@@ -81,11 +81,11 @@ const ProfileLocationInput = (props: Props) => {
 
     return (
         <Box ref={ref} height="sm" width="3xl">
-            {showMarker && (
+            <Box display={'none'}>
                 <Box ref={markerRef}>
                     <FontAwesomeIcon icon={faLocationDot} size="lg" />
                 </Box>
-            )}
+            </Box>
         </Box>
     )
 }
