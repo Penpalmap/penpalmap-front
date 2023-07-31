@@ -15,7 +15,7 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
 
     const onCropComplete = useCallback(
-        (croppedAreaPixels) => {
+        (_croppedArea, croppedAreaPixels) => {
             setCroppedAreaPixels(croppedAreaPixels)
         },
         [setCroppedAreaPixels]
@@ -27,6 +27,8 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
                 imgUrl,
                 croppedAreaPixels
             )) as Blob
+
+            console.log('donee', URL.createObjectURL(croppedImage))
 
             setImgCrop(croppedImage)
 

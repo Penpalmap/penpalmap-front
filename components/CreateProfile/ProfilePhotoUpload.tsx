@@ -25,7 +25,6 @@ const ProfileUploadPhoto = () => {
 
     const handleImageCrop = (croppedImage: File) => {
         setCroppedImages((prevImages) => [...prevImages, croppedImage])
-
         const position = croppedImages.length
         if (session?.user?.id) {
             uploadImage(croppedImage, position, session?.user?.id)
