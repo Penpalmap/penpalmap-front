@@ -1,10 +1,10 @@
-import { Box, HStack, Image, useDisclosure } from '@chakra-ui/react'
+import { Box, HStack, IconButton, Image, useDisclosure } from '@chakra-ui/react'
 import { useState } from 'react'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { useSession } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faCross, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const ProfileUploadPhoto = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -39,6 +39,14 @@ const ProfileUploadPhoto = () => {
         fileInput.click()
     }
 
+    const handleDeleteImage = (index: number) => {
+        setCroppedImages((prevImages) => {
+            const newImages = [...prevImages]
+            newImages.splice(index, 1)
+            return newImages
+        })
+    }
+
     return (
         <Box>
             <ModalImageCropped
@@ -49,18 +57,19 @@ const ProfileUploadPhoto = () => {
             />
 
             <HStack spacing="24px" alignItems="center">
-                {[0, 1, 2].map((index) => (
+                {[0, 1, 2, 3].map((index) => (
                     <Box
                         key={index}
                         onClick={() => clickOnBtn(index)}
                         cursor="pointer"
-                        w="150px"
-                        h="150px"
+                        w="180px"
+                        h="180px"
                         borderRadius="lg"
                         display={'flex'}
                         alignItems={'center'}
                         justifyContent={'center'}
                         bg={'gray.100'}
+                        position={'relative'}
                     >
                         {croppedImages[index] ? (
                             <Image
@@ -82,6 +91,23 @@ const ProfileUploadPhoto = () => {
                             onChange={handleImageUpload}
                             accept="image/*"
                         />
+                        {croppedImages[index] && (
+                            <IconButton
+                                onClick={() => handleDeleteImage(index)}
+                                position={'absolute'}
+                                bottom={2}
+                                right={2}
+                                aria-label="Send email"
+                                bg={'blackAlpha.400'}
+                                border={'2px solid white'}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faClose}
+                                        color="white"
+                                    />
+                                }
+                            />
+                        )}
                     </Box>
                 ))}
             </HStack>
