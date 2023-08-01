@@ -1,7 +1,6 @@
 import {
     Box,
     ButtonGroup,
-    Circle,
     Editable,
     EditableInput,
     EditablePreview,
@@ -20,16 +19,16 @@ import {
     Text,
     useEditableControls,
 } from '@chakra-ui/react'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { deleteProfileImage } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
 import { UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCheck,
+    faClose,
     faHome,
     faMapMarker,
-    faTrash,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
@@ -39,17 +38,16 @@ type Props = {
     onClose: () => void
 }
 
-type Profile = {
-    images: Array<UserImage | null>
-}
-
 const MyProfile = ({ isOpen, onClose }: Props) => {
-    const [profile, setProfile] = useState<Profile>({
-        images: [null, null, null, null],
-    })
+    // const [profile, setProfile] = useState<Profile>({
+    //     images: [null, null, null, null],
+    // })
     const { data: session, update: updateSession } = useSession()
     const { uploadImage } = useUploadUserImage()
 
+    useEffect(() => {
+        console.log(session)
+    }, [session])
     const refInputFile = useRef<HTMLInputElement>(null)
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -104,15 +102,9 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
         }
 
         const handleDeleteImage = async (position: number) => {
-            const images = [...profile.images]
-            images[position] = null
-
             if (session?.user?.id) {
                 await deleteProfileImage(position, session?.user.id)
-                setProfile({
-                    ...profile,
-                    images,
-                })
+                updateSession()
             }
         }
 
@@ -149,29 +141,25 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                                                 alt={`Photo ${index}`}
                                                 borderRadius="xl"
                                             />
-                                            <Circle
-                                                bg="red.400"
-                                                size={6}
-                                                position="absolute"
-                                                top={-2}
-                                                right={-2}
-                                                cursor="pointer"
+                                            <IconButton
                                                 onClick={() =>
                                                     handleDeleteImage(
                                                         image.position
                                                     )
                                                 }
-                                                boxShadow="dark-lg"
-                                                _hover={{
-                                                    bgColor: 'red.500',
-                                                }}
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faTrash}
-                                                    color="white"
-                                                    size="xs"
-                                                />
-                                            </Circle>
+                                                position={'absolute'}
+                                                bottom={2}
+                                                right={2}
+                                                aria-label="Send email"
+                                                bg={'blackAlpha.400'}
+                                                border={'2px solid white'}
+                                                icon={
+                                                    <FontAwesomeIcon
+                                                        icon={faClose}
+                                                        color="white"
+                                                    />
+                                                }
+                                            />
                                         </>
                                     ) : (
                                         <Box
@@ -220,7 +208,6 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
             </>
         )
     }, [
-        profile,
         session?.user?.id,
         session?.user?.userImages,
         updateSession,
