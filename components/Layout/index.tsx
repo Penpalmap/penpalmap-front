@@ -22,6 +22,7 @@ const Layout = ({ children }) => {
             height: '90%',
             backgroundColor: 'white',
             borderRadius: '10px',
+            padding: '0',
         },
     }
 

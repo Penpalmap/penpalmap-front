@@ -7,16 +7,19 @@ import {
     HStack,
     Image,
     Text,
+    VStack,
 } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getCountryByCoords } from '../../utils/location'
+import {
+    getFlagByCountryCode,
+    getPositionDataByCoords,
+} from '../../utils/location'
 import {
     faArrowRight,
-    faMapMarked,
     faMapPin,
     faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons'
@@ -37,6 +40,7 @@ type Props = {
 const Profile = ({ profileId }: Props) => {
     const [user, setUser] = useState<User | null>(null)
     const [country, setCountry] = useState<string | null>(null)
+    const [flagUrl, setFlagUrl] = useState<string | null>(null)
 
     const mapRef = useRef<OLMap | null>(null)
     const mapRefContainer = useRef<HTMLDivElement>(null)
@@ -61,15 +65,14 @@ const Profile = ({ profileId }: Props) => {
             ],
             view: new View({
                 center: fromLonLat([user?.latitude, user?.longitude]),
-                zoom: 4.5,
-                minZoom: 3.5,
-                maxZoom: 9,
+                zoom: 7,
                 extent: transformExtent(
                     [-999.453125, -58.813742, 999.453125, 70.004962],
                     'EPSG:4326',
                     'EPSG:3857'
                 ),
             }),
+            interactions: [],
         })
 
         mapRef.current = map
@@ -120,11 +123,18 @@ const Profile = ({ profileId }: Props) => {
     useEffect(() => {
         const fetchCountry = async () => {
             if (!user) return
-            const country = await getCountryByCoords(
+            const positionData = await getPositionDataByCoords(
                 user.latitude,
                 user.longitude
             )
-            setCountry(country)
+
+            console.log('positionData', positionData)
+            setCountry(positionData?.address?.country)
+
+            const flagUrlData = await getFlagByCountryCode(
+                positionData?.address?.country_code.toUpperCase()
+            )
+            setFlagUrl(flagUrlData)
         }
 
         fetchCountry()
@@ -136,130 +146,186 @@ const Profile = ({ profileId }: Props) => {
 
     return (
         user && (
-            <Box p={'8'}>
+            <Box>
                 <CloseButton
                     position={'absolute'}
                     top={'4'}
                     right={'4'}
                     onClick={onClose}
                 />
-                <Flex alignItems={'center'} mb={'8'}>
-                    <Box mr={'8'}>
-                        <Image
-                            src={user?.image}
-                            alt="profile image"
-                            boxSize="150px"
-                            objectFit="cover"
-                            borderRadius={'full'}
-                        />
-                    </Box>
-                    <Box>
-                        <Text fontWeight={'bold'} fontSize={'4xl'}>
-                            {user?.name}
-                        </Text>
-                        <Box>
-                            <HStack
-                                spacing={'2'}
-                                mb={'2'}
-                                alignItems={'center'}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faMapMarked}
-                                    color="#494949"
-                                />
-                                <Text color={'gray.800'}>{country}</Text>
-                            </HStack>
-                            <HStack
-                                spacing={'2'}
-                                alignItems={'center'}
-                                mb={'2'}
-                            >
-                                <Text>
-                                    {user.gender === 'women' ? '👩' : '👨'}
-                                </Text>
-                                <Text color={'gray.800'}>{user.gender}</Text>
-                            </HStack>
-                            <HStack
-                                spacing={'2'}
-                                alignItems={'center'}
-                                mb={'2'}
-                            >
-                                <Text>🎂</Text>
-                                <Text color={'gray.800'}>
-                                    {getAgeByDate(user.birthday)}
-                                </Text>
-                            </HStack>
-                        </Box>
-                    </Box>
-                </Flex>
-                <HStack spacing={'2'} mb={'8'}>
-                    <Button
-                        leftIcon={<FontAwesomeIcon icon={faPaperPlane} />}
-                        colorScheme="teal"
-                        variant="solid"
-                    >
-                        Message
-                    </Button>
-                    <Button
-                        rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-                        colorScheme="teal"
-                        variant="outline"
-                    >
-                        Add to friends
-                    </Button>
-                </HStack>
-
-                <Divider mb={'8'} />
-
-                <Box mb={'8'}>
-                    <Text
-                        fontWeight={'semibold'}
-                        letterSpacing={'wider'}
-                        color={'gray.600'}
-                    >
-                        A PROPOS
-                    </Text>
-                    <Text>
-                        {user.bio} Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit. Quisquam expedita aliquid, ducimus
-                        tempore optio soluta fugit recusandae ut dolore iste
-                        odio sapiente nostrum fugiat commodi aperiam porro
-                        repudiandae a cum.
-                    </Text>
-                </Box>
-
-                <HStack mb={'10'}>
-                    {user?.userImages.map((image) => (
-                        <Box key={image.position}>
+                <Flex
+                    alignItems={'center'}
+                    justifyContent={'space-between'}
+                    bg={' #E3F7F3'}
+                    p={10}
+                >
+                    <Flex alignItems={'center'}>
+                        <Box mr={'8'}>
                             <Image
-                                src={image.src}
+                                src={user?.userImages[0]?.src}
                                 alt="profile image"
-                                boxSize="300px"
+                                boxSize="150px"
                                 objectFit="cover"
-                                borderRadius={'xl'}
+                                borderRadius={'full'}
                             />
                         </Box>
-                    ))}
-                </HStack>
+                        <Box>
+                            <Text fontWeight={'bold'} fontSize={'4xl'}>
+                                {user?.name}
+                            </Text>
+                            <Box>
+                                <HStack mb={'2'} alignItems={'center'} w={'44'}>
+                                    <Flex flex={1}>
+                                        <Box w={'full'}>
+                                            {flagUrl && (
+                                                <Image
+                                                    src={flagUrl}
+                                                    alt="flag of the country"
+                                                />
+                                            )}
+                                        </Box>
+                                    </Flex>
+                                    <Box flex={4}>
+                                        <Text color={'gray.800'}>
+                                            {country}
+                                        </Text>
+                                    </Box>
+                                </HStack>
+                                <HStack alignItems={'center'} mb={'2'} w={'44'}>
+                                    <Box flex={1}>
+                                        <Text fontSize={'2xl'}>
+                                            {user.gender === 'women'
+                                                ? '👩'
+                                                : '👨'}
+                                        </Text>
+                                    </Box>
+                                    <Box flex={4}>
+                                        <Text color={'gray.800'}>
+                                            {user.gender}
+                                        </Text>
+                                    </Box>
+                                </HStack>
+                                <HStack alignItems={'center'} mb={'2'} w={'44'}>
+                                    <Box flex={1}>
+                                        <Text fontSize={'2xl'}>🎂</Text>
+                                    </Box>
+                                    <Box flex={4}>
+                                        <Text color={'gray.800'}>
+                                            {getAgeByDate(user.birthday)}yo
+                                        </Text>
+                                    </Box>
+                                </HStack>
+                            </Box>
+                        </Box>
+                    </Flex>
+                    <VStack alignItems={'stretch'} alignSelf={'flex-end'}>
+                        <Button
+                            leftIcon={<FontAwesomeIcon icon={faPaperPlane} />}
+                            colorScheme="teal"
+                            variant="solid"
+                        >
+                            Message
+                        </Button>
+                        <Button
+                            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                            colorScheme="teal"
+                            variant="outline"
+                            bg={'white'}
+                        >
+                            Add to friends
+                        </Button>
+                    </VStack>
+                </Flex>
+                <Flex>
+                    <Box mb={'8'} p={10} flex={'2'}>
+                        <Box mb={'4'}>
+                            <Text
+                                fontWeight={'semibold'}
+                                letterSpacing={'wider'}
+                                color={'gray.600'}
+                            >
+                                A PROPOS
+                            </Text>
+                            <Text
+                                color={'gray.800'}
+                                fontFamily={'Montserrat'}
+                                fontSize={'md'}
+                                fontWeight={'400'}
+                                fontStyle={'normal'}
+                                lineHeight={'176.4%'}
+                            >
+                                {user.bio} Lorem ipsum, dolor sit amet
+                                consectetur adipisicing elit. Quisquam expedita
+                                aliquid, ducimus tempore optio soluta fugit
+                                recusandae ut dolore iste odio sapiente nostrum
+                                fugiat commodi aperiam porro repudiandae a cum.
+                            </Text>
+                        </Box>
+                        <Box>
+                            <Text
+                                mb={'4'}
+                                fontWeight={'semibold'}
+                                letterSpacing={'wider'}
+                                color={'gray.600'}
+                            >
+                                PHOTOS
+                            </Text>
 
-                <HStack alignItems={'cneter'} mb={'2'}>
-                    <FontAwesomeIcon icon={faMapPin} color="#494949" />
-                    <Text
-                        fontWeight={'semibold'}
-                        letterSpacing={'wider'}
-                        color={'gray.600'}
-                    >
-                        Around
-                    </Text>
-                    <Text fontWeight={'bold'}>{country}</Text>
-                </HStack>
-                <Box
-                    ref={mapRefContainer}
-                    h={'500px'}
-                    w={'full'}
-                    className="map"
-                    borderRadius={'xl'}
-                ></Box>
+                            <Flex
+                                wrap={'wrap'}
+                                justifyContent={'center'} // Pour centrer horizontalement
+                                alignItems={'center'} // Pour centrer verticalement
+                                gap={'20px'} // Espace entre les images
+                            >
+                                {user?.userImages.map((image) => (
+                                    <Box key={image.position}>
+                                        <Image
+                                            src={image.src}
+                                            alt="profile image"
+                                            boxSize={[
+                                                '100px',
+                                                '150px',
+                                                '200px',
+                                                '300px',
+                                            ]} // Tailles en fonction du responsive
+                                            objectFit="cover"
+                                            borderRadius={'xl'}
+                                        />
+                                    </Box>
+                                ))}
+                            </Flex>
+                        </Box>
+                    </Box>
+                    <Box position={'relative'} flex={'2'} h={'800px'}>
+                        <Flex
+                            alignItems={'center'}
+                            position={'absolute'}
+                            bottom={'5'}
+                            left={'5'}
+                            zIndex={1}
+                        >
+                            <FontAwesomeIcon icon={faMapPin} color="#494949" />
+                            <Text
+                                fontWeight={'semibold'}
+                                letterSpacing={'wider'}
+                                color={'gray.600'}
+                                ml={'2'}
+                            >
+                                Around
+                            </Text>
+                            <Text fontWeight={'bold'} ml={1}>
+                                {country}
+                            </Text>
+                        </Flex>
+                        <Box
+                            ref={mapRefContainer}
+                            h={'800px'}
+                            w={'full'}
+                            className="map"
+                            borderRadius={'xl'}
+                        ></Box>
+                    </Box>
+                </Flex>
             </Box>
         )
     )

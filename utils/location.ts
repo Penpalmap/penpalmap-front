@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { fromLonLat } from 'ol/proj'
 
-export const getCountryByCoords = async (
+export const getPositionDataByCoords = async (
     lat: number,
     lon: number
-): Promise<string | null> => {
+): Promise<any | null> => {
     // get data with nomitatim
     const coords = fromLonLat([lon, lat], 'EPSG:4326')
     const response = await axios.get(
@@ -13,7 +13,12 @@ export const getCountryByCoords = async (
     const data = response.data
 
     if (data.error) return null
-    // get country name
-    const country = data.address.country
-    return country
+
+    return data
+}
+
+export const getFlagByCountryCode = async (
+    countryCode
+): Promise<string | null> => {
+    return `https://flagsapi.com/${countryCode}/flat/64.png`
 }

@@ -16,7 +16,7 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSession } from 'next-auth/react'
-import { getCountryByCoords } from '../../utils/location'
+import { getPositionDataByCoords } from '../../utils/location'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
@@ -38,11 +38,12 @@ const OverlayProfileMap = ({
         if (user) {
             const getCountry = async () => {
                 if (user.latitude && user.longitude) {
-                    const country = await getCountryByCoords(
+                    const positionData = await getPositionDataByCoords(
                         user.latitude,
                         user.longitude
                     )
-                    setCountry(country)
+
+                    setCountry(positionData?.address?.country)
                 } else {
                     setCountry(null)
                 }
