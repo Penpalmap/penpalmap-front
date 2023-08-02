@@ -64,7 +64,9 @@ const OverlayProfileMap = ({
         >
             <Flex flex={'1'} w="200px" h="200px">
                 <Image
-                    src={user?.image}
+                    src={
+                        user?.userImages.find((img) => img.position === 0)?.src
+                    }
                     w={'100%'}
                     alt={user?.name}
                     borderLeftRadius={'10px'}
