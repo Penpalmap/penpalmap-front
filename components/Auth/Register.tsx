@@ -48,7 +48,7 @@ const Register = () => {
     }
 
     return (
-        <Box position="relative" h={'full'} w={'full'}>
+        <Box position="relative" h={'80%'} w={'full'}>
             <MapConnexion />
             <Box
                 position={'absolute'}
@@ -134,6 +134,46 @@ const Register = () => {
                         </Link>
                     </Text>
                 </Box>
+            </Box>
+            <Box p={10}>
+                <Text>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Recusandae, ex esse consequuntur impedit, atque totam dolor
+                    facere dolore quod laboriosam eos harum nihil dolorum optio
+                    non pariatur molestias, doloremque odio.
+                </Text>
+                <Text>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Recusandae, ex esse consequuntur impedit, atque totam dolor
+                    facere dolore quod laboriosam eos harum nihil dolorum optio
+                    non pariatur molestias, doloremque odio.
+                </Text>
+                <Text>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Recusandae, ex esse consequuntur impedit, atque totam dolor
+                    facere dolore quod laboriosam eos harum nihil dolorum optio
+                    non pariatur molestias, doloremque odio. Recusandae, ex esse
+                    consequuntur impedit, atque totam dolor facere dolore quod
+                    laboriosam eos harum nihil dolorum optio non pariatur
+                    molestias, doloremque odio. Recusandae, ex esse consequuntur
+                    impedit, atque totam dolor facere dolore quod laboriosam eos
+                    harum nihil dolorum optio non pariatur
+                </Text>
+                <Text>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Recusandae, ex esse consequuntur impedit, atque totam dolor
+                    facere dolore quod laboriosam eos harum nihil dolorum optio
+                    non pariatur molestias, doloremque odio. Recusandae, ex esse
+                    consequuntur impedit, atque totam dolor facere dolore quod
+                    laboriosam eos harum nihil dolorum optio non pariatur
+                    molestias, doloremque odio.
+                </Text>
+                <Text>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Recusandae, ex esse consequuntur impedit, atque totam dolor
+                    facere dolore quod laboriosam eos harum nihil dolorum optio
+                    non pariatur molestias, doloremque odio.
+                </Text>
             </Box>
         </Box>
     )
