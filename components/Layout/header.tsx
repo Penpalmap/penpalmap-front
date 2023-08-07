@@ -1,6 +1,7 @@
 import {
     Avatar,
     Box,
+    Flex,
     HStack,
     Menu,
     MenuButton,
@@ -12,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 import MyProfile from '../MyProfile'
+import packageJson from './../../package.json'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
@@ -20,9 +22,14 @@ const Header = () => {
     return (
         <>
             <HStack as="header" p={4} justifyContent={'space-between'} h={'14'}>
-                <Text fontSize={'xl'} fontWeight={'bold'}>
-                    PenpalMap
-                </Text>
+                <Flex alignItems={'center'}>
+                    <Text fontSize={'xl'} fontWeight={'bold'}>
+                        PenpalMap
+                    </Text>
+                    <Text fontSize={'sm'} ml={'4'} color={'gray.900'}>
+                        {packageJson.version}
+                    </Text>
+                </Flex>
                 <Menu>
                     <MenuButton
                         as={Avatar}
