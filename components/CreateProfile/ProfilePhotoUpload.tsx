@@ -4,7 +4,7 @@ import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { useSession } from 'next-auth/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClose, faCross, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const ProfileUploadPhoto = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()

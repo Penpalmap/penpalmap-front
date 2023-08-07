@@ -1,12 +1,11 @@
 import { Box, Flex, IconButton, Image } from '@chakra-ui/react'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Sortable from 'sortablejs'
 import { UserImage } from '../../types'
 import { useSession } from 'next-auth/react'
 import { reorderProfileImages } from '../../api/profileApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose, faMapMarker } from '@fortawesome/free-solid-svg-icons'
-import { cp } from 'fs'
 
 type Props = {
     photos: UserImage[]
@@ -59,17 +58,8 @@ const ListImageDraggable = ({
             onEnd: onListChange,
             filter: '.empty-box', // Exclude elements with the "empty-box" class from dragging
         })
-    }, [])
+    }, [onListChange])
 
-    const sortWithPosition = (a, b) => {
-        if (a.position < b.position) {
-            return -1
-        }
-        if (a.position > b.position) {
-            return 1
-        }
-        return 0
-    }
     return (
         <Flex
             ref={gridRef}
@@ -94,9 +84,16 @@ const ListImageDraggable = ({
                         position="relative"
                         className="draggable"
                     >
-                        <Image src={image?.src} borderRadius={8} />
+                        <Image
+                            src={image?.src}
+                            borderRadius={8}
+                            alt="profile image"
+                        />
                         <IconButton
-                            onClick={() => handleDeleteImage(image?.position)}
+                            onClick={() =>
+                                image?.position &&
+                                handleDeleteImage(image?.position)
+                            }
                             position={'absolute'}
                             bottom={2}
                             right={2}

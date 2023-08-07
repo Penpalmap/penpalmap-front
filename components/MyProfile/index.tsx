@@ -8,7 +8,6 @@ import {
     FormControl,
     FormLabel,
     IconButton,
-    Image,
     Input,
     Modal,
     ModalBody,
@@ -19,18 +18,12 @@ import {
     Text,
     useEditableControls,
 } from '@chakra-ui/react'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { deleteProfileImage, reorderProfileImages } from '../../api/profileApi'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { deleteProfileImage } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
 import { UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faCheck,
-    faClose,
-    faHome,
-    faMapMarker,
-    faXmark,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faHome, faXmark } from '@fortawesome/free-solid-svg-icons'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import ListImageDraggable from '../Image/ListImageDraggable'
 
@@ -83,28 +76,6 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
             </ButtonGroup>
         ) : null
     }
-
-    const onReorderPhotos = useCallback(
-        async (sourceIndex: number, destinationIndex: number) => {
-            const newImages = [...images]
-            const [removed] = newImages.splice(sourceIndex, 1)
-            removed && newImages.splice(destinationIndex, 0, removed)
-
-            newImages.forEach((photo, index) => {
-                photo.position = index
-            })
-
-            setImages(newImages)
-
-            if (!session?.user?.id) return
-            await reorderProfileImages(
-                session?.user?.id,
-                sourceIndex,
-                destinationIndex
-            )
-        },
-        [images, session?.user?.id]
-    )
 
     const renderProfile = useMemo(() => {
         const handleAddImage = () => {

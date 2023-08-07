@@ -2,7 +2,6 @@ import {
     Box,
     Button,
     CloseButton,
-    Divider,
     Flex,
     HStack,
     Image,
