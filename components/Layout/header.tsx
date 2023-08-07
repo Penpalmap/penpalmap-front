@@ -39,37 +39,39 @@ const Header = () => {
                         {packageJson.version}
                     </Text>
                 </Flex>
-                <Menu>
-                    <MenuButton
-                        as={Avatar}
-                        size="sm"
-                        name={session?.user?.name}
-                        cursor="pointer"
-                        src={session?.user?.image}
-                    />
-                    <MenuList>
-                        <MenuItem>
-                            <Box display="flex" alignItems="center">
-                                <Avatar
-                                    size="sm"
-                                    name={session?.user?.name}
-                                    src={session?.user?.image}
-                                    marginRight={2}
-                                />
-                                <Text fontWeight="bold">
-                                    {session?.user?.name}
-                                </Text>
-                            </Box>
-                        </MenuItem>
-                        <MenuDivider />
-                        <MenuItem onClick={onOpen}>Mon profil</MenuItem>
-                        <MenuItem>Paramètres</MenuItem>
-                        <MenuDivider />
-                        <MenuItem onClick={() => signOut()}>
-                            Déconnexion
-                        </MenuItem>
-                    </MenuList>
-                </Menu>
+                {session && (
+                    <Menu>
+                        <MenuButton
+                            as={Avatar}
+                            size="sm"
+                            name={session?.user?.name}
+                            cursor="pointer"
+                            src={session?.user?.image}
+                        />
+                        <MenuList>
+                            <MenuItem>
+                                <Box display="flex" alignItems="center">
+                                    <Avatar
+                                        size="sm"
+                                        name={session?.user?.name}
+                                        src={session?.user?.image}
+                                        marginRight={2}
+                                    />
+                                    <Text fontWeight="bold">
+                                        {session?.user?.name}
+                                    </Text>
+                                </Box>
+                            </MenuItem>
+                            <MenuDivider />
+                            <MenuItem onClick={onOpen}>Mon profil</MenuItem>
+                            <MenuItem>Paramètres</MenuItem>
+                            <MenuDivider />
+                            <MenuItem onClick={() => signOut()}>
+                                Déconnexion
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                )}
             </HStack>
             <MyProfile onClose={onClose} isOpen={isOpen} />
         </>
