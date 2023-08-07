@@ -19,8 +19,8 @@ import {
     Text,
     useEditableControls,
 } from '@chakra-ui/react'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { deleteProfileImage } from '../../api/profileApi'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { deleteProfileImage, reorderProfileImages } from '../../api/profileApi'
 import { useSession } from 'next-auth/react'
 import { UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -32,6 +32,7 @@ import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
+import ListImageDraggable from '../Image/ListImageDraggable'
 
 type Props = {
     isOpen: boolean
@@ -45,9 +46,14 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
     const { data: session, update: updateSession } = useSession()
     const { uploadImage } = useUploadUserImage()
 
+    const [images, setImages] = useState<UserImage[]>([])
+
     useEffect(() => {
-        console.log(session)
-    }, [session])
+        if (session?.user?.userImages) {
+            setImages(session?.user?.userImages)
+        }
+    }, [session?.user?.userImages])
+
     const refInputFile = useRef<HTMLInputElement>(null)
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -77,6 +83,28 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
             </ButtonGroup>
         ) : null
     }
+
+    const onReorderPhotos = useCallback(
+        async (sourceIndex: number, destinationIndex: number) => {
+            const newImages = [...images]
+            const [removed] = newImages.splice(sourceIndex, 1)
+            removed && newImages.splice(destinationIndex, 0, removed)
+
+            newImages.forEach((photo, index) => {
+                photo.position = index
+            })
+
+            setImages(newImages)
+
+            if (!session?.user?.id) return
+            await reorderProfileImages(
+                session?.user?.id,
+                sourceIndex,
+                destinationIndex
+            )
+        },
+        [images, session?.user?.id]
+    )
 
     const renderProfile = useMemo(() => {
         const handleAddImage = () => {
@@ -123,64 +151,6 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                         justifyContent="space-between"
                         mb={4}
                     >
-                        {[0, 1, 2, 3].map((index) => {
-                            const image = session?.user?.userImages?.find(
-                                (img: UserImage) => img.position === index
-                            )
-                            return (
-                                <Box
-                                    key={index}
-                                    w={170}
-                                    h={170}
-                                    position="relative"
-                                >
-                                    {image ? (
-                                        <>
-                                            <Image
-                                                src={image.src}
-                                                alt={`Photo ${index}`}
-                                                borderRadius="xl"
-                                            />
-                                            <IconButton
-                                                onClick={() =>
-                                                    handleDeleteImage(
-                                                        image.position
-                                                    )
-                                                }
-                                                position={'absolute'}
-                                                bottom={2}
-                                                right={2}
-                                                aria-label="Send email"
-                                                bg={'blackAlpha.400'}
-                                                border={'2px solid white'}
-                                                icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faClose}
-                                                        color="white"
-                                                    />
-                                                }
-                                            />
-                                        </>
-                                    ) : (
-                                        <Box
-                                            w="full"
-                                            h="full"
-                                            bgColor="red.100"
-                                            borderRadius="xl"
-                                            display="flex"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            cursor="pointer"
-                                            onClick={() => handleAddImage()}
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faMapMarker}
-                                            />
-                                        </Box>
-                                    )}
-                                </Box>
-                            )
-                        })}
                         <Input
                             type="file"
                             ref={refInputFile}
@@ -188,6 +158,16 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                             onChange={handleFileChange}
                         />
                     </Flex>
+                    <Box>
+                        {session?.user.userImages &&
+                            session?.user?.userImages?.length > 0 && (
+                                <ListImageDraggable
+                                    photos={images}
+                                    handleDeleteImage={handleDeleteImage}
+                                    handleAddImage={handleAddImage}
+                                />
+                            )}
+                    </Box>
                 </Box>
 
                 <Box mb={4}>

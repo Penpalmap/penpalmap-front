@@ -14,6 +14,26 @@ const uploadProfileImage = async (formData: FormData, userId: string) => {
     }
 }
 
+const reorderProfileImages = async (
+    userId: string,
+    sourceIndex,
+    destinationIndex
+) => {
+    try {
+        const response = await axios.put(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile/reorder`,
+            {
+                sourceIndex,
+                destinationIndex,
+            }
+        )
+
+        return response.data
+    } catch (error) {
+        console.error('Error while reordering profile images', error)
+    }
+}
+
 const deleteProfileImage = async (position: number, userId: string) => {
     try {
         const response = await axios.delete(
@@ -70,4 +90,5 @@ export {
     createProfile,
     getProfile,
     deleteProfileImage,
+    reorderProfileImages,
 }
