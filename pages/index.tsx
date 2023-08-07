@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import ConversationList from '../components/Conversation/ConversationList'
 import Loading from '../components/Layout/loading'
 import Modal from 'react-modal'
+import Head from 'next/head'
 
 Modal.setAppElement('#__next')
 
@@ -29,6 +30,9 @@ const Home = () => {
         <Loading />
     ) : (
         <>
+            <Head>
+                <title>PenpalMap</title>
+            </Head>
             <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
                 <Box position={'relative'}>
                     <ConversationList />
