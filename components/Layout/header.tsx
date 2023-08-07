@@ -3,6 +3,7 @@ import {
     Box,
     Flex,
     HStack,
+    Image,
     Menu,
     MenuButton,
     MenuDivider,
@@ -23,9 +24,17 @@ const Header = () => {
         <>
             <HStack as="header" p={4} justifyContent={'space-between'} h={'14'}>
                 <Flex alignItems={'center'}>
-                    <Text fontSize={'xl'} fontWeight={'bold'}>
-                        PenpalMap
-                    </Text>
+                    <Flex alignItems={'center'}>
+                        <Image
+                            src={'/images/logo.png'}
+                            alt={'logo'}
+                            w={'10'}
+                            h={'10'}
+                        />
+                        <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
+                            PenpalMap
+                        </Text>
+                    </Flex>
                     <Text fontSize={'sm'} ml={'4'} color={'gray.900'}>
                         {packageJson.version}
                     </Text>
