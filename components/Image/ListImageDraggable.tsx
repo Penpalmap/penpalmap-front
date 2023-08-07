@@ -1,5 +1,5 @@
 import { Box, Flex, IconButton, Image } from '@chakra-ui/react'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import Sortable from 'sortablejs'
 import { UserImage } from '../../types'
 import { useSession } from 'next-auth/react'
@@ -27,28 +27,35 @@ const ListImageDraggable = ({
     const emptyPhotosCount = 4 - photos.length
 
     console.log('photos', photos)
-    const onListChange = async (evt) => {
-        if (!session) return
-        if (!gridRef.current) return
+    const onListChange = useCallback(
+        async (evt) => {
+            if (!session) return
+            if (!gridRef.current) return
 
-        const newPhotos = [...photos]
-        const newOrder = sortableJsRef.current.toArray()
+            const newPhotos = [...photos]
+            const newOrder = sortableJsRef.current.toArray()
 
-        newPhotos.forEach((photo) => {
-            const newPosition = newOrder.indexOf(photo.position.toString())
-            photo.position = newPosition
-        })
+            newPhotos.forEach((photo) => {
+                const newPosition = newOrder.indexOf(photo.position.toString())
+                photo.position = newPosition
+            })
 
-        await reorderProfileImages(session.user.id, evt.oldIndex, evt.newIndex)
+            await reorderProfileImages(
+                session.user.id,
+                evt.oldIndex,
+                evt.newIndex
+            )
 
-        updateSession({
-            ...session,
-            user: {
-                ...session.user,
-                userImages: newPhotos,
-            },
-        })
-    }
+            updateSession({
+                ...session,
+                user: {
+                    ...session.user,
+                    userImages: newPhotos,
+                },
+            })
+        },
+        [photos, session, updateSession]
+    )
 
     useEffect(() => {
         if (!gridRef.current) return
