@@ -9,7 +9,7 @@ const MapConnexion = () => {
     })
 
     return (
-        <Box ref={mapContainerRef} h={'full'} w={'full'} className="map"></Box>
+        <Box ref={mapContainerRef} h={'80vh'} w={'full'} className="map"></Box>
     )
 }
 export default MapConnexion

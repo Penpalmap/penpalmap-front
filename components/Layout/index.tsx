@@ -3,10 +3,14 @@ import Header from './header'
 import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import ProfilePage from '../../pages/profile/[profileId]'
+import Footer from './footer'
+import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 
 Modal.setAppElement('#__next')
 const Layout = ({ children }) => {
     const router = useRouter()
+    const { status } = useSession()
     const customStyles = {
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -26,13 +30,16 @@ const Layout = ({ children }) => {
         },
     }
 
+    useEffect(() => {
+        console.log('status', status)
+    }, [status])
+
     return (
         <>
             <Box>
                 <Header />
-                <Box w={'100%'} h={'calc(100vh - 70px)'}>
-                    {children}
-                </Box>
+                <Box w={'100%'}>{children}</Box>
+                {status === 'unauthenticated' && <Footer />}
             </Box>
             <Modal
                 isOpen={!!router.query.profileId}

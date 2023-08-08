@@ -22,7 +22,7 @@ const Map = () => {
         <>
             <Box
                 ref={mapContainerRef}
-                h={'full'}
+                h={'calc(100vh - 56px)'}
                 w={'full'}
                 className="map"
             ></Box>

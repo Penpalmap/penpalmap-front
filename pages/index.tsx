@@ -24,9 +24,7 @@ const Home = () => {
             router.push('/auth/signin')
         }
     }, [router, session, status])
-    return status === 'loading' ||
-        status === 'unauthenticated' ||
-        session?.user?.isNewUser ? (
+    return status === 'loading' || session?.user?.isNewUser ? (
         <Loading />
     ) : (
         <>
