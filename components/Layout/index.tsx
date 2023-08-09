@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import ProfilePage from '../../pages/profile/[profileId]'
 import Footer from './footer'
 import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
+import SettingsPage from '../../pages/settings'
 
 Modal.setAppElement('#__next')
 const Layout = ({ children }) => {
@@ -30,10 +30,6 @@ const Layout = ({ children }) => {
         },
     }
 
-    useEffect(() => {
-        console.log('status', status)
-    }, [status])
-
     return (
         <>
             <Box>
@@ -49,6 +45,15 @@ const Layout = ({ children }) => {
                 style={customStyles}
             >
                 <ProfilePage />
+            </Modal>
+            <Modal
+                isOpen={!!router.query.settings}
+                onRequestClose={() => {
+                    router.push('/')
+                }}
+                style={customStyles}
+            >
+                <SettingsPage />
             </Modal>
         </>
     )

@@ -15,6 +15,7 @@ import {
 import { signOut, useSession } from 'next-auth/react'
 import MyProfile from '../MyProfile'
 import packageJson from './../../package.json'
+import Link from 'next/link'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
@@ -64,7 +65,9 @@ const Header = () => {
                             </MenuItem>
                             <MenuDivider />
                             <MenuItem onClick={onOpen}>Mon profil</MenuItem>
-                            <MenuItem>Paramètres</MenuItem>
+                            <Link href={`/?settings=yes`} as={`/settings/`}>
+                                <MenuItem>Paramètres</MenuItem>
+                            </Link>
                             <MenuDivider />
                             <MenuItem onClick={() => signOut()}>
                                 Déconnexion
