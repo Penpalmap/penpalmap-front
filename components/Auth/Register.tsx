@@ -21,6 +21,7 @@ import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import MapConnexion from '../Map/MapConnexion'
+import Presentation from './Presentation'
 
 const Register = () => {
     const router = useRouter()
@@ -48,134 +49,101 @@ const Register = () => {
     }
 
     return (
-        <Box position="relative" h={'80%'} w={'full'}>
-            <MapConnexion />
-            <Box
-                position={'absolute'}
-                left={'50%'}
-                top={'50%'}
-                transform={'translate(-50%, -50%)'}
-                w={'400px'}
-                p={6}
-                bg="whiteAlpha.700"
-                backdropFilter="blur(6px)"
-                rounded={'lg'}
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'center'}
-            >
-                <Heading as="h1" size="lg" mb={6}>
-                    Inscrivez-vous
-                </Heading>
-                <GoogleLoginButton />
-                <Divider my={6} />
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    style={{ width: '90%' }}
+        <>
+            <Box position="relative" h={'80%'} w={'full'}>
+                <MapConnexion />
+                <Box
+                    position={'absolute'}
+                    left={'50%'}
+                    top={'50%'}
+                    transform={'translate(-50%, -50%)'}
+                    w={'400px'}
+                    p={6}
+                    bg="whiteAlpha.700"
+                    backdropFilter="blur(6px)"
+                    rounded={'lg'}
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
                 >
-                    <Stack spacing={4}>
-                        <FormControl isInvalid={!!errors.email}>
-                            <FormLabel>Email</FormLabel>
-                            <Input
-                                type="email"
-                                {...register('email', {
-                                    required: 'Email is required',
-                                })}
-                                bg={'white'}
-                            />
-                            <FormErrorMessage>
-                                {errors.email?.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl isInvalid={!!errors.name}>
-                            <FormLabel>Name</FormLabel>
-                            <Input
-                                type="text"
-                                {...register('name', {
-                                    required: 'Name is required',
-                                })}
-                                bg={'white'}
-                            />
-                            <FormErrorMessage>
-                                {errors.name?.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl isInvalid={!!errors.password}>
-                            <FormLabel>Password</FormLabel>
-                            <Input
-                                type="password"
-                                {...register('password', {
-                                    required: 'Password is required',
-                                })}
-                                bg={'white'}
-                            />
-                            <FormErrorMessage>
-                                {errors.password?.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        {error && (
-                            <Alert status="error" my={4}>
-                                <AlertIcon />
-                                {error}
-                            </Alert>
-                        )}
-                        <Button type="submit" colorScheme="blue">
-                            S&apos;inscrire
-                        </Button>
-                    </Stack>
-                </form>
-                <Box mt={4}>
-                    <Text fontSize={'small'}>
-                        Vous avez déjà un compte ?{' '}
-                        <Link href="/auth/signin">
-                            <Text as="span" color="blue.500" cursor="pointer">
-                                Connectez-vous
-                            </Text>
-                        </Link>
-                    </Text>
+                    <Heading as="h1" size="lg" mb={6}>
+                        Inscrivez-vous
+                    </Heading>
+                    <GoogleLoginButton />
+                    <Divider my={6} />
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        style={{ width: '90%' }}
+                    >
+                        <Stack spacing={4}>
+                            <FormControl isInvalid={!!errors.email}>
+                                <FormLabel>Email</FormLabel>
+                                <Input
+                                    type="email"
+                                    {...register('email', {
+                                        required: 'Email is required',
+                                    })}
+                                    bg={'white'}
+                                />
+                                <FormErrorMessage>
+                                    {errors.email?.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                            <FormControl isInvalid={!!errors.name}>
+                                <FormLabel>Name</FormLabel>
+                                <Input
+                                    type="text"
+                                    {...register('name', {
+                                        required: 'Name is required',
+                                    })}
+                                    bg={'white'}
+                                />
+                                <FormErrorMessage>
+                                    {errors.name?.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                            <FormControl isInvalid={!!errors.password}>
+                                <FormLabel>Password</FormLabel>
+                                <Input
+                                    type="password"
+                                    {...register('password', {
+                                        required: 'Password is required',
+                                    })}
+                                    bg={'white'}
+                                />
+                                <FormErrorMessage>
+                                    {errors.password?.message}
+                                </FormErrorMessage>
+                            </FormControl>
+                            {error && (
+                                <Alert status="error" my={4}>
+                                    <AlertIcon />
+                                    {error}
+                                </Alert>
+                            )}
+                            <Button type="submit" colorScheme="blue">
+                                S&apos;inscrire
+                            </Button>
+                        </Stack>
+                    </form>
+                    <Box mt={4}>
+                        <Text fontSize={'small'}>
+                            Vous avez déjà un compte ?{' '}
+                            <Link href="/auth/signin">
+                                <Text
+                                    as="span"
+                                    color="blue.500"
+                                    cursor="pointer"
+                                >
+                                    Connectez-vous
+                                </Text>
+                            </Link>
+                        </Text>
+                    </Box>
                 </Box>
             </Box>
-            <Box p={10}>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio.
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio.
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio. Recusandae, ex esse
-                    consequuntur impedit, atque totam dolor facere dolore quod
-                    laboriosam eos harum nihil dolorum optio non pariatur
-                    molestias, doloremque odio. Recusandae, ex esse consequuntur
-                    impedit, atque totam dolor facere dolore quod laboriosam eos
-                    harum nihil dolorum optio non pariatur
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio. Recusandae, ex esse
-                    consequuntur impedit, atque totam dolor facere dolore quod
-                    laboriosam eos harum nihil dolorum optio non pariatur
-                    molestias, doloremque odio.
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio.
-                </Text>
-            </Box>
-        </Box>
+            <Presentation />
+        </>
     )
 }
 

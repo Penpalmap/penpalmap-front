@@ -19,6 +19,7 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import MapConnexion from '../Map/MapConnexion'
+import Presentation from './Presentation'
 
 interface LoginFormData {
     email: string
@@ -145,46 +146,7 @@ const SignIn = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box p={10}>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio.
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio.
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio. Recusandae, ex esse
-                    consequuntur impedit, atque totam dolor facere dolore quod
-                    laboriosam eos harum nihil dolorum optio non pariatur
-                    molestias, doloremque odio. Recusandae, ex esse consequuntur
-                    impedit, atque totam dolor facere dolore quod laboriosam eos
-                    harum nihil dolorum optio non pariatur
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio. Recusandae, ex esse
-                    consequuntur impedit, atque totam dolor facere dolore quod
-                    laboriosam eos harum nihil dolorum optio non pariatur
-                    molestias, doloremque odio.
-                </Text>
-                <Text>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Recusandae, ex esse consequuntur impedit, atque totam dolor
-                    facere dolore quod laboriosam eos harum nihil dolorum optio
-                    non pariatur molestias, doloremque odio.
-                </Text>
-            </Box>
+            <Presentation />
         </>
     )
 }
