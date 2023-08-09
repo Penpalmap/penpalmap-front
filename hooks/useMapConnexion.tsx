@@ -12,6 +12,7 @@ import Style from 'ol/style/Style'
 import Photo from './../styles/openlayer/Photo'
 import { Point } from 'ol/geom'
 import Stroke from 'ol/style/Stroke'
+import XYZ from 'ol/source/XYZ'
 
 interface UseMapOptions {
     center: [number, number]
@@ -35,7 +36,10 @@ const useMapConnexion = ({}: UseMapOptions): UseMapConnexionResult => {
             target: mapContainerRef.current,
             layers: [
                 new TileLayer({
-                    source: new OSM(),
+                    source: new XYZ({
+                        url: 'https://api.mapbox.com/styles/v1/gabnoire/cjpzpqvr03a5h2sqidpht5qhm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Fibm9pcmUiLCJhIjoiY2p0ZmhtYTVvMDVqcDQzb2NiYXY1YW4xMyJ9.9AquqYCdPTiPiDNmh7dMhQ',
+                        crossOrigin: 'anonymous',
+                    }),
                 }),
             ],
             view: new View({
