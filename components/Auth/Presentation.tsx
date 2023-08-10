@@ -11,9 +11,9 @@ const Presentation = () => {
                 w={'6xl'}
                 m={'auto'}
             >
-                Here at PenPalMap, we arent &apos;about quick swipes. We are
+                Here at PenPalMap, we aren&apos;t about quick swipes. We are
                 about learning, connecting, and growing - no matter the
-                distance."
+                distance.
             </Text>
 
             <Flex py={12} w={'full'} gap={'20'} alignItems={'center'}>

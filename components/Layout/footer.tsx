@@ -22,7 +22,7 @@ const Footer = () => {
                             color="blue.600"
                             fontWeight="medium"
                         >
-                            Conditions d'utilisation
+                            Conditions d&apos;utilisation
                         </Link>
                         <Link href="/rgpd" color="blue.600" fontWeight="medium">
                             Respect du RGPD

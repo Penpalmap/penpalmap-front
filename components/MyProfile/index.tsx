@@ -159,8 +159,9 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
             </>
         )
     }, [
-        session?.user?.id,
-        session?.user?.userImages,
+        images,
+        session?.user.id,
+        session?.user.userImages,
         updateSession,
         uploadImage,
     ])
