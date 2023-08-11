@@ -4,7 +4,7 @@ L'app front de Penpalmap
 ## Installation
 1. Cloner le dépôt localement 
 ```
-git clone https://github.com/Colingue/penpalmap-front.git
+git clone https://github.com/Penpalmap/penpalmap-front.git
 ```
 
 2. Installer les dépendances
