@@ -76,7 +76,7 @@ const Header = () => {
                     </Menu>
                 )}
             </HStack>
-            <MyProfile onClose={onClose} isOpen={isOpen} />
+            {session && <MyProfile onClose={onClose} isOpen={isOpen} />}
         </>
     )
 }

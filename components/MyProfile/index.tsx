@@ -130,7 +130,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                         />
                     </Flex>
                     <Box>
-                        {session?.user.userImages &&
+                        {session?.user?.userImages &&
                             session?.user?.userImages?.length > 0 && (
                                 <ListImageDraggable
                                     photos={images}
