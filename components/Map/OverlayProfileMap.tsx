@@ -19,7 +19,6 @@ import { useSession } from 'next-auth/react'
 import { getPositionDataByCoords } from '../../utils/location'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getAgeByDate } from '../../utils/date'
 
 type OverlayProfileMapProps = {
     user: User | null
