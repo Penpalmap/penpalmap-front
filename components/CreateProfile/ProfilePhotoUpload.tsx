@@ -62,8 +62,8 @@ const ProfileUploadPhoto = () => {
                         key={index}
                         onClick={() => clickOnBtn(index)}
                         cursor="pointer"
-                        w="180px"
-                        h="180px"
+                        w={['80px', '180px']}
+                        h={['80px', '180px']}
                         borderRadius="lg"
                         display={'flex'}
                         alignItems={'center'}

@@ -2,13 +2,13 @@ import { Box, Flex, Text, Image } from '@chakra-ui/react'
 
 const Presentation = () => {
     return (
-        <Box p={'20'}>
+        <Box p={[8, 20]}>
             <Text
                 py={12}
-                fontSize="3xl"
+                fontSize={['xl', '3xl']}
                 fontWeight="bold"
                 textAlign="center"
-                w={'6xl'}
+                w={['100%', '6xl']}
                 m={'auto'}
             >
                 Here at PenPalMap, we aren&apos;t about quick swipes. We are
@@ -16,7 +16,13 @@ const Presentation = () => {
                 distance.
             </Text>
 
-            <Flex py={12} w={'full'} gap={'20'} alignItems={'center'}>
+            <Flex
+                py={12}
+                w={'full'}
+                gap={'20'}
+                alignItems={'center'}
+                flexDir={['column', 'row']}
+            >
                 <Box flex={1}>
                     <Image
                         src="/images/image_landing2.png"
@@ -25,7 +31,7 @@ const Presentation = () => {
                         borderRadius={'lg'}
                     />
                 </Box>
-                <Box flex={1} fontWeight={'medium'} fontSize={'lg'}>
+                <Box flex={1} fontWeight={'medium'} fontSize={['sm', 'lg']}>
                     <Text>
                         PenPalMap is your gateway to the global village. Connect
                         with individuals from all corners of the world and
@@ -49,8 +55,8 @@ const Presentation = () => {
                 py={12}
                 w={'full'}
                 gap={'20'}
-                flexDir={'row-reverse'}
                 alignItems={'center'}
+                flexDir={['column', 'row-reverse']}
             >
                 <Box flex={1}>
                     <Image

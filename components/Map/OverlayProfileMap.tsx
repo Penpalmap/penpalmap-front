@@ -19,6 +19,7 @@ import { useSession } from 'next-auth/react'
 import { getPositionDataByCoords } from '../../utils/location'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { getAgeByDate } from '../../utils/date'
 
 type OverlayProfileMapProps = {
     user: User | null
@@ -59,11 +60,11 @@ const OverlayProfileMap = ({
             position={'relative'}
             bg="white"
             boxShadow="md"
-            w="400px"
-            h="200px"
+            w={['320px', '400px']}
+            h={['150px', '200px']}
             borderRadius={'10px'}
         >
-            <Flex flex={'1'} w="200px" h="200px">
+            <Flex flex={'1'} w={['150px', '200px']} h={['150px', '200px']}>
                 <Image
                     src={
                         user?.userImages.find((img) => img.position === 0)?.src
@@ -80,15 +81,11 @@ const OverlayProfileMap = ({
                 justifyContent={'space-between'}
             >
                 <Box>
-                    <Flex alignItems={'center'}>
-                        <Text
-                            fontSize={'18px'}
-                            fontWeight={'bold'}
-                            textTransform={'capitalize'}
-                        >
+                    <Flex alignItems={'center'} fontSize={['18px']}>
+                        <Text fontWeight={'bold'} textTransform={'capitalize'}>
                             {user?.name}
                         </Text>
-                        <Text fontSize={'18px'}>, 21</Text>
+                        <Text>, 21</Text>
                     </Flex>
                     <Flex
                         alignItems={'center'}
@@ -110,7 +107,9 @@ const OverlayProfileMap = ({
                         <Badge colorScheme="green">En ligne</Badge>
                     </Flex>
 
-                    <Text fontSize={'sm'}>Salut je suis un exemple de Bio</Text>
+                    <Text display={['none', 'block']} fontSize={'sm'}>
+                        Salut je suis un exemple de Bio
+                    </Text>
                 </Box>
                 <Flex justifyContent={'space-between'} gap={'12px'}>
                     <Link
@@ -118,6 +117,7 @@ const OverlayProfileMap = ({
                         as={`/profile/${user?.id}`}
                     >
                         <Button
+                            display={['none', 'block']}
                             flex={'2'}
                             leftIcon={<FontAwesomeIcon icon={faUser} />}
                             colorScheme="teal"
@@ -126,8 +126,19 @@ const OverlayProfileMap = ({
                             // onClick={() => user && onOpenChat(user)}
                             isDisabled={session?.user?.id === user?.id}
                         >
-                            View profile
+                            Voir le profil
                         </Button>
+                        <IconButton
+                            display={['block', 'none']}
+                            flex={'2'}
+                            icon={<FontAwesomeIcon icon={faUser} />}
+                            colorScheme="teal"
+                            variant="solid"
+                            fontSize={'12px'}
+                            // onClick={() => user && onOpenChat(user)}
+                            aria-label="Voir le profil"
+                            isDisabled={session?.user?.id === user?.id}
+                        />
                     </Link>
 
                     <IconButton

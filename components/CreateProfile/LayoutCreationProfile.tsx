@@ -52,8 +52,14 @@ const LayoutCreationProfile = ({
     ]
 
     return (
-        <Flex direction={'column'} w={'60%'} m={'auto'} h={'70%'}>
-            <Flex direction={'column'} flex={1}>
+        <Flex
+            direction={'column'}
+            w={['90%', '60%']}
+            m={'auto'}
+            h={'calc(100vh - 60px)'}
+            textAlign={'center'}
+        >
+            <Box>
                 <Stepper index={activeStep}>
                     {steps.map((step, index) => (
                         <Step key={index}>
@@ -65,7 +71,10 @@ const LayoutCreationProfile = ({
                                 />
                             </StepIndicator>
 
-                            <Box flexShrink="0">
+                            <Box
+                                flexShrink="0"
+                                display={{ base: 'none', md: 'block' }}
+                            >
                                 <StepTitle>{step.title}</StepTitle>
                             </Box>
 
@@ -73,28 +82,28 @@ const LayoutCreationProfile = ({
                         </Step>
                     ))}
                 </Stepper>
-            </Flex>
-            <Flex direction={'column'} flex={4} alignItems={'center'}>
-                <Flex flex={'1'} alignItems={'center'}>
-                    <Text
-                        fontSize={'3xl'}
-                        fontWeight={'bold'}
-                        textAlign={'center'}
-                    >
-                        {steps?.[activeStep]?.titlePage}
-                    </Text>
-                </Flex>
+            </Box>
+            <Flex
+                mx={'auto'}
+                mt={'20'}
+                height={'500px'}
+                flexDir={'column'}
+                alignItems={'center'}
+            >
+                <Text fontSize={'3xl'} fontWeight={'bold'} textAlign={'center'}>
+                    {steps?.[activeStep]?.titlePage}
+                </Text>
 
-                <Flex flex={4} alignItems={'center'}>
+                <Flex
+                    alignItems={'center'}
+                    height={'100%'}
+                    w={'full'}
+                    justifyContent={'center'}
+                >
                     {children}
                 </Flex>
-            </Flex>
-            <Flex
-                flex="1"
-                alignItems={'center'}
-                justifyContent={'center'}
-                gap={'4'}
-            >
+            </Flex>{' '}
+            <Box>
                 {activeStep !== 0 && (
                     <Button
                         type="button"
@@ -122,7 +131,7 @@ const LayoutCreationProfile = ({
                         Terminer
                     </Button>
                 )}
-            </Flex>
+            </Box>
         </Flex>
     )
 }

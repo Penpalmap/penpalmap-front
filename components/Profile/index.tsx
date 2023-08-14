@@ -157,8 +157,9 @@ const Profile = ({ profileId }: Props) => {
                     justifyContent={'space-between'}
                     bg={' #E3F7F3'}
                     p={10}
+                    flexDir={['column', 'row']}
                 >
-                    <Flex alignItems={'center'}>
+                    <Flex alignItems={'center'} flexDir={['column', 'row']}>
                         <Box mr={'8'}>
                             <Image
                                 src={user?.userImages[0]?.src}
@@ -235,7 +236,7 @@ const Profile = ({ profileId }: Props) => {
                         </Button>
                     </VStack>
                 </Flex>
-                <Flex>
+                <Flex flexDir={['column', 'row']} mt={'8'}>
                     <Box mb={'8'} p={10} flex={'2'}>
                         <Box mb={'4'}>
                             <Text
@@ -318,7 +319,7 @@ const Profile = ({ profileId }: Props) => {
                         </Flex>
                         <Box
                             ref={mapRefContainer}
-                            h={'800px'}
+                            h={['400px', '800px']}
                             w={'full'}
                             className="map"
                             borderRadius={'xl'}
