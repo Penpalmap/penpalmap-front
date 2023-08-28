@@ -53,6 +53,7 @@ const ConversationList = () => {
             bg={'white'}
             h={'full'}
             px={2}
+            py={4}
             gap={2}
             overflowY={'auto'}
             background={'whiteAlpha.600'}
@@ -65,7 +66,7 @@ const ConversationList = () => {
                     width: '6px',
                 },
                 '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: 'gray.300',
+                    backgroundColor: 'gray.500',
                     borderRadius: '24px',
                 },
             }}
