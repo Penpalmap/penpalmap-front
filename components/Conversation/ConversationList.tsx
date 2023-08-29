@@ -5,6 +5,7 @@ import {
     Box,
     Divider,
     Flex,
+    Icon,
     Text,
     VStack,
 } from '@chakra-ui/react'
@@ -14,6 +15,7 @@ import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
 import useRooms from '../../hooks/useRooms'
+import dayjs from 'dayjs'
 
 const ConversationList = () => {
     const { data: session } = useSession()
@@ -54,13 +56,12 @@ const ConversationList = () => {
             w={'280px'}
             left={0}
             zIndex={1}
-            bg={'white'}
             h={'full'}
             px={2}
             py={4}
             gap={2}
             overflowY={'auto'}
-            background={'whiteAlpha.600'}
+            background={'whiteAlpha.900'}
             backdropFilter={'blur(4px)'}
             sx={{
                 '&::-webkit-scrollbar': {
@@ -75,10 +76,6 @@ const ConversationList = () => {
                 },
             }}
         >
-            <Box my={2}>
-                <FontAwesomeIcon icon={faBars} />
-            </Box>
-            <Divider />
             <Box w={'full'}>
                 {rooms.map((room, index) => {
                     return (
@@ -111,7 +108,7 @@ const ConversationList = () => {
                                 borderWidth={'medium'}
                                 borderColor={'white'}
                             >
-                                {parseInt(room.countUnreadMessages) > 0 && (
+                                {/* {parseInt(room.countUnreadMessages) > 0 && (
                                     <AvatarBadge
                                         borderColor="papayawhip"
                                         bg="red.400"
@@ -124,10 +121,16 @@ const ConversationList = () => {
                                             {room.countUnreadMessages}
                                         </Text>
                                     </AvatarBadge>
-                                )}
+                                )} */}
+                                {/* Avatar badge online green */}
+                                <AvatarBadge
+                                    bg="green.400"
+                                    boxSize=".8em"
+                                    borderWidth={'2px'}
+                                />
                             </Avatar>
                             <Flex
-                                flex={3}
+                                flex={4}
                                 flexDirection={'column'}
                                 justifyContent={'center'}
                                 overflow={'hidden'}
@@ -149,12 +152,33 @@ const ConversationList = () => {
                                 </Box>
                                 <Box>
                                     <Text
-                                        fontSize={'small'}
+                                        fontSize={'.8em'}
                                         whiteSpace={'nowrap'}
+                                        textOverflow={'ellipsis'}
                                     >
-                                        {room?.lastMessage}
+                                        {room?.messages[0]?.senderId ===
+                                            session?.user?.id && 'Vous : '}
+                                        {room?.messages[0]?.content} -{' '}
+                                        {dayjs(
+                                            room?.messages[0]?.createdAt
+                                        ).format('D MMM')}
                                     </Text>
                                 </Box>
+                            </Flex>
+                            <Flex
+                                justifyContent={'center'}
+                                alignItems={'center'}
+                                flex={1}
+                                pl={2}
+                            >
+                                {parseInt(room.countUnreadMessages) > 0 && (
+                                    <Icon viewBox="0 0 200 200" color="red.400">
+                                        <path
+                                            fill="currentColor"
+                                            d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
+                                        />
+                                    </Icon>
+                                )}
                             </Flex>
                         </Flex>
                     )

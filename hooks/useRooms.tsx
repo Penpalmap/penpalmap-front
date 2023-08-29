@@ -67,6 +67,7 @@ const useRooms = () => {
                 ...prevData,
                 rooms: conversationsData?.rooms,
             }))
+            console.log('conversationsData', conversationsData)
         }
     }, [session?.user?.id, setData])
 
