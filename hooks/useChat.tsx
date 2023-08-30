@@ -17,7 +17,7 @@ const useChat = () => {
     const [room, setRoom] = useState<Room | null>(null)
     const { data: session } = useSession()
     const { refetch } = useRooms()
-    const [appData] = useContext(AppContext)
+    const [appData, setAppData] = useContext(AppContext)
 
     useEffect(() => {
         const fetchRoom = async () => {
@@ -45,30 +45,46 @@ const useChat = () => {
         socket.disconnect()
     }, [])
 
-    const addMessageToRoom = useCallback(async (message: Message) => {
-        setRoom((prevRoom) => {
-            if (prevRoom) {
-                // La room existe, donc nous pouvons la mettre à jour
-                return {
-                    ...prevRoom,
-                    messages: [...prevRoom.messages, message],
-                }
-            } else {
-                // La room n'existe pas, donc nous devons la créer avec le message initial
-                const newRoom: Room = {
-                    id: message.roomId,
-                    members: [],
-                    messages: [message],
-                    countUnreadMessages: '0',
-                    createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-                    updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-                    UserRoom: null,
-                }
+    const addMessageToRoom = useCallback(
+        async (message: Message) => {
+            setRoom((prevRoom) => {
+                if (prevRoom) {
+                    // La room existe, donc nous pouvons la mettre à jour
+                    return {
+                        ...prevRoom,
+                        messages: [...prevRoom.messages, message],
+                    }
+                } else {
+                    // La room n'existe pas, donc nous devons la créer avec le message initial
+                    const newRoom: Room = {
+                        id: message.roomId,
+                        members: [],
+                        messages: [message],
+                        countUnreadMessages: '0',
+                        createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+                        updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+                        UserRoom: null,
+                    }
 
-                return newRoom
-            }
-        })
-    }, [])
+                    return newRoom
+                }
+            })
+
+            setAppData({
+                ...appData,
+                rooms: appData.rooms.map((room) => {
+                    if (room?.UserRoom?.roomId === message.roomId) {
+                        return {
+                            ...room,
+                            messages: [message],
+                        }
+                    }
+                    return room
+                }),
+            })
+        },
+        [appData, setAppData]
+    )
 
     const sendMessage = useCallback(
         async (message: MessageInput) => {

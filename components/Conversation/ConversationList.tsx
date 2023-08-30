@@ -16,6 +16,7 @@ import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
 import useRooms from '../../hooks/useRooms'
 import dayjs from 'dayjs'
+import { Room } from '../../types'
 
 const ConversationList = () => {
     const { data: session } = useSession()
@@ -50,6 +51,26 @@ const ConversationList = () => {
         }
     }
 
+    const sortByLastMessageDate = (a: Room, b: Room) => {
+        if (
+            a.messages.length > 0 &&
+            b.messages.length > 0 &&
+            a.messages[0] &&
+            b.messages[0]
+        ) {
+            return (
+                new Date(b.messages[0].createdAt).getTime() -
+                new Date(a.messages[0].createdAt).getTime()
+            )
+        } else if (a.messages.length > 0) {
+            return -1
+        } else if (b.messages.length > 0) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
     return (
         <VStack
             position={'absolute'}
@@ -77,7 +98,7 @@ const ConversationList = () => {
             }}
         >
             <Box w={'full'}>
-                {rooms.map((room, index) => {
+                {rooms.sort(sortByLastMessageDate).map((room, index) => {
                     return (
                         <Flex
                             key={index}
@@ -108,21 +129,6 @@ const ConversationList = () => {
                                 borderWidth={'medium'}
                                 borderColor={'white'}
                             >
-                                {/* {parseInt(room.countUnreadMessages) > 0 && (
-                                    <AvatarBadge
-                                        borderColor="papayawhip"
-                                        bg="red.400"
-                                        boxSize="1.2em"
-                                    >
-                                        <Text
-                                            fontSize={'x-small'}
-                                            color={'white'}
-                                        >
-                                            {room.countUnreadMessages}
-                                        </Text>
-                                    </AvatarBadge>
-                                )} */}
-                                {/* Avatar badge online green */}
                                 <AvatarBadge
                                     bg="green.400"
                                     boxSize=".8em"

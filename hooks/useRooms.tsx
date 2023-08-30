@@ -44,12 +44,14 @@ const useRooms = () => {
                                 return {
                                     ...room,
                                     countUnreadMessages: 1,
+                                    messages: [message],
                                 }
                             } else {
                                 return {
                                     ...room,
                                     countUnreadMessages:
                                         parseInt(room.countUnreadMessages) + 1,
+                                    messages: [message],
                                 }
                             }
                         }
@@ -67,7 +69,6 @@ const useRooms = () => {
                 ...prevData,
                 rooms: conversationsData?.rooms,
             }))
-            console.log('conversationsData', conversationsData)
         }
     }, [session?.user?.id, setData])
 
