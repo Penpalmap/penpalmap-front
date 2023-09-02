@@ -112,8 +112,6 @@ const Profile = ({ profileId }: Props) => {
         const fetchUser = async () => {
             const user = await getProfile(profileId)
             setUser(user)
-
-            console.log(user)
         }
 
         fetchUser()

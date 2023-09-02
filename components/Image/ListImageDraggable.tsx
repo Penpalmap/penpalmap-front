@@ -26,7 +26,6 @@ const ListImageDraggable = ({
 
     const emptyPhotosCount = 4 - photos.length
 
-    console.log('photos', photos)
     const onListChange = useCallback(
         async (evt) => {
             if (!session) return

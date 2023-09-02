@@ -29,7 +29,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapContainerRef = useRef<HTMLDivElement>(null)
     const mapObj = useRef<OLMap | null>(null)
     const [users, setUsers] = useState<User[]>([])
-    const [, setData] = useContext(AppContext)
+    const [appData, setData] = useContext(AppContext)
     const { data: session } = useSession()
 
     const overlayRef = useRef<Overlay | null>(null)
@@ -193,17 +193,28 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         // add features to the source for users
         const features = users.map((user) => {
             const { latitude, longitude } = user
+            const room = appData?.rooms?.find((room) => {
+                const otherUser = room.members.find(
+                    (member) => member.id !== session?.user.id
+                )
+
+                return otherUser?.id === user.id
+            })
+
             return new Feature({
                 geometry: new Point(fromLonLat([latitude, longitude])),
                 element: {
                     ...user,
                     strokeColor:
                         user.id === session?.user?.id ? '#9de0fc' : '#FFFFFF',
+                    room: room,
                 },
             })
         })
 
-        userSource.addFeatures(features)
+        mapObj.current.once('rendercomplete', () => {
+            userSource.addFeatures(features)
+        })
 
         mapObj.current.on('click', onClick)
         mapObj.current.on('pointermove', onPointermove)
@@ -213,7 +224,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             mapObj.current?.un('click', onClick)
             mapObj.current?.un('pointermove', onPointermove)
         }
-    }, [onClick, onPointermove, session?.user?.id, users])
+    }, [appData?.rooms, onClick, onPointermove, session?.user?.id, users])
 
     return { mapObj, mapContainerRef, overlayRef: overlayRef.current }
 }

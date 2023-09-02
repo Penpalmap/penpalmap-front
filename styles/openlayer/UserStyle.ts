@@ -1,13 +1,12 @@
 import Style from 'ol/style/Style'
 import Stroke from 'ol/style/Stroke'
 import Photo from './../openlayer/Photo'
-import { User } from '../../types'
+import { UserElement } from '../../types'
 
 export const userStyleCache = {}
 
 const userStyle = function (feature) {
-    console.log(feature)
-    const user: User = feature.values_.element
+    const user: UserElement = feature.values_.element
     const uid = user.id
 
     let style: Style = userStyleCache[uid]

@@ -23,8 +23,6 @@ const ConversationList = () => {
     const [appData, setAppData] = useContext(AppContext)
     const { rooms } = useRooms()
 
-    console.log('rooms', rooms)
-
     //  TODO : mettre dans le hook useConversations
     const clickOnConversation = async (members) => {
         const user = members?.find((member) => member.id !== session?.user?.id)

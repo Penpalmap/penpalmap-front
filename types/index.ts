@@ -57,7 +57,6 @@ export type User = {
     bio: string
     userImages: Array<UserImage>
     isNewUser: boolean
-    strokeColor: string
 }
 
 export type UserImage = {
@@ -75,4 +74,9 @@ export type Room = {
     createdAt: string
     updatedAt: string
     countUnreadMessages: string
+}
+
+export type UserElement = User & {
+    room: Room
+    strokeColor: string
 }

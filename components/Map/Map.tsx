@@ -6,7 +6,7 @@ import { useCallback, useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 const Map = () => {
-    const { mapContainerRef, mapObj, overlayRef } = useMap({
+    const { mapContainerRef, mapObj, overlayRef, isLoading } = useMap({
         center: [0, 0],
         zoom: 2,
     })
