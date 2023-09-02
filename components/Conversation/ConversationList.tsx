@@ -3,14 +3,11 @@ import {
     Avatar,
     AvatarBadge,
     Box,
-    Divider,
     Flex,
     Icon,
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'

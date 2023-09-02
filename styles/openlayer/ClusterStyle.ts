@@ -11,19 +11,6 @@ export const styleCache = {}
 const clusterStyle = function (feature) {
     const size = feature.get('features').length
 
-    const outerCircleFill = new Fill({
-        color: '#FF0808',
-    })
-
-    const outerCircle = new CircleStyle({
-        radius: 9,
-        fill: outerCircleFill,
-        displacement: [20, 26],
-        stroke: new Stroke({
-            color: '#fff',
-            width: 3,
-        }),
-    })
     // Cluster de plusieurs personnes
     if (size > 1) {
         let featureMaxUser: UserElement | null = null
