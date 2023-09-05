@@ -5,12 +5,7 @@ import { useSession } from 'next-auth/react'
 import { createMessage, getRoomOfTwoUsers } from '../api/chatApi'
 import useRooms from './useRooms'
 import { AppContext } from '../context/AppContext'
-import {
-    leaveRoom,
-    onNewMessage,
-    sendMessageSocket,
-    socket,
-} from '../sockets/socketManager'
+import { onNewMessage, sendMessageSocket } from '../sockets/socketManager'
 import dayjs from 'dayjs'
 
 const useChat = () => {
@@ -36,14 +31,14 @@ const useChat = () => {
         }
     }, [appData.userChat, session?.user?.id])
 
-    const connectToRoom = useCallback((roomId: string) => {
-        socket.emit(SocketEvents.JoinRoom, roomId)
-    }, [])
+    // const connectToRoom = useCallback((roomId: string) => {
+    //     socket.emit(SocketEvents.JoinRoom, roomId)
+    // }, [])
 
-    const disconnectFromRoom = useCallback((roomId: string) => {
-        leaveRoom(roomId)
-        socket.disconnect()
-    }, [])
+    // const disconnectFromRoom = useCallback((roomId: string) => {
+    //     leaveRoom(roomId)
+    //     socket.disconnect()
+    // }, [])
 
     const addMessageToRoom = useCallback(
         async (message: Message) => {
@@ -93,30 +88,34 @@ const useChat = () => {
                 refetch()
             }
 
-            sendMessageSocket(newMessage)
+            newMessage.receiverId = message.receiverId
+
+            sendMessageSocket(appData.socket, newMessage)
             addMessageToRoom(newMessage)
         },
-        [addMessageToRoom, refetch]
+        [addMessageToRoom, appData.socket, refetch]
     )
 
     useEffect(() => {
-        onNewMessage((message) => {
+        if (!appData.socket) return
+        onNewMessage(appData.socket, (message) => {
+            console.log('message', message)
             if (message.senderId !== session?.user?.id) {
                 addMessageToRoom(message)
             }
         })
 
         return () => {
-            socket.off(SocketEvents.JoinRoom)
-            socket.off(SocketEvents.LeaveRoom)
-            socket.off(SocketEvents.NewMessage)
+            // socket.off(SocketEvents.JoinRoom)
+            // socket.off(SocketEvents.LeaveRoom)
+            appData.socket.off(SocketEvents.NewMessage)
         }
-    }, [addMessageToRoom, session?.user?.id])
+    }, [addMessageToRoom, appData.socket, session?.user?.id])
 
     return {
         messages: room?.messages,
-        connectToRoom,
-        disconnectFromRoom,
+        // connectToRoom,
+        // disconnectFromRoom,
         sendMessage,
         room,
         addMessageToRoom,

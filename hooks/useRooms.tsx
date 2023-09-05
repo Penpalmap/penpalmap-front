@@ -20,18 +20,19 @@ const useRooms = () => {
 
     useEffect(() => {
         rooms.forEach((room) => {
-            joinRoom(room.id)
+            joinRoom(data.socket, room.id)
         })
 
         return () => {
             rooms.forEach((room) => {
-                leaveRoom(room.id)
+                leaveRoom(data.socket, room.id)
             })
         }
     }, [rooms])
 
     useEffect(() => {
-        onNewMessage((message) => {
+        if (!data.socket) return
+        onNewMessage(data.socket, (message) => {
             if (message.senderId !== session?.user?.id) {
                 setData({
                     ...data,

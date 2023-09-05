@@ -17,6 +17,8 @@ export type Message = {
     isSeen: boolean
     senderId: string
     sender: User
+    receiverId: string
+    receiver: User
     roomId: string
     room: Room
     createdAt: string

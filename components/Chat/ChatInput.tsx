@@ -19,8 +19,8 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     useEffect(() => {
         setValue('roomId', room?.id)
         setValue('senderId', senderId)
-        setValue('receiverId', appData?.userTarget?.id)
-    }, [appData?.userTarget?.id, room?.id, senderId, setValue])
+        setValue('receiverId', appData?.userChat?.id)
+    }, [appData?.userChat?.id, room?.id, senderId, setValue])
 
     const onSubmitHandler = async (data: MessageInput) => {
         sendMessage(data)

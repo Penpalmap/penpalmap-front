@@ -5,13 +5,27 @@ import ChatInput from './ChatInput'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import useChat from '../../hooks/useChat'
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { Message } from '../../types'
+import { Socket, io } from 'socket.io-client'
 
 const Chat = () => {
     const { data: session } = useSession()
-    const [appData] = useContext(AppContext)
+    const [appData, setAppData] = useContext(AppContext)
     const { room, sendMessage } = useChat()
+
+    const socket = useRef<Socket>()
+
+    useEffect(() => {
+        if (session?.user?.id) {
+            socket.current = io(process.env.NEXT_PUBLIC_API_URL as string)
+            socket.current.emit('add-user', session.user.id)
+            setAppData((prevData) => ({
+                ...prevData,
+                socket: socket.current,
+            }))
+        }
+    }, [session?.user.id, setAppData])
 
     const sortByDate = (a: Message, b: Message) => {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
