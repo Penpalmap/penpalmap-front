@@ -17,38 +17,34 @@ const ChatMessages = ({ messages }: Props) => {
 
     const renderMessages = useMemo(() => {
         return messages?.map((message, index) => {
-            if (session?.user?.id === message.senderId) {
-                // OWN MESSAGE
-                return (
+            const isLastMessage = index === messages.length - 1
+            const isOwnMessage = session?.user?.id === message.senderId
+            const seenText = message.isSeen ? 'Vu' : 'Envoyé'
+            return (
+                <>
                     <Box
-                        mb={1}
                         key={index}
-                        bg={'blue.500'}
+                        mb={1}
+                        bg={isOwnMessage ? 'blue.500' : 'gray.200'}
                         px={3}
                         py={'6px'}
                         borderRadius={'2xl'}
-                        alignSelf={'flex-end'}
+                        alignSelf={isOwnMessage ? 'flex-end' : 'flex-start'}
                         maxW={'70%'}
                     >
-                        <Text fontSize={'.8em'} color={'white'}>
+                        <Text
+                            fontSize={'.8em'}
+                            color={isOwnMessage ? 'white' : 'black'}
+                        >
                             {message.content}
                         </Text>
                     </Box>
-                )
-            }
-            return (
-                <Box
-                    key={index}
-                    mb={1}
-                    bg={'gray.200'}
-                    px={3}
-                    py={'6px'}
-                    borderRadius={'2xl'}
-                    alignSelf={'flex-start'}
-                    maxW={'70%'}
-                >
-                    <Text fontSize={'.8em'}>{message.content} </Text>
-                </Box>
+                    {isLastMessage && isOwnMessage && (
+                        <Text fontSize={'.6em'} alignSelf="flex-end">
+                            {seenText}
+                        </Text>
+                    )}
+                </>
             )
         })
     }, [messages, session?.user?.id])
