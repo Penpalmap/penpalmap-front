@@ -1,50 +1,57 @@
-import { useContext } from 'react'
-import {
-    Avatar,
-    AvatarBadge,
-    Box,
-    Flex,
-    Icon,
-    Text,
-    VStack,
-} from '@chakra-ui/react'
+import { useContext, useMemo, useCallback } from 'react'
+import { Box, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
 import useRooms from '../../hooks/useRooms'
-import dayjs from 'dayjs'
 import { Room } from '../../types'
+import { sendMessageSeen } from '../../sockets/socketManager'
+import ConversationItem from './ConversationItem'
 
 const ConversationList = () => {
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const { rooms } = useRooms()
 
-    //  TODO : mettre dans le hook useConversations
-    const clickOnConversation = async (members) => {
-        const user = members?.find((member) => member.id !== session?.user?.id)
-        if (user) {
-            const room = rooms.find((room) => room.members.includes(user))
-            if (room) {
-                setAppData({
-                    ...appData,
-                    userChat: user,
-                    chatOpen: true,
-                    rooms: rooms.map((room) => {
-                        if (room.id === room.id) {
-                            return {
-                                ...room,
-                                countUnreadMessages: '0',
+    const clickOnConversation = useCallback(
+        async (members) => {
+            const user = members?.find(
+                (member) => member.id !== session?.user?.id
+            )
+            if (user) {
+                const roomIncludeUser = rooms.find((room) =>
+                    room.members.includes(user)
+                )
+                if (roomIncludeUser) {
+                    setAppData({
+                        ...appData,
+                        userChat: user,
+                        chatOpen: true,
+                        rooms: rooms.map((room) => {
+                            if (room.id === roomIncludeUser.id) {
+                                return {
+                                    ...room,
+                                    countUnreadMessages: '0',
+                                }
                             }
-                        }
-                        return room
-                    }),
-                })
+                            return room
+                        }),
+                    })
 
-                await updateMessageIsReadByRoom(room.id, user.id)
+                    await updateMessageIsReadByRoom(roomIncludeUser.id, user.id)
+                    const lastMessage =
+                        roomIncludeUser.messages[
+                            roomIncludeUser.messages.length - 1
+                        ]
+
+                    if (lastMessage) {
+                        sendMessageSeen(appData.socket, lastMessage)
+                    }
+                }
             }
-        }
-    }
+        },
+        [appData, rooms, session?.user?.id, setAppData]
+    )
 
     const sortByLastMessageDate = (a: Room, b: Room) => {
         if (
@@ -65,6 +72,21 @@ const ConversationList = () => {
             return 0
         }
     }
+
+    const conversationsRender = useMemo(
+        () =>
+            rooms.map((room, index) => (
+                <ConversationItem
+                    clickOnRoom={clickOnConversation}
+                    lastMessage={room.messages[0]}
+                    members={room.members}
+                    sessionUserId={session?.user?.id}
+                    countUnreadMessages={room.countUnreadMessages}
+                    key={index}
+                />
+            )),
+        [clickOnConversation, rooms, session?.user?.id]
+    )
 
     return (
         <VStack
@@ -92,99 +114,7 @@ const ConversationList = () => {
                 },
             }}
         >
-            <Box w={'full'}>
-                {rooms.sort(sortByLastMessageDate).map((room, index) => {
-                    return (
-                        <Flex
-                            key={index}
-                            p={2}
-                            w={'full'}
-                            onClick={() => clickOnConversation(room.members)}
-                            cursor={'pointer'}
-                            _hover={{
-                                background: 'gray.200',
-                            }}
-                            borderRadius={'md'}
-                        >
-                            <Avatar
-                                src={
-                                    room?.members?.find(
-                                        (member) =>
-                                            member.id !== session?.user?.id
-                                    )?.image
-                                }
-                                name={
-                                    room?.members?.find(
-                                        (member) =>
-                                            member.id !== session?.user?.id
-                                    )?.name
-                                }
-                                size={'md'}
-                                mr={2}
-                                borderWidth={'medium'}
-                                borderColor={'white'}
-                            >
-                                <AvatarBadge
-                                    bg="green.400"
-                                    boxSize=".8em"
-                                    borderWidth={'2px'}
-                                />
-                            </Avatar>
-                            <Flex
-                                flex={4}
-                                flexDirection={'column'}
-                                justifyContent={'center'}
-                                overflow={'hidden'}
-                            >
-                                <Box>
-                                    <Text
-                                        fontSize={'sm'}
-                                        fontWeight={'bold'}
-                                        color={'gray.700'}
-                                    >
-                                        {
-                                            room?.members?.find(
-                                                (member) =>
-                                                    member.id !==
-                                                    session?.user?.id
-                                            )?.name
-                                        }
-                                    </Text>
-                                </Box>
-                                <Box>
-                                    <Text
-                                        fontSize={'.8em'}
-                                        whiteSpace={'nowrap'}
-                                        textOverflow={'ellipsis'}
-                                    >
-                                        {room?.messages[0]?.senderId ===
-                                            session?.user?.id && 'Vous : '}
-                                        {room?.messages[0]?.content} -{' '}
-                                        {dayjs(
-                                            room?.messages[0]?.createdAt
-                                        ).format('D MMM')}
-                                    </Text>
-                                </Box>
-                            </Flex>
-                            <Flex
-                                justifyContent={'center'}
-                                alignItems={'center'}
-                                flex={1}
-                                pl={2}
-                            >
-                                {parseInt(room.countUnreadMessages) > 0 && (
-                                    <Icon viewBox="0 0 200 200" color="red.400">
-                                        <path
-                                            fill="currentColor"
-                                            d="M 100, 100 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"
-                                        />
-                                    </Icon>
-                                )}
-                            </Flex>
-                        </Flex>
-                    )
-                })}
-            </Box>
+            <Box w={'full'}>{conversationsRender}</Box>
         </VStack>
     )
 }

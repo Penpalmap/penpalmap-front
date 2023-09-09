@@ -2,10 +2,19 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { SocketEvents } from '../constants/socketEnum'
 import { Message, MessageInput, Room } from '../types'
 import { useSession } from 'next-auth/react'
-import { createMessage, getRoomOfTwoUsers } from '../api/chatApi'
+import {
+    createMessage,
+    getRoomOfTwoUsers,
+    updateMessageIsReadByRoom,
+} from '../api/chatApi'
 import useRooms from './useRooms'
 import { AppContext } from '../context/AppContext'
-import { onNewMessage, sendMessageSocket } from '../sockets/socketManager'
+import {
+    onNewMessage,
+    onSeenMessage,
+    sendMessageSeen,
+    sendMessageSocket,
+} from '../sockets/socketManager'
 import dayjs from 'dayjs'
 
 const useChat = () => {
@@ -98,10 +107,59 @@ const useChat = () => {
 
     useEffect(() => {
         if (!appData.socket) return
-        onNewMessage(appData.socket, (message) => {
-            console.log('message', message)
-            if (message.senderId !== session?.user?.id) {
+        onNewMessage(appData.socket, async (message) => {
+            if (message.senderId !== session?.user?.id && room) {
                 addMessageToRoom(message)
+
+                if (appData.chatOpen) {
+                    await updateMessageIsReadByRoom(room.id, message.senderId)
+                    sendMessageSeen(appData.socket, message)
+                }
+            }
+        })
+
+        onSeenMessage(appData.socket, async (message) => {
+            if (message.senderId === session?.user?.id && room) {
+                // change isSeen for message
+                setRoom((prevRoom) => {
+                    if (prevRoom) {
+                        // La room existe, donc nous pouvons la mettre à jour
+                        return {
+                            ...prevRoom,
+                            messages: prevRoom.messages.map((msg) => {
+                                if (msg.id === message.id) {
+                                    return {
+                                        ...msg,
+                                        isSeen: true,
+                                    }
+                                }
+                                return msg
+                            }),
+                        }
+                    }
+                    return prevRoom
+                })
+
+                setAppData({
+                    ...appData,
+                    rooms: appData.rooms.map((room) => {
+                        if (room?.UserRoom?.roomId === message.roomId) {
+                            return {
+                                ...room,
+                                messages: room.messages.map((msg) => {
+                                    if (msg.id === message.id) {
+                                        return {
+                                            ...msg,
+                                            isSeen: true,
+                                        }
+                                    }
+                                    return msg
+                                }),
+                            }
+                        }
+                        return room
+                    }),
+                })
             }
         })
 
@@ -110,7 +168,14 @@ const useChat = () => {
             // socket.off(SocketEvents.LeaveRoom)
             appData.socket.off(SocketEvents.NewMessage)
         }
-    }, [addMessageToRoom, appData.socket, session?.user?.id])
+    }, [
+        addMessageToRoom,
+        appData,
+        appData.socket,
+        room,
+        session?.user?.id,
+        setAppData,
+    ])
 
     return {
         messages: room?.messages,

@@ -3,7 +3,12 @@ import { AppContext } from '../context/AppContext'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { Room } from '../types'
-import { joinRoom, leaveRoom, onNewMessage } from '../sockets/socketManager'
+import {
+    joinRoom,
+    leaveRoom,
+    onNewMessage,
+    onSeenMessage,
+} from '../sockets/socketManager'
 
 const useRooms = () => {
     const [data, setData] = useContext(AppContext)
@@ -54,6 +59,23 @@ const useRooms = () => {
                                         parseInt(room.countUnreadMessages) + 1,
                                     messages: [message],
                                 }
+                            }
+                        }
+                        return room
+                    }),
+                })
+            }
+        })
+
+        onSeenMessage(data.socket, (message) => {
+            if (message.senderId !== session?.user?.id) {
+                setData({
+                    ...data,
+                    rooms: rooms.map((room) => {
+                        if (room?.UserRoom?.roomId === message.roomId) {
+                            return {
+                                ...room,
+                                countUnreadMessages: '0',
                             }
                         }
                         return room

@@ -2,6 +2,7 @@ import { Box, Text } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef } from 'react'
 import { useSession } from 'next-auth/react'
+import MessageItem from './MessageItem'
 
 type Props = {
     messages: Array<Message> | undefined
@@ -12,7 +13,7 @@ const ChatMessages = ({ messages }: Props) => {
 
     const messagesEndRef = useRef<HTMLDivElement>(null)
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
     }, [messages])
 
     const renderMessages = useMemo(() => {
@@ -21,30 +22,13 @@ const ChatMessages = ({ messages }: Props) => {
             const isOwnMessage = session?.user?.id === message.senderId
             const seenText = message.isSeen ? 'Vu' : 'Envoyé'
             return (
-                <>
-                    <Box
-                        key={index}
-                        mb={1}
-                        bg={isOwnMessage ? 'blue.500' : 'gray.200'}
-                        px={3}
-                        py={'6px'}
-                        borderRadius={'2xl'}
-                        alignSelf={isOwnMessage ? 'flex-end' : 'flex-start'}
-                        maxW={'70%'}
-                    >
-                        <Text
-                            fontSize={'.8em'}
-                            color={isOwnMessage ? 'white' : 'black'}
-                        >
-                            {message.content}
-                        </Text>
-                    </Box>
-                    {isLastMessage && isOwnMessage && (
-                        <Text fontSize={'.6em'} alignSelf="flex-end">
-                            {seenText}
-                        </Text>
-                    )}
-                </>
+                <MessageItem
+                    key={message.id}
+                    content={message.content}
+                    isLastMessage={isLastMessage}
+                    isOwnMessage={isOwnMessage}
+                    seenText={seenText}
+                />
             )
         })
     }, [messages, session?.user?.id])

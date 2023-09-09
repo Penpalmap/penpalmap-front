@@ -33,7 +33,21 @@ export const onNewMessage = (
 ) => {
     // Écouter les nouveaux messages
     socket.on(SocketEvents.NewMessage, (message: Message) => {
-        console.log('New message received', message)
+        callback(message)
+    })
+}
+
+export const sendMessageSeen = (socket: Socket, message: Message) => {
+    // Envoyer un message vu
+    socket.emit(SocketEvents.SendSeenMessage, message)
+}
+
+export const onSeenMessage = (
+    socket: Socket,
+    callback: (message: Message) => void
+) => {
+    // Écouter les messages vus
+    socket.on(SocketEvents.SeenMessage, (message: Message) => {
         callback(message)
     })
 }

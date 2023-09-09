@@ -101,7 +101,6 @@ const clusterStyle = function (feature) {
         const uid = user.id
         let style = styleCache[uid]
 
-        console.log('user', user)
         if (!style) {
             const photo = user.image
 

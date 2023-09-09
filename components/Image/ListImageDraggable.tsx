@@ -79,7 +79,6 @@ const ListImageDraggable = ({
                     (img: UserImage) => img.position === index
                 )
 
-                console.log('image', image)
                 return (
                     <Box
                         key={image?.position}

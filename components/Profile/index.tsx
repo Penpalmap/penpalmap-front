@@ -125,7 +125,6 @@ const Profile = ({ profileId }: Props) => {
                 user.longitude
             )
 
-            console.log('positionData', positionData)
             setCountry(positionData?.address?.country)
 
             const flagUrlData = await getFlagByCountryCode(
