@@ -75,16 +75,18 @@ const ConversationList = () => {
 
     const conversationsRender = useMemo(
         () =>
-            rooms.map((room, index) => (
-                <ConversationItem
-                    clickOnRoom={clickOnConversation}
-                    lastMessage={room.messages[0]}
-                    members={room.members}
-                    sessionUserId={session?.user?.id}
-                    countUnreadMessages={room.countUnreadMessages}
-                    key={index}
-                />
-            )),
+            rooms
+                .sort(sortByLastMessageDate)
+                .map((room, index) => (
+                    <ConversationItem
+                        clickOnRoom={clickOnConversation}
+                        lastMessage={room.messages[0]}
+                        members={room.members}
+                        sessionUserId={session?.user?.id}
+                        countUnreadMessages={room.countUnreadMessages}
+                        key={index}
+                    />
+                )),
         [clickOnConversation, rooms, session?.user?.id]
     )
 
