@@ -90,7 +90,7 @@ const ConversationList = () => {
 
     return (
         <VStack
-            position={'absolute'}
+            // position={'absolute'}
             w={'280px'}
             left={0}
             zIndex={1}

@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef } from 'react'
 import { useSession } from 'next-auth/react'

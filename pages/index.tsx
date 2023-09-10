@@ -32,7 +32,7 @@ const Home = () => {
                 <title>PenpalMap</title>
             </Head>
             <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
-                <Box position={'relative'}>
+                <Box>
                     <ConversationList />
                 </Box>
                 <Box flex={3}>
