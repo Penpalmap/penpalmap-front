@@ -22,6 +22,7 @@ const ChatHeader = ({ name, photoUrl, status }: Props) => {
     const onCloseChat = () => {
         setAppData({
             ...appData,
+            userChat: null,
             chatOpen: false,
         })
     }

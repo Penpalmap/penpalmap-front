@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import customTheme from '../styles/customTheme'
 import { SessionProvider } from 'next-auth/react'
 import { AppProvider } from '../context/AppContext'
+import { RoomProvider } from '../context/RoomsContext'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     // Utilisation de ChakraProvider pour envelopper tous les composants
@@ -11,9 +12,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <ChakraProvider theme={customTheme}>
             <AppProvider>
                 <SessionProvider session={session}>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
+                    <RoomProvider>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                    </RoomProvider>
                 </SessionProvider>
             </AppProvider>
         </ChakraProvider>

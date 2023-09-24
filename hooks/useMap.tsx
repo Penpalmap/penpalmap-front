@@ -13,6 +13,7 @@ import { AppContext } from '../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { User } from '../types'
 import XYZ from 'ol/source/XYZ'
+import { useRoom } from '../context/RoomsContext'
 
 interface UseMapOptions {
     center: [number, number]
@@ -30,7 +31,10 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapObj = useRef<OLMap | null>(null)
     const [users, setUsers] = useState<User[]>([])
     const [appData, setData] = useContext(AppContext)
+    const { rooms } = useRoom()
     const { data: session } = useSession()
+
+    const userLayerRef = useRef(null)
 
     const overlayRef = useRef<Overlay | null>(null)
 
@@ -188,12 +192,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             style: clusterStyle,
         })
 
+        userLayerRef.current = userLayer
+
         mapObj.current.addLayer(userLayer)
 
         // add features to the source for users
         const features = users.map((user) => {
             const { latitude, longitude } = user
-            const room = appData?.rooms?.find((room) => {
+            const room = rooms?.find((room) => {
                 const otherUser = room.members.find(
                     (member) => member.id !== session?.user.id
                 )
@@ -224,7 +230,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             mapObj.current?.un('click', onClick)
             mapObj.current?.un('pointermove', onPointermove)
         }
-    }, [appData?.rooms, onClick, onPointermove, session?.user?.id, users])
+    }, [rooms, onClick, onPointermove, session?.user?.id, users])
 
     return { mapObj, mapContainerRef, overlayRef: overlayRef.current }
 }

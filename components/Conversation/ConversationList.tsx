@@ -3,15 +3,15 @@ import { Box, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
-import useRooms from '../../hooks/useRooms'
 import { Room } from '../../types'
 import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
+import { useRoom } from '../../context/RoomsContext'
 
 const ConversationList = () => {
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
-    const { rooms } = useRooms()
+    const { rooms, resetCountUnreadMessagesOfRoom } = useRoom()
 
     const clickOnConversation = useCallback(
         async (members) => {
@@ -27,16 +27,8 @@ const ConversationList = () => {
                         ...appData,
                         userChat: user,
                         chatOpen: true,
-                        rooms: rooms.map((room) => {
-                            if (room.id === roomIncludeUser.id) {
-                                return {
-                                    ...room,
-                                    countUnreadMessages: '0',
-                                }
-                            }
-                            return room
-                        }),
                     })
+                    resetCountUnreadMessagesOfRoom(roomIncludeUser.id)
 
                     await updateMessageIsReadByRoom(roomIncludeUser.id, user.id)
                     const lastMessage =
@@ -50,7 +42,13 @@ const ConversationList = () => {
                 }
             }
         },
-        [appData, rooms, session?.user?.id, setAppData]
+        [
+            appData,
+            resetCountUnreadMessagesOfRoom,
+            rooms,
+            session?.user?.id,
+            setAppData,
+        ]
     )
 
     const sortByLastMessageDate = (a: Room, b: Room) => {

@@ -7,7 +7,6 @@ import {
     getRoomOfTwoUsers,
     updateMessageIsReadByRoom,
 } from '../api/chatApi'
-import useRooms from './useRooms'
 import { AppContext } from '../context/AppContext'
 import {
     onNewMessage,
@@ -16,12 +15,14 @@ import {
     sendMessageSocket,
 } from '../sockets/socketManager'
 import dayjs from 'dayjs'
+import { useRoom } from '../context/RoomsContext'
 
 const useChat = () => {
     const [room, setRoom] = useState<Room | null>(null)
     const { data: session } = useSession()
-    const { refetch } = useRooms()
     const [appData, setAppData] = useContext(AppContext)
+
+    const { updateLastMessageInRoom } = useRoom()
 
     useEffect(() => {
         const fetchRoom = async () => {
@@ -74,27 +75,28 @@ const useChat = () => {
                 }
             })
 
-            setAppData({
-                ...appData,
-                rooms: appData.rooms.map((room) => {
-                    if (room?.UserRoom?.roomId === message.roomId) {
-                        return {
-                            ...room,
-                            messages: [message],
-                        }
-                    }
-                    return room
-                }),
-            })
+            updateLastMessageInRoom(message)
+
+            // setAppData({
+            //     ...appData,
+            //     rooms: appData.rooms.map((room) => {
+            //         if (room?.UserRoom?.roomId === message.roomId) {
+            //             return {
+            //                 ...room,
+            //                 messages: [message],
+            //             }
+            //         }
+            //         return room
+            //     }),
+            // })
         },
-        [appData, setAppData]
+        [updateLastMessageInRoom]
     )
 
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
             if (newMessage.isNewRoom) {
-                refetch()
             }
 
             newMessage.receiverId = message.receiverId
@@ -102,7 +104,7 @@ const useChat = () => {
             sendMessageSocket(appData.socket, newMessage)
             addMessageToRoom(newMessage)
         },
-        [addMessageToRoom, appData.socket, refetch]
+        [addMessageToRoom, appData.socket]
     )
 
     useEffect(() => {
