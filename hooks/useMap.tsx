@@ -30,7 +30,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapContainerRef = useRef<HTMLDivElement>(null)
     const mapObj = useRef<OLMap | null>(null)
     const [users, setUsers] = useState<User[]>([])
-    const [appData, setData] = useContext(AppContext)
+    const [, setData] = useContext(AppContext)
     const { rooms } = useRoom()
     const { data: session } = useSession()
 
