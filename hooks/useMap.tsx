@@ -34,7 +34,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const { rooms } = useRoom()
     const { data: session } = useSession()
 
-    const userLayerRef = useRef(null)
+    const userLayerRef = useRef<VectorLayer<Cluster> | null>(null)
 
     const overlayRef = useRef<Overlay | null>(null)
 
