@@ -50,41 +50,45 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         fetchUserRooms()
     }, [session?.user.id])
 
-    const updateLastMessageInRoom = useCallback((message) => {
-        setRooms((prevRooms) => {
-            return prevRooms.map((room) => {
-                if (room.id === message.roomId) {
-                    let countUnreadMessages: string
+    const updateLastMessageInRoom = useCallback(
+        (message) => {
+            if (!session?.user?.id) return
+            setRooms((prevRooms) => {
+                return prevRooms.map((room) => {
+                    if (room.id === message.roomId) {
+                        let countUnreadMessages: string
 
-                    if (message.senderId === session?.user?.id) {
-                        countUnreadMessages = '0'
-                    } else {
-                        if (
-                            room.countUnreadMessages === undefined ||
-                            room.countUnreadMessages === null
-                        ) {
-                            countUnreadMessages = '1'
+                        if (message.senderId === session?.user?.id) {
+                            countUnreadMessages = '0'
                         } else {
-                            countUnreadMessages = (
-                                parseInt(room.countUnreadMessages) + 1
-                            ).toString()
+                            if (
+                                room.countUnreadMessages === undefined ||
+                                room.countUnreadMessages === null
+                            ) {
+                                countUnreadMessages = '1'
+                            } else {
+                                countUnreadMessages = (
+                                    parseInt(room.countUnreadMessages) + 1
+                                ).toString()
+                            }
+                        }
+
+                        const newRoom: Room = {
+                            ...room,
+                            messages: [message],
+                            countUnreadMessages: countUnreadMessages,
+                        }
+
+                        return {
+                            ...newRoom,
                         }
                     }
-
-                    const newRoom: Room = {
-                        ...room,
-                        messages: [message],
-                        countUnreadMessages: countUnreadMessages,
-                    }
-
-                    return {
-                        ...newRoom,
-                    }
-                }
-                return room
+                    return room
+                })
             })
-        })
-    }, [])
+        },
+        [session?.user?.id]
+    )
 
     const resetCountUnreadMessagesOfRoom = useCallback((roomId) => {
         setRooms((prevRooms) => {
