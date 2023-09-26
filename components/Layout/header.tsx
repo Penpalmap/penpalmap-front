@@ -25,6 +25,7 @@ const Header = () => {
         <>
             <HStack as="header" p={4} justifyContent={'space-between'} h={'14'}>
                 <Flex alignItems={'center'}>
+                    <Link href={`/`}>
                     <Flex alignItems={'center'}>
                         <Image
                             src={'/images/logo.png'}
@@ -36,6 +37,7 @@ const Header = () => {
                             PenpalMap
                         </Text>
                     </Flex>
+                    </Link>
                     <Text fontSize={'sm'} ml={'4'} color={'gray.900'}>
                         {packageJson.version}
                     </Text>
