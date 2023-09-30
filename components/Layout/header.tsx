@@ -24,7 +24,7 @@ const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { data: session } = useSession()
-    const [appData, setAppData] = useContext(AppContext)
+    const [appData] = useContext(AppContext)
 
     const disconnect = () => {
         signOut()
