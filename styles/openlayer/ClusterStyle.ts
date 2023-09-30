@@ -133,7 +133,7 @@ const clusterStyle = function (feature) {
                           displacement: [20, 26],
                           stroke: new Stroke({
                               color: '#fff',
-                              width: 3,
+                              width: 2,
                           }),
                       }),
                       text: new Text({
@@ -149,6 +149,21 @@ const clusterStyle = function (feature) {
 
                           offsetX: 20.5,
                           offsetY: -26,
+                      }),
+                  })
+                : new Style({}),
+            user.isOnline
+                ? new Style({
+                      image: new CircleStyle({
+                          radius: 6,
+                          fill: new Fill({
+                              color: '#38A169',
+                          }),
+                          displacement: [20, -22],
+                          stroke: new Stroke({
+                              color: '#fff',
+                              width: 2,
+                          }),
                       }),
                   })
                 : new Style({}),
