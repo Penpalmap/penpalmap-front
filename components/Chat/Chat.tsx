@@ -49,7 +49,7 @@ const Chat = () => {
                     appData?.userChat?.image ||
                     'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg'
                 }
-                status="online"
+                isOnline={appData?.userChat?.isOnline}
             />
             <ChatMessages messages={room?.messages.sort(sortByDate)} />
 

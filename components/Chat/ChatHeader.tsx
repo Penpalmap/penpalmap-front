@@ -13,10 +13,10 @@ import { AppContext } from '../../context/AppContext'
 type Props = {
     name: string
     photoUrl: string
-    status: string
+    isOnline: boolean
 }
 
-const ChatHeader = ({ name, photoUrl, status }: Props) => {
+const ChatHeader = ({ name, photoUrl, isOnline }: Props) => {
     const [appData, setAppData] = useContext(AppContext)
 
     const onCloseChat = () => {
@@ -33,8 +33,8 @@ const ChatHeader = ({ name, photoUrl, status }: Props) => {
                 <Avatar name={name} src={photoUrl} size={'sm'}>
                     <AvatarBadge
                         boxSize="1em"
-                        bgColor={status === 'online' ? 'green.500' : 'red.500'}
-                        borderWidth={3}
+                        bgColor={isOnline ? 'green.500' : 'gray.200'}
+                        borderWidth={2}
                     />
                 </Avatar>
                 <Box ml={4}>
