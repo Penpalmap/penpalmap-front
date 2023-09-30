@@ -16,27 +16,36 @@ import { signOut, useSession } from 'next-auth/react'
 import MyProfile from '../MyProfile'
 import packageJson from './../../package.json'
 import Link from 'next/link'
+import { disconnectFromSocketServer } from '../../sockets/socketManager'
+import { AppContext } from '../../context/AppContext'
+import { useContext } from 'react'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { data: session } = useSession()
+    const [appData, setAppData] = useContext(AppContext)
+
+    const disconnect = () => {
+        signOut()
+        disconnectFromSocketServer(appData.socket)
+    }
     return (
         <>
             <HStack as="header" p={4} justifyContent={'space-between'} h={'14'}>
                 <Flex alignItems={'center'}>
                     <Link href={`/`}>
-                    <Flex alignItems={'center'}>
-                        <Image
-                            src={'/images/logo.png'}
-                            alt={'logo'}
-                            w={'10'}
-                            h={'10'}
-                        />
-                        <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
-                            PenpalMap
-                        </Text>
-                    </Flex>
+                        <Flex alignItems={'center'}>
+                            <Image
+                                src={'/images/logo.png'}
+                                alt={'logo'}
+                                w={'10'}
+                                h={'10'}
+                            />
+                            <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
+                                PenpalMap
+                            </Text>
+                        </Flex>
                     </Link>
                     <Text fontSize={'sm'} ml={'4'} color={'gray.900'}>
                         {packageJson.version}
@@ -71,7 +80,7 @@ const Header = () => {
                                 <MenuItem>Paramètres</MenuItem>
                             </Link>
                             <MenuDivider />
-                            <MenuItem onClick={() => signOut()}>
+                            <MenuItem onClick={disconnect}>
                                 Déconnexion
                             </MenuItem>
                         </MenuList>
