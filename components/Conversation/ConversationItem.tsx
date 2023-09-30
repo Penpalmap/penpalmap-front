@@ -42,7 +42,12 @@ const ConversationItem = ({
                 borderColor={'white'}
             >
                 <AvatarBadge
-                    bg="green.400"
+                    bg={
+                        members?.find((member) => member.id !== sessionUserId)
+                            ?.isOnline
+                            ? 'green.500'
+                            : 'gray.200'
+                    }
                     boxSize=".8em"
                     borderWidth={'2px'}
                 />

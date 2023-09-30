@@ -59,6 +59,7 @@ export type User = {
     bio: string
     userImages: Array<UserImage>
     isNewUser: boolean
+    isOnline: boolean
 }
 
 export type UserImage = {
