@@ -6,10 +6,10 @@ const Settings = () => {
             <h1>Settings</h1>
 
             <Link href="/terms" color="blue.600" fontWeight="medium">
-                Conditions d&apos;utilisation
+                Terms of Use
             </Link>
-            <Link href="/rgpd" color="blue.600" fontWeight="medium">
-                Respect du RGPD
+            <Link href="/privacy" color="blue.600" fontWeight="medium">
+                Mentions Légales
             </Link>
         </div>
     )
