@@ -48,7 +48,7 @@ const clusterStyle = function (feature) {
                     shadow: 5,
                     stroke: new Stroke({
                         color: featureMaxUser?.strokeColor,
-                        width: 3,
+                        width: 2,
                     }),
                 }),
             }),
@@ -68,7 +68,7 @@ const clusterStyle = function (feature) {
                           displacement: [20, 26],
                           stroke: new Stroke({
                               color: '#fff',
-                              width: 3,
+                              width: 2,
                           }),
                       }),
                       text: new Text({
@@ -115,7 +115,7 @@ const clusterStyle = function (feature) {
                     shadow: 5,
                     stroke: new Stroke({
                         color: user.strokeColor,
-                        width: 3,
+                        width: 2,
                     }),
                 }),
             }),

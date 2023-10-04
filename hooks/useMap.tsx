@@ -153,7 +153,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                     session?.user?.latitude,
                     session?.user?.longitude,
                 ]),
-                zoom: 4.5,
+                zoom: 5,
                 minZoom: 3.5,
                 maxZoom: 9,
                 extent: transformExtent(
