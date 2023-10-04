@@ -32,7 +32,15 @@ const Header = () => {
     }
     return (
         <>
-            <HStack as="header" p={4} justifyContent={'space-between'} h={'14'}>
+            <HStack
+                as="header"
+                p={4}
+                justifyContent={'space-between'}
+                h={'14'}
+                boxShadow={'md'}
+                zIndex={1}
+                position={'relative'}
+            >
                 <Flex alignItems={'center'}>
                     <Link href={`/`}>
                         <Flex alignItems={'center'}>
