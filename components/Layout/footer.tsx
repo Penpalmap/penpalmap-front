@@ -18,7 +18,7 @@ const Footer = () => {
                     </VStack>
                     <VStack spacing="2" align="center">
                         <Link
-                            href="/utilisations"
+                            href="/terms"
                             color="blue.600"
                             fontWeight="medium"
                         >
