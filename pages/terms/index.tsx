@@ -1,11 +1,4 @@
-import {
-    Box,
-    Heading,
-    Text,
-    List,
-    ListItem,
-    Link,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, List, ListItem, Link } from '@chakra-ui/react'
 
 const TermsOfUse = () => {
     return (
@@ -18,11 +11,12 @@ const TermsOfUse = () => {
                 Generalities
             </Heading>
             <Text mb="3">
-                PenPalMap provides a platform enabling individuals from all over the world 
-                to connect and communicate. We value and uphold your privacy, ensuring you 
-                can interact with other members on our platform. By posting or uploading 
-                content potentially protected by intellectual property rights, you expressly 
-                grant us a non-exclusive, transferable, sublicensable, free, global, 
+                PenPalMap provides a platform enabling individuals from all over
+                the world to connect and communicate. We value and uphold your
+                privacy, ensuring you can interact with other members on our
+                platform. By posting or uploading content potentially protected
+                by intellectual property rights, you expressly grant us a
+                non-exclusive, transferable, sublicensable, free, global,
                 perpetual license to use this content.
             </Text>
 
@@ -31,36 +25,41 @@ const TermsOfUse = () => {
             </Heading>
             <List spacing={2}>
                 <ListItem>
-                    Photo Upload: As a PenPalMap user, you're allowed to upload personal 
-                    photos to complete your profile. These photos can be centered on a 
-                    specific part of the image according to your choice, and you can upload 
-                    several to display on your profile.
+                    Photo Upload: As a PenPalMap user, you're allowed to upload
+                    personal photos to complete your profile. These photos can
+                    be centered on a specific part of the image according to
+                    your choice, and you can upload several to display on your
+                    profile.
                 </ListItem>
                 <ListItem>
-                    Photo Ownership: As a user, you certify that you hold all necessary 
-                    rights for photos you upload to PenPalMap.
+                    Photo Ownership: As a user, you certify that you hold all
+                    necessary rights for photos you upload to PenPalMap.
                 </ListItem>
                 <ListItem>
-                    Photo License: When uploading a photo, you grant PenPalMap a non-exclusive, 
-                    transferable, sublicensable, free, worldwide license to use, reproduce, 
-                    distribute, and display this photo in relation to PenPalMap's services.
+                    Photo License: When uploading a photo, you grant PenPalMap a
+                    non-exclusive, transferable, sublicensable, free, worldwide
+                    license to use, reproduce, distribute, and display this
+                    photo in relation to PenPalMap's services.
                 </ListItem>
                 <ListItem>
-                    Prohibition of Scraping: It's strictly forbidden to scrape or download 
-                    photos of other PenPalMap users without their explicit consent.
+                    Prohibition of Scraping: It's strictly forbidden to scrape
+                    or download photos of other PenPalMap users without their
+                    explicit consent.
                 </ListItem>
                 <ListItem>
-                    Photo Protection: We're committed to safeguarding your photos on our 
-                    servers. Though, the transmission of data over the internet is not always 
-                    entirely secure.
+                    Photo Protection: We're committed to safeguarding your
+                    photos on our servers. Though, the transmission of data over
+                    the internet is not always entirely secure.
                 </ListItem>
                 <ListItem>
-                    Privacy Respect: Photos of others were taken with explicit consent. If 
-                    the photo was taken in a private place, you obtained the owner's consent.
+                    Privacy Respect: Photos of others were taken with explicit
+                    consent. If the photo was taken in a private place, you
+                    obtained the owner's consent.
                 </ListItem>
                 <ListItem>
-                    Inappropriate Content: Photos that are obscene, pornographic, defamatory, 
-                    threatening, violent, hateful, racist, or otherwise offensive are not allowed.
+                    Inappropriate Content: Photos that are obscene,
+                    pornographic, defamatory, threatening, violent, hateful,
+                    racist, or otherwise offensive are not allowed.
                 </ListItem>
             </List>
 
@@ -68,28 +67,30 @@ const TermsOfUse = () => {
                 Accounts
             </Heading>
             <Text mb="3">
-                You can register as a member of the PenPalMap community. Follow the respective 
-                instructions during registration. An user account can be created with a personal 
-                email address.
+                You can register as a member of the PenPalMap community. Follow
+                the respective instructions during registration. An user account
+                can be created with a personal email address.
             </Text>
 
             <Heading mb="2" as="h2" size="md">
                 Termination
             </Heading>
             <Text mb="3">
-                PenPalMap may terminate your access to all or part of the PenPalMap services 
-                at any time, with or without reason, with or without notice, effective immediately. 
-                If you wish to terminate this agreement or your account, you can delete your account 
-                from your account profile settings.
+                PenPalMap may terminate your access to all or part of the
+                PenPalMap services at any time, with or without reason, with or
+                without notice, effective immediately. If you wish to terminate
+                this agreement or your account, you can delete your account from
+                your account profile settings.
             </Text>
 
             <Heading mb="2" as="h2" size="md">
                 Liability
             </Heading>
             <Text mb="3">
-                The website and mobile applications are provided "as is". PenPalMap disclaims 
-                all responsibility for the accuracy, quality, completeness, reliability, or 
-                credibility of the content.
+                The website and mobile applications are provided "as is".
+                PenPalMap disclaims all responsibility for the accuracy,
+                quality, completeness, reliability, or credibility of the
+                content.
             </Text>
 
             <Heading mb="2" as="h2" size="md">
@@ -103,8 +104,8 @@ const TermsOfUse = () => {
                 Modifications
             </Heading>
             <Text mb="3">
-                PenPalMap reserves the right to change the terms of use with appropriate notice 
-                of at least six weeks.
+                PenPalMap reserves the right to change the terms of use with
+                appropriate notice of at least six weeks.
             </Text>
 
             <Box mt="5">
@@ -113,7 +114,7 @@ const TermsOfUse = () => {
                 </Link>
             </Box>
         </Box>
-    );
-};
+    )
+}
 
-export default TermsOfUse;
+export default TermsOfUse

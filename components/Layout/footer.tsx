@@ -24,7 +24,11 @@ const Footer = () => {
                         >
                             Terms of Use
                         </Link>
-                        <Link href="/legalnotice" color="blue.600" fontWeight="medium">
+                        <Link
+                            href="/legalnotice"
+                            color="blue.600"
+                            fontWeight="medium"
+                        >
                             legal
                         </Link>
                     </VStack>
