@@ -8,7 +8,7 @@ const Settings = () => {
             <Link href="/terms" color="blue.600" fontWeight="medium">
                 Terms of Use
             </Link>
-            <Link href="/privacy" color="blue.600" fontWeight="medium">
+            <Link href="/legalnotice" color="blue.600" fontWeight="medium">
                 Mentions Légales
             </Link>
         </div>
