@@ -18,14 +18,18 @@ const Footer = () => {
                     </VStack>
                     <VStack spacing="2" align="center">
                         <Link
-                            href="/conditions"
+                            href="/terms"
                             color="blue.600"
                             fontWeight="medium"
                         >
-                            Conditions d&apos;utilisation
+                            Terms of Use
                         </Link>
-                        <Link href="/rgpd" color="blue.600" fontWeight="medium">
-                            Respect du RGPD
+                        <Link
+                            href="/legalnotice"
+                            color="blue.600"
+                            fontWeight="medium"
+                        >
+                            legal
                         </Link>
                     </VStack>
                 </Flex>
