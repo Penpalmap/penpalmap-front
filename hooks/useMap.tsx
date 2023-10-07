@@ -14,6 +14,7 @@ import { useSession } from 'next-auth/react'
 import { User } from '../types'
 import XYZ from 'ol/source/XYZ'
 import { useRoom } from '../context/RoomsContext'
+import { pulse } from '../styles/openlayer/pulseFunctions'
 
 interface UseMapOptions {
     center: [number, number]
@@ -229,6 +230,17 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         mapObj.current.on('click', onClick)
         mapObj.current.on('pointermove', onPointermove)
+
+        setInterval(() => {
+            if (!mapObj.current) return
+            const features = userSource.getFeatures()
+            features.forEach((feature) => {
+                const user = feature.get('element')
+                if (user?.id === session?.user?.id) {
+                    pulse(feature, userLayer, mapObj.current)
+                }
+            })
+        }, 1000)
 
         return () => {
             mapObj.current?.removeLayer(userLayer)
