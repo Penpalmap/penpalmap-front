@@ -5,6 +5,7 @@ import { UserElement } from '../../types'
 import Fill from 'ol/style/Fill'
 import CircleStyle from 'ol/style/Circle'
 import Text from 'ol/style/Text'
+import Icon from 'ol/style/Icon'
 
 export const styleCache = {}
 
@@ -119,16 +120,29 @@ const clusterStyle = function (feature) {
                     }),
                 }),
             }),
-            user.room
+
+            // Pas de message non lu
+            user.room &&
+            user.room.countUnreadMessages &&
+            parseInt(user.room.countUnreadMessages) === 0
+                ? new Style({
+                      image: new Icon({
+                          src: '/images/conversation_icon.png',
+                          displacement: [20, 26],
+                          scale: 0.8,
+                      }),
+                  })
+                : new Style({}),
+
+            // Message non lu
+            user.room &&
+            user.room.countUnreadMessages &&
+            parseInt(user.room.countUnreadMessages) > 0
                 ? new Style({
                       image: new CircleStyle({
                           radius: 9,
                           fill: new Fill({
-                              color:
-                                  user.room.countUnreadMessages &&
-                                  parseInt(user.room.countUnreadMessages) > 0
-                                      ? '#FF0808'
-                                      : '#3EA0B6',
+                              color: '#FF0808',
                           }),
                           displacement: [20, 26],
                           stroke: new Stroke({
@@ -137,11 +151,7 @@ const clusterStyle = function (feature) {
                           }),
                       }),
                       text: new Text({
-                          text:
-                              user.room.countUnreadMessages &&
-                              parseInt(user.room.countUnreadMessages) > 0
-                                  ? user.room.countUnreadMessages
-                                  : '',
+                          text: user.room.countUnreadMessages,
                           fill: new Fill({
                               color: '#fff',
                           }),
@@ -152,6 +162,8 @@ const clusterStyle = function (feature) {
                       }),
                   })
                 : new Style({}),
+
+            // Utilisateur en ligne
             user.isOnline
                 ? new Style({
                       image: new CircleStyle({
