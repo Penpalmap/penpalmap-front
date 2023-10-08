@@ -8,7 +8,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
 import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
@@ -31,6 +31,7 @@ import VectorSource from 'ol/source/Vector'
 import { Point } from 'ol/geom'
 import userStyle from '../../styles/openlayer/UserStyle'
 import { useRouter } from 'next/router'
+import { AppContext } from '../../context/AppContext'
 
 type Props = {
     profileId: string
@@ -43,6 +44,8 @@ const Profile = ({ profileId }: Props) => {
 
     const mapRef = useRef<OLMap | null>(null)
     const mapRefContainer = useRef<HTMLDivElement>(null)
+
+    const [appData, setAppData] = useContext(AppContext)
 
     const router = useRouter()
 
@@ -140,6 +143,15 @@ const Profile = ({ profileId }: Props) => {
         router.push('/')
     }
 
+    const onOpenChat = () => {
+        router.push('/')
+        setAppData({
+            ...appData,
+            userChat: user,
+            chatOpen: true,
+        })
+    }
+
     return (
         user && (
             <Box>
@@ -220,6 +232,7 @@ const Profile = ({ profileId }: Props) => {
                             leftIcon={<FontAwesomeIcon icon={faPaperPlane} />}
                             colorScheme="teal"
                             variant="solid"
+                            onClick={onOpenChat}
                         >
                             Message
                         </Button>
