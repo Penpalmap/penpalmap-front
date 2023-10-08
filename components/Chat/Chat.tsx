@@ -50,6 +50,7 @@ const Chat = () => {
                     'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg'
                 }
                 isOnline={appData?.userChat?.isOnline}
+                userId={appData?.userChat?.id}
             />
             <ChatMessages messages={room?.messages.sort(sortByDate)} />
 
