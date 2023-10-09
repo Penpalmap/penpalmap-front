@@ -23,9 +23,9 @@ const LegalNotice = () => {
                 The content of the site www.penpalmap.com has been prepared with
                 the utmost care. However, we cannot provide any guarantees
                 regarding the completeness, accuracy, or timeliness of the
-                website's content. As service providers, we are responsible for
-                our own information in accordance with general legislation. This
-                does not affect the obligation to block or prevent the use of
+                website&rsquo;s content. We are responsible for our own
+                information in accordance with general legislation. This does
+                not affect the obligation to block or prevent the use of
                 information under general laws. However, liability is only
                 possible once we become aware of a specific legal violation. In
                 this case, we will promptly remove the affected content.
@@ -52,16 +52,16 @@ const LegalNotice = () => {
                 COPYRIGHT
             </Heading>
             <Text mb="3">
-                The content and works we've created on these pages are subject
-                to French and European copyright laws. We highlight that any
-                duplication, processing, distribution, or any form beyond the
-                scope of copyright law requires the written consentrespective
-                author or creator. Without explicit and writtenwritten consent
-                from the author, any further use, any furtherany further use,
-                especially publication and any form of commercial exploitation,
-                is prohibited. The copyright for published material here and
-                objects created by the author solely belongs to the operator of
-                these pages.
+                The content and works we&apos;ve created on these pages are
+                subject to French and European copyright laws. We highlight that
+                any duplication, processing, distribution, or any form beyond
+                the scope of copyright law requires the written
+                consentrespective author or creator. Without explicit and
+                writtenwritten consent from the author, any further use, any
+                furtherany further use, especially publication and any form of
+                commercial exploitation, is prohibited. The copyright for
+                published material here and objects created by the author solely
+                belongs to the operator of these pages.
             </Text>
 
             <Text mb="3" fontWeight="bold">

@@ -25,11 +25,11 @@ const TermsOfUse = () => {
             </Heading>
             <List spacing={2}>
                 <ListItem>
-                    Photo Upload: As a PenPalMap user, you're allowed to upload
-                    personal photos to complete your profile. These photos can
-                    be centered on a specific part of the image according to
-                    your choice, and you can upload several to display on your
-                    profile.
+                    Photo Upload: As a PenPalMap user, you&apos;re allowed to
+                    upload personal photos to complete your profile. These
+                    photos can be centered on a specific part of the image
+                    according to your choice, and you can upload several to
+                    display on your profile.
                 </ListItem>
                 <ListItem>
                     Photo Ownership: As a user, you certify that you hold all
@@ -39,22 +39,22 @@ const TermsOfUse = () => {
                     Photo License: When uploading a photo, you grant PenPalMap a
                     non-exclusive, transferable, sublicensable, free, worldwide
                     license to use, reproduce, distribute, and display this
-                    photo in relation to PenPalMap's services.
+                    photo in relation to PenPalMap&apos;s services.
                 </ListItem>
                 <ListItem>
-                    Prohibition of Scraping: It's strictly forbidden to scrape
-                    or download photos of other PenPalMap users without their
-                    explicit consent.
+                    Prohibition of Scraping: It&apos;s strictly forbidden to
+                    scrape or download photos of other PenPalMap users without
+                    their explicit consent.
                 </ListItem>
                 <ListItem>
-                    Photo Protection: We're committed to safeguarding your
+                    Photo Protection: We&apos;re committed to safeguarding your
                     photos on our servers. Though, the transmission of data over
                     the internet is not always entirely secure.
                 </ListItem>
                 <ListItem>
                     Privacy Respect: Photos of others were taken with explicit
                     consent. If the photo was taken in a private place, you
-                    obtained the owner's consent.
+                    obtained the owner&apos;s consent.
                 </ListItem>
                 <ListItem>
                     Inappropriate Content: Photos that are obscene,
@@ -87,10 +87,10 @@ const TermsOfUse = () => {
                 Liability
             </Heading>
             <Text mb="3">
-                The website and mobile applications are provided "as is".
-                PenPalMap disclaims all responsibility for the accuracy,
-                quality, completeness, reliability, or credibility of the
-                content.
+                The website and mobile applications are provided &quot;as
+                is&quot;. PenPalMap disclaims all responsibility for the
+                accuracy, quality, completeness, reliability, or credibility of
+                the content.
             </Text>
 
             <Heading mb="2" as="h2" size="md">
@@ -110,7 +110,7 @@ const TermsOfUse = () => {
 
             <Box mt="5">
                 <Link href="/privacy-policy" color="blue.500">
-                    For more details, refer to PenPalMap's Privacy Policy.
+                    For more details, refer to PenPalMap&quot;s Privacy Policy.
                 </Link>
             </Box>
         </Box>
