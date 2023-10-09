@@ -53,18 +53,28 @@ const clusterStyle = function (feature) {
                     }),
                 }),
             }),
-            featureMaxUser.room
+            // Pas de message non lu
+            featureMaxUser.room &&
+            featureMaxUser.room.countUnreadMessages &&
+            parseInt(featureMaxUser.room.countUnreadMessages) === 0
+                ? new Style({
+                      image: new Icon({
+                          src: '/images/conversation_icon.png',
+                          displacement: [20, 26],
+                          scale: 0.8,
+                      }),
+                  })
+                : new Style({}),
+
+            // Message non lu
+            featureMaxUser.room &&
+            featureMaxUser.room.countUnreadMessages &&
+            parseInt(featureMaxUser.room.countUnreadMessages) > 0
                 ? new Style({
                       image: new CircleStyle({
                           radius: 9,
                           fill: new Fill({
-                              color:
-                                  featureMaxUser.room.countUnreadMessages &&
-                                  parseInt(
-                                      featureMaxUser.room.countUnreadMessages
-                                  ) > 0
-                                      ? '#FF0808'
-                                      : '#3EA0B6',
+                              color: '#FF0808',
                           }),
                           displacement: [20, 26],
                           stroke: new Stroke({
@@ -73,25 +83,18 @@ const clusterStyle = function (feature) {
                           }),
                       }),
                       text: new Text({
-                          text:
-                              featureMaxUser.room.countUnreadMessages &&
-                              parseInt(
-                                  featureMaxUser.room.countUnreadMessages
-                              ) > 0
-                                  ? featureMaxUser.room.countUnreadMessages
-                                  : '',
-                          font: 'bold 10px Montserrat',
-
+                          text: featureMaxUser.room.countUnreadMessages,
                           fill: new Fill({
                               color: '#fff',
                           }),
+                          font: 'bold 10px Montserrat',
+
                           offsetX: 20.5,
-                          offsetY: 20,
+                          offsetY: -26,
                       }),
                   })
                 : new Style({}),
         ]
-        // }
         return style
     }
 
