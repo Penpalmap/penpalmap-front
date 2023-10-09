@@ -94,6 +94,34 @@ const clusterStyle = function (feature) {
                       }),
                   })
                 : new Style({}),
+            // Utilisateur en ligne
+            featureMaxUser.isOnline
+                ? new Style({
+                      image: new CircleStyle({
+                          radius: 6,
+                          fill: new Fill({
+                              color: '#38A169',
+                          }),
+                          displacement: [20, -20],
+                          stroke: new Stroke({
+                              color: '#fff',
+                              width: 2,
+                          }),
+                      }),
+                  })
+                : new Style({
+                      image: new CircleStyle({
+                          radius: 6,
+                          fill: new Fill({
+                              color: '#E2E8F0',
+                          }),
+                          displacement: [20, -20],
+                          stroke: new Stroke({
+                              color: '#fff',
+                              width: 2,
+                          }),
+                      }),
+                  }),
         ]
         return style
     }
@@ -174,14 +202,26 @@ const clusterStyle = function (feature) {
                           fill: new Fill({
                               color: '#38A169',
                           }),
-                          displacement: [20, -22],
+                          displacement: [20, -20],
                           stroke: new Stroke({
                               color: '#fff',
                               width: 2,
                           }),
                       }),
                   })
-                : new Style({}),
+                : new Style({
+                      image: new CircleStyle({
+                          radius: 6,
+                          fill: new Fill({
+                              color: '#E2E8F0',
+                          }),
+                          displacement: [20, -20],
+                          stroke: new Stroke({
+                              color: '#fff',
+                              width: 2,
+                          }),
+                      }),
+                  }),
         ]
         // }
         return style
