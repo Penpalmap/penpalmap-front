@@ -47,15 +47,20 @@ const Header = () => {
                             <Image
                                 src={'/images/logo.png'}
                                 alt={'logo'}
-                                w={'10'}
-                                h={'10'}
+                                w={'9'}
+                                h={'9'}
                             />
                             <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
                                 PenpalMap
                             </Text>
                         </Flex>
                     </Link>
-                    <Text fontSize={'sm'} ml={'4'} color={'gray.900'}>
+                    <Text
+                        fontSize={'sm'}
+                        ml={'4'}
+                        color={'gray.900'}
+                        fontStyle="italic"
+                    >
                         {packageJson.version}
                     </Text>
                 </Flex>
