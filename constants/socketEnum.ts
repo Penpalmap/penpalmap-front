@@ -6,4 +6,6 @@ export enum SocketEvents {
     SeenMessage = 'SEEN_MESSAGE',
     SendSeenMessage = 'SEND_SEEN_MESSAGE',
     AddUser = 'ADD_USER',
+    IsTyping = 'IS_TYPING',
+    StopIsTyping = 'STOP_IS_TYPING',
 }

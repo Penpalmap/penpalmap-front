@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
-import { Message } from '../types'
+import { Message, MessageInput } from '../types'
 
 export const connectToSocketServer = (socket) => {
     // Se connecter au serveur WebSocket
@@ -48,6 +48,21 @@ export const onSeenMessage = (
 ) => {
     // Écouter les messages vus
     socket.on(SocketEvents.SeenMessage, (message: Message) => {
+        callback(message)
+    })
+}
+
+export const isTyping = (socket: Socket, message: MessageInput) => {
+    // Envoyer un message de typing
+    socket.emit(SocketEvents.IsTyping, message)
+}
+
+export const onIsTyping = (
+    socket: Socket,
+    callback: (message: Message) => void
+) => {
+    // Écouter les messages de typing
+    socket.on(SocketEvents.IsTyping, (message) => {
         callback(message)
     })
 }
