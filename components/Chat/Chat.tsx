@@ -31,15 +31,19 @@ const Chat = () => {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     }
 
+    useEffect(() => {
+        console.log('room', room)
+    }, [room])
+
     return (
         <Box
             position={'absolute'}
             right={'10'}
             bottom={'0'}
             background={'white'}
-            h={'sm'}
+            h={'xl'}
             flexDirection={'column'}
-            w={'80'}
+            w={'lg'}
             display={appData.chatOpen ? 'flex' : 'none'}
             borderTopRadius={'8'}
         >
@@ -52,7 +56,10 @@ const Chat = () => {
                 isOnline={appData?.userChat?.isOnline}
                 userId={appData?.userChat?.id}
             />
-            <ChatMessages messages={room?.messages.sort(sortByDate)} />
+            <ChatMessages
+                messages={room?.messages.sort(sortByDate)}
+                isNewChat={!room}
+            />
 
             {session?.user?.id && (
                 <ChatInput

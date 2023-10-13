@@ -6,12 +6,14 @@ import MessageItem from './MessageItem'
 import { AppContext } from '../../context/AppContext'
 import { onIsTyping } from '../../sockets/socketManager'
 import { SocketEvents } from '../../constants/socketEnum'
+import EmptyChatMessages from './EmptyChatMessages'
 
 type Props = {
     messages: Array<Message> | undefined
+    isNewChat: boolean
 }
 
-const ChatMessages = ({ messages }: Props) => {
+const ChatMessages = ({ messages, isNewChat }: Props) => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
@@ -70,6 +72,13 @@ const ChatMessages = ({ messages }: Props) => {
             overflowY={'scroll'}
         >
             {renderMessages}
+
+            {isNewChat && (
+                <EmptyChatMessages
+                    image={appData?.userChat?.image || ''}
+                    name={appData?.userChat?.name || ''}
+                />
+            )}
             {otherUserIsTyping && (
                 <Box position={'absolute'} bottom={10} left={0} p={4}>
                     <Text fontSize={'small'}>
