@@ -24,11 +24,18 @@ const ChatMessages = ({ messages, isNewChat }: Props) => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
     }, [messages])
 
+    const lastSenderId = useRef<string | null>(null)
+
     const renderMessages = useMemo(() => {
         return messages?.map((message, index) => {
             const isLastMessage = index === messages.length - 1
             const isOwnMessage = session?.user?.id === message.senderId
             const seenText = message.isSeen ? 'Vu' : 'Envoyé'
+
+            const isSameSender = lastSenderId.current === message.senderId
+
+            lastSenderId.current = message.senderId
+
             return (
                 <MessageItem
                     key={message.id}
@@ -36,10 +43,11 @@ const ChatMessages = ({ messages, isNewChat }: Props) => {
                     isLastMessage={isLastMessage}
                     isOwnMessage={isOwnMessage}
                     seenText={seenText}
+                    image={(!isSameSender && appData?.userChat?.image) || ''}
                 />
             )
         })
-    }, [messages, session?.user?.id])
+    }, [appData?.userChat?.image, messages, session?.user?.id])
 
     useEffect(() => {
         if (!appData.socket) return
@@ -62,6 +70,7 @@ const ChatMessages = ({ messages, isNewChat }: Props) => {
             appData.socket.off(SocketEvents.StopIsTyping)
         }
     }, [appData.socket, typingTimeout])
+
     return (
         <Box
             flex={1}
@@ -82,7 +91,7 @@ const ChatMessages = ({ messages, isNewChat }: Props) => {
             {otherUserIsTyping && (
                 <Box position={'absolute'} bottom={10} left={0} p={4}>
                     <Text fontSize={'small'}>
-                        {appData?.userChat?.name} est en train d&apos;écrire...
+                        {appData?.userChat?.name} est en train d'écrire...
                     </Text>
                 </Box>
             )}
