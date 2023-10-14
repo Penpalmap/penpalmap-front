@@ -7,10 +7,12 @@ import {
     Flex,
     Text,
     Link,
+    Image,
 } from '@chakra-ui/react'
 import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import NextLink from 'next/link'
+import useLocation from '../../hooks/useLocation'
 
 type Props = {
     name: string
@@ -22,6 +24,11 @@ type Props = {
 const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
     const [appData, setAppData] = useContext(AppContext)
 
+    const { city, country, flag } = useLocation(
+        appData?.userChat?.latitude,
+        appData?.userChat?.longitude
+    )
+
     const onCloseChat = () => {
         setAppData({
             ...appData,
@@ -32,11 +39,11 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
 
     return (
         <>
-            <Flex display={'flex'} alignItems={'center'} py={2} px={4}>
+            <Flex display={'flex'} alignItems={'center'} py={3} px={4}>
                 <Link href={`/?profileId=${userId}`} as={NextLink} passHref>
-                    <Avatar name={name} src={photoUrl} size={'sm'}>
+                    <Avatar name={name} src={photoUrl} width={10} height={10}>
                         <AvatarBadge
-                            boxSize="1em"
+                            boxSize="0.9em"
                             bgColor={isOnline ? 'green.500' : 'gray.200'}
                             borderWidth={2}
                         />
@@ -44,10 +51,26 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
                 </Link>
                 <Link href={`/?profileId=${userId}`} as={NextLink} passHref>
                     <Box ml={4}>
-                        <Text fontWeight={'semibold'} lineHeight={'4'}>
+                        <Text
+                            fontSize={'lg'}
+                            fontWeight={'semibold'}
+                            lineHeight={'4'}
+                        >
                             {name}
                         </Text>
-                        {/* <Text fontSize={'sm'}>{status}</Text> */}
+                        <Flex fontSize={'sm'} alignItems={'center'}>
+                            <Text>{city}</Text>
+                            {country && city && <Text mr={2}>,</Text>}
+                            <Text>{country}</Text>
+                            {flag && (
+                                <Image
+                                    src={flag}
+                                    ml={2}
+                                    boxSize={'1.5rem'}
+                                    alt="flag of country"
+                                />
+                            )}
+                        </Flex>
                     </Box>
                 </Link>
                 <CloseButton ml={'auto'} onClick={onCloseChat} />
