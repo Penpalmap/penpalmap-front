@@ -3,10 +3,10 @@ import { Box, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from 'next-auth/react'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
-import { Room } from '../../types'
 import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
+import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 
 const ConversationList = () => {
     const { data: session } = useSession()
@@ -51,30 +51,10 @@ const ConversationList = () => {
         ]
     )
 
-    const sortByLastMessageDate = (a: Room, b: Room) => {
-        if (
-            a.messages.length > 0 &&
-            b.messages.length > 0 &&
-            a.messages[0] &&
-            b.messages[0]
-        ) {
-            return (
-                new Date(b.messages[0].createdAt).getTime() -
-                new Date(a.messages[0].createdAt).getTime()
-            )
-        } else if (a.messages.length > 0) {
-            return -1
-        } else if (b.messages.length > 0) {
-            return 1
-        } else {
-            return 0
-        }
-    }
-
     const conversationsRender = useMemo(
         () =>
             rooms
-                .sort(sortByLastMessageDate)
+                .sort(sortRoomsByLastMessageDate)
                 .map((room, index) => (
                     <ConversationItem
                         clickOnRoom={clickOnConversation}
@@ -90,7 +70,6 @@ const ConversationList = () => {
 
     return (
         <VStack
-            // position={'absolute'}
             w={'280px'}
             left={0}
             zIndex={1}

@@ -66,10 +66,27 @@ const updateMessageIsReadByRoom = async (roomId: string, userId: string) => {
     }
 }
 
+const getMessagesByRoomId = async (
+    roomId: string,
+    limit: number,
+    offset: number
+) => {
+    try {
+        const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/rooms/${roomId}/messages?limit=${limit}&offset=${offset}`
+        )
+
+        return response.data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export {
     createMessage,
     getMessages,
     getRoomOfTwoUsers,
     updateMessage,
     updateMessageIsReadByRoom,
+    getMessagesByRoomId,
 }

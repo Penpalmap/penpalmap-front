@@ -11,18 +11,37 @@ import EmptyChatMessages from './EmptyChatMessages'
 type Props = {
     messages: Array<Message> | undefined
     isNewChat: boolean
+    offset: number
+    setOffset: (offset: number) => void
 }
 
-const ChatMessages = ({ messages, isNewChat }: Props) => {
+const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(null)
+    const [initialScroll, setInitialScroll] = useState(true)
 
     const messagesEndRef = useRef<HTMLDivElement>(null)
+    const chatContainerRef = useRef<HTMLDivElement>(null)
+    const topMessageRef = useRef<HTMLDivElement>(null)
+
+    // useEffect(() => {
+    //     messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
+    // }, [])
+
+    // useEffect(() => {
+    //     if (initialScroll && messagesEndRef.current && messages?.length) {
+    //         console.log('scrolling')
+    //         // Ne faites défiler automatiquement vers le bas que lors du premier chargement
+    //         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
+    //         setInitialScroll(false)
+    //     }
+    // }, [messages, initialScroll, appData?.userChat])
+
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
-    }, [messages])
+        setInitialScroll(true)
+    }, [appData?.userChat])
 
     const lastSenderId = useRef<string | null>(null)
 
@@ -36,6 +55,29 @@ const ChatMessages = ({ messages, isNewChat }: Props) => {
 
             lastSenderId.current = message.senderId
 
+            // if top message, put a ref to scroll to it
+            if (index === 0) {
+                return (
+                    <Box
+                        key={message.id}
+                        ref={topMessageRef}
+                        display={'flex'}
+                        flexDirection={'column'}
+                    >
+                        <MessageItem
+                            key={message.id}
+                            content={message.content}
+                            isLastMessage={isLastMessage}
+                            isOwnMessage={isOwnMessage}
+                            seenText={seenText}
+                            image={
+                                (!isSameSender && appData?.userChat?.image) ||
+                                ''
+                            }
+                        />
+                    </Box>
+                )
+            }
             return (
                 <MessageItem
                     key={message.id}
@@ -79,6 +121,19 @@ const ChatMessages = ({ messages, isNewChat }: Props) => {
             p={2}
             h={'full'}
             overflowY={'scroll'}
+            onScroll={(e) => {
+                const element = e.target as HTMLDivElement
+                if (element.scrollTop === 0) {
+                    setOffset(offset + 15)
+
+                    if (topMessageRef.current) {
+                        topMessageRef.current.scrollIntoView({
+                            behavior: 'auto',
+                        })
+                    }
+                }
+            }}
+            ref={chatContainerRef}
         >
             {renderMessages}
 

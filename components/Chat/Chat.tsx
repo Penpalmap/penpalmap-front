@@ -8,18 +8,19 @@ import useChat from '../../hooks/useChat'
 import { useContext, useEffect, useRef } from 'react'
 import { Message } from '../../types'
 import { Socket, io } from 'socket.io-client'
+import { SocketEvents } from '../../constants/socketEnum'
 
 const Chat = () => {
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
-    const { room, sendMessage } = useChat()
+    const { room, sendMessage, messages, offset, setOffset } = useChat()
 
     const socket = useRef<Socket>()
 
     useEffect(() => {
         if (session?.user?.id) {
             socket.current = io(process.env.NEXT_PUBLIC_API_URL as string)
-            socket.current.emit('add-user', session.user.id)
+            socket.current.emit(SocketEvents.AddUser, session.user.id)
             setAppData((prevData) => ({
                 ...prevData,
                 socket: socket.current,
@@ -30,10 +31,6 @@ const Chat = () => {
     const sortByDate = (a: Message, b: Message) => {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     }
-
-    useEffect(() => {
-        console.log('room', room)
-    }, [room])
 
     return (
         <Box
@@ -57,8 +54,10 @@ const Chat = () => {
                 userId={appData?.userChat?.id}
             />
             <ChatMessages
-                messages={room?.messages.sort(sortByDate)}
+                messages={messages.sort(sortByDate)}
                 isNewChat={!room}
+                offset={offset}
+                setOffset={setOffset}
             />
 
             {session?.user?.id && (

@@ -36,7 +36,6 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
         if (content) {
             const currentTime = Date.now()
             if (!lastTypingTime || currentTime - lastTypingTime >= 3000) {
-                console.log('send typing')
                 // Envoie "en train d'écrire" si le dernier envoi a été effectué il y a plus de 3 secondes
                 isTyping(appData.socket, {
                     receiverId: appData?.userChat?.id,

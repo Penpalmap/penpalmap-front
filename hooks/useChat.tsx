@@ -4,6 +4,7 @@ import { Message, MessageInput, Room } from '../types'
 import { useSession } from 'next-auth/react'
 import {
     createMessage,
+    getMessagesByRoomId,
     getRoomOfTwoUsers,
     updateMessageIsReadByRoom,
 } from '../api/chatApi'
@@ -14,13 +15,14 @@ import {
     sendMessageSeen,
     sendMessageSocket,
 } from '../sockets/socketManager'
-import dayjs from 'dayjs'
 import { useRoom } from '../context/RoomsContext'
 
 const useChat = () => {
     const [room, setRoom] = useState<Room | null>(null)
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
+    const [messages, setMessages] = useState<Message[]>([])
+    const [offset, setOffset] = useState(0)
 
     const { updateLastMessageInRoom } = useRoom()
 
@@ -38,42 +40,49 @@ const useChat = () => {
 
         if (appData?.userChat) {
             fetchRoom()
+            setMessages([])
+            setOffset(0)
         }
     }, [appData.userChat, session?.user?.id])
 
-    // const connectToRoom = useCallback((roomId: string) => {
-    //     socket.emit(SocketEvents.JoinRoom, roomId)
-    // }, [])
+    useEffect(() => {
+        const fetchMessages = async () => {
+            if (room) {
+                console.log('fetching messages', offset)
+                const messages = await getMessagesByRoomId(room.id, 15, offset)
+                setMessages((prevMessages) => [...prevMessages, ...messages])
+            }
+        }
 
-    // const disconnectFromRoom = useCallback((roomId: string) => {
-    //     leaveRoom(roomId)
-    //     socket.disconnect()
-    // }, [])
+        fetchMessages()
+    }, [offset, room])
 
     const addMessageToRoom = useCallback(
         async (message: Message) => {
-            setRoom((prevRoom) => {
-                if (prevRoom) {
-                    // La room existe, donc nous pouvons la mettre à jour
-                    return {
-                        ...prevRoom,
-                        messages: [...prevRoom.messages, message],
-                    }
-                } else {
-                    // La room n'existe pas, donc nous devons la créer avec le message initial
-                    const newRoom: Room = {
-                        id: message.roomId,
-                        members: [],
-                        messages: [message],
-                        countUnreadMessages: '0',
-                        createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-                        updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-                        UserRoom: null,
-                    }
+            // setRoom((prevRoom) => {
+            //     if (prevRoom) {
+            //         // La room existe, donc nous pouvons la mettre à jour
+            //         return {
+            //             ...prevRoom,
+            //             messages: [...prevRoom.messages, message],
+            //         }
+            //     } else {
+            //         // La room n'existe pas, donc nous devons la créer avec le message initial
+            //         const newRoom: Room = {
+            //             id: message.roomId,
+            //             members: [],
+            //             messages: [message],
+            //             countUnreadMessages: '0',
+            //             createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            //             updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            //             UserRoom: null,
+            //         }
 
-                    return newRoom
-                }
-            })
+            //         return newRoom
+            //     }
+            // })
+
+            setMessages((prevMessages) => [...prevMessages, message])
 
             updateLastMessageInRoom(message)
 
@@ -180,12 +189,12 @@ const useChat = () => {
     ])
 
     return {
-        messages: room?.messages,
-        // connectToRoom,
-        // disconnectFromRoom,
+        messages: messages,
         sendMessage,
         room,
         addMessageToRoom,
+        offset,
+        setOffset,
     }
 }
 
