@@ -13,6 +13,7 @@ import {
     Input,
     Stack,
     Text,
+    keyframes,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import GoogleLoginButton from './GoogleLoginButton'
@@ -59,21 +60,26 @@ const SignIn = () => {
     }
 
     const [error, setError] = useState<string | null>(null)
-
+    const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
     return (
         <>
-            <Box position="relative" h="80%" w="full" overflow="hidden">
+            <Box position="relative" h="70%" w="full" overflow="hidden">
                 {/* <MapConnexion /> */}
                 <Box
-                    w="150%" // Double de la largeur pour créer l'effet de défilement
-                    animation="scroll 30s linear infinite" // Nom de l'animation, durée, timing, itération
+                    w="400%" // Double de la largeur pour contenir les deux images
+                    animation={`${scrollLeftToRight} 110s linear infinite`} // Appliquez l'animation
                 >
                     <Image
-                        src="/images/image_landing02-01.png"
+                        src="/images/LandingMap_01.png"
                         alt="PenPalMap"
-                        width="100%"
-                        borderRadius="lg"
-                        transform="scale(1.2)" // Zoom sur l'image
+                        width="50%"
+                        display="inline-block"
+                    />
+                    <Image
+                        src="/images/LandingMap_01.png"
+                        alt="PenPalMap"
+                        width="50%"
+                        display="inline-block"
                     />
                 </Box>
                 <Box
