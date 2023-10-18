@@ -16,9 +16,8 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { useSession } from 'next-auth/react'
-import { getPositionDataByCoords } from '../../utils/location'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import useLocation from '../../hooks/useLocation'
 
 type OverlayProfileMapProps = {
     user: User | null
@@ -32,26 +31,7 @@ const OverlayProfileMap = ({
     onOpenChat,
 }: OverlayProfileMapProps) => {
     const { data: session } = useSession()
-    const [country, setCountry] = useState<string | null>(null)
-
-    useEffect(() => {
-        if (user) {
-            const getCountry = async () => {
-                if (user.latitude && user.longitude) {
-                    const positionData = await getPositionDataByCoords(
-                        user.latitude,
-                        user.longitude
-                    )
-
-                    setCountry(positionData?.address?.country)
-                } else {
-                    setCountry(null)
-                }
-            }
-
-            getCountry()
-        }
-    }, [user])
+    const { country } = useLocation(user?.latitude, user?.longitude)
 
     return (
         <Flex

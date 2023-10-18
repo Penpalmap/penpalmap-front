@@ -9,6 +9,7 @@ import {
     FormErrorMessage,
     FormLabel,
     Heading,
+    Image,
     Input,
     Stack,
     Text,
@@ -61,8 +62,20 @@ const SignIn = () => {
 
     return (
         <>
-            <Box position="relative" h={'80%'} w={'full'}>
-                <MapConnexion />
+            <Box position="relative" h="80%" w="full" overflow="hidden">
+                {/* <MapConnexion /> */}
+                <Box
+                    w="150%" // Double de la largeur pour créer l'effet de défilement
+                    animation="scroll 30s linear infinite" // Nom de l'animation, durée, timing, itération
+                >
+                    <Image
+                        src="/images/image_landing02-01.png"
+                        alt="PenPalMap"
+                        width="100%"
+                        borderRadius="lg"
+                        transform="scale(1.2)" // Zoom sur l'image
+                    />
+                </Box>
                 <Box
                     position={'absolute'}
                     left={'50%'}
