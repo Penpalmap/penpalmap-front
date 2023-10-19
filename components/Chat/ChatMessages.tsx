@@ -20,28 +20,8 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(null)
-    const [initialScroll, setInitialScroll] = useState(true)
 
-    const messagesEndRef = useRef<HTMLDivElement>(null)
     const chatContainerRef = useRef<HTMLDivElement>(null)
-    const topMessageRef = useRef<HTMLDivElement>(null)
-
-    // useEffect(() => {
-    //     messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
-    // }, [])
-
-    // useEffect(() => {
-    //     if (initialScroll && messagesEndRef.current && messages?.length) {
-    //         console.log('scrolling')
-    //         // Ne faites défiler automatiquement vers le bas que lors du premier chargement
-    //         messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
-    //         setInitialScroll(false)
-    //     }
-    // }, [messages, initialScroll, appData?.userChat])
-
-    useEffect(() => {
-        setInitialScroll(true)
-    }, [appData?.userChat])
 
     const lastSenderId = useRef<string | null>(null)
 
@@ -60,7 +40,7 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
                 return (
                     <Box
                         key={message.id}
-                        ref={topMessageRef}
+                        // ref={topMessageRef}
                         display={'flex'}
                         flexDirection={'column'}
                     >
@@ -121,18 +101,18 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
             p={2}
             h={'full'}
             overflowY={'scroll'}
-            onScroll={(e) => {
-                const element = e.target as HTMLDivElement
-                if (element.scrollTop === 0) {
-                    setOffset(offset + 15)
+            // onScroll={(e) => {
+            //     const element = e.target as HTMLDivElement
+            //     if (element.scrollTop === 0) {
+            //         setOffset(offset + 15)
 
-                    if (topMessageRef.current) {
-                        topMessageRef.current.scrollIntoView({
-                            behavior: 'auto',
-                        })
-                    }
-                }
-            }}
+            //         if (topMessageRef.current) {
+            //             topMessageRef.current.scrollIntoView({
+            //                 behavior: 'auto',
+            //             })
+            //         }
+            //     }
+            // }}
             ref={chatContainerRef}
         >
             {renderMessages}
@@ -146,11 +126,11 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
             {otherUserIsTyping && (
                 <Box position={'absolute'} bottom={10} left={0} p={4}>
                     <Text fontSize={'small'}>
-                        {appData?.userChat?.name} est en train d'écrire...
+                        {appData?.userChat?.name} est en train d&apos;écrire...
                     </Text>
                 </Box>
             )}
-            <Box ref={messagesEndRef} />
+            {/* <Box ref={messagesEndRef} /> */}
         </Box>
     )
 }

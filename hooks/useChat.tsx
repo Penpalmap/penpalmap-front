@@ -40,6 +40,7 @@ const useChat = () => {
 
         if (appData?.userChat) {
             fetchRoom()
+
             setMessages([])
             setOffset(0)
         }
@@ -48,9 +49,22 @@ const useChat = () => {
     useEffect(() => {
         const fetchMessages = async () => {
             if (room) {
-                console.log('fetching messages', offset)
-                const messages = await getMessagesByRoomId(room.id, 15, offset)
-                setMessages((prevMessages) => [...prevMessages, ...messages])
+                console.log('offset', offset, room.members[0]?.name)
+                const messagesData = await getMessagesByRoomId(
+                    room.id,
+                    15,
+                    offset
+                )
+
+                if (offset === 0) {
+                    setMessages(messagesData)
+                }
+                if (offset > 0) {
+                    setMessages((prevMessages) => [
+                        ...messagesData,
+                        ...prevMessages,
+                    ])
+                }
             }
         }
 
