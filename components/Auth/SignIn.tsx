@@ -66,8 +66,8 @@ const SignIn = () => {
             <Box position="relative" h="70%" w="full" overflow="hidden">
                 {/* <MapConnexion /> */}
                 <Box
-                    w="400%" // Double de la largeur pour contenir les deux images
-                    animation={`${scrollLeftToRight} 110s linear infinite`} // Appliquez l'animation
+                    w="200%" // Double de la largeur pour contenir les deux images
+                    animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation
                 >
                     <Image
                         src="/images/LandingMap_01.png"
@@ -95,6 +95,7 @@ const SignIn = () => {
                     display={'flex'}
                     flexDirection={'column'}
                     alignItems={'center'}
+                    boxShadow={'lg'}
                 >
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
                         Connectez-vous
