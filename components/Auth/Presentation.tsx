@@ -11,7 +11,8 @@ const Presentation = () => {
                 w={'full'}
                 m={'auto'}
             >
-                Here at PenPalMap, we aren&apos;t about quick swipes.<br />We are
+                Here at PenPalMap, we aren&apos;t about quick swipes.
+                <br />
                 about learning, connecting, and growing - no matter the
                 distance.
             </Text>
