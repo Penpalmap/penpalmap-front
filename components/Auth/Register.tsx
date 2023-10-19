@@ -11,6 +11,8 @@ import {
     Input,
     Stack,
     Text,
+    Image,
+    keyframes,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
@@ -48,10 +50,30 @@ const Register = () => {
         }
     }
 
+    const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
+
     return (
         <>
-            <Box position="relative" h={'80%'} w={'full'}>
-                <MapConnexion />
+            <Box position="relative" h="Auto" w="full" overflow="hidden">
+                {/* <MapConnexion /> */}
+                <Box
+                    w="400vh" // Double de la largeur pour contenir les deux images
+                    animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation*
+                    bg="#8CBBD4" // Ajout de la couleur de fond
+                >
+                    <Image
+                        src="/images/LandingMap_light.png"
+                        alt="PenPalMap"
+                        width="50%"
+                        display="inline-block"
+                    />
+                    <Image
+                        src="/images/LandingMap_light.png"
+                        alt="PenPalMap"
+                        width="50%"
+                        display="inline-block"
+                    />
+                </Box>
                 <Box
                     position={'absolute'}
                     left={'50%'}

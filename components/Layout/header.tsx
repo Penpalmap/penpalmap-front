@@ -38,8 +38,11 @@ const Header = () => {
                 justifyContent={'space-between'}
                 h={'14'}
                 boxShadow={'md'}
-                zIndex={1}
-                position={'relative'}
+                zIndex={10} // une valeur élevée pour s'assurer que le header se superpose à d'autres éléments
+                position={'sticky'} // fixe la position
+                top={0} // positionne le header en haut de la page
+                width={'100%'} // s'assure qu'il prend toute la largeur de la fenêtre
+                backgroundColor={'white'}
             >
                 <Flex alignItems={'center'}>
                     <Link href={`/`}>

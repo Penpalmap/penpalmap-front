@@ -2,16 +2,17 @@ import { Box, Flex, Text, Image } from '@chakra-ui/react'
 
 const Presentation = () => {
     return (
-        <Box p={[8, 20]}>
+        <Box p={[15, 5]}>
             <Text
-                py={12}
+                py={2}
                 fontSize={['xl', '3xl']}
                 fontWeight="bold"
                 textAlign="center"
-                w={['100%', '6xl']}
+                w={'full'}
                 m={'auto'}
             >
-                Here at PenPalMap, we aren&apos;t about quick swipes. We are
+                Here at PenPalMap, we aren&apos;t about quick swipes.
+                <br />
                 about learning, connecting, and growing - no matter the
                 distance.
             </Text>
