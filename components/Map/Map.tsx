@@ -25,6 +25,7 @@ const Map = () => {
                 h={'calc(100vh - 56px)'}
                 w={'full'}
                 className="map"
+                bg="#8CBBD4" // Ajout de la couleur de fond
             ></Box>
             <Box display={'none'}>
                 <OverlayProfileMap
