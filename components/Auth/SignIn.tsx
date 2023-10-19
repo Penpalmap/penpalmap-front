@@ -68,6 +68,7 @@ const SignIn = () => {
                 <Box
                     w="400vh" // Double de la largeur pour contenir les deux images
                     animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation
+                    bg="#8CBBD4" // Ajout de la couleur de fond
                 >
                     <Image
                         src="/images/LandingMap_01.png"
