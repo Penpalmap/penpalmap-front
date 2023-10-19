@@ -63,7 +63,13 @@ const SignIn = () => {
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
     return (
         <>
-            <Box position="relative" h="70%" w="full" overflow="hidden">
+            <Box
+                position="relative"
+                h="70%"
+                w="full"
+                overflow="hidden"
+                marginTop="14"
+            >
                 {/* <MapConnexion /> */}
                 <Box
                     w="200%" // Double de la largeur pour contenir les deux images
