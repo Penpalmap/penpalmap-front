@@ -20,8 +20,8 @@ import GoogleLoginButton from './GoogleLoginButton'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import MapConnexion from '../Map/MapConnexion'
 import Presentation from './Presentation'
+import CitySearchInput from '../CreateProfile/CitySearchInput'
 
 interface LoginFormData {
     email: string

@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'ol/ol.css'
 
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import CitySearchInput from './CitySearchInput'
 
 type Props = {
     onNextStep?: () => void
@@ -81,6 +82,7 @@ const ProfileLocationInput = (props: Props) => {
 
     return (
         <Box ref={ref} height={['200px', 'sm']} width={['100%', '3xl']}>
+            <CitySearchInput />
             <Box display={'none'}>
                 <Box ref={markerRef}>
                     <FontAwesomeIcon icon={faLocationDot} size="lg" />
