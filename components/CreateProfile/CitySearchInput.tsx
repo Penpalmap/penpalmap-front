@@ -51,7 +51,7 @@ const CitySearchInput = () => {
             } finally {
                 setLoading(false)
             }
-        }, 1000) as unknown as number
+        }, 500) as unknown as number
     }
 
     const handleSuggestionClick = (suggestion: Suggestion) => {
