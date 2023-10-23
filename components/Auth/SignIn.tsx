@@ -167,6 +167,7 @@ const SignIn = () => {
                     </Box>
                 </Box>
             </Box>
+            <CitySearchInput />
             <Presentation />
         </>
     )
