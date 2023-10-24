@@ -1,4 +1,4 @@
-import { Box, Button, Spinner, Text } from '@chakra-ui/react'
+import { Box, Spinner, Text } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
 import { useSession } from 'next-auth/react'
@@ -26,7 +26,9 @@ const ChatMessages = ({
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
-    const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(null)
+    const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(
+        null as any
+    )
 
     const chatContainerRef = useRef<HTMLDivElement>(null)
     const topMessageRef = useRef<HTMLDivElement>(null)

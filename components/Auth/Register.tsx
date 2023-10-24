@@ -22,7 +22,6 @@ import { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
-import MapConnexion from '../Map/MapConnexion'
 import Presentation from './Presentation'
 
 const Register = () => {
