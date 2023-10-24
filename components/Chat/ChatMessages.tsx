@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Button, Spinner, Text } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
 import { useSession } from 'next-auth/react'
@@ -13,17 +13,39 @@ type Props = {
     isNewChat: boolean
     offset: number
     setOffset: (offset: number) => void
+    isLoading: boolean
 }
 
-const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
+const ChatMessages = ({
+    messages,
+    isNewChat,
+    offset,
+    setOffset,
+    isLoading,
+}: Props) => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(null)
 
     const chatContainerRef = useRef<HTMLDivElement>(null)
+    const topMessageRef = useRef<HTMLDivElement>(null)
 
     const lastSenderId = useRef<string | null>(null)
+    const [bottomScrollIsDone, setBottomScrollIsDone] = useState(false)
+
+    useEffect(() => {
+        setBottomScrollIsDone(false)
+    }, [appData.userChat])
+
+    useEffect(() => {
+        // scroll to bottom when new userChat
+        if (chatContainerRef.current && messages && messages?.length === 15) {
+            chatContainerRef.current.scrollTop =
+                chatContainerRef.current.scrollHeight
+            setBottomScrollIsDone(true)
+        }
+    }, [appData.userChat, messages, messages?.length])
 
     const renderMessages = useMemo(() => {
         return messages?.map((message, index) => {
@@ -40,7 +62,7 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
                 return (
                     <Box
                         key={message.id}
-                        // ref={topMessageRef}
+                        ref={topMessageRef}
                         display={'flex'}
                         flexDirection={'column'}
                     >
@@ -101,21 +123,24 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
             p={2}
             h={'full'}
             overflowY={'scroll'}
-            // onScroll={(e) => {
-            //     const element = e.target as HTMLDivElement
-            //     if (element.scrollTop === 0) {
-            //         setOffset(offset + 15)
-
-            //         if (topMessageRef.current) {
-            //             topMessageRef.current.scrollIntoView({
-            //                 behavior: 'auto',
-            //             })
-            //         }
-            //     }
-            // }}
+            onScroll={(e) => {
+                const element = e.target as HTMLDivElement
+                if (element.scrollTop === 0 && bottomScrollIsDone) {
+                    setOffset(offset + 15)
+                    if (topMessageRef.current) {
+                        topMessageRef.current.scrollIntoView({
+                            behavior: 'auto',
+                        })
+                    }
+                }
+            }}
             ref={chatContainerRef}
         >
             {renderMessages}
+
+            {isLoading && (
+                <Spinner size={'sm'} position={'absolute'} top={2} left={2} />
+            )}
 
             {isNewChat && (
                 <EmptyChatMessages

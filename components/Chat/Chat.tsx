@@ -13,7 +13,8 @@ import { SocketEvents } from '../../constants/socketEnum'
 const Chat = () => {
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
-    const { room, sendMessage, messages, offset, setOffset } = useChat()
+    const { room, sendMessage, messages, offset, setOffset, isLoading } =
+        useChat()
 
     const socket = useRef<Socket>()
 
@@ -58,6 +59,7 @@ const Chat = () => {
                 isNewChat={!room}
                 offset={offset}
                 setOffset={setOffset}
+                isLoading={isLoading}
             />
 
             {session?.user?.id && (

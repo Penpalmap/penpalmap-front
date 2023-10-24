@@ -24,6 +24,8 @@ const useChat = () => {
     const [messages, setMessages] = useState<Message[]>([])
     const [offset, setOffset] = useState(0)
 
+    const [isLoading, setIsLoading] = useState(true)
+    const [roomIsLoading, setRoomIsLoading] = useState(true)
     const { updateLastMessageInRoom } = useRoom()
 
     useEffect(() => {
@@ -35,10 +37,12 @@ const useChat = () => {
                 )
 
                 setRoom(room)
+                setIsLoading(false) // Mettre fin au chargement lorsque les informations sont disponibles.
             }
         }
 
         if (appData?.userChat) {
+            setRoomIsLoading(true)
             fetchRoom()
 
             setMessages([])
@@ -46,72 +50,39 @@ const useChat = () => {
         }
     }, [appData.userChat, session?.user?.id])
 
-    useEffect(() => {
-        const fetchMessages = async () => {
-            if (room) {
-                console.log('offset', offset, room.members[0]?.name)
-                const messagesData = await getMessagesByRoomId(
-                    room.id,
-                    15,
-                    offset
-                )
-
-                if (offset === 0) {
-                    setMessages(messagesData)
-                }
-                if (offset > 0) {
-                    setMessages((prevMessages) => [
-                        ...messagesData,
-                        ...prevMessages,
-                    ])
-                }
-            }
+    const initialFetchMessages = useCallback(async () => {
+        if (room) {
+            const messagesData = await getMessagesByRoomId(room.id, 15, 0)
+            setMessages(messagesData)
+            setIsLoading(false)
+            setRoomIsLoading(false)
         }
+    }, [room])
 
-        fetchMessages()
-    }, [offset, room])
+    useEffect(() => {
+        initialFetchMessages()
+    }, [initialFetchMessages, room])
+
+    const additonalFetchMessages = useCallback(async () => {
+        if (appData?.userChat && room && !roomIsLoading) {
+            const messagesData = await getMessagesByRoomId(room.id, 15, offset)
+
+            setMessages((prevMessages) => [...messagesData, ...prevMessages])
+            setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
+        }
+    }, [appData?.userChat, room, roomIsLoading, offset])
+
+    useEffect(() => {
+        if (offset > 0) {
+            additonalFetchMessages()
+        }
+    }, [additonalFetchMessages, offset])
 
     const addMessageToRoom = useCallback(
         async (message: Message) => {
-            // setRoom((prevRoom) => {
-            //     if (prevRoom) {
-            //         // La room existe, donc nous pouvons la mettre à jour
-            //         return {
-            //             ...prevRoom,
-            //             messages: [...prevRoom.messages, message],
-            //         }
-            //     } else {
-            //         // La room n'existe pas, donc nous devons la créer avec le message initial
-            //         const newRoom: Room = {
-            //             id: message.roomId,
-            //             members: [],
-            //             messages: [message],
-            //             countUnreadMessages: '0',
-            //             createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-            //             updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-            //             UserRoom: null,
-            //         }
-
-            //         return newRoom
-            //     }
-            // })
-
             setMessages((prevMessages) => [...prevMessages, message])
 
             updateLastMessageInRoom(message)
-
-            // setAppData({
-            //     ...appData,
-            //     rooms: appData.rooms.map((room) => {
-            //         if (room?.UserRoom?.roomId === message.roomId) {
-            //             return {
-            //                 ...room,
-            //                 messages: [message],
-            //             }
-            //         }
-            //         return room
-            //     }),
-            // })
         },
         [updateLastMessageInRoom]
     )
@@ -209,6 +180,8 @@ const useChat = () => {
         addMessageToRoom,
         offset,
         setOffset,
+        isLoading,
+        additonalFetchMessages,
     }
 }
 
