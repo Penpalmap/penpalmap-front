@@ -86,7 +86,7 @@ const LayoutCreationProfile = ({
             <Flex
                 mx={'auto'}
                 mt={'20'}
-                height={'500px'}
+                height={'700px'}
                 flexDir={'column'}
                 alignItems={'center'}
             >
