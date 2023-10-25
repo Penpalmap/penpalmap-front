@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, useToast } from '@chakra-ui/react'
 import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { useEffect, useRef, useState } from 'react'
@@ -25,11 +25,13 @@ const ProfileLocationInput = (props: Props) => {
         null
     )
     const [countryName, setCountryName] = useState<string | null>(null)
+    const [isOutsideCountry, setIsOutsideCountry] = useState(false)
     const mapRef = useRef<Map | null>(null)
 
     const ref = useRef<HTMLDivElement>(null)
     const markerRef = useRef<HTMLDivElement>(null)
     const [, setShowMarker] = useState(false)
+    const toast = useToast()
 
     useEffect(() => {
         if (ref.current && !mapRef.current) {
@@ -85,6 +87,15 @@ const ProfileLocationInput = (props: Props) => {
                     const data = await response.json()
                     if (data && data.address && data.address.country) {
                         setCountryName(data.address.country)
+                    } else {
+                        toast({
+                            title: 'Attention',
+                            description:
+                                "La position sélectionnée est en dehors d'un pays!",
+                            status: 'warning',
+                            duration: 5000,
+                            isClosable: true,
+                        })
                     }
                 } catch (error) {
                     console.error('Error fetching country name:', error)
@@ -134,6 +145,8 @@ const ProfileLocationInput = (props: Props) => {
         if (displayName) {
             const country = extractCountry(displayName)
             setCountryName(country)
+            setIsOutsideCountry(false)
+            console.log(country)
         }
     }
     return (
