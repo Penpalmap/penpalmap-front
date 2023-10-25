@@ -26,6 +26,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
     const [queryValue, setQueryValue] = useState('') // Nouvel état pour la valeur à interroger
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
     const [loading, setLoading] = useState(false)
+    const ref = useRef<HTMLDivElement>(null)
 
     // Cette ref gardera une trace de notre setTimeout pour que nous puissions l'annuler si nécessaire
     const timeoutRef = useRef<number | null>(null)
@@ -61,13 +62,29 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
 
     const handleSuggestionClick = (suggestion: Suggestion) => {
         console.log(`Lat: ${suggestion.lat}, Lon: ${suggestion.lon}`)
+
         if (onLocationSelected) {
             onLocationSelected(suggestion.lat, suggestion.lon)
         }
+
+        setSuggestions([]) // Ceci va vider la liste des suggestions après le clic
     }
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setSuggestions([])
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
+
     return (
-        <Box width="100%" position="relative">
+        <Box ref={ref} width="100%" position="relative">
             <InputGroup>
                 <InputLeftElement
                     pointerEvents="none"
@@ -87,7 +104,6 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
             </InputGroup>
             {suggestions.length > 0 && (
                 <List
-                    mt="2"
                     border="1px solid #ccc"
                     borderRadius="md"
                     position="absolute" // Position absolue pour qu'elle apparaisse au-dessus
