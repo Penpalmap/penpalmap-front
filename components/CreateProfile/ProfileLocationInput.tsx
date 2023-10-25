@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text, useToast } from '@chakra-ui/react'
 import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { useEffect, useRef, useState } from 'react'
@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'ol/ol.css'
 
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import CitySearchInput from './CitySearchInput'
 
 type Props = {
     onNextStep?: () => void
@@ -20,11 +21,16 @@ type Props = {
 
 const ProfileLocationInput = (props: Props) => {
     const { setValue } = props
+    const [coordinates, setCoordinates] = useState<[number, number] | null>(
+        null
+    )
+    const [countryName, setCountryName] = useState<string | null>(null)
     const mapRef = useRef<Map | null>(null)
 
     const ref = useRef<HTMLDivElement>(null)
     const markerRef = useRef<HTMLDivElement>(null)
     const [, setShowMarker] = useState(false)
+    const toast = useToast()
 
     useEffect(() => {
         if (ref.current && !mapRef.current) {
@@ -41,7 +47,7 @@ const ProfileLocationInput = (props: Props) => {
                 }),
             })
 
-            const handleClicked = (e) => {
+            const handleClicked = async (e) => {
                 const coordinates = mapRef?.current?.getCoordinateFromPixel(
                     e.pixel
                 )
@@ -72,6 +78,28 @@ const ProfileLocationInput = (props: Props) => {
                     setValue('longitude', transformedCoordinates[1])
                 }
 
+                // Fetch country name
+                try {
+                    const response = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${transformedCoordinates[1]}&lon=${transformedCoordinates[0]}`
+                    )
+                    const data = await response.json()
+                    if (data && data.address && data.address.country) {
+                        setCountryName(data.address.country)
+                    } else {
+                        toast({
+                            title: 'Attention',
+                            description:
+                                "La position sélectionnée est en dehors d'un pays!",
+                            status: 'warning',
+                            duration: 5000,
+                            isClosable: true,
+                        })
+                    }
+                } catch (error) {
+                    console.error('Error fetching country name:', error)
+                }
+
                 setShowMarker(true)
             }
 
@@ -79,13 +107,74 @@ const ProfileLocationInput = (props: Props) => {
         }
     }, [ref, mapRef, setValue])
 
+    const extractCountry = (displayName: string): string => {
+        const components = displayName.split(', ')
+        return components[components.length - 1] || ''
+    }
+
+    useEffect(() => {
+        if (mapRef.current && coordinates) {
+            const transformedCoordinates = transform(
+                coordinates,
+                'EPSG:4326',
+                'EPSG:3857'
+            )
+            if (markerRef.current) {
+                const marker = new Overlay({
+                    position: transformedCoordinates,
+                    element: markerRef.current,
+                    positioning: 'bottom-center',
+                    stopEvent: false,
+                })
+                mapRef.current.addOverlay(marker)
+                mapRef.current.getView().setCenter(transformedCoordinates)
+                mapRef.current.getView().setZoom(6)
+            }
+        }
+    }, [coordinates])
+
+    const handleLocationSelected = (
+        lat: string,
+        lon: string,
+        displayName?: string
+    ) => {
+        const coords: [number, number] = [parseFloat(lon), parseFloat(lat)]
+        setCoordinates(coords)
+
+        if (displayName) {
+            const country = extractCountry(displayName)
+            setCountryName(country)
+        }
+    }
     return (
-        <Box ref={ref} height={['200px', 'sm']} width={['100%', '3xl']}>
+        <Box
+            position="relative"
+            ref={ref}
+            height={['200px', 'sm']}
+            width={['100%', '3xl']}
+        >
+            <CitySearchInput
+                onLocationSelected={(lat, lon, displayName) =>
+                    handleLocationSelected(lat, lon, displayName)
+                }
+            />
             <Box display={'none'}>
                 <Box ref={markerRef}>
                     <FontAwesomeIcon icon={faLocationDot} size="lg" />
                 </Box>
             </Box>
+            {countryName && (
+                <Box
+                    mt="3" // Marging pour créer un espace entre la carte et le texte
+                    bgColor="white"
+                    p="2"
+                >
+                    You are in:{' '}
+                    <Text as="span" color="#189AB4" fontSize="xl">
+                        {countryName}
+                    </Text>
+                </Box>
+            )}
         </Box>
     )
 }
