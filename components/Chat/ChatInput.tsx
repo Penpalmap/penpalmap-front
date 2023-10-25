@@ -17,14 +17,15 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     const { register, handleSubmit, setValue, watch } = useForm<MessageInput>()
     const [appData] = useContext(AppContext)
     const content = watch('content')
-    const inputRef = useRef<HTMLInputElement>(null)
+    const { ref } = register('content')
+    const inputRef = useRef<HTMLInputElement | null>(null)
 
     useEffect(() => {
         setValue('roomId', room?.id)
         setValue('senderId', senderId)
         setValue('receiverId', appData?.userChat?.id)
         setValue('content', '')
-        inputRef.current?.focus()
+        inputRef?.current?.focus()
     }, [appData?.userChat?.id, room?.id, senderId, setValue])
 
     const onSubmitHandler = async (data: MessageInput) => {
@@ -69,7 +70,10 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
                     {...register('content', {
                         required: 'Message is empty',
                     })}
-                    ref={inputRef}
+                    ref={(e) => {
+                        ref(e)
+                        inputRef.current = e
+                    }}
                 />
                 <IconButton
                     borderRadius={'full'}
