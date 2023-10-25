@@ -21,6 +21,9 @@ type Props = {
 
 const ProfileLocationInput = (props: Props) => {
     const { setValue } = props
+    const [coordinates, setCoordinates] = useState<[number, number] | null>(
+        null
+    )
     const mapRef = useRef<Map | null>(null)
 
     const ref = useRef<HTMLDivElement>(null)
@@ -80,9 +83,40 @@ const ProfileLocationInput = (props: Props) => {
         }
     }, [ref, mapRef, setValue])
 
+    useEffect(() => {
+        if (mapRef.current && coordinates) {
+            const transformedCoordinates = transform(
+                coordinates,
+                'EPSG:4326',
+                'EPSG:3857'
+            )
+            if (markerRef.current) {
+                const marker = new Overlay({
+                    position: transformedCoordinates,
+                    element: markerRef.current,
+                    positioning: 'bottom-center',
+                    stopEvent: false,
+                })
+                mapRef.current.addOverlay(marker)
+                mapRef.current.getView().setCenter(transformedCoordinates)
+                mapRef.current.getView().setZoom(10)
+            }
+        }
+    }, [coordinates])
+
+    const handleLocationSelected = (lat: string, lon: string) => {
+        const coords: [number, number] = [parseFloat(lon), parseFloat(lat)]
+        setCoordinates(coords)
+    }
+
     return (
-        <Box ref={ref} height={['200px', 'sm']} width={['100%', '3xl']}>
-            <CitySearchInput />
+        <Box
+            position="relative"
+            ref={ref}
+            height={['200px', 'sm']}
+            width={['100%', '3xl']}
+        >
+            <CitySearchInput onLocationSelected={handleLocationSelected} />
             <Box display={'none'}>
                 <Box ref={markerRef}>
                     <FontAwesomeIcon icon={faLocationDot} size="lg" />
