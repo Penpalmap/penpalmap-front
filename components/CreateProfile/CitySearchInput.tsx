@@ -61,8 +61,6 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
     }
 
     const handleSuggestionClick = (suggestion: Suggestion) => {
-        console.log(`Lat: ${suggestion.lat}, Lon: ${suggestion.lon}`)
-
         if (onLocationSelected) {
             onLocationSelected(
                 suggestion.lat,

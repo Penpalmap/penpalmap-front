@@ -25,7 +25,6 @@ const ProfileLocationInput = (props: Props) => {
         null
     )
     const [countryName, setCountryName] = useState<string | null>(null)
-    const [isOutsideCountry, setIsOutsideCountry] = useState(false)
     const mapRef = useRef<Map | null>(null)
 
     const ref = useRef<HTMLDivElement>(null)
@@ -129,7 +128,7 @@ const ProfileLocationInput = (props: Props) => {
                 })
                 mapRef.current.addOverlay(marker)
                 mapRef.current.getView().setCenter(transformedCoordinates)
-                mapRef.current.getView().setZoom(10)
+                mapRef.current.getView().setZoom(6)
             }
         }
     }, [coordinates])
@@ -145,8 +144,6 @@ const ProfileLocationInput = (props: Props) => {
         if (displayName) {
             const country = extractCountry(displayName)
             setCountryName(country)
-            setIsOutsideCountry(false)
-            console.log(country)
         }
     }
     return (
