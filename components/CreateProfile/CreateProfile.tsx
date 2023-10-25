@@ -67,11 +67,10 @@ const CreateProfile = () => {
         switch (activeStep) {
             case 0:
                 return (
-                    // <ProfileGenderInput
-                    //     setValue={setValue}
-                    //     selectedGender={selectedGender}
-                    // />
-                    <ProfileLocationInput setValue={setValue} />
+                    <ProfileGenderInput
+                        setValue={setValue}
+                        selectedGender={selectedGender}
+                    />
                 )
             case 1:
                 return <ProfileBirthdayInput register={register} />
