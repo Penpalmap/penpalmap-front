@@ -1,7 +1,7 @@
 import { FormControl, IconButton, Input } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { MessageInput, Room } from '../../types'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
@@ -16,13 +16,15 @@ type Props = {
 const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     const { register, handleSubmit, setValue, watch } = useForm<MessageInput>()
     const [appData] = useContext(AppContext)
-
     const content = watch('content')
+    const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         setValue('roomId', room?.id)
         setValue('senderId', senderId)
         setValue('receiverId', appData?.userChat?.id)
+        setValue('content', '')
+        inputRef.current?.focus()
     }, [appData?.userChat?.id, room?.id, senderId, setValue])
 
     const onSubmitHandler = async (data: MessageInput) => {
@@ -67,6 +69,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
                     {...register('content', {
                         required: 'Message is empty',
                     })}
+                    ref={inputRef}
                 />
                 <IconButton
                     borderRadius={'full'}
