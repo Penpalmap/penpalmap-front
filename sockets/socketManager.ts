@@ -66,3 +66,13 @@ export const onIsTyping = (
         callback(message)
     })
 }
+
+export const onUsersOnline = (
+    socket: Socket,
+    callback: (users: string[]) => void
+) => {
+    // Écouter les utilisateurs en ligne
+    socket.on(SocketEvents.OnlineUsers, (users: string[]) => {
+        callback(users)
+    })
+}

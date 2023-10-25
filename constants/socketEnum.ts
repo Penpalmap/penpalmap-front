@@ -8,4 +8,5 @@ export enum SocketEvents {
     AddUser = 'ADD_USER',
     IsTyping = 'IS_TYPING',
     StopIsTyping = 'STOP_IS_TYPING',
+    OnlineUsers = 'ONLINE_USERS',
 }

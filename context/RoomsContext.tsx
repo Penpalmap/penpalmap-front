@@ -9,7 +9,11 @@ import {
 import { Message, Room } from '../types'
 import { getRooms } from '../api/conversationApi'
 import { useSession } from 'next-auth/react'
-import { onNewMessage, onSeenMessage } from '../sockets/socketManager'
+import {
+    onNewMessage,
+    onSeenMessage,
+    onUsersOnline,
+} from '../sockets/socketManager'
 import { AppContext } from './AppContext'
 
 interface RoomContextType {
@@ -34,7 +38,7 @@ export function useRoom() {
 
 export const RoomProvider = ({ children }: RoomProviderProps) => {
     const [rooms, setRooms] = useState<Room[]>([])
-    const [appData] = useContext(AppContext)
+    const [appData, setAppData] = useContext(AppContext)
 
     const { data: session } = useSession()
 
@@ -116,10 +120,52 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
                 resetCountUnreadMessagesOfRoom(message.roomId)
             }
         })
+
+        // Met à jour le statut en ligne
+        onUsersOnline(appData.socket, (usersOnline) => {
+            setRooms((prevRooms) => {
+                return prevRooms.map((room) => {
+                    const newRoom: Room = {
+                        ...room,
+                        members: room.members.map((member) => {
+                            if (usersOnline.includes(member.id)) {
+                                return {
+                                    ...member,
+                                    isOnline: true,
+                                }
+                            } else {
+                                return {
+                                    ...member,
+                                    isOnline: false,
+                                }
+                            }
+                        }),
+                    }
+
+                    return {
+                        ...newRoom,
+                    }
+                })
+            })
+
+            if (appData.userChat) {
+                const userChat = appData.userChat
+                const userIsOnline = usersOnline.includes(userChat.id)
+                setAppData({
+                    ...appData,
+                    userChat: {
+                        ...userChat,
+                        isOnline: userIsOnline,
+                    },
+                })
+            }
+        })
     }, [
+        appData,
         appData.socket,
         resetCountUnreadMessagesOfRoom,
         session?.user?.id,
+        setAppData,
         updateLastMessageInRoom,
     ])
 
