@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { useEffect, useRef, useState } from 'react'
@@ -159,7 +159,10 @@ const ProfileLocationInput = (props: Props) => {
                     bgColor="white"
                     p="2"
                 >
-                    You are in: {countryName}
+                    You are in:{' '}
+                    <Text as="span" color="#189AB4" fontSize="xl">
+                        {countryName}
+                    </Text>
                 </Box>
             )}
         </Box>
