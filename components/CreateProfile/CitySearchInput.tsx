@@ -23,7 +23,7 @@ interface CitySearchInputProps {
 const CitySearchInput: React.FC<CitySearchInputProps> = ({
     onLocationSelected,
 }) => {
-    const [queryValue, setQueryValue] = useState('') // Nouvel état pour la valeur à interroger
+    // const [queryValue, setQueryValue] = useState('') // Nouvel état pour la valeur à interroger
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
     const [loading, setLoading] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
