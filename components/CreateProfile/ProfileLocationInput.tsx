@@ -24,6 +24,7 @@ const ProfileLocationInput = (props: Props) => {
     const [coordinates, setCoordinates] = useState<[number, number] | null>(
         null
     )
+    const [countryName, setCountryName] = useState<string | null>(null)
     const mapRef = useRef<Map | null>(null)
 
     const ref = useRef<HTMLDivElement>(null)
@@ -45,7 +46,7 @@ const ProfileLocationInput = (props: Props) => {
                 }),
             })
 
-            const handleClicked = (e) => {
+            const handleClicked = async (e) => {
                 const coordinates = mapRef?.current?.getCoordinateFromPixel(
                     e.pixel
                 )
@@ -76,12 +77,30 @@ const ProfileLocationInput = (props: Props) => {
                     setValue('longitude', transformedCoordinates[1])
                 }
 
+                // Fetch country name
+                try {
+                    const response = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${transformedCoordinates[1]}&lon=${transformedCoordinates[0]}`
+                    )
+                    const data = await response.json()
+                    if (data && data.address && data.address.country) {
+                        setCountryName(data.address.country)
+                    }
+                } catch (error) {
+                    console.error('Error fetching country name:', error)
+                }
+
                 setShowMarker(true)
             }
 
             mapRef.current.on('click', handleClicked)
         }
     }, [ref, mapRef, setValue])
+
+    const extractCountry = (displayName: string): string => {
+        const components = displayName.split(', ')
+        return components[components.length - 1] || ''
+    }
 
     useEffect(() => {
         if (mapRef.current && coordinates) {
@@ -104,11 +123,19 @@ const ProfileLocationInput = (props: Props) => {
         }
     }, [coordinates])
 
-    const handleLocationSelected = (lat: string, lon: string) => {
+    const handleLocationSelected = (
+        lat: string,
+        lon: string,
+        displayName?: string
+    ) => {
         const coords: [number, number] = [parseFloat(lon), parseFloat(lat)]
         setCoordinates(coords)
-    }
 
+        if (displayName) {
+            const country = extractCountry(displayName)
+            setCountryName(country)
+        }
+    }
     return (
         <Box
             position="relative"
@@ -116,12 +143,25 @@ const ProfileLocationInput = (props: Props) => {
             height={['200px', 'sm']}
             width={['100%', '3xl']}
         >
-            <CitySearchInput onLocationSelected={handleLocationSelected} />
+            <CitySearchInput
+                onLocationSelected={(lat, lon, displayName) =>
+                    handleLocationSelected(lat, lon, displayName)
+                }
+            />
             <Box display={'none'}>
                 <Box ref={markerRef}>
                     <FontAwesomeIcon icon={faLocationDot} size="lg" />
                 </Box>
             </Box>
+            {countryName && (
+                <Box
+                    mt="3" // Marging pour créer un espace entre la carte et le texte
+                    bgColor="white"
+                    p="2"
+                >
+                    You are in: {countryName}
+                </Box>
+            )}
         </Box>
     )
 }

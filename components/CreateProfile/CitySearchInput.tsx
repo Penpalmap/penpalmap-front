@@ -17,7 +17,7 @@ type Suggestion = {
     lon: string
 }
 interface CitySearchInputProps {
-    onLocationSelected?: (lat: string, lon: string) => void
+    onLocationSelected: (lat: string, lon: string, displayName: string) => void
 }
 
 const CitySearchInput: React.FC<CitySearchInputProps> = ({
@@ -64,7 +64,11 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
         console.log(`Lat: ${suggestion.lat}, Lon: ${suggestion.lon}`)
 
         if (onLocationSelected) {
-            onLocationSelected(suggestion.lat, suggestion.lon)
+            onLocationSelected(
+                suggestion.lat,
+                suggestion.lon,
+                suggestion.display_name
+            )
         }
 
         setSuggestions([]) // Ceci va vider la liste des suggestions après le clic
@@ -106,11 +110,11 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 <List
                     border="1px solid #ccc"
                     borderRadius="md"
-                    position="absolute" // Position absolue pour qu'elle apparaisse au-dessus
-                    top="100%" // Pour qu'elle apparaisse juste en dessous de l'input
-                    zIndex="10" // Pour qu'elle soit au-dessus de la carte
-                    width="100%" // Pour couvrir toute la largeur du contenant
-                    bg="white" // Fond blanc
+                    position="absolute"
+                    top="100%"
+                    zIndex="10"
+                    width="100%"
+                    bg="white"
                 >
                     {suggestions.map((suggestion, index) => (
                         <ListItem
