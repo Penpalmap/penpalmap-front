@@ -88,6 +88,7 @@ const CreateProfile = () => {
             onSubmit={handleSubmit(onSubmit)}
             style={{
                 height: '100%',
+                overflowX: 'hidden',
             }}
         >
             <LayoutCreationProfile
