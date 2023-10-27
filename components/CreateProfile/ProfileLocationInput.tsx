@@ -105,7 +105,7 @@ const ProfileLocationInput = (props: Props) => {
 
             mapRef.current.on('click', handleClicked)
         }
-    }, [ref, mapRef, setValue])
+    }, [ref, mapRef, setValue, toast])
 
     const extractCountry = (displayName: string): string => {
         const components = displayName.split(', ')
@@ -138,8 +138,24 @@ const ProfileLocationInput = (props: Props) => {
         lon: string,
         displayName?: string
     ) => {
+        debugger
         const coords: [number, number] = [parseFloat(lon), parseFloat(lat)]
+        const transformedCoordinates = transform(
+            coords,
+            'EPSG:3857',
+            'EPSG:4326'
+        )
+
         setCoordinates(coords)
+        // setCoordinates(transformedCoordinates)
+        if (
+            setValue &&
+            transformedCoordinates[0] &&
+            transformedCoordinates[1]
+        ) {
+            setValue('latitude', transformedCoordinates[0])
+            setValue('longitude', transformedCoordinates[1])
+        }
 
         if (displayName) {
             const country = extractCountry(displayName)

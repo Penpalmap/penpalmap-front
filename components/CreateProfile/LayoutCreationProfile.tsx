@@ -64,7 +64,7 @@ const LayoutCreationProfile = ({
             justifyContent={'center'}
             alignItems={'center'}
             h={'calc(100vh - 60px)'}
-            background={'beige'}
+            background={'#3EB6A020'}
         >
             <Box
                 background={'white'}

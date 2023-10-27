@@ -25,21 +25,28 @@ const CreateProfile = () => {
         count: 4,
     })
     const selectedGender = watch('gender')
+    const watchForm = watch()
 
     const disabled = useMemo(() => {
         switch (activeStep) {
             case 0:
                 return !selectedGender
             case 1:
-                return false
+                return !watchForm.birthday
             case 2:
                 return false
             case 3:
-                return false
+                return !watchForm.latitude || !watchForm.longitude
             default:
                 return false
         }
-    }, [activeStep, selectedGender])
+    }, [
+        activeStep,
+        selectedGender,
+        watchForm.birthday,
+        watchForm.latitude,
+        watchForm.longitude,
+    ])
 
     //check avec getUserById si l'utilisateur a déjà un profil
     //si oui, on redirige vers la page de profil
