@@ -116,24 +116,16 @@ const useChat = () => {
 
         onSeenMessage(appData.socket, async (message) => {
             if (message.senderId === session?.user?.id && room) {
-                // change isSeen for message
-                setRoom((prevRoom) => {
-                    if (prevRoom) {
-                        // La room existe, donc nous pouvons la mettre à jour
-                        return {
-                            ...prevRoom,
-                            messages: prevRoom.messages.map((msg) => {
-                                if (msg.id === message.id) {
-                                    return {
-                                        ...msg,
-                                        isSeen: true,
-                                    }
-                                }
-                                return msg
-                            }),
+                setMessages((prevMessages) => {
+                    return prevMessages.map((msg) => {
+                        if (msg.id === message.id) {
+                            return {
+                                ...msg,
+                                isSeen: true,
+                            }
                         }
-                    }
-                    return prevRoom
+                        return msg
+                    })
                 })
 
                 setAppData({
@@ -160,8 +152,6 @@ const useChat = () => {
         })
 
         return () => {
-            // socket.off(SocketEvents.JoinRoom)
-            // socket.off(SocketEvents.LeaveRoom)
             appData.socket.off(SocketEvents.NewMessage)
         }
     }, [
