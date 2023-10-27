@@ -114,15 +114,27 @@ const LayoutCreationProfile = ({
                         {children}
                     </Flex>
                 </Box>{' '}
-                <Button
-                    w={'full'}
-                    onClick={handleNextStep}
-                    colorScheme="blue"
-                    rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-                    isDisabled={disabled}
-                >
-                    Suivant
-                </Button>
+                {activeStep !== 3 ? (
+                    <Button
+                        w={'full'}
+                        onClick={handleNextStep}
+                        colorScheme="blue"
+                        rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                        isDisabled={disabled}
+                    >
+                        Suivant
+                    </Button>
+                ) : (
+                    <Button
+                        w={'full'}
+                        colorScheme="green"
+                        type="submit"
+                        rightIcon={<FontAwesomeIcon icon={faCheck} />}
+                        isDisabled={disabled}
+                    >
+                        Terminer
+                    </Button>
+                )}
             </Box>
         </Flex>
     )

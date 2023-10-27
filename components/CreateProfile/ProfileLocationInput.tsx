@@ -52,6 +52,8 @@ const ProfileLocationInput = (props: Props) => {
                     e.pixel
                 )
 
+                console.log('coordinates', coordinates)
+
                 if (!coordinates) return
                 const transformedCoordinates = transform(
                     coordinates,
@@ -138,23 +140,12 @@ const ProfileLocationInput = (props: Props) => {
         lon: string,
         displayName?: string
     ) => {
-        debugger
         const coords: [number, number] = [parseFloat(lon), parseFloat(lat)]
-        const transformedCoordinates = transform(
-            coords,
-            'EPSG:3857',
-            'EPSG:4326'
-        )
 
         setCoordinates(coords)
-        // setCoordinates(transformedCoordinates)
-        if (
-            setValue &&
-            transformedCoordinates[0] &&
-            transformedCoordinates[1]
-        ) {
-            setValue('latitude', transformedCoordinates[0])
-            setValue('longitude', transformedCoordinates[1])
+        if (setValue && coords[0] && coords[1]) {
+            setValue('latitude', coords[0])
+            setValue('longitude', coords[1])
         }
 
         if (displayName) {
