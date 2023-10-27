@@ -24,6 +24,7 @@ type LayoutCreationProfileProps = {
     handleNextStep: () => void
     handlePreviousStep: () => void
     children: React.ReactNode
+    disabled?: boolean
 }
 
 const LayoutCreationProfile = ({
@@ -31,6 +32,7 @@ const LayoutCreationProfile = ({
     children,
     handleNextStep,
     handlePreviousStep,
+    disabled,
 }: LayoutCreationProfileProps) => {
     const steps = [
         {
@@ -51,89 +53,163 @@ const LayoutCreationProfile = ({
         },
     ]
 
+    // Stepper
+    // Nom du step
+    // form input du step
+    // Bouton précédent
+    // Bouton suivant
+
     return (
         <Flex
-            direction={'column'}
-            w={['90%', '60%']}
-            m={'auto'}
+            justifyContent={'center'}
+            alignItems={'center'}
             h={'calc(100vh - 60px)'}
-            textAlign={'center'}
+            background={'beige'}
         >
-            <Box>
-                <Stepper index={activeStep}>
-                    {steps.map((step, index) => (
-                        <Step key={index}>
-                            <StepIndicator>
-                                <StepStatus
-                                    complete={<StepIcon />}
-                                    incomplete={<StepNumber />}
-                                    active={<StepNumber />}
-                                />
-                            </StepIndicator>
-
-                            <Box
-                                flexShrink="0"
-                                display={{ base: 'none', md: 'block' }}
-                            >
-                                <StepTitle>{step.title}</StepTitle>
-                            </Box>
-
-                            <StepSeparator />
-                        </Step>
-                    ))}
-                </Stepper>
-            </Box>
-            <Flex
-                mx={'auto'}
-                mt={'20'}
-                height={'700px'}
-                flexDir={'column'}
-                alignItems={'center'}
+            <Box
+                background={'white'}
+                padding={'20px'}
+                borderRadius={'10px'}
+                maxWidth={'xl'}
             >
-                <Text fontSize={'3xl'} fontWeight={'bold'} textAlign={'center'}>
-                    {steps?.[activeStep]?.titlePage}
-                </Text>
+                {/* <Stepper index={activeStep}>
+                        {steps.map((step, index) => (
+                            <Step key={index}>
+                                <StepIndicator>
+                                    <StepStatus
+                                        complete={<StepIcon />}
+                                        incomplete={<StepNumber />}
+                                        active={<StepNumber />}
+                                    />
+                                </StepIndicator>
 
-                <Flex
-                    alignItems={'center'}
-                    height={'100%'}
+                                <Box
+                                    flexShrink="0"
+                                    display={{ base: 'none', md: 'block' }}
+                                >
+                                    <StepTitle>{step.title}</StepTitle>
+                                </Box>
+
+                                <StepSeparator />
+                            </Step>
+                        ))}
+                    </Stepper> */}
+                <Box mb={8}>
+                    <Box mb={8}>
+                        <Text
+                            fontSize={'3xl'}
+                            fontWeight={'bold'}
+                            textAlign={'center'}
+                        >
+                            {steps?.[activeStep]?.titlePage}
+                        </Text>
+                    </Box>
+
+                    <Flex
+                        alignItems={'center'}
+                        height={'100%'}
+                        w={'full'}
+                        justifyContent={'center'}
+                    >
+                        {children}
+                    </Flex>
+                </Box>{' '}
+                <Button
                     w={'full'}
-                    justifyContent={'center'}
+                    onClick={handleNextStep}
+                    colorScheme="blue"
+                    rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                    isDisabled={disabled}
                 >
-                    {children}
-                </Flex>
-            </Flex>{' '}
-            <Box>
-                {activeStep !== 0 && (
-                    <Button
-                        type="button"
-                        onClick={handlePreviousStep}
-                        leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-                    >
-                        Précédent
-                    </Button>
-                )}
-                {activeStep !== 3 && (
-                    <Button
-                        onClick={handleNextStep}
-                        colorScheme="blue"
-                        rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-                    >
-                        Suivant
-                    </Button>
-                )}
-                {activeStep === 3 && (
-                    <Button
-                        colorScheme="green"
-                        type="submit"
-                        rightIcon={<FontAwesomeIcon icon={faCheck} />}
-                    >
-                        Terminer
-                    </Button>
-                )}
+                    Suivant
+                </Button>
             </Box>
         </Flex>
     )
+
+    // return (
+    //     <Flex
+    //         direction={'column'}
+    //         w={['90%', '60%']}
+    //         m={'auto'}
+    //         h={'calc(100vh - 60px)'}
+    //         textAlign={'center'}
+    //     >
+    //         <Box>
+    //             <Stepper index={activeStep}>
+    //                 {steps.map((step, index) => (
+    //                     <Step key={index}>
+    //                         <StepIndicator>
+    //                             <StepStatus
+    //                                 complete={<StepIcon />}
+    //                                 incomplete={<StepNumber />}
+    //                                 active={<StepNumber />}
+    //                             />
+    //                         </StepIndicator>
+
+    //                         <Box
+    //                             flexShrink="0"
+    //                             display={{ base: 'none', md: 'block' }}
+    //                         >
+    //                             <StepTitle>{step.title}</StepTitle>
+    //                         </Box>
+
+    //                         <StepSeparator />
+    //                     </Step>
+    //                 ))}
+    //             </Stepper>
+    //         </Box>
+    //         <Flex
+    //             mx={'auto'}
+    //             mt={'20'}
+    //             height={'700px'}
+    //             flexDir={'column'}
+    //             alignItems={'center'}
+    //         >
+    //             <Text fontSize={'3xl'} fontWeight={'bold'} textAlign={'center'}>
+    //                 {steps?.[activeStep]?.titlePage}
+    //             </Text>
+
+    //             <Flex
+    //                 alignItems={'center'}
+    //                 height={'100%'}
+    //                 w={'full'}
+    //                 justifyContent={'center'}
+    //             >
+    //                 {children}
+    //             </Flex>
+    //         </Flex>{' '}
+    //         <Box>
+    //             {activeStep !== 0 && (
+    //                 <Button
+    //                     type="button"
+    //                     onClick={handlePreviousStep}
+    //                     leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+    //                 >
+    //                     Précédent
+    //                 </Button>
+    //             )}
+    //             {activeStep !== 3 && (
+    //                 <Button
+    //                     onClick={handleNextStep}
+    //                     colorScheme="blue"
+    //                     rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+    //                 >
+    //                     Suivant
+    //                 </Button>
+    //             )}
+    //             {activeStep === 3 && (
+    //                 <Button
+    //                     colorScheme="green"
+    //                     type="submit"
+    //                     rightIcon={<FontAwesomeIcon icon={faCheck} />}
+    //                 >
+    //                     Terminer
+    //                 </Button>
+    //             )}
+    //         </Box>
+    //     </Flex>
+    // )
 }
 
 export default LayoutCreationProfile

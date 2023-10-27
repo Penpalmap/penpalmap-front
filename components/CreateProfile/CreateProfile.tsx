@@ -26,6 +26,21 @@ const CreateProfile = () => {
     })
     const selectedGender = watch('gender')
 
+    const disabled = useMemo(() => {
+        switch (activeStep) {
+            case 0:
+                return !selectedGender
+            case 1:
+                return false
+            case 2:
+                return false
+            case 3:
+                return false
+            default:
+                return false
+        }
+    }, [activeStep, selectedGender])
+
     //check avec getUserById si l'utilisateur a déjà un profil
     //si oui, on redirige vers la page de profil
     //si non, on continue
@@ -95,6 +110,7 @@ const CreateProfile = () => {
                 activeStep={activeStep}
                 handleNextStep={goToNext}
                 handlePreviousStep={goToPrevious}
+                disabled={disabled}
             >
                 {renderActiveStep}
             </LayoutCreationProfile>
