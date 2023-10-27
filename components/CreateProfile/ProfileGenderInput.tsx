@@ -1,4 +1,4 @@
-import { Flex, HStack, Text, VStack, Wrap, Box } from '@chakra-ui/react'
+import { Flex, Text, VStack, Wrap, Box } from '@chakra-ui/react'
 import { UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 import { ReactElement, useState, useCallback } from 'react'
