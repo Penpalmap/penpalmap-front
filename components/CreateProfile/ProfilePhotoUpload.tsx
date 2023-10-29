@@ -3,8 +3,7 @@ import { useState } from 'react'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { useSession } from 'next-auth/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClose, faPlus } from '@fortawesome/free-solid-svg-icons'
+import ImagesUploadGrid from '../Profile/ImagesUploadGrid'
 
 const ProfileUploadPhoto = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -14,7 +13,7 @@ const ProfileUploadPhoto = () => {
 
     const { uploadImage } = useUploadUserImage()
 
-    const handleImageUpload = async (
+    const handleUploadImage = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         const file = event?.target?.files?.[0]
@@ -23,11 +22,18 @@ const ProfileUploadPhoto = () => {
         onOpen()
     }
 
-    const handleImageCrop = (croppedImage: File) => {
-        setCroppedImages((prevImages) => [...prevImages, croppedImage])
+    const handleImageCrop = (croppedImage: Blob) => {
+        console.log(croppedImage)
+
+        if (!selectedImage) return
+        const croppedImageFile = new File([croppedImage], selectedImage?.name, {
+            type: selectedImage?.type,
+        })
+
+        setCroppedImages((prevImages) => [...prevImages, croppedImageFile])
         const position = croppedImages.length
         if (session?.user?.id) {
-            uploadImage(croppedImage, position, session?.user?.id)
+            uploadImage(croppedImageFile, position, session?.user?.id)
             onClose()
         }
     }
@@ -48,7 +54,7 @@ const ProfileUploadPhoto = () => {
     }
 
     return (
-        <Box>
+        <Box w={'2xl'}>
             <ModalImageCropped
                 isOpen={isOpen}
                 onClose={onClose}
@@ -56,7 +62,13 @@ const ProfileUploadPhoto = () => {
                 setImgCrop={handleImageCrop}
             />
 
-            <HStack spacing="24px" alignItems="center">
+            <ImagesUploadGrid
+                images={croppedImages}
+                setImages={setCroppedImages}
+                handleUploadImage={handleUploadImage}
+            />
+
+            {/* <HStack spacing="24px" alignItems="center">
                 {[0, 1, 2, 3].map((index) => (
                     <Box
                         key={index}
@@ -110,7 +122,7 @@ const ProfileUploadPhoto = () => {
                         )}
                     </Box>
                 ))}
-            </HStack>
+            </HStack> */}
         </Box>
     )
 }

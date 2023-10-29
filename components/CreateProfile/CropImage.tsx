@@ -26,7 +26,7 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
             const croppedImage = (await getCroppedImg(
                 imgUrl,
                 croppedAreaPixels
-            )) as Blob
+            )) as File
 
             console.log('donee', URL.createObjectURL(croppedImage))
 
