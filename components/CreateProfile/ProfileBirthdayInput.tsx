@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
-import { Box, FormControl, FormLabel, Select } from '@chakra-ui/react'
+import { Box, FormControl, Select } from '@chakra-ui/react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 
 type Props = {
     register: UseFormRegister<ProfileFormData>
     setValue: UseFormSetValue<ProfileFormData>
+    setIsUnderage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const ProfileBirthdayInput: React.FC<Props> = ({ register, setValue }) => {
+const ProfileBirthdayInput: React.FC<Props> = ({
+    register,
+    setValue,
+    setIsUnderage,
+}) => {
     const [day, setDay] = useState<number | null>(null)
     const [month, setMonth] = useState<number | null>(null)
     const [year, setYear] = useState<number | null>(null)
+
+    const calculateAge = (birthdate: string): number => {
+        const now = dayjs()
+        const dob = dayjs(birthdate)
+        const age = now.year() - dob.year() - (dob.isAfter(now, 'day') ? 1 : 0)
+        return age
+    }
 
     useEffect(() => {
         if (day && month && year) {
@@ -20,12 +32,16 @@ const ProfileBirthdayInput: React.FC<Props> = ({ register, setValue }) => {
                 'YYYY-MM-DD'
             )
             setValue('birthday', birthday)
+
+            const age = calculateAge(birthday)
+            const underage = age < 12
+
+            setIsUnderage(underage)
         }
-    }, [day, month, year, setValue])
+    }, [day, month, year, setValue, setIsUnderage])
 
     return (
         <FormControl id="birthday">
-            <FormLabel>Date de naissance</FormLabel>
             <Box display="flex" gap="4">
                 <Select
                     placeholder="Jour"

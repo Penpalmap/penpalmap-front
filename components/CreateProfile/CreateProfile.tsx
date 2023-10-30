@@ -1,5 +1,5 @@
 import { useSteps } from '@chakra-ui/react'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ProfileFormData } from '../../types'
 import { useForm } from 'react-hook-form'
 import ProfileGenderInput from './ProfileGenderInput'
@@ -26,13 +26,13 @@ const CreateProfile = () => {
     })
     const selectedGender = watch('gender')
     const watchForm = watch()
-
-    const disabled = useMemo(() => {
+    const [isUnderage, setIsUnderage] = useState(true)
+    const disabledCondition = useMemo(() => {
         switch (activeStep) {
             case 0:
                 return !selectedGender
             case 1:
-                return !watchForm.birthday
+                return !watchForm.birthday || isUnderage
             case 2:
                 return false
             case 3:
@@ -46,6 +46,7 @@ const CreateProfile = () => {
         watchForm.birthday,
         watchForm.latitude,
         watchForm.longitude,
+        isUnderage,
     ])
 
     //check avec getUserById si l'utilisateur a déjà un profil
@@ -99,6 +100,7 @@ const CreateProfile = () => {
                     <ProfileBirthdayInput
                         register={register}
                         setValue={setValue}
+                        setIsUnderage={setIsUnderage}
                     />
                 )
             case 2:
@@ -122,7 +124,7 @@ const CreateProfile = () => {
                 activeStep={activeStep}
                 handleNextStep={goToNext}
                 handlePreviousStep={goToPrevious}
-                disabled={disabled}
+                disabled={disabledCondition}
             >
                 {renderActiveStep}
             </LayoutCreationProfile>
