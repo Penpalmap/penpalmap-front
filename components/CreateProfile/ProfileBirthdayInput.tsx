@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
-import { Box, FormControl, Select, Text } from '@chakra-ui/react'
+import {
+    Box,
+    FormControl,
+    Select,
+    Text,
+    useToast,
+    Link,
+} from '@chakra-ui/react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 
@@ -36,6 +43,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     }
 
     const [age, setAge] = useState<number | null>(null)
+    const toast = useToast()
 
     useEffect(() => {
         if (day && month && year) {
@@ -47,8 +55,48 @@ const ProfileBirthdayInput: React.FC<Props> = ({
             const calculatedAge = calculateAge(birthday)
             setIsUnderage(calculatedAge < 12)
             setAge(calculatedAge)
+
+            if (calculatedAge < 12) {
+                toast({
+                    title: 'Hey, explorer! 🚸',
+                    description: (
+                        <>
+                            Just a heads-up: To journey in PenPalMap, you need
+                            to be at least 12 years old. Stay safe and enjoy the
+                            adventure! 🌍✨ Curious about the rules? Check our{' '}
+                            <Link color="white.500" href="/terms" isExternal>
+                                Terms of Use
+                            </Link>
+                            . 📜
+                        </>
+                    ),
+                    status: 'warning',
+                    duration: 5000,
+                    isClosable: true,
+                })
+            }
+            if (calculatedAge < 18 && calculatedAge >= 12) {
+                toast({
+                    title: 'Hey, explorer! 🚸',
+                    description: (
+                        <>
+                            🚸 Hey there, young explorer! Just a heads-up: there
+                            are adults on this app. Always stay safe and be
+                            cautious. 🛡️ Need more info? Check our{' '}
+                            <Link color="white.500" href="/terms" isExternal>
+                                Terms of Use
+                            </Link>
+                            . If something feels off, don't hesitate to reach
+                            out to the PenPalMap team! 💌
+                        </>
+                    ),
+                    status: 'info',
+                    duration: 9000,
+                    isClosable: true,
+                })
+            }
         }
-    }, [day, month, year, setValue, setIsUnderage])
+    }, [day, month, year, setValue, setIsUnderage, toast])
 
     return (
         <FormControl id="birthday">
