@@ -58,13 +58,24 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                     placeholder="Mois"
                     onChange={(e) => setMonth(Number(e.target.value))}
                 >
-                    {Array.from({ length: 12 }, (_, i) => i + 1).map(
-                        (month) => (
-                            <option key={month} value={month}>
-                                {month}
-                            </option>
-                        )
-                    )}
+                    {[
+                        'January',
+                        'February',
+                        'March',
+                        'April',
+                        'May',
+                        'June',
+                        'July',
+                        'August',
+                        'September',
+                        'October',
+                        'November',
+                        'December',
+                    ].map((month, index) => (
+                        <option key={month} value={index + 1}>
+                            {month}
+                        </option>
+                    ))}
                 </Select>
 
                 <Select
@@ -72,8 +83,8 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                     onChange={(e) => setYear(Number(e.target.value))}
                 >
                     {Array.from(
-                        { length: 120 },
-                        (_, i) => new Date().getFullYear() - i
+                        { length: 100 },
+                        (_, i) => new Date().getFullYear() - 8 - i
                     ).map((year) => (
                         <option key={year} value={year}>
                             {year}
