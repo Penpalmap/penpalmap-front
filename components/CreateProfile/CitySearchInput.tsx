@@ -23,7 +23,7 @@ interface CitySearchInputProps {
 const CitySearchInput: React.FC<CitySearchInputProps> = ({
     onLocationSelected,
 }) => {
-    const [inputValue, setInputValue] = useState('') // State pour conserver la valeur de l'input
+    const [inputValue, setInputValue] = useState('')
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
     const [loading, setLoading] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
@@ -70,7 +70,8 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
             suggestion.lon,
             suggestion.display_name
         )
-        setSuggestions([]) // Vider les suggestions après la sélection
+        setSuggestions([])
+        setInputValue('')
     }
 
     useEffect(() => {
@@ -111,7 +112,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                     placeholder="Search for a place or city..."
                     value={inputValue}
                     onChange={handleInputChange}
-                    onClick={handleInputClick} // Ajouter le gestionnaire d'événement onClick ici
+                    onClick={handleInputClick}
                     borderRadius="md"
                 />
             </InputGroup>
