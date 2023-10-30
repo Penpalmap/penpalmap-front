@@ -1,6 +1,7 @@
 import { Flex, Avatar, AvatarBadge, Icon, Box, Text } from '@chakra-ui/react'
 import dayjs from 'dayjs'
 import { Message, User } from '../../types'
+import useLocation from '../../hooks/useLocation'
 
 type ConversationItemProps = {
     clickOnRoom: (members: User[]) => void
@@ -17,6 +18,9 @@ const ConversationItem = ({
     countUnreadMessages,
     sessionUserId,
 }: ConversationItemProps) => {
+    const user = members?.find((member) => member.id !== sessionUserId)
+    const { flag } = useLocation(user?.latitude, user?.longitude)
+
     return (
         <Flex
             p={2}
@@ -28,30 +32,34 @@ const ConversationItem = ({
             }}
             borderRadius={'md'}
         >
-            <Avatar
-                src={
-                    members?.find((member) => member.id !== sessionUserId)
-                        ?.image
-                }
-                name={
-                    members?.find((member) => member.id !== sessionUserId)?.name
-                }
-                size={'md'}
-                mr={2}
-                borderWidth={'medium'}
-                borderColor={'white'}
-            >
-                <AvatarBadge
-                    bg={
-                        members?.find((member) => member.id !== sessionUserId)
-                            ?.isOnline
-                            ? 'green.500'
-                            : 'gray.200'
-                    }
-                    boxSize=".8em"
-                    borderWidth={'2px'}
-                />
-            </Avatar>
+            <Flex position="relative" mr={2}>
+                <Avatar
+                    src={user?.image}
+                    name={user?.name}
+                    size={'md'}
+                    borderWidth={'medium'}
+                    borderColor={'white'}
+                >
+                    <AvatarBadge
+                        bg={user?.isOnline ? 'green.500' : 'gray.200'}
+                        boxSize=".8em"
+                        borderWidth={'2px'}
+                    />
+                </Avatar>
+                {flag && (
+                    <Box
+                        background={`url(${flag}) center/cover`}
+                        width="20px"
+                        height="15px"
+                        position="absolute"
+                        bottom="-1px"
+                        left="-1px"
+                        border="1px solid white"
+                        borderRadius="4px"
+                    />
+                )}
+            </Flex>
+
             <Flex
                 flex={4}
                 flexDirection={'column'}
@@ -64,11 +72,7 @@ const ConversationItem = ({
                         fontWeight={'bold'}
                         color={'gray.700'}
                     >
-                        {
-                            members?.find(
-                                (member) => member.id !== sessionUserId
-                            )?.name
-                        }
+                        {user?.name}
                     </Text>
                 </Box>
                 <Box>
@@ -83,6 +87,7 @@ const ConversationItem = ({
                     </Text>
                 </Box>
             </Flex>
+
             <Flex
                 justifyContent={'center'}
                 alignItems={'center'}
@@ -101,4 +106,5 @@ const ConversationItem = ({
         </Flex>
     )
 }
+
 export default ConversationItem
