@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
-import { Box, FormControl, Select } from '@chakra-ui/react'
+import { Box, FormControl, Select, Text } from '@chakra-ui/react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 
@@ -25,6 +25,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
         const age = now.year() - dob.year() - (dob.isAfter(now, 'day') ? 1 : 0)
         return age
     }
+    const [age, setAge] = useState<number | null>(null)
 
     useEffect(() => {
         if (day && month && year) {
@@ -33,10 +34,9 @@ const ProfileBirthdayInput: React.FC<Props> = ({
             )
             setValue('birthday', birthday)
 
-            const age = calculateAge(birthday)
-            const underage = age < 12
-
-            setIsUnderage(underage)
+            const calculatedAge = calculateAge(birthday)
+            setIsUnderage(calculatedAge < 12)
+            setAge(calculatedAge)
         }
     }, [day, month, year, setValue, setIsUnderage])
 
@@ -95,6 +95,11 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                 {/* Ceci reste caché mais maintient la structure de données actuelle */}
                 <input type="date" {...register('birthday')} hidden />
             </Box>
+            {age && (
+                <Text mt="2" fontSize="lg" textAlign="center">
+                    Vous avez {age} ans.
+                </Text>
+            )}
         </FormControl>
     )
 }
