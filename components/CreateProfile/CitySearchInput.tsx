@@ -119,7 +119,6 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 <List
                     border="1px solid #ccc"
                     borderRadius="md"
-                    mt="2"
                     position="absolute"
                     top="100%"
                     zIndex="1"

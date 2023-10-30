@@ -44,7 +44,14 @@ const SearchAndZoom: React.FC<SearchAndZoomProps> = ({ mapObj }) => {
         )
     }
     return (
-        <Box position="absolute" top="4" left="4" maxWidth="100%" zIndex="1">
+        <Box
+            position="absolute"
+            top="4"
+            left="4"
+            width="500px"
+            maxWidth="100%"
+            zIndex="1"
+        >
             <CitySearchInput onLocationSelected={handleLocationSelected} />
         </Box>
     )
