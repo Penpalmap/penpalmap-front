@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FC } from 'react'
 import dayjs from 'dayjs'
 import {
     Box,
@@ -9,6 +9,7 @@ import {
     Link,
 } from '@chakra-ui/react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+
 import { ProfileFormData } from '../../types'
 
 type Props = {
@@ -16,7 +17,20 @@ type Props = {
     setValue: UseFormSetValue<ProfileFormData>
     setIsUnderage: React.Dispatch<React.SetStateAction<boolean>>
 }
-
+const MONTHS = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+]
 const ProfileBirthdayInput: React.FC<Props> = ({
     register,
     setValue,
@@ -116,20 +130,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                     placeholder="Mois"
                     onChange={(e) => setMonth(Number(e.target.value))}
                 >
-                    {[
-                        'January',
-                        'February',
-                        'March',
-                        'April',
-                        'May',
-                        'June',
-                        'July',
-                        'August',
-                        'September',
-                        'October',
-                        'November',
-                        'December',
-                    ].map((month, index) => (
+                    {MONTHS.map((month, index) => (
                         <option key={month} value={index + 1}>
                             {month}
                         </option>
