@@ -1,7 +1,7 @@
-import { useContext } from 'react'
 import { fromLonLat } from 'ol/proj'
 import CitySearchInput from '../CreateProfile/CitySearchInput'
-import { MapRefObject } from './Map' // Supposons que le type MapRefObject soit exporté depuis Map.tsx
+import { MapRefObject } from './Map'
+import { Box } from '@chakra-ui/react'
 
 interface SearchAndZoomProps {
     mapObj: MapRefObject
@@ -43,8 +43,11 @@ const SearchAndZoom: React.FC<SearchAndZoomProps> = ({ mapObj }) => {
             { zoom: 10, duration: 700 }
         )
     }
-
-    return <CitySearchInput onLocationSelected={handleLocationSelected} />
+    return (
+        <Box position="absolute" top="4" left="4" maxWidth="100%" zIndex="1">
+            <CitySearchInput onLocationSelected={handleLocationSelected} />
+        </Box>
+    )
 }
 
 export default SearchAndZoom

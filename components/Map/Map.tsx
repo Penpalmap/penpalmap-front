@@ -31,14 +31,16 @@ const Map = () => {
 
     return (
         <>
-            <SearchAndZoom mapObj={mapObj} />
-            <Box
-                ref={mapContainerRef}
-                h="calc(100vh - 56px)"
-                w="full"
-                className="map"
-                bg="#8CBBD4"
-            />
+            <Box position="relative">
+                <SearchAndZoom mapObj={mapObj} />
+                <Box
+                    ref={mapContainerRef}
+                    h="calc(100vh - 56px)"
+                    w="full"
+                    className="map"
+                    bg="#8CBBD4"
+                />
+            </Box>
             <Box display="none">
                 <OverlayProfileMap
                     user={data.userTarget}
