@@ -95,7 +95,12 @@ const CreateProfile = () => {
                     />
                 )
             case 1:
-                return <ProfileBirthdayInput register={register} />
+                return (
+                    <ProfileBirthdayInput
+                        register={register}
+                        setValue={setValue}
+                    />
+                )
             case 2:
                 return <ProfilePhotoUpload />
             case 3:

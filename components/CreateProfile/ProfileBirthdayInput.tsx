@@ -1,24 +1,74 @@
-import { Input } from '@chakra-ui/react'
+import React, { useState, useEffect } from 'react'
+import dayjs from 'dayjs'
+import { Box, FormControl, FormLabel, Select } from '@chakra-ui/react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 
 type Props = {
-    onNextStep?: () => void
-    onPreviousStep?: () => void
     register: UseFormRegister<ProfileFormData>
-    setValue?: UseFormSetValue<ProfileFormData>
+    setValue: UseFormSetValue<ProfileFormData>
 }
 
-const ProfileBirthdayInput = (props: Props) => {
-    const { register } = props
+const ProfileBirthdayInput: React.FC<Props> = ({ register, setValue }) => {
+    const [day, setDay] = useState<number | null>(null)
+    const [month, setMonth] = useState<number | null>(null)
+    const [year, setYear] = useState<number | null>(null)
+
+    useEffect(() => {
+        if (day && month && year) {
+            const birthday = dayjs(`${year}-${month}-${day}`).format(
+                'YYYY-MM-DD'
+            )
+            setValue('birthday', birthday)
+        }
+    }, [day, month, year, setValue])
 
     return (
-        <Input
-            type="date"
-            {...register('birthday')}
-            width={'56'}
-            bg={'gray.100'}
-        />
+        <FormControl id="birthday">
+            <FormLabel>Date de naissance</FormLabel>
+            <Box display="flex" gap="4">
+                <Select
+                    placeholder="Jour"
+                    onChange={(e) => setDay(Number(e.target.value))}
+                >
+                    {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                        <option key={day} value={day}>
+                            {day}
+                        </option>
+                    ))}
+                </Select>
+
+                <Select
+                    placeholder="Mois"
+                    onChange={(e) => setMonth(Number(e.target.value))}
+                >
+                    {Array.from({ length: 12 }, (_, i) => i + 1).map(
+                        (month) => (
+                            <option key={month} value={month}>
+                                {month}
+                            </option>
+                        )
+                    )}
+                </Select>
+
+                <Select
+                    placeholder="Année"
+                    onChange={(e) => setYear(Number(e.target.value))}
+                >
+                    {Array.from(
+                        { length: 120 },
+                        (_, i) => new Date().getFullYear() - i
+                    ).map((year) => (
+                        <option key={year} value={year}>
+                            {year}
+                        </option>
+                    ))}
+                </Select>
+
+                {/* Ceci reste caché mais maintient la structure de données actuelle */}
+                <input type="date" {...register('birthday')} hidden />
+            </Box>
+        </FormControl>
     )
 }
 
