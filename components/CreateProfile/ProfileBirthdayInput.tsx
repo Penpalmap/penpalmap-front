@@ -22,9 +22,19 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     const calculateAge = (birthdate: string): number => {
         const now = dayjs()
         const dob = dayjs(birthdate)
-        const age = now.year() - dob.year() - (dob.isAfter(now, 'day') ? 1 : 0)
+        let age = now.year() - dob.year()
+
+        // If birthdate has not occurred this year yet, subtract one from age.
+        if (
+            now.month() < dob.month() ||
+            (now.month() === dob.month() && now.date() < dob.date())
+        ) {
+            age--
+        }
+
         return age
     }
+
     const [age, setAge] = useState<number | null>(null)
 
     useEffect(() => {
@@ -97,7 +107,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
             </Box>
             {age && (
                 <Text mt="2" fontSize="lg" textAlign="center">
-                    Vous avez {age} ans.
+                    You are {age} yo.
                 </Text>
             )}
         </FormControl>
