@@ -15,9 +15,11 @@ const useUploadUserImage = () => {
         setUploading(true)
 
         //API
-        await uploadProfileImage(formData, userId)
+        const image = await uploadProfileImage(formData, userId)
 
         setUploading(false)
+
+        return image
     }
 
     return { uploadImage, uploading }

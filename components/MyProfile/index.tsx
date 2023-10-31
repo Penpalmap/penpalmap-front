@@ -26,6 +26,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faHome, faXmark } from '@fortawesome/free-solid-svg-icons'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import ListImageDraggable from '../Image/ListImageDraggable'
+import ImagesUploadGrid from '../Profile/ImagesUploadGrid'
 
 type Props = {
     isOpen: boolean
@@ -43,6 +44,8 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
 
     useEffect(() => {
         if (session?.user?.userImages) {
+            // transform userImages to File[]
+            //    setImages(images)
             setImages(session?.user?.userImages)
         }
     }, [session?.user?.userImages])
@@ -96,7 +99,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                     session?.user.id
                 )
 
-                updateSession()
+                // updateSession()
             }
         }
 
@@ -116,29 +119,12 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                     <Text mb={2} fontSize={'small'}>
                         Ajouter des photos
                     </Text>
-                    <Flex
-                        flexWrap="wrap"
-                        gap={3}
-                        justifyContent="space-between"
-                        mb={4}
-                    >
-                        <Input
-                            type="file"
-                            ref={refInputFile}
-                            display="none"
-                            onChange={handleFileChange}
-                        />
-                    </Flex>
-                    <Box>
-                        {session?.user?.userImages &&
-                            session?.user?.userImages?.length > 0 && (
-                                <ListImageDraggable
-                                    photos={images}
-                                    handleDeleteImage={handleDeleteImage}
-                                    handleAddImage={handleAddImage}
-                                />
-                            )}
-                    </Box>
+                    <ImagesUploadGrid
+                        images={images}
+                        setImages={setImages}
+                        handleDeleteImage={handleDeleteImage}
+                        handleUploadImage={handleFileChange}
+                    />
                 </Box>
 
                 <Box mb={4}>
@@ -187,7 +173,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                 backdropBlur="10px"
             />
             <ModalContent
-                w={400}
+                w={500}
                 h={'container.sm'}
                 overflow={'hidden'}
                 alignSelf={'center'}

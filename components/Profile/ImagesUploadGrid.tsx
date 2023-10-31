@@ -1,23 +1,42 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import { DndContext } from '@dnd-kit/core'
 import SortableItem from './SortableItem'
-import { Flex, Grid, Image, Input } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, Grid, Image, Input } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { reorderProfileImages } from '../../api/profileApi'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faCrow,
+    faCrown,
+    faPlus,
+    faTrash,
+} from '@fortawesome/free-solid-svg-icons'
+import { UserImage } from '../../types'
 
 type Props = {
-    images: File[]
-    setImages: React.Dispatch<React.SetStateAction<File[]>>
+    images: UserImage[]
+    setImages: React.Dispatch<React.SetStateAction<UserImage[]>>
     handleUploadImage: (
         event: React.ChangeEvent<HTMLInputElement>
     ) => Promise<void>
+    handleDeleteImage: (index: number) => void
 }
 
-const ImagesUploadGrid = ({ images, setImages, handleUploadImage }: Props) => {
+const ImagesUploadGrid = ({
+    images,
+    setImages,
+    handleUploadImage,
+    handleDeleteImage,
+}: Props) => {
     const refInputFile = useRef<HTMLInputElement>(null)
-    const { data: session } = useSession()
+    const { data: session, update: updateSession } = useSession()
 
+    const items = useMemo(() => {
+        return images.map((image) => image.src)
+    }, [images])
+
+    console.log('items', images)
     const handleDragEnd = async (event) => {
         if (!session?.user?.id) return
         const { active, over } = event
@@ -31,12 +50,12 @@ const ImagesUploadGrid = ({ images, setImages, handleUploadImage }: Props) => {
             let newIndex
 
             setImages((images) => {
-                const oldFile = images.find((image) => image.name === active.id)
+                const oldFile = images.find((image) => image.src === active.id)
                 if (oldFile) {
                     oldIndex = images.indexOf(oldFile)
                 }
 
-                const newFile = images.find((image) => image.name === over.id)
+                const newFile = images.find((image) => image.src === over.id)
                 if (newFile) {
                     newIndex = images.indexOf(newFile)
                 }
@@ -45,6 +64,8 @@ const ImagesUploadGrid = ({ images, setImages, handleUploadImage }: Props) => {
             })
 
             await reorderProfileImages(session?.user?.id, oldIndex, newIndex)
+
+            updateSession()
         }
     }
 
@@ -64,14 +85,30 @@ const ImagesUploadGrid = ({ images, setImages, handleUploadImage }: Props) => {
                     key={i} // Add a unique key prop to each element
                     w={'200px'}
                     h={'200px'}
-                    border={'1px solid black'}
+                    bg={'gray.100'}
+                    borderRadius={'lg'}
                     display={'flex'}
                     justifyContent={'center'}
                     alignItems={'center'}
                     cursor={'pointer'}
                     onClick={handleAddImage}
+                    position={'relative'}
                 >
-                    +
+                    <Flex
+                        position={'absolute'}
+                        bottom={4}
+                        right={4}
+                        background={'teal.400'}
+                        padding={2}
+                        w={'30px'}
+                        h={'30px'}
+                        borderRadius={'md'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                        _hover={{ background: 'teal.500' }}
+                    >
+                        <FontAwesomeIcon icon={faPlus} color="white" />
+                    </Flex>
                 </Flex>
             )
         }
@@ -88,22 +125,60 @@ const ImagesUploadGrid = ({ images, setImages, handleUploadImage }: Props) => {
                 onChange={handleUploadImage}
             />
             <DndContext onDragEnd={handleDragEnd}>
-                <SortableContext items={images.map((image) => image.name)}>
+                <SortableContext items={items}>
                     <Grid
                         templateColumns="repeat(2, 1fr)"
-                        p={4}
                         gap={4}
-                        justifyItems={'center'}
+                        p={4}
+                        justifyContent={'center'}
                     >
                         {images.map((image) => (
-                            <SortableItem key={image.name} id={image.name}>
-                                <Image
-                                    src={URL.createObjectURL(image)}
-                                    w={'200px'}
-                                    h={'200px'}
-                                    borderRadius={'lg'}
-                                />
-                            </SortableItem>
+                            <Box position={'relative'} key={image.src}>
+                                <SortableItem key={image.src} id={image.src}>
+                                    <Box position={'relative'}>
+                                        <Image
+                                            src={
+                                                image instanceof File
+                                                    ? URL.createObjectURL(image)
+                                                    : image.src
+                                            }
+                                            w={'200px'}
+                                            h={'200px'}
+                                            borderRadius={'lg'}
+                                            alt="Profile Image"
+                                        />
+                                    </Box>
+                                </SortableItem>
+                                <Button
+                                    size={'sm'}
+                                    colorScheme={'red'}
+                                    position={'absolute'}
+                                    bottom={2}
+                                    right={2}
+                                    onClick={() => {
+                                        handleDeleteImage(
+                                            items.indexOf(image.src)
+                                        )
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </Button>
+                                {image.position === 0 && (
+                                    <Center
+                                        position={'absolute'}
+                                        top={2}
+                                        left={2}
+                                        background={'blackAlpha.500'}
+                                        padding={2}
+                                        borderRadius={'md'}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faCrown}
+                                            color="#ECC94B"
+                                        />
+                                    </Center>
+                                )}
+                            </Box>
                         ))}
                         {renderBlockInput}
                     </Grid>

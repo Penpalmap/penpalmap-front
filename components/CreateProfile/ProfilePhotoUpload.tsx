@@ -1,14 +1,16 @@
-import { Box, HStack, IconButton, Image, useDisclosure } from '@chakra-ui/react'
+import { Box, useDisclosure } from '@chakra-ui/react'
 import { useState } from 'react'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { useSession } from 'next-auth/react'
 import ImagesUploadGrid from '../Profile/ImagesUploadGrid'
+import { deleteProfileImage } from '../../api/profileApi'
+import { UserImage } from '../../types'
 
 const ProfileUploadPhoto = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
-    const [croppedImages, setCroppedImages] = useState<Array<File>>([])
+    const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
     const { data: session } = useSession()
 
     const { uploadImage } = useUploadUserImage()
@@ -22,7 +24,7 @@ const ProfileUploadPhoto = () => {
         onOpen()
     }
 
-    const handleImageCrop = (croppedImage: Blob) => {
+    const handleImageCrop = async (croppedImage: Blob) => {
         console.log(croppedImage)
 
         if (!selectedImage) return
@@ -30,10 +32,16 @@ const ProfileUploadPhoto = () => {
             type: selectedImage?.type,
         })
 
-        setCroppedImages((prevImages) => [...prevImages, croppedImageFile])
         const position = croppedImages.length
         if (session?.user?.id) {
-            uploadImage(croppedImageFile, position, session?.user?.id)
+            const userImage = await uploadImage(
+                croppedImageFile,
+                position,
+                session?.user?.id
+            )
+            console.log('userImage', userImage)
+            setCroppedImages((prevImages) => [...prevImages, userImage])
+
             onClose()
         }
     }
@@ -45,16 +53,19 @@ const ProfileUploadPhoto = () => {
         fileInput.click()
     }
 
-    const handleDeleteImage = (index: number) => {
+    const handleDeleteImage = async (index: number) => {
+        if (!session?.user?.id) return
         setCroppedImages((prevImages) => {
             const newImages = [...prevImages]
             newImages.splice(index, 1)
             return newImages
         })
+
+        await deleteProfileImage(index, session.user.id)
     }
 
     return (
-        <Box w={'2xl'}>
+        <Box>
             <ModalImageCropped
                 isOpen={isOpen}
                 onClose={onClose}
@@ -66,6 +77,7 @@ const ProfileUploadPhoto = () => {
                 images={croppedImages}
                 setImages={setCroppedImages}
                 handleUploadImage={handleUploadImage}
+                handleDeleteImage={handleDeleteImage}
             />
 
             {/* <HStack spacing="24px" alignItems="center">

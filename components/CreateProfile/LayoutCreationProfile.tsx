@@ -66,12 +66,7 @@ const LayoutCreationProfile = ({
             h={'calc(100vh - 60px)'}
             background={'#3EB6A020'}
         >
-            <Box
-                background={'white'}
-                padding={'20px'}
-                borderRadius={'10px'}
-                maxWidth={'xl'}
-            >
+            <Box background={'white'} padding={'20px'} borderRadius={'10px'}>
                 {/* <Stepper index={activeStep}>
                         {steps.map((step, index) => (
                             <Step key={index}>
