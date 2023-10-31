@@ -27,12 +27,14 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
     const [loading, setLoading] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
+    const [inputValue, setInputValue] = useState('')
 
     // Cette ref gardera une trace de notre setTimeout pour que nous puissions l'annuler si nécessaire
     const timeoutRef = useRef<number | null>(null)
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value
+        setInputValue(value)
 
         if (timeoutRef.current) clearTimeout(timeoutRef.current)
 
@@ -68,7 +70,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 suggestion.display_name
             )
         }
-
+        setInputValue('')
         setSuggestions([]) // Ceci va vider la liste des suggestions après le clic
     }
 
@@ -107,6 +109,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 />
                 <Input
                     type="text"
+                    value={inputValue}
                     placeholder="Search for a place or city..."
                     onChange={handleInputChange}
                     borderRadius="md"
