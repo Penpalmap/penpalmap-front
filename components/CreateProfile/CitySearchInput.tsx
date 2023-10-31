@@ -16,62 +16,60 @@ type Suggestion = {
     lat: string
     lon: string
 }
-
 interface CitySearchInputProps {
     onLocationSelected: (lat: string, lon: string, displayName: string) => void
 }
+
 const CitySearchInput: React.FC<CitySearchInputProps> = ({
     onLocationSelected,
 }) => {
-    const [inputValue, setInputValue] = useState('')
+    // const [queryValue, setQueryValue] = useState('') // Nouvel état pour la valeur à interroger
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
     const [loading, setLoading] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
-    const timeoutRef = useRef<number | null>(null)
 
-    const fetchSuggestions = async () => {
-        setLoading(true)
-        try {
-            if (inputValue.length > 2) {
-                const response = await fetch(
-                    `https://nominatim.openstreetmap.org/search?q=${inputValue}&format=json&limit=5`
-                )
-                const data: Suggestion[] = await response.json()
-                setSuggestions(data)
-            } else {
-                setSuggestions([])
-            }
-        } catch (error) {
-            console.error('Erreur lors de la récupération des données:', error)
-        } finally {
-            setLoading(false)
-        }
-    }
+    // Cette ref gardera une trace de notre setTimeout pour que nous puissions l'annuler si nécessaire
+    const timeoutRef = useRef<number | null>(null)
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value
-        setInputValue(value) // Mettre à jour l'état avec la nouvelle valeur
 
         if (timeoutRef.current) clearTimeout(timeoutRef.current)
 
-        timeoutRef.current = setTimeout(
-            fetchSuggestions,
-            500
-        ) as unknown as number
-    }
+        setLoading(true)
 
-    const handleInputClick = () => {
-        if (inputValue) fetchSuggestions() // Si la valeur de l'input n'est pas vide, chercher les suggestions
+        timeoutRef.current = setTimeout(async () => {
+            try {
+                if (value.length > 2) {
+                    const response = await fetch(
+                        `https://nominatim.openstreetmap.org/search?q=${value}&format=json&limit=5`
+                    )
+                    const data: Suggestion[] = await response.json()
+                    setSuggestions(data)
+                } else {
+                    setSuggestions([])
+                }
+            } catch (error) {
+                console.error(
+                    'Erreur lors de la récupération des données:',
+                    error
+                )
+            } finally {
+                setLoading(false)
+            }
+        }, 500) as unknown as number
     }
 
     const handleSuggestionClick = (suggestion: Suggestion) => {
-        onLocationSelected(
-            suggestion.lat,
-            suggestion.lon,
-            suggestion.display_name
-        )
-        setSuggestions([])
-        setInputValue('')
+        if (onLocationSelected) {
+            onLocationSelected(
+                suggestion.lat,
+                suggestion.lon,
+                suggestion.display_name
+            )
+        }
+
+        setSuggestions([]) // Ceci va vider la liste des suggestions après le clic
     }
 
     useEffect(() => {
@@ -110,9 +108,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 <Input
                     type="text"
                     placeholder="Search for a place or city..."
-                    value={inputValue}
                     onChange={handleInputChange}
-                    onClick={handleInputClick}
                     borderRadius="md"
                 />
             </InputGroup>
@@ -120,6 +116,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 <List
                     border="1px solid #ccc"
                     borderRadius="md"
+                    mt="2"
                     position="absolute"
                     top="100%"
                     zIndex="1"
