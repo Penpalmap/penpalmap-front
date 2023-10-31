@@ -1,3 +1,4 @@
+import React from 'react'
 import { fromLonLat } from 'ol/proj'
 import CitySearchInput from '../CreateProfile/CitySearchInput'
 import { MapRefObject } from './Map'
@@ -43,6 +44,7 @@ const SearchAndZoom: React.FC<SearchAndZoomProps> = ({ mapObj }) => {
             { zoom: 10, duration: 700 }
         )
     }
+
     return (
         <Box
             position="absolute"

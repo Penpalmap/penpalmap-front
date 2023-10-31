@@ -16,6 +16,7 @@ type Suggestion = {
     lat: string
     lon: string
 }
+
 interface CitySearchInputProps {
     onLocationSelected: (lat: string, lon: string, displayName: string) => void
 }
@@ -23,13 +24,10 @@ interface CitySearchInputProps {
 const CitySearchInput: React.FC<CitySearchInputProps> = ({
     onLocationSelected,
 }) => {
-    // const [queryValue, setQueryValue] = useState('') // Nouvel état pour la valeur à interroger
+    const [inputValue, setInputValue] = useState('')
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
     const [loading, setLoading] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
-    const [inputValue, setInputValue] = useState('')
-
-    // Cette ref gardera une trace de notre setTimeout pour que nous puissions l'annuler si nécessaire
     const timeoutRef = useRef<number | null>(null)
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,8 +68,9 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 suggestion.display_name
             )
         }
+
         setInputValue('')
-        setSuggestions([]) // Ceci va vider la liste des suggestions après le clic
+        setSuggestions([])
     }
 
     useEffect(() => {
@@ -82,6 +81,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
         }
 
         document.addEventListener('mousedown', handleClickOutside)
+
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
