@@ -2,16 +2,7 @@ import React, { useMemo, useRef } from 'react'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import { DndContext } from '@dnd-kit/core'
 import SortableItem from './SortableItem'
-import {
-    Box,
-    Button,
-    Center,
-    Flex,
-    Grid,
-    Image,
-    Input,
-    Text,
-} from '@chakra-ui/react'
+import { Box, Button, Center, Flex, Grid, Image, Input } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { reorderProfileImages } from '../../api/profileApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -73,11 +64,13 @@ const ImagesUploadGrid = ({
             })
 
             setImages(newImagesOrder)
-
+            console.log('newimages', newImagesOrder)
             await reorderProfileImages(session?.user?.id, newImagesOrder)
 
             updateSession()
         }
+
+        return
     }
 
     const handleAddImage = () => {

@@ -1,24 +1,23 @@
-import React from 'react'
+import React, { RefObject } from 'react'
 import { fromLonLat } from 'ol/proj'
 import CitySearchInput from '../CreateProfile/CitySearchInput'
-import { MapRefObject } from './Map'
 import { Box } from '@chakra-ui/react'
+import { Map } from 'ol'
 
 interface SearchAndZoomProps {
-    mapObj: MapRefObject
+    mapObj: RefObject<Map>
 }
 
 const SearchAndZoom: React.FC<SearchAndZoomProps> = ({ mapObj }) => {
-    const handleLocationSelected = (
-        lat: string,
-        lon: string,
-        displayName: string
-    ) => {
+    const handleLocationSelected = (lat: string, lon: string) => {
         if (!mapObj.current) return
 
         const numericLat = parseFloat(lat)
         const numericLon = parseFloat(lon)
-        const destination = fromLonLat([numericLon, numericLat])
+        const destination = fromLonLat([numericLon, numericLat]) as [
+            number,
+            number
+        ]
 
         const view = mapObj.current.getView()
         const currentCenter = view.getCenter() as [number, number] | undefined
