@@ -14,13 +14,12 @@ type Props = {
 const ProfileImage = ({ images }: Props) => {
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
     const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
-    const { data: session } = useSession()
+    const { data: session, update: updateSession } = useSession()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const { uploadImage } = useUploadUserImage()
     useEffect(() => {
         images.sort((a, b) => a.position - b.position)
-        console.log(images)
         setCroppedImages(images)
     }, [images])
 
@@ -42,6 +41,7 @@ const ProfileImage = ({ images }: Props) => {
         })
 
         await deleteProfileImage(index, session.user.id)
+        updateSession()
     }
 
     const handleImageCrop = async (croppedImage: Blob) => {
