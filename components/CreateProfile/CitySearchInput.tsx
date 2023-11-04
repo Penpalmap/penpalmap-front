@@ -16,6 +16,7 @@ type Suggestion = {
     lat: string
     lon: string
 }
+
 interface CitySearchInputProps {
     onLocationSelected: (lat: string, lon: string, displayName: string) => void
 }
@@ -23,16 +24,15 @@ interface CitySearchInputProps {
 const CitySearchInput: React.FC<CitySearchInputProps> = ({
     onLocationSelected,
 }) => {
-    // const [queryValue, setQueryValue] = useState('') // Nouvel état pour la valeur à interroger
+    const [inputValue, setInputValue] = useState('')
     const [suggestions, setSuggestions] = useState<Suggestion[]>([])
     const [loading, setLoading] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
-
-    // Cette ref gardera une trace de notre setTimeout pour que nous puissions l'annuler si nécessaire
     const timeoutRef = useRef<number | null>(null)
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value
+        setInputValue(value)
 
         if (timeoutRef.current) clearTimeout(timeoutRef.current)
 
@@ -69,7 +69,8 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
             )
         }
 
-        setSuggestions([]) // Ceci va vider la liste des suggestions après le clic
+        setInputValue('')
+        setSuggestions([])
     }
 
     useEffect(() => {
@@ -80,13 +81,21 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
         }
 
         document.addEventListener('mousedown', handleClickOutside)
+
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
     }, [])
 
     return (
-        <Box ref={ref} width="100%" position="relative">
+        <Box
+            ref={ref}
+            width="100%"
+            position="relative"
+            bg="white"
+            borderRadius="md"
+            boxShadow="md"
+        >
             <InputGroup>
                 <InputLeftElement
                     pointerEvents="none"
@@ -100,19 +109,23 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 />
                 <Input
                     type="text"
-                    placeholder="Entrez le nom de la ville"
+                    value={inputValue}
+                    placeholder="Search for a place or city..."
                     onChange={handleInputChange}
+                    borderRadius="md"
                 />
             </InputGroup>
             {suggestions.length > 0 && (
                 <List
                     border="1px solid #ccc"
                     borderRadius="md"
+                    mt="2"
                     position="absolute"
                     top="100%"
-                    zIndex="10"
+                    zIndex="1"
                     width="100%"
                     bg="white"
+                    boxShadow="md"
                 >
                     {suggestions.map((suggestion, index) => (
                         <ListItem
@@ -120,8 +133,8 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                             p="2"
                             cursor="pointer"
                             onClick={() => handleSuggestionClick(suggestion)}
-                            transition="background-color 0.2s" // Transition douce pour le changement de couleur
-                            _hover={{ bg: 'gray.200' }} // Changement de couleur de fond au survol
+                            transition="background-color 0.2s"
+                            _hover={{ bg: 'gray.200' }}
                         >
                             {suggestion.display_name}
                         </ListItem>
