@@ -100,8 +100,8 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                             <Link color="white.500" href="/terms" isExternal>
                                 Terms of Use
                             </Link>
-                            . If something feels off, don't hesitate to reach
-                            out to the PenPalMap team! 💌
+                            . If something feels off, don&apos;t hesitate to
+                            reach out to the PenPalMap team! 💌
                         </>
                     ),
                     status: 'info',
