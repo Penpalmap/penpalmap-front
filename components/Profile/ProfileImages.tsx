@@ -37,10 +37,15 @@ const ProfileImage = ({ images }: Props) => {
         setCroppedImages((prevImages) => {
             const newImages = [...prevImages]
             newImages.splice(index, 1)
+
+            newImages.forEach((image, index) => {
+                image.position = index
+            })
             return newImages
         })
 
         await deleteProfileImage(index, session.user.id)
+
         updateSession()
     }
 
@@ -59,6 +64,8 @@ const ProfileImage = ({ images }: Props) => {
             )
 
             setCroppedImages((prevImages) => [...prevImages, userImage])
+
+            updateSession()
 
             onClose()
         }

@@ -173,7 +173,6 @@ const ImagesUploadGrid = ({
                                     }}
                                 >
                                     <FontAwesomeIcon icon={faTrash} />
-                                    <Text>{image.id}</Text>
                                 </Button>
                                 {image.position === 0 && (
                                     <Center
