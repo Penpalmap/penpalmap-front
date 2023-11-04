@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react'
 import { getUserById, updateUser } from '../../api/userApi'
 import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
+import ProfileImage from '../Profile/ProfileImages'
 
 const CreateProfile = () => {
     const { data: session, status, update: updateSession } = useSession()
@@ -104,7 +105,7 @@ const CreateProfile = () => {
                     />
                 )
             case 2:
-                return <ProfilePhotoUpload />
+                return <ProfileImage images={[]} />
             case 3:
                 return <ProfileLocationInput setValue={setValue} />
             default:

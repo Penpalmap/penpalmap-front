@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ProfileFormData } from '../types'
+import { ProfileFormData, UserImage } from '../types'
 
 const uploadProfileImage = async (formData: FormData, userId: string) => {
     try {
@@ -16,15 +16,13 @@ const uploadProfileImage = async (formData: FormData, userId: string) => {
 
 const reorderProfileImages = async (
     userId: string,
-    sourceIndex,
-    destinationIndex
+    newImagesOrder: UserImage[]
 ) => {
     try {
         const response = await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile/reorder`,
             {
-                sourceIndex,
-                destinationIndex,
+                newImagesOrder,
             }
         )
 

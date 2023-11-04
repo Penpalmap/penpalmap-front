@@ -4,11 +4,9 @@ import {
     Editable,
     EditableInput,
     EditablePreview,
-    Flex,
     FormControl,
     FormLabel,
     IconButton,
-    Input,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -18,15 +16,12 @@ import {
     Text,
     useEditableControls,
 } from '@chakra-ui/react'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { deleteProfileImage } from '../../api/profileApi'
+import { useEffect, useMemo, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faHome, faXmark } from '@fortawesome/free-solid-svg-icons'
-import useUploadUserImage from '../../hooks/useUploadUserImage'
-import ListImageDraggable from '../Image/ListImageDraggable'
-import ImagesUploadGrid from '../Profile/ImagesUploadGrid'
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import ProfileImage from '../Profile/ProfileImages'
 
 type Props = {
     isOpen: boolean
@@ -34,25 +29,15 @@ type Props = {
 }
 
 const MyProfile = ({ isOpen, onClose }: Props) => {
-    // const [profile, setProfile] = useState<Profile>({
-    //     images: [null, null, null, null],
-    // })
-    const { data: session, update: updateSession } = useSession()
-    const { uploadImage } = useUploadUserImage()
+    const { data: session } = useSession()
 
     const [images, setImages] = useState<UserImage[]>([])
 
     useEffect(() => {
         if (session?.user?.userImages) {
-            // transform userImages to File[]
-            //    setImages(images)
             setImages(session?.user?.userImages)
         }
     }, [session?.user?.userImages])
-
-    const refInputFile = useRef<HTMLInputElement>(null)
-
-    const [isEditing, setIsEditing] = useState<boolean>(false)
 
     function EditableControls() {
         const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
@@ -81,35 +66,6 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
     }
 
     const renderProfile = useMemo(() => {
-        const handleAddImage = () => {
-            if (refInputFile.current) {
-                refInputFile.current.click()
-            }
-        }
-
-        const handleFileChange = async (
-            e: React.ChangeEvent<HTMLInputElement>
-        ) => {
-            const file = e.target?.files?.[0]
-
-            if (file && session?.user?.id) {
-                uploadImage(
-                    file,
-                    session?.user?.userImages?.length,
-                    session?.user.id
-                )
-
-                // updateSession()
-            }
-        }
-
-        const handleDeleteImage = async (position: number) => {
-            if (session?.user?.id) {
-                await deleteProfileImage(position, session?.user.id)
-                updateSession()
-            }
-        }
-
         return (
             <>
                 <Box mb={4}>
@@ -119,12 +75,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                     <Text mb={2} fontSize={'small'}>
                         Ajouter des photos
                     </Text>
-                    <ImagesUploadGrid
-                        images={images}
-                        setImages={setImages}
-                        handleDeleteImage={handleDeleteImage}
-                        handleUploadImage={handleFileChange}
-                    />
+                    <ProfileImage images={images} />
                 </Box>
 
                 <Box mb={4}>
@@ -144,26 +95,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                 </Box>
             </>
         )
-    }, [
-        images,
-        session?.user?.id,
-        session?.user?.userImages,
-        updateSession,
-        uploadImage,
-    ])
-
-    const renderEditProfile = useMemo(() => {
-        return (
-            <>
-                <IconButton
-                    aria-label="Retour"
-                    icon={<FontAwesomeIcon icon={faHome} />}
-                    onClick={() => setIsEditing(false)}
-                />
-                <Text>Editer </Text>
-            </>
-        )
-    }, [])
+    }, [images])
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -193,7 +125,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                     }}
                     mb={4}
                 >
-                    {!isEditing ? renderProfile : renderEditProfile}
+                    {renderProfile}
                 </ModalBody>
             </ModalContent>
         </Modal>

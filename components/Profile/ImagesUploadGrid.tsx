@@ -1,17 +1,21 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import { DndContext } from '@dnd-kit/core'
 import SortableItem from './SortableItem'
-import { Box, Button, Center, Flex, Grid, Image, Input } from '@chakra-ui/react'
+import {
+    Box,
+    Button,
+    Center,
+    Flex,
+    Grid,
+    Image,
+    Input,
+    Text,
+} from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { reorderProfileImages } from '../../api/profileApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faCrow,
-    faCrown,
-    faPlus,
-    faTrash,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCrown, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { UserImage } from '../../types'
 
 type Props = {
@@ -36,7 +40,6 @@ const ImagesUploadGrid = ({
         return images.map((image) => image.src)
     }, [images])
 
-    console.log('items', images)
     const handleDragEnd = async (event) => {
         if (!session?.user?.id) return
         const { active, over } = event
@@ -48,22 +51,30 @@ const ImagesUploadGrid = ({
         if (active.id !== over.id) {
             let oldIndex
             let newIndex
+            const oldFile = images.find((image) => image.src === active.id)
+            if (oldFile) {
+                oldIndex = images.indexOf(oldFile)
+            }
 
-            setImages((images) => {
-                const oldFile = images.find((image) => image.src === active.id)
-                if (oldFile) {
-                    oldIndex = images.indexOf(oldFile)
-                }
+            const newFile = images.find((image) => image.src === over.id)
+            if (newFile) {
+                newIndex = images.indexOf(newFile)
+            }
 
-                const newFile = images.find((image) => image.src === over.id)
-                if (newFile) {
-                    newIndex = images.indexOf(newFile)
-                }
+            if (!oldFile || !newFile) return images
+            oldFile.position = newIndex
+            newFile.position = oldIndex
 
-                return arrayMove(images, oldIndex, newIndex)
+            const newImagesOrder = arrayMove(images, oldIndex, newIndex)
+            console.log(newImagesOrder)
+
+            newImagesOrder.forEach((image, index) => {
+                image.position = index
             })
 
-            await reorderProfileImages(session?.user?.id, oldIndex, newIndex)
+            setImages(newImagesOrder)
+
+            await reorderProfileImages(session?.user?.id, newImagesOrder)
 
             updateSession()
         }
@@ -162,6 +173,7 @@ const ImagesUploadGrid = ({
                                     }}
                                 >
                                     <FontAwesomeIcon icon={faTrash} />
+                                    <Text>{image.id}</Text>
                                 </Button>
                                 {image.position === 0 && (
                                     <Center

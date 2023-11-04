@@ -63,6 +63,7 @@ export type User = {
 }
 
 export type UserImage = {
+    id: string
     src: string
     position: number
     userId: string
