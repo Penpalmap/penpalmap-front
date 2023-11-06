@@ -1,0 +1,5 @@
+{
+    "welcome": "Bienvenue dans Mon Application",
+    "hello": "Bonjour, {{name}} !",
+    "login": "Connectez-vous"
+}

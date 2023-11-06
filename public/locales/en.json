@@ -1,0 +1,5 @@
+{
+    "welcome": "Welcome to My App",
+    "hello": "Hello, {{name}}!",
+    "login": "Login"
+}

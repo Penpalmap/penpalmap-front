@@ -1,6 +1,7 @@
 import {
     Avatar,
     Box,
+    Button,
     Flex,
     HStack,
     Image,
@@ -19,13 +20,15 @@ import Link from 'next/link'
 import { disconnectFromSocketServer } from '../../sockets/socketManager'
 import { AppContext } from '../../context/AppContext'
 import { useContext } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'react-i18next'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
-
+    const { i18n } = useTranslation()
     const disconnect = () => {
         signOut()
         disconnectFromSocketServer(appData.socket)
@@ -102,6 +105,27 @@ const Header = () => {
                         </MenuList>
                     </Menu>
                 )}
+                <Menu>
+                    <MenuButton
+                        as={Button}
+                        rightIcon={
+                            <FontAwesomeIcon icon={['fas', 'globe-europe']} />
+                        }
+                    >
+                        Languages
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem onClick={() => i18n.changeLanguage('fr')}>
+                            <Text as="span" cursor="pointer">
+                                Français
+                            </Text>
+                        </MenuItem>
+                        <MenuDivider />
+                        <MenuItem onClick={() => i18n.changeLanguage('en')}>
+                            Anglais
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             </HStack>
             {session && <MyProfile onClose={onClose} isOpen={isOpen} />}
         </>
