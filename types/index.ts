@@ -60,6 +60,18 @@ export type User = {
     userImages: Array<UserImage>
     isNewUser: boolean
     isOnline: boolean
+    langageUsed: string
+    avatarNumber: number
+}
+
+type UserMap = {
+    id: string
+    name: string
+    latitude: number
+    longitude: number
+    image: string
+    points: number
+    avatarNumber: number
 }
 
 export type UserImage = {
