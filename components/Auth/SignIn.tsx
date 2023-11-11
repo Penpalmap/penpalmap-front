@@ -21,6 +21,7 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Presentation from './Presentation'
+import { useTranslation } from 'next-i18next'
 
 interface LoginFormData {
     email: string
@@ -35,6 +36,8 @@ const SignIn = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginFormData>()
+
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: LoginFormData) => {
         try {
@@ -98,7 +101,7 @@ const SignIn = () => {
                     boxShadow={'lg'}
                 >
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
-                        Sau
+                        <Text>{t('welcome')}</Text>
                     </Heading>
                     <GoogleLoginButton />
 
