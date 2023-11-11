@@ -6,6 +6,7 @@ import Fill from 'ol/style/Fill'
 import CircleStyle from 'ol/style/Circle'
 import Text from 'ol/style/Text'
 import Icon from 'ol/style/Icon'
+import { Console } from 'console'
 
 export const styleCache = {}
 
@@ -34,6 +35,7 @@ const clusterStyle = function (feature) {
         }
         const uid = featureMaxUser?.id
         let style = styleCache[uid]
+        const genderFolder = featureMaxUser?.gender || 'other'
 
         // if (!style) {
         const photo = featureMaxUser?.image
@@ -42,7 +44,7 @@ const clusterStyle = function (feature) {
                 image: new Photo({
                     src: photo
                         ? photo
-                        : `/images/avatar/${featureMaxUser?.avatarNumber}.png`,
+                        : `/images/avatar/${genderFolder}/${featureMaxUser?.avatarNumber}.png`,
                     radius: 30,
                     crop: true,
                     kind: 'circle',
@@ -131,6 +133,7 @@ const clusterStyle = function (feature) {
         const user: UserElement = feature.get('features')[0].get('element')
         const uid = user.id
         let style = styleCache[uid]
+        const genderFolder = user?.gender || 'other'
 
         // if (!style) {
         const photo = user.image
@@ -140,7 +143,7 @@ const clusterStyle = function (feature) {
                 image: new Photo({
                     src: photo
                         ? photo
-                        : `/images/avatar/${user?.avatarNumber}.png`,
+                        : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`,
                     radius: 30,
                     crop: true,
                     kind: 'circle',
@@ -160,7 +163,7 @@ const clusterStyle = function (feature) {
                       image: new Icon({
                           src: '/images/conversation_icon.png',
                           displacement: [20, 26],
-                          scale: 0.8,
+                          scale: 0.5,
                       }),
                   })
                 : new Style({}),
