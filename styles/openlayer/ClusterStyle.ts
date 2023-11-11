@@ -42,7 +42,7 @@ const clusterStyle = function (feature) {
                 image: new Photo({
                     src: photo
                         ? photo
-                        : 'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg',
+                        : `/images/avatar/${featureMaxUser?.avatarNumber}.png`,
                     radius: 30,
                     crop: true,
                     kind: 'circle',
@@ -134,13 +134,13 @@ const clusterStyle = function (feature) {
 
         // if (!style) {
         const photo = user.image
-
+        console.log('user', user)
         style = styleCache[uid] = [
             new Style({
                 image: new Photo({
                     src: photo
                         ? photo
-                        : 'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg',
+                        : `/images/avatar/${user?.avatarNumber}.png`,
                     radius: 30,
                     crop: true,
                     kind: 'circle',

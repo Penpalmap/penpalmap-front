@@ -46,7 +46,8 @@ const OverlayProfileMap = ({
             <Flex flex={'1'} w={['150px', '200px']} h={['150px', '200px']}>
                 <Image
                     src={
-                        user?.userImages.find((img) => img.position === 0)?.src
+                        user?.userImages.find((img) => img.position === 0)
+                            ?.src ?? `/images/avatar/${user?.avatarNumber}.png`
                     }
                     w={'100%'}
                     alt={user?.name}

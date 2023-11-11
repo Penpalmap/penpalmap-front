@@ -21,14 +21,15 @@ import { disconnectFromSocketServer } from '../../sockets/socketManager'
 import { AppContext } from '../../context/AppContext'
 import { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'next-i18next'
+import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
-    const { i18n } = useTranslation()
+    // const { i18n } = useTranslation()
     const disconnect = () => {
         signOut()
         disconnectFromSocketServer(appData.socket)
@@ -105,15 +106,11 @@ const Header = () => {
                         </MenuList>
                     </Menu>
                 )}
-                <Menu>
+                {/* <Menu>
                     <MenuButton
                         as={Button}
-                        rightIcon={
-                            <FontAwesomeIcon icon={['fas', 'globe-europe']} />
-                        }
-                    >
-                        Languages
-                    </MenuButton>
+                        rightIcon={<FontAwesomeIcon icon={faGlobeEurope} />}
+                    ></MenuButton>
                     <MenuList>
                         <MenuItem onClick={() => i18n.changeLanguage('fr')}>
                             <Text as="span" cursor="pointer">
@@ -125,7 +122,7 @@ const Header = () => {
                             Anglais
                         </MenuItem>
                     </MenuList>
-                </Menu>
+                </Menu> */}
             </HStack>
             {session && <MyProfile onClose={onClose} isOpen={isOpen} />}
         </>
