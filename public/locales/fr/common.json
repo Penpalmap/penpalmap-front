@@ -1,4 +1,11 @@
 {
     "HELLO_WORLD": "Hello, World!",
-    "welcome": "Welcome React and react-i18next"
+    "welcome": "Welcome React and react-i18next",
+    "settings": {
+        "title": "Settings",
+        "language": "Langage",
+        "theme": "Theme",
+        "dark": "Dark",
+        "light": "Light"
+    }
 }

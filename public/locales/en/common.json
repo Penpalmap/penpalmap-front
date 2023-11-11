@@ -1,4 +1,11 @@
 {
     "HELLO_WORLD": "Hello, World!",
-    "welcome": "Welcome to df and react-i18next"
+    "welcome": "Welcome to df and react-i18next",
+    "settings": {
+        "title": "Settings",
+        "language": "Language",
+        "theme": "Theme",
+        "dark": "Dark",
+        "light": "Light"
+    }
 }
