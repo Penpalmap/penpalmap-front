@@ -88,15 +88,6 @@ const ProfileLocationInput = (props: Props) => {
                     const data = await response.json()
                     if (data && data.address && data.address.country) {
                         setCountryName(data.address.country)
-                    } else {
-                        toast({
-                            title: 'Attention',
-                            description:
-                                "La position sélectionnée est en dehors d'un pays!",
-                            status: 'warning',
-                            duration: 5000,
-                            isClosable: true,
-                        })
                     }
                 } catch (error) {
                     console.error('Error fetching country name:', error)

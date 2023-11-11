@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, KeyboardEvent } from 'react'
 import {
     Box,
     Input,
@@ -8,6 +8,7 @@ import {
     InputGroup,
     InputLeftElement,
     Spinner,
+    useToast,
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 
@@ -29,6 +30,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
     const [loading, setLoading] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
     const timeoutRef = useRef<number | null>(null)
+    const toast = useToast()
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value
@@ -87,6 +89,25 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
         }
     }, [])
 
+    const handleInputKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            if (suggestions.length > 0) {
+                const suggestion = suggestions[0]
+                if (suggestion) {
+                    handleSuggestionClick(suggestion)
+                }
+            } else {
+                toast({
+                    description:
+                        'Oops! 🙁 No results found for this search. 🌍',
+                    status: 'info',
+                    duration: 4000,
+                    isClosable: true,
+                })
+            }
+        }
+    }
+
     return (
         <Box
             ref={ref}
@@ -112,6 +133,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                     value={inputValue}
                     placeholder="Search for a place or city..."
                     onChange={handleInputChange}
+                    onKeyPress={handleInputKeyPress}
                     borderRadius="md"
                 />
             </InputGroup>
@@ -119,7 +141,6 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 <List
                     border="1px solid #ccc"
                     borderRadius="md"
-                    mt="2"
                     position="absolute"
                     top="100%"
                     zIndex="1"
