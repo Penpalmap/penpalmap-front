@@ -86,7 +86,9 @@ const OverlayProfileMap = ({
                             </Flex>
                         )}
 
-                        <Badge colorScheme="green">En ligne</Badge>
+                        {user?.isOnline && (
+                            <Badge colorScheme="green">En ligne</Badge>
+                        )}
                     </Flex>
 
                     <Text display={['none', 'block']} fontSize={'sm'}>
