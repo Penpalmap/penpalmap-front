@@ -20,6 +20,7 @@ const ConversationItem = ({
 }: ConversationItemProps) => {
     const user = members?.find((member) => member.id !== sessionUserId)
     const { flag } = useLocation(user?.latitude, user?.longitude)
+    const genderFolder = user?.gender || 'other'
 
     return (
         <Flex
@@ -34,7 +35,11 @@ const ConversationItem = ({
         >
             <Flex position="relative" mr={2}>
                 <Avatar
-                    src={user?.image}
+                    src={
+                        user?.image
+                            ? user?.image
+                            : `/images/avatar/${genderFolder}/1${user?.avatarNumber}.png`
+                    }
                     name={user?.name}
                     size={'md'}
                     borderWidth={'medium'}
