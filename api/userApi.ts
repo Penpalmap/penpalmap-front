@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { User } from '../types'
+import { User, UserMap } from '../types'
 
 const getUserByEmail = async (email: string): Promise<User> => {
     try {
@@ -40,7 +40,7 @@ const getUserById = async (id: string): Promise<User> => {
     }
 }
 
-const getUsersInMap = async (): Promise<User[]> => {
+const getUsersInMap = async (): Promise<UserMap[]> => {
     try {
         const users = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/map/users`

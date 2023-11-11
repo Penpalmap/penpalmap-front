@@ -64,7 +64,7 @@ export type User = {
     avatarNumber: number
 }
 
-type UserMap = {
+export type UserMap = {
     id: string
     name: string
     latitude: number
