@@ -38,6 +38,7 @@ const Header = () => {
         signOut()
         disconnectFromSocketServer(appData.socket)
     }
+    const genderFolder = session?.user?.gender || 'other'
 
     return (
         <>
@@ -83,7 +84,14 @@ const Header = () => {
                             size="sm"
                             name={session?.user?.name}
                             cursor="pointer"
-                            src={session?.user?.image}
+                            src={
+                                session?.user?.image
+                                    ? session?.user?.image
+                                    : `/images/avatar/${genderFolder}/${session?.user?.avatarNumber}.png`
+                            }
+                            // Ajoutez boxShadow ici
+                            boxShadow="0px 4px 6px rgba(0, 0, 0, 0.3)"
+                            p={'1px'}
                         />
                         <MenuList>
                             <MenuItem>
@@ -91,7 +99,11 @@ const Header = () => {
                                     <Avatar
                                         size="sm"
                                         name={session?.user?.name}
-                                        src={session?.user?.image}
+                                        src={
+                                            session?.user?.image
+                                                ? session?.user?.image
+                                                : `/images/avatar/${genderFolder}/${session?.user?.avatarNumber}.png`
+                                        }
                                         marginRight={2}
                                     />
                                     <Text fontWeight="bold">
