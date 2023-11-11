@@ -28,20 +28,31 @@ import {
     faLanguage,
     faSignLanguage,
 } from '@fortawesome/free-solid-svg-icons'
-import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
+
+    const router = useRouter()
+    const { locales, locale: activeLocale } = router
+
+    const otherLocales = locales?.filter((locale) => locale !== activeLocale)
+
+    const changeLocale = (locale) => {
+        document.cookie = `NEXT_LOCALE=${locale}`
+
+        router.push(router.pathname, router.asPath, { locale })
+    }
+
     // const { i18n } = useTranslation()
     const disconnect = () => {
         signOut()
         disconnectFromSocketServer(appData.socket)
     }
 
-    const { i18n } = useTranslation()
     return (
         <>
             <HStack
@@ -120,8 +131,9 @@ const Header = () => {
                             variant={'flushed'}
                             size="sm"
                             w="fit-content"
+                            placeholder="Langue"
                             onChange={(e) => {
-                                i18n.changeLanguage(e.target.value)
+                                changeLocale(e.target.value)
                             }}
                         >
                             <option value="fr">Français</option>
