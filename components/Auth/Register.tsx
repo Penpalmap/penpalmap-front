@@ -23,6 +23,7 @@ import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import Presentation from './Presentation'
+import { useTranslation } from 'next-i18next'
 
 const Register = () => {
     const router = useRouter()
@@ -32,6 +33,8 @@ const Register = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterUserInput>()
+
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: RegisterUserInput) => {
         const response = await registerUser(data)
