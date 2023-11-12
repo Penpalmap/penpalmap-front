@@ -1,4 +1,12 @@
 {
+    "connect": {
+        "connection": "Connecte à PenpalMap",
+        "login-google": "Se connecter avec Google",
+        "password": "Mot de passe",
+        "connect": "Se connecter",
+        "no-account": "Pas encore de compte ?",
+        "create-account": "Créer un compte"
+    },
     "HELLO_WORLD": "Hello, World!",
     "welcome": "Welcome React and react-i18next",
     "settings": {

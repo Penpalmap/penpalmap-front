@@ -1,6 +1,14 @@
 {
+    "connect": {
+        "connection": "Sign up at PenpalMap",
+        "login-google": "Connnect with Google",
+        "password": "Password",
+        "connect": "Connect",
+        "no-account": "Don't have an account?",
+        "create-account": "Create an account"
+    },
     "HELLO_WORLD": "Hello, World!",
-    "welcome": "Welcome to df and react-i18next",
+    "welcome": "Welcomeen",
     "settings": {
         "title": "Settings",
         "language": "Language",

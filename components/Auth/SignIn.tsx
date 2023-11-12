@@ -101,7 +101,7 @@ const SignIn = () => {
                     boxShadow={'lg'}
                 >
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
-                        <Text>{t('welcome')}</Text>
+                        <Text>{t('connect.connection')}</Text>
                     </Heading>
                     <GoogleLoginButton />
 
@@ -127,7 +127,7 @@ const SignIn = () => {
                             </FormControl>
                             <FormControl isInvalid={!!errors.password}>
                                 <FormLabel htmlFor="password">
-                                    Mot de passe
+                                    {t('connect.password')}
                                 </FormLabel>
                                 <Input
                                     bg={'white'}
@@ -148,21 +148,21 @@ const SignIn = () => {
                                 </Alert>
                             )}
                             <Button type="submit" colorScheme="blue">
-                                Se connecter
+                                {t('connect.connect')}
                             </Button>
                         </Stack>
                     </form>
 
                     <Box mt={4} w={'90%'}>
                         <Text fontSize={'small'}>
-                            Vous n&apos;avez pas de compte ?{' '}
+                            {t('connect.no-account')}{' '}
                             <Link href="/auth/signup">
                                 <Text
                                     as="span"
                                     color="blue.500"
                                     cursor="pointer"
                                 >
-                                    Créer un compte
+                                    {t('connect.create-account')}
                                 </Text>
                             </Link>
                         </Text>
