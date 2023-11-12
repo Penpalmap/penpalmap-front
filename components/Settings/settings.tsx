@@ -2,13 +2,12 @@ import { Flex, Heading, Link, Select } from '@chakra-ui/react'
 import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
+import useLanguage from '../../hooks/useLanguage'
 
 const Settings = () => {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
-    const changeLanguage = (e) => {
-        i18n.changeLanguage(e.target.value)
-    }
+    const { changeLocale, locale } = useLanguage()
 
     return (
         <div>
@@ -23,8 +22,9 @@ const Settings = () => {
                     variant={'flushed'}
                     size="sm"
                     w="fit-content"
+                    value={locale}
                     onChange={(e) => {
-                        i18n.changeLanguage(e.target.value)
+                        changeLocale(e.target.value)
                     }}
                 >
                     <option value="fr">Français</option>

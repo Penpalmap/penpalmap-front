@@ -9,6 +9,7 @@ export type ProfileFormData = {
     latitude: number
     longitude: number
     gender: string
+    languageUsed: string
 }
 
 export type Message = {

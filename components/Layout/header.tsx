@@ -1,7 +1,6 @@
 import {
     Avatar,
     Box,
-    Button,
     Flex,
     HStack,
     Image,
@@ -23,12 +22,8 @@ import { AppContext } from '../../context/AppContext'
 import { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { useTranslation } from 'next-i18next'
-import {
-    faGlobeEurope,
-    faLanguage,
-    faSignLanguage,
-} from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'next/router'
+import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
+import useLanguage from '../../hooks/useLanguage'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
@@ -36,16 +31,7 @@ const Header = () => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
 
-    const router = useRouter()
-    const { locales, locale: activeLocale } = router
-
-    const otherLocales = locales?.filter((locale) => locale !== activeLocale)
-
-    const changeLocale = (locale) => {
-        document.cookie = `NEXT_LOCALE=${locale}`
-
-        router.push(router.pathname, router.asPath, { locale })
-    }
+    const { changeLocale, locale } = useLanguage()
 
     // const { i18n } = useTranslation()
     const disconnect = () => {
@@ -131,7 +117,7 @@ const Header = () => {
                             variant={'flushed'}
                             size="sm"
                             w="fit-content"
-                            placeholder="Langue"
+                            value={locale}
                             onChange={(e) => {
                                 changeLocale(e.target.value)
                             }}

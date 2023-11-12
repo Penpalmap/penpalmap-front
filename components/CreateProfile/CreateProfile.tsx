@@ -79,6 +79,8 @@ const CreateProfile = () => {
 
         updateSession()
 
+        if (router.locale) data.languageUsed = router.locale
+
         const response = await updateUser(data, session?.user.id)
 
         if (response) {
