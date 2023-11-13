@@ -1,6 +1,6 @@
 import { useSteps } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
-import { ProfileFormData } from '../../types'
+import { ProfileFormData, User } from '../../types'
 import { useForm } from 'react-hook-form'
 import ProfileGenderInput from './ProfileGenderInput'
 import ProfileBirthdayInput from './ProfileBirthdayInput'
@@ -80,6 +80,14 @@ const CreateProfile = () => {
         updateSession()
 
         if (router.locale) data.languageUsed = router.locale
+
+        data.userLanguages = [
+            {
+                language: 'fr',
+                level: 'native',
+                userId: session?.user.id,
+            },
+        ]
 
         const response = await updateUser(data, session?.user.id)
 

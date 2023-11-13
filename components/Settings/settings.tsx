@@ -3,11 +3,21 @@ import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
 import useLanguage from '../../hooks/useLanguage'
+import { updateUser } from '../../api/userApi'
+import { useSession } from 'next-auth/react'
 
 const Settings = () => {
     const { t } = useTranslation()
+    const { data: session } = useSession()
 
     const { changeLocale, locale } = useLanguage()
+
+    const handleLocaleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        if (!session?.user.id) return
+        changeLocale(e.target.value)
+
+        updateUser({ languageUsed: e.target.value }, session.user.id)
+    }
 
     return (
         <div>
@@ -23,9 +33,7 @@ const Settings = () => {
                     size="sm"
                     w="fit-content"
                     value={locale}
-                    onChange={(e) => {
-                        changeLocale(e.target.value)
-                    }}
+                    onChange={handleLocaleChange}
                 >
                     <option value="fr">Français</option>
                     <option value="en">Anglais</option>
