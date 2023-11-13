@@ -115,7 +115,7 @@ const Register = () => {
                                 </FormErrorMessage>
                             </FormControl>
                             <FormControl isInvalid={!!errors.name}>
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>{t('connect.nom')}</FormLabel>
                                 <Input
                                     type="text"
                                     {...register('name', {

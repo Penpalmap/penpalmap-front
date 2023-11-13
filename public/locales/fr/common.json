@@ -6,11 +6,14 @@
         "password": "Mot de passe",
         "connect": "Se connecter",
         "no-account": "Pas encore de compte ?",
-        "create-account": "Créer un compte"
+        "create-account": "Créer un compte",
+        "nom": "Nom"
     },
     "presentation": {
-        "devise1": "frHere at PenPalMap, we aren't about quick swipes.",
-        "devise2": "frAbout learning, connecting, and growing - no matter the distance."
+        "devise1": "\"Chez PenPalMap, nous ne sommes pas là pour des interactions éphémères...",
+        "devise2": "mais pour apprendre, connecter et évoluer, peu importe la distance.\"",
+        "texte1": " Connectez-vous avec des amis du monde entier, où que vous soyez. Faites des amis, apprenez des langues et découvrez de nouvelles cultures quelque soit ta position.",
+        "texte2": "PenPalMap est une application de messagerie instantanée qui permet de discuter avec des personnes du monde entier. Que tu sois en voyage, en déplacement ou chez vous, tu peux accéder à PenPalMap à tout moment, où que tu sois, en toute sécurité."
     },
     "settings": {
         "title": "Settings",
