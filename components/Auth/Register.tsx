@@ -34,7 +34,8 @@ const Register = () => {
         formState: { errors },
     } = useForm<RegisterUserInput>()
 
-    const { t } = useTranslation('common')
+    const { t, i18n } = useTranslation('common')
+    console.log('Current Language:', i18n.language)
 
     const onSubmit = async (data: RegisterUserInput) => {
         const response = await registerUser(data)
@@ -60,7 +61,7 @@ const Register = () => {
                 {/* <MapConnexion /> */}
                 <Box
                     w="400vh" // Double de la largeur pour contenir les deux images
-                    animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation*
+                    animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation
                     bg="#8CBBD4" // Ajout de la couleur de fond
                 >
                     <Image
@@ -101,7 +102,7 @@ const Register = () => {
                     >
                         <Stack spacing={4}>
                             <FormControl isInvalid={!!errors.email}>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>{t('connect.mail')}</FormLabel>
                                 <Input
                                     type="email"
                                     {...register('email', {
@@ -127,7 +128,7 @@ const Register = () => {
                                 </FormErrorMessage>
                             </FormControl>
                             <FormControl isInvalid={!!errors.password}>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel>{t('connect.password')}</FormLabel>
                                 <Input
                                     type="password"
                                     {...register('password', {

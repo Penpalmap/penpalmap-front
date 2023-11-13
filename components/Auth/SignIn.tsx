@@ -37,7 +37,8 @@ const SignIn = () => {
         formState: { errors },
     } = useForm<LoginFormData>()
 
-    const { t } = useTranslation('common')
+    const { t, i18n } = useTranslation('common')
+    console.log('Current Language:', i18n.language)
 
     const onSubmit = async (data: LoginFormData) => {
         try {
@@ -112,7 +113,9 @@ const SignIn = () => {
                     >
                         <Stack spacing={3}>
                             <FormControl isInvalid={!!errors.email}>
-                                <FormLabel htmlFor="email">E-mail</FormLabel>
+                                <FormLabel htmlFor="email">
+                                    {t('connect.mail')}
+                                </FormLabel>
                                 <Input
                                     type="email"
                                     id="email"

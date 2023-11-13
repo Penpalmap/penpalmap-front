@@ -1,14 +1,17 @@
 {
     "connect": {
-        "connection": "Connecte à PenpalMap",
+        "connection": "Connecte-toi",
         "login-google": "Se connecter avec Google",
+        "mail": "Adresse mail",
         "password": "Mot de passe",
         "connect": "Se connecter",
         "no-account": "Pas encore de compte ?",
         "create-account": "Créer un compte"
     },
-    "HELLO_WORLD": "Hello, World!",
-    "welcome": "Welcome React and react-i18next",
+    "presentation": {
+        "devise1": "frHere at PenPalMap, we aren't about quick swipes.",
+        "devise2": "frAbout learning, connecting, and growing - no matter the distance."
+    },
     "settings": {
         "title": "Settings",
         "language": "Langage",
