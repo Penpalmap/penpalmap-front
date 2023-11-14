@@ -37,8 +37,7 @@ const SignIn = () => {
         formState: { errors },
     } = useForm<LoginFormData>()
 
-    const { t, i18n } = useTranslation('common')
-    console.log('Current Language:', i18n.language)
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: LoginFormData) => {
         try {

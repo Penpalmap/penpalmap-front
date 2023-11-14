@@ -34,8 +34,7 @@ const Register = () => {
         formState: { errors },
     } = useForm<RegisterUserInput>()
 
-    const { t, i18n } = useTranslation('common')
-    console.log('Current Language:', i18n.language)
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: RegisterUserInput) => {
         const response = await registerUser(data)

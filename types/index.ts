@@ -11,6 +11,7 @@ export type ProfileFormData = {
     gender: string
     languageUsed: string
     userLanguages: Array<UserLanguage>
+    isNewUser: boolean
 }
 
 export type Message = {

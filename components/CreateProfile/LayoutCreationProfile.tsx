@@ -33,6 +33,10 @@ const LayoutCreationProfile = ({
             title: 'Map',
             titlePage: 'Pick your position',
         },
+        {
+            title: 'Language',
+            titlePage: 'Select your language',
+        },
     ]
 
     return (
@@ -63,7 +67,7 @@ const LayoutCreationProfile = ({
                         {children}
                     </Flex>
                 </Box>{' '}
-                {activeStep !== 3 ? (
+                {activeStep !== 4 ? (
                     <Button
                         w={'full'}
                         onClick={handleNextStep}
