@@ -57,14 +57,12 @@ const ImagesUploadGrid = ({
             newFile.position = oldIndex
 
             const newImagesOrder = arrayMove(images, oldIndex, newIndex)
-            console.log(newImagesOrder)
 
             newImagesOrder.forEach((image, index) => {
                 image.position = index
             })
 
             setImages(newImagesOrder)
-            console.log('newimages', newImagesOrder)
             await reorderProfileImages(session?.user?.id, newImagesOrder)
 
             updateSession()

@@ -33,6 +33,10 @@ const clusterStyle = function (feature) {
             return null
         }
         const uid = featureMaxUser?.id
+        if (!uid) {
+            return null
+        }
+
         let style = styleCache[uid]
 
         // if (!style) {
@@ -130,11 +134,13 @@ const clusterStyle = function (feature) {
     else {
         const user: UserElement = feature.get('features')[0].get('element')
         const uid = user.id
+        if (!uid) {
+            return null
+        }
         let style = styleCache[uid]
 
         // if (!style) {
         const photo = user.image
-        console.log('user', user)
         style = styleCache[uid] = [
             new Style({
                 image: new Photo({

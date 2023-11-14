@@ -21,6 +21,7 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Presentation from './Presentation'
+import { useTranslation } from 'next-i18next'
 
 interface LoginFormData {
     email: string
@@ -35,6 +36,8 @@ const SignIn = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginFormData>()
+
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: LoginFormData) => {
         try {
@@ -98,7 +101,7 @@ const SignIn = () => {
                     boxShadow={'lg'}
                 >
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
-                        Sau
+                        <Text>{t('connect.connection')}</Text>
                     </Heading>
                     <GoogleLoginButton />
 
@@ -109,7 +112,9 @@ const SignIn = () => {
                     >
                         <Stack spacing={3}>
                             <FormControl isInvalid={!!errors.email}>
-                                <FormLabel htmlFor="email">E-mail</FormLabel>
+                                <FormLabel htmlFor="email">
+                                    {t('connect.mail')}
+                                </FormLabel>
                                 <Input
                                     type="email"
                                     id="email"
@@ -124,7 +129,7 @@ const SignIn = () => {
                             </FormControl>
                             <FormControl isInvalid={!!errors.password}>
                                 <FormLabel htmlFor="password">
-                                    Mot de passe
+                                    {t('connect.password')}
                                 </FormLabel>
                                 <Input
                                     bg={'white'}
@@ -145,21 +150,21 @@ const SignIn = () => {
                                 </Alert>
                             )}
                             <Button type="submit" colorScheme="blue">
-                                Se connecter
+                                {t('connect.connect')}
                             </Button>
                         </Stack>
                     </form>
 
                     <Box mt={4} w={'90%'}>
                         <Text fontSize={'small'}>
-                            Vous n&apos;avez pas de compte ?{' '}
+                            {t('connect.no-account')}{' '}
                             <Link href="/auth/signup">
                                 <Text
                                     as="span"
                                     color="blue.500"
                                     cursor="pointer"
                                 >
-                                    Créer un compte
+                                    {t('connect.create-account')}
                                 </Text>
                             </Link>
                         </Text>

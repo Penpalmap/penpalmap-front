@@ -23,6 +23,7 @@ import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import Presentation from './Presentation'
+import { useTranslation } from 'next-i18next'
 
 const Register = () => {
     const router = useRouter()
@@ -32,6 +33,8 @@ const Register = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterUserInput>()
+
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: RegisterUserInput) => {
         const response = await registerUser(data)
@@ -57,7 +60,7 @@ const Register = () => {
                 {/* <MapConnexion /> */}
                 <Box
                     w="400vh" // Double de la largeur pour contenir les deux images
-                    animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation*
+                    animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation
                     bg="#8CBBD4" // Ajout de la couleur de fond
                 >
                     <Image
@@ -98,7 +101,7 @@ const Register = () => {
                     >
                         <Stack spacing={4}>
                             <FormControl isInvalid={!!errors.email}>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>{t('connect.mail')}</FormLabel>
                                 <Input
                                     type="email"
                                     {...register('email', {
@@ -124,7 +127,7 @@ const Register = () => {
                                 </FormErrorMessage>
                             </FormControl>
                             <FormControl isInvalid={!!errors.password}>
-                                <FormLabel>Password</FormLabel>
+                                <FormLabel>{t('connect.password')}</FormLabel>
                                 <Input
                                     type="password"
                                     {...register('password', {

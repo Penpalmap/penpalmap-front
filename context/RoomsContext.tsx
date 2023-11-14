@@ -111,7 +111,6 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     useEffect(() => {
         if (!appData.socket) return
         onNewMessage(appData.socket, (message) => {
-            console.log('new message socket')
             updateLastMessageInRoom(message)
         })
 

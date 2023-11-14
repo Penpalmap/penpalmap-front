@@ -1,0 +1,22 @@
+{
+    "connect": {
+        "connection": "Connecte-toi",
+        "login-google": "Se connecter avec Google",
+        "mail": "Adresse mail",
+        "password": "Mot de passe",
+        "connect": "Se connecter",
+        "no-account": "Pas encore de compte ?",
+        "create-account": "Créer un compte"
+    },
+    "presentation": {
+        "devise1": "frHere at PenPalMap, we aren't about quick swipes.",
+        "devise2": "frAbout learning, connecting, and growing - no matter the distance."
+    },
+    "settings": {
+        "title": "Settings",
+        "language": "Langage",
+        "theme": "Theme",
+        "dark": "Dark",
+        "light": "Light"
+    }
+}

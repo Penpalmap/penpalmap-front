@@ -1,7 +1,8 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import SignIn from '../../components/Auth/SignIn'
 import Head from 'next/head'
 
-const signin = () => {
+export default function signin() {
     return (
         <>
             <Head>
@@ -12,4 +13,10 @@ const signin = () => {
     )
 }
 
-export default signin
+export async function getStaticProps({ locale }) {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale)),
+        },
+    }
+}

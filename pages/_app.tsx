@@ -5,6 +5,7 @@ import customTheme from '../styles/customTheme'
 import { SessionProvider } from 'next-auth/react'
 import { AppProvider } from '../context/AppContext'
 import { RoomProvider } from '../context/RoomsContext'
+import { appWithTranslation } from 'next-i18next'
 // import '../i18n' // Assurez-vous que votre configuration i18n est chargée ici
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
@@ -24,4 +25,4 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)

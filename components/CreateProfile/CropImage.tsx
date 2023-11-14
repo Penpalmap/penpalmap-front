@@ -28,8 +28,6 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
                 croppedAreaPixels
             )) as File
 
-            console.log('donee', URL.createObjectURL(croppedImage))
-
             setImgCrop(croppedImage)
 
             onClose()

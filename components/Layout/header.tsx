@@ -1,7 +1,6 @@
 import {
     Avatar,
     Box,
-    Button,
     Flex,
     HStack,
     Image,
@@ -10,6 +9,7 @@ import {
     MenuDivider,
     MenuItem,
     MenuList,
+    Select,
     Text,
     useDisclosure,
 } from '@chakra-ui/react'
@@ -23,17 +23,22 @@ import { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { useTranslation } from 'next-i18next'
 import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
+import useLanguage from '../../hooks/useLanguage'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
+
+    const { changeLocale, locale } = useLanguage()
+
     // const { i18n } = useTranslation()
     const disconnect = () => {
         signOut()
         disconnectFromSocketServer(appData.socket)
     }
+
     return (
         <>
             <HStack
@@ -71,7 +76,7 @@ const Header = () => {
                         {packageJson.version}
                     </Text>
                 </Flex>
-                {session && (
+                {session ? (
                     <Menu>
                         <MenuButton
                             as={Avatar}
@@ -105,24 +110,23 @@ const Header = () => {
                             </MenuItem>
                         </MenuList>
                     </Menu>
+                ) : (
+                    <Flex alignItems={'center'} gap={'2'}>
+                        <FontAwesomeIcon icon={faGlobeEurope} />
+                        <Select
+                            variant={'flushed'}
+                            size="sm"
+                            w="fit-content"
+                            value={locale}
+                            onChange={(e) => {
+                                changeLocale(e.target.value)
+                            }}
+                        >
+                            <option value="fr">Français</option>
+                            <option value="en">Anglais</option>
+                        </Select>
+                    </Flex>
                 )}
-                {/* <Menu>
-                    <MenuButton
-                        as={Button}
-                        rightIcon={<FontAwesomeIcon icon={faGlobeEurope} />}
-                    ></MenuButton>
-                    <MenuList>
-                        <MenuItem onClick={() => i18n.changeLanguage('fr')}>
-                            <Text as="span" cursor="pointer">
-                                Français
-                            </Text>
-                        </MenuItem>
-                        <MenuDivider />
-                        <MenuItem onClick={() => i18n.changeLanguage('en')}>
-                            Anglais
-                        </MenuItem>
-                    </MenuList>
-                </Menu> */}
             </HStack>
             {session && <MyProfile onClose={onClose} isOpen={isOpen} />}
         </>

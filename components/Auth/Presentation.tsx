@@ -1,6 +1,9 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 const Presentation = () => {
+    const { t } = useTranslation('common')
+
     return (
         <Box p={[15, 5]}>
             <Text
@@ -11,10 +14,9 @@ const Presentation = () => {
                 w={'full'}
                 m={'auto'}
             >
-                Here at PenPalMap, we aren&apos;t about quick swipes.
+                {t('presentation.devise1')}
                 <br />
-                about learning, connecting, and growing - no matter the
-                distance.
+                {t('presentation.devise2')}
             </Text>
 
             <Flex
