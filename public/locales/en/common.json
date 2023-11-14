@@ -6,11 +6,12 @@
         "password": "Password",
         "connect": "Connect",
         "no-account": "Don't have an account?",
-        "create-account": "Create an account"
+        "create-account": "Create an account",
+        "nom": "Name"
     },
     "presentation": {
-        "devise1": "Here at PenPalMap, we aren't about quick swipes.",
-        "devise2": "About learning, connecting, and growing - no matter the distance."
+        "devise1": "\"Here at PenPalMap, we aren't about quick swipes...",
+        "devise2": "About learning, connecting, and growing - no matter the distance.\""
     },
     "settings": {
         "title": "Settings",
