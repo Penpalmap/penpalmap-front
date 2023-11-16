@@ -155,8 +155,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                     session?.user?.latitude,
                     session?.user?.longitude,
                 ]),
-                zoom: 5,
-                minZoom: 3.5,
+                zoom: 5.5,
+                minZoom: 4.5,
                 maxZoom: 9,
                 extent: transformExtent(
                     [-999.453125, -58.813742, 999.453125, 70.004962],
@@ -184,7 +184,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         const userSource = new VectorSource()
 
         const clusterSource = new Cluster({
-            distance: 40,
+            distance: 55,
             source: userSource,
         })
 
