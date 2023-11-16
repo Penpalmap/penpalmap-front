@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Image, Highlight } from '@chakra-ui/react'
+import { Box, Flex, Text, Image, Highlight, Button } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
 const Presentation = () => {
@@ -19,97 +19,79 @@ const Presentation = () => {
                 <br />
                 {t('presentation.devise2')}
             </Text>
-
-            <Flex
-                py={12}
-                w={'full'}
-                gap={'10'}
-                alignItems={'center'}
-                flexDir={['column', 'row']}
+            <Box
+                flex={1}
+                textAlign="center"
+                pr={[0, 4]}
+                mb={[8, 0]}
+                mt={4}
+                mx={['auto', 'auto', 8]}
+                bg="gray.100"
+                p={6}
+                borderRadius="lg"
+                boxShadow="lg"
             >
-                <Box flex={1}>
-                    <Image
-                        src="/images/image_landing2.png"
-                        alt="PenPalMap"
-                        width={'100%'}
-                        borderRadius={'lg'}
-                    />
-                </Box>
-                <Box flex={1} fontWeight={'medium'} fontSize={['sm', 'lg']}>
-                    <Text fontWeight="bold">
-                        Connectez-vous avec des amis du monde entier, où que
-                        vous soyez. Faites des amis, apprenez des langues et
-                        découvrez de nouvelles cultures quelque soit ta
-                        position.
-                    </Text>
-                    <br></br>
-                    <Text fontStyle="italic">
-                        PenPalMap est une application de messagerie instantanée
-                        qui permet de discuter avec des personnes du monde
-                        entier. Que tu sois en voyage, en déplacement ou chez
-                        vous, tu peux accéder à PenPalMap à tout moment, où que
-                        tu sois, en toute sécurité.
-                    </Text>
-                    <br />
-                    <Text fontWeight="bold">Avec PenPalMap, vous pouvez :</Text>
-                    <ul className="list-inside">
-                        <li>
-                            Faire des amis du monde entier, quel que soit leur
-                            emplacement.
-                        </li>
-                        <li>Apprendre de nouvelles langues et cultures.</li>
-                        <li>
-                            Partager vos propres expériences et perspectives.
-                        </li>
-                        <li>Construire des relations durables.</li>
-                    </ul>
-                </Box>
-            </Flex>
+                {/* <Text fontWeight="bold" mb={4}>
+                    {t('presentation.funTitle')}
+                </Text> */}
+                <Text>{t('presentation.funText')}</Text>
+            </Box>
             <Flex
-                py={12}
                 w={'full'}
                 gap={'10'}
                 alignItems={'center'}
                 flexDir={['column', 'row-reverse']}
+            ></Flex>
+            {/* Three sections: Map, Chat, and Security */}
+            <Flex
+                py={12}
+                w={'full'}
+                gap={10}
+                alignItems={'center'}
+                flexDir={['column', 'row']}
             >
+                {/* Map Section */}
                 <Box flex={1}>
                     <Image
-                        src="/images/image_landing1.png"
-                        alt="PenPalMap"
+                        src="/images/image_landing2.png"
+                        alt="PenPalMap Map"
                         width={'100%'}
                         borderRadius={'lg'}
                     />
+                    <Text fontWeight="bold" mt={4} textAlign="center">
+                        {t('presentation.mapTitle')}
+                    </Text>
+                    <Text textAlign="center">{t('presentation.mapText')}</Text>
                 </Box>
-                <Box flex={1} fontWeight={'medium'} fontSize={'lg'}>
-                    <Text fontWeight="bold">
-                        PenPalMap vous offre l'occasion d'avoir des vraies
-                        amitiés internationales. Connectez-vous avec des
-                        personnes de tous les coins du monde et immergez-vous
-                        dans des cultures diverses à travers des conversations
-                        en ligne. Commencez votre voyage international dès
-                        aujourd'hui et rejoignez notre communauté mondiale de
-                        correspondants.
+
+                {/* Chat Section */}
+                <Box flex={1}>
+                    <Image
+                        src="/images/image_landing2.png"
+                        alt="PenPalMap Chat"
+                        width={'100%'}
+                        borderRadius={'lg'}
+                    />
+                    <Text fontWeight="bold" mt={4} textAlign="center">
+                        {t('presentation.chatTitle')}
                     </Text>
-                    <br></br>
-                    <Text fontStyle="italic">
-                        PenPalMap est la plateforme internationale de
-                        correspondance en ligne qui brise les barrières
-                        linguistiques et culturelles. Fondée en 2018, notre
-                        mission est de rassembler des personnes du monde entier
-                        à travers des échanges de messages, favorisant ainsi
-                        l'apprentissage interculturel et la compréhension.
-                        Découvrez la joie de vous faire des amis du monde entier
-                        sans quitter le confort de votre maison.
+                    <Text textAlign="center">{t('presentation.chatText')}</Text>
+                </Box>
+
+                {/* Security Section */}
+                <Box flex={1}>
+                    <Image
+                        src="/images/image_landing2.png"
+                        alt="PenPalMap Security"
+                        width={'100%'}
+                        borderRadius={'lg'}
+                    />
+                    <Text fontWeight="bold" mt={4} textAlign="center">
+                        {t('presentation.securityTitle')}
                     </Text>
-                    <br />
-                    <Text fontWeight="bold">Fonctionnalités :</Text>
-                    <ul>
-                        <li>Recherche par pays, langue et intérêts.</li>
-                        <li>Messagerie en temps réel.</li>
-                        <li>Traduction automatique.</li>
-                        <li>Profils détaillés des correspondants.</li>
-                        <li>Carte interactive des membres.</li>
-                    </ul>
+                    <Text textAlign="center">
+                        {t('presentation.securityText')}
+                    </Text>
                 </Box>
             </Flex>
             <Flex
@@ -119,37 +101,42 @@ const Presentation = () => {
                 alignItems={'center'}
                 flexDir={['column', 'row']}
             >
-                <Box flex={1}>
+                {/* Image Section */}
+                <Box flex={1} position="relative">
                     <Image
-                        src="/images/image_landing2.png"
-                        alt="PenPalMap"
+                        src="/images/photo1.jpeg"
+                        alt="Why PenPalMap Image"
                         width={'100%'}
+                        maxWidth={['100%', '70%']} // Définir une largeur maximale
                         borderRadius={'lg'}
                     />
-                </Box>
-                <Box flex={1} fontWeight={'medium'} fontSize={['sm', 'lg']}>
-                    <Text fontWeight="bold">
-                        Explorez PenPalMap, la plateforme internationale de
-                        correspondance sans géolocalisation en temps réel.
-                        Spécifiez votre ville ou votre pays, mais jamais votre
-                        emplacement précis, afin de garantir votre sécurité et
-                        votre confidentialité. Sur notre carte interactive et
-                        visuellement riche, découvrez la diversité de notre
-                        communauté mondiale tout en gardant votre position
-                        réelle privée. Explorez, connectez-vous et restez en
-                        sécurité avec PenPalMap.
-                    </Text>
-                    <br></br>
-                    <br />
-                    <Text fontWeight="bold">Avec PenPalMap, vous pouvez :</Text>
-                    <ul>
-                        <li>Élargissez vos horizons.</li>
-                        <li>Apprenez de nouvelles choses.</li>
-                        <li>Faites des amis du monde entier.</li>
-                        <li>Améliorez vos compétences linguistiques.</li>
-                        <li>Découvrez de nouvelles cultures.</li>
-                        <li>Construisez des relations durables.</li>
-                    </ul>
+                    <Box
+                        position="absolute"
+                        top={'20%'}
+                        right={0} // Ajuster la valeur right à 0 pour atteindre le bord droit
+                        bottom={'20%'}
+                        bg="white"
+                        p={6}
+                        borderRadius="lg"
+                        boxShadow="lg"
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="space-around"
+                        maxWidth={['100%', '80%']} // Définir une largeur maximale
+                        mx="auto" // Centrer horizontalement
+                    >
+                        <Text fontWeight="bold" fontSize={['xl', '3xl']} mb={4}>
+                            {t('presentation.whyPenpalmapTitle')}
+                        </Text>
+                        <Text>{t('presentation.whyPenpalmapText')}</Text>
+                        <Button
+                            colorScheme="blue"
+                            size="md"
+                            width={'fit-content'}
+                        >
+                            {t('presentation.seeDetails')}
+                        </Button>
+                    </Box>
                 </Box>
             </Flex>
         </Box>
