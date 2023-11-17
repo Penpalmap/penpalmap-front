@@ -11,13 +11,13 @@ const SectionMapChatSecurity = () => {
             py={12}
             w={'full'}
             gap={10}
-            alignItems={'center'}
-            flexDir={['column', 'row']}
-            flexWrap="wrap" // Permet aux éléments de passer à la ligne en mode mobile
-            mx="auto" // Centrer horizontalement
+            alignItems={'flex-start'}
+            flexDir={{ base: 'column', md: 'row' }}
+            flexWrap="wrap"
+            mx="auto"
         >
             {/* Map Section */}
-            <Box flex={['none', 1]} maxW={['100%', '56.25em']}>
+            <Box flex={1}>
                 <Image
                     src="/images/image_landing1.png"
                     alt="PenPalMap Map"
@@ -31,7 +31,7 @@ const SectionMapChatSecurity = () => {
             </Box>
 
             {/* Chat Section */}
-            <Box flex={['none', 1]} maxW={['100%', '50%']}>
+            <Box flex={1}>
                 <Image
                     src="/images/image_landing2.png"
                     alt="PenPalMap Chat"
@@ -45,7 +45,7 @@ const SectionMapChatSecurity = () => {
             </Box>
 
             {/* Security Section */}
-            <Box flex={['none', 1]} maxW={['100%', '50%']}>
+            <Box flex={1}>
                 <Image
                     src="/images/image_landing2.png"
                     alt="PenPalMap Security"

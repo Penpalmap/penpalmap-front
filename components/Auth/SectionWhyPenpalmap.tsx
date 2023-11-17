@@ -25,9 +25,9 @@ const SectionWhyPenpalmap = () => {
                 />
                 <Box
                     position="absolute"
-                    top={'20%'}
+                    top={'30%'}
                     right={0} // Ajuster la valeur right à 0 pour atteindre le bord droit
-                    bottom={'20%'}
+                    bottom={'30%'}
                     bg="white"
                     p={6}
                     borderRadius="lg"
