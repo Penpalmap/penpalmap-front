@@ -24,6 +24,13 @@
         "whyPenpalmapText": "PenPalMap reinvents penpalling with a focus on simplicity, community, and exploration. Unlike other platforms, our service is completely free. No more need for physical letters or outdated correspondence methods. We break down barriers, allowing you to connect instantly with friends from around the globe. Our interactive map is at the heart of the experience, making it easy to discover penpals worldwide. Explore, learn, and build friendships without borders. With PenPalMap, your international adventure begins here. Join us and explore the world with new and exciting friends!",
         "seeDetails": "See Details"
     },
+    "footer": {
+        "terms": "Terms of use",
+        "privacy": "Privacy policy",
+        "legal": "Legal mentions",
+        "contact": "Contact us",
+        "about": "About us"
+    },
     "settings": {
         "title": "Settings",
         "language": "Language",

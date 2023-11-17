@@ -1,3 +1,4 @@
+// Footer.js
 import React from 'react'
 import {
     Box,
@@ -9,10 +10,10 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-// import i18n from '../../i18n'
+import { useTranslation } from 'next-i18next'
 
 const Footer = () => {
-    // const { i18n } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     return (
         <footer>
@@ -29,31 +30,20 @@ const Footer = () => {
                         </HStack>
                     </VStack>
                     <Flex alignItems={'center'} gap={'10'}>
-                        {/* <Select
-                            placeholder={i18n.language}
-                            background={'white'}
-                            value={i18n.language}
-                            onChange={(e) =>
-                                i18n.changeLanguage(e.target.value)
-                            }
-                        >
-                            <option value="en">English</option>
-                            <option value="fr">French</option>
-                        </Select> */}
                         <VStack spacing="2" align="center">
                             <Link
                                 href="/terms"
                                 color="blue.600"
                                 fontWeight="medium"
                             >
-                                Terms of Use
+                                {t('footer.terms')}
                             </Link>
                             <Link
                                 href="/legalnotice"
                                 color="blue.600"
                                 fontWeight="medium"
                             >
-                                legal
+                                {t('footer.legal')}
                             </Link>
                         </VStack>
                     </Flex>

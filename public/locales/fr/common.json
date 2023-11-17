@@ -26,6 +26,13 @@
         "texte1": " Connectez-vous avec des amis du monde entier, où que vous soyez. Faites des amis, apprenez des langues et découvrez de nouvelles cultures quelque soit ta position.",
         "texte2": "PenPalMap est une application de messagerie instantanée qui permet de discuter avec des personnes du monde entier. Que tu sois en voyage, en déplacement ou chez vous, tu peux accéder à PenPalMap à tout moment, où que tu sois, en toute sécurité."
     },
+    "footer": {
+        "terms": "Conditions d'utilisation",
+        "privacy": "Politique de confidentialité",
+        "legal": "Mentions légales",
+        "contact": "Contact",
+        "about": "À propos"
+    },
     "settings": {
         "title": "Settings",
         "language": "Langage",
