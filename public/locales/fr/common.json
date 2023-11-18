@@ -39,5 +39,11 @@
         "theme": "Theme",
         "dark": "Dark",
         "light": "Light"
+    },
+    "chat":{
+        "IsTyping": "est en train d'écrire...",
+        "you": "Vous",  
+        "send": "Envoyer",
+        "seen": "Vu"
     }
 }

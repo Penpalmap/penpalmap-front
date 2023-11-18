@@ -7,6 +7,7 @@ import { AppContext } from '../../context/AppContext'
 import { onIsTyping } from '../../sockets/socketManager'
 import { SocketEvents } from '../../constants/socketEnum'
 import EmptyChatMessages from './EmptyChatMessages'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
     messages: Array<Message> | undefined
@@ -29,6 +30,8 @@ const ChatMessages = ({
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(
         null as any
     )
+
+    const { t } = useTranslation('common')
 
     const chatContainerRef = useRef<HTMLDivElement>(null)
     const topMessageRef = useRef<HTMLDivElement>(null)
@@ -53,7 +56,7 @@ const ChatMessages = ({
         return messages?.map((message, index) => {
             const isLastMessage = index === messages.length - 1
             const isOwnMessage = session?.user?.id === message.senderId
-            const seenText = message.isSeen ? 'Vu' : 'Envoyé'
+            const seenText = message.isSeen ? t('chat.seen') : t('chat.send')
 
             const isSameSender = lastSenderId.current === message.senderId
 
@@ -153,7 +156,7 @@ const ChatMessages = ({
             {otherUserIsTyping && (
                 <Box position={'absolute'} bottom={10} left={0} p={4}>
                     <Text fontSize={'small'}>
-                        {appData?.userChat?.name} est en train d&apos;écrire...
+                        {appData?.userChat?.name} {t('chat.IsTyping')}
                     </Text>
                 </Box>
             )}
