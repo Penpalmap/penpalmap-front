@@ -1,6 +1,6 @@
 import { useSteps } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
-import { ProfileFormData } from '../../types'
+import { ProfileFormData, User } from '../../types'
 import { useForm } from 'react-hook-form'
 import ProfileGenderInput from './ProfileGenderInput'
 import ProfileBirthdayInput from './ProfileBirthdayInput'
@@ -10,6 +10,7 @@ import { getUserById, updateUser } from '../../api/userApi'
 import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
+import ProfileLanguageForm from './ProfileLanguageForm'
 
 const CreateProfile = () => {
     const { data: session, status, update: updateSession } = useSession()
@@ -17,17 +18,33 @@ const CreateProfile = () => {
 
     const { register, handleSubmit, setValue, watch } =
         useForm<ProfileFormData>({
-            mode: 'onChange',
+            mode: 'onSubmit',
         })
 
     const { activeStep, goToNext, goToPrevious } = useSteps({
         index: 0,
-        count: 4,
+        count: 5,
     })
     const selectedGender = watch('gender')
+    const usersLanguages = watch('userLanguages')
     const watchForm = watch()
+
     const [isUnderage, setIsUnderage] = useState(true)
+
     const disabledCondition = useMemo(() => {
+        const isFormLanguageValid = () => {
+            if (usersLanguages) {
+                // if (usersLanguages.length === 1 && usersLanguages[0]) {
+                //     return usersLanguages[0].language !== '' && usersLanguages[0].level !== '';
+                // }
+                return usersLanguages.every(
+                    (language) =>
+                        language.language !== '' && language.level !== ''
+                )
+            }
+            return false
+        }
+
         switch (activeStep) {
             case 0:
                 return !selectedGender
@@ -37,6 +54,8 @@ const CreateProfile = () => {
                 return false
             case 3:
                 return !watchForm.latitude || !watchForm.longitude
+            case 4:
+                return !isFormLanguageValid()
             default:
                 return false
         }
@@ -47,6 +66,7 @@ const CreateProfile = () => {
         watchForm.latitude,
         watchForm.longitude,
         isUnderage,
+        usersLanguages,
     ])
 
     //check avec getUserById si l'utilisateur a déjà un profil
@@ -70,20 +90,22 @@ const CreateProfile = () => {
 
     const onSubmit = async (data: ProfileFormData) => {
         if (!session?.user.id) return
-        await updateUser(
-            {
-                isNewUser: false,
-            },
-            session?.user.id
-        )
-
-        updateSession()
 
         if (router.locale) data.languageUsed = router.locale
+
+        data.isNewUser = false
+
+        // verify language with all values
+        if (data.userLanguages && data.userLanguages.length > 0) {
+            data.userLanguages = data.userLanguages.filter(
+                (language) => language.language && language.level
+            )
+        }
 
         const response = await updateUser(data, session?.user.id)
 
         if (response) {
+            await updateSession()
             router.push('/')
         }
     }
@@ -109,6 +131,8 @@ const CreateProfile = () => {
                 return <ProfileImage images={[]} />
             case 3:
                 return <ProfileLocationInput setValue={setValue} />
+            case 4:
+                return <ProfileLanguageForm setValue={setValue} />
             default:
                 return null
         }

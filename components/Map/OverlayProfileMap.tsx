@@ -32,6 +32,7 @@ const OverlayProfileMap = ({
 }: OverlayProfileMapProps) => {
     const { data: session } = useSession()
     const { country } = useLocation(user?.latitude, user?.longitude)
+    const genderFolder = user?.gender || 'other'
 
     return (
         <Flex
@@ -47,7 +48,8 @@ const OverlayProfileMap = ({
                 <Image
                     src={
                         user?.userImages.find((img) => img.position === 0)
-                            ?.src ?? `/images/avatar/${user?.avatarNumber}.png`
+                            ?.src ??
+                        `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
                     }
                     w={'100%'}
                     alt={user?.name}
@@ -84,7 +86,9 @@ const OverlayProfileMap = ({
                             </Flex>
                         )}
 
-                        <Badge colorScheme="green">En ligne</Badge>
+                        {user?.isOnline && (
+                            <Badge colorScheme="green">En ligne</Badge>
+                        )}
                     </Flex>
 
                     <Text display={['none', 'block']} fontSize={'sm'}>

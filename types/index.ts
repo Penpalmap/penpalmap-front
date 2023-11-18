@@ -10,6 +10,8 @@ export type ProfileFormData = {
     longitude: number
     gender: string
     languageUsed: string
+    userLanguages: Array<UserLanguage>
+    isNewUser: boolean
 }
 
 export type Message = {
@@ -61,8 +63,9 @@ export type User = {
     userImages: Array<UserImage>
     isNewUser: boolean
     isOnline: boolean
-    langageUsed: string
+    languageUsed: string
     avatarNumber: number
+    userLanguages: Array<UserLanguage>
 }
 
 export type UserMap = {
@@ -96,4 +99,11 @@ export type Room = {
 export type UserElement = User & {
     room: Room
     strokeColor: string
+}
+
+export type UserLanguage = {
+    id?: string
+    language: string
+    level: string
+    userId: string
 }

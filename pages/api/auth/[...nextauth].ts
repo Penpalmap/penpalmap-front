@@ -19,16 +19,22 @@ export default NextAuth({
                 password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials) {
-                const user = await axios.post(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/credentials`,
-                    {
-                        email: credentials?.email,
-                        password: credentials?.password,
+                try {
+                    const user = await axios.post(
+                        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/credentials`,
+                        {
+                            email: credentials?.email,
+                            password: credentials?.password,
+                        }
+                    )
+
+                    if (user) {
+                        return user.data.user
+                    } else {
+                        return null
                     }
-                )
-                if (user) {
-                    return user.data.user
-                } else {
+                } catch (error) {
+                    console.error('Error in authorize:', error)
                     return null
                 }
             },

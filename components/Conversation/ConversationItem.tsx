@@ -21,7 +21,11 @@ const ConversationItem = ({
 }: ConversationItemProps) => {
     const user = members?.find((member) => member.id !== sessionUserId)
     const { flag } = useLocation(user?.latitude, user?.longitude)
+<<<<<<< HEAD
     const { t } = useTranslation('common')
+=======
+    const genderFolder = user?.gender || 'other'
+>>>>>>> 80f41995e1d4568a0ab6f17547bd052b0bab9864
 
     return (
         <Flex
@@ -36,7 +40,11 @@ const ConversationItem = ({
         >
             <Flex position="relative" mr={2}>
                 <Avatar
-                    src={user?.image}
+                    src={
+                        user?.image
+                            ? user?.image
+                            : `/images/avatar/${genderFolder}/1${user?.avatarNumber}.png`
+                    }
                     name={user?.name}
                     size={'md'}
                     borderWidth={'medium'}
@@ -56,8 +64,8 @@ const ConversationItem = ({
                         position="absolute"
                         bottom="-1px"
                         left="-1px"
-                        border="1px solid white"
-                        borderRadius="4px"
+                        borderRadius="2px"
+                        backgroundColor={'white'}
                     />
                 )}
             </Flex>

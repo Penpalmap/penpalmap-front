@@ -37,8 +37,7 @@ const SignIn = () => {
         formState: { errors },
     } = useForm<LoginFormData>()
 
-    const { t, i18n } = useTranslation('common')
-    console.log('Current Language:', i18n.language)
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: LoginFormData) => {
         try {
@@ -74,13 +73,13 @@ const SignIn = () => {
                     // bg="#8CBBD4" // Ajout de la couleur de fond
                 >
                     <Image
-                        src="/images/LandingMap_01.png"
+                        src="/images/LandingMap_light2.png"
                         alt="PenPalMap"
                         width="50%"
                         display="inline-block"
                     />
                     <Image
-                        src="/images/LandingMap_01.png"
+                        src="/images/LandingMap_light2.png"
                         alt="PenPalMap"
                         width="50%"
                         display="inline-block"

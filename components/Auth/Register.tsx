@@ -34,8 +34,7 @@ const Register = () => {
         formState: { errors },
     } = useForm<RegisterUserInput>()
 
-    const { t, i18n } = useTranslation('common')
-    console.log('Current Language:', i18n.language)
+    const { t } = useTranslation('common')
 
     const onSubmit = async (data: RegisterUserInput) => {
         const response = await registerUser(data)
@@ -65,13 +64,13 @@ const Register = () => {
                     bg="#8CBBD4" // Ajout de la couleur de fond
                 >
                     <Image
-                        src="/images/LandingMap_light.png"
+                        src="/images/LandingMap_light2.png"
                         alt="PenPalMap"
                         width="50%"
                         display="inline-block"
                     />
                     <Image
-                        src="/images/LandingMap_light.png"
+                        src="/images/LandingMap_light2.png"
                         alt="PenPalMap"
                         width="50%"
                         display="inline-block"
