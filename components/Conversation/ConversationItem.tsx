@@ -54,8 +54,8 @@ const ConversationItem = ({
                         position="absolute"
                         bottom="-1px"
                         left="-1px"
-                        border="1px solid white"
-                        borderRadius="4px"
+                        borderRadius="2px"
+                        backgroundColor={'white'}
                     />
                 )}
             </Flex>
