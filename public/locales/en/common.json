@@ -40,7 +40,7 @@
     },
     "chat":{
         "IsTyping": "is typing...",
-        "you": "You",
+        "you": "You: ",
         "send": "Send",
         "seen":"Seen"
     }

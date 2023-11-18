@@ -42,7 +42,7 @@
     },
     "chat":{
         "IsTyping": "est en train d'écrire...",
-        "you": "Vous",  
+        "you": "Vous: ",  
         "send": "Envoyer",
         "seen": "Vu"
     }
