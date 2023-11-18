@@ -6,7 +6,8 @@ const Loading = () => {
             display={'flex'}
             justifyContent={'center'}
             alignItems={'center'}
-            h={'full'}
+            h="100vh"
+            backgroundColor={'#8CBBD4'}
         >
             <Spinner
                 thickness="4px"
@@ -20,3 +21,4 @@ const Loading = () => {
 }
 
 export default Loading
+
