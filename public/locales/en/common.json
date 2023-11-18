@@ -7,7 +7,10 @@
         "connect": "Connect",
         "no-account": "Don't have an account?",
         "create-account": "Create an account",
-        "nom": "Name"
+        "nom": "Name",
+        "already-account": "Already have an account?",
+        "register": "Register",
+        "sign-up": "Sign up!"
     },
     "presentation": {
         "devise1": "\"Here at PenPalMap, we aren't about quick swipes...",
