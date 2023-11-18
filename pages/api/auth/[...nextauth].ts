@@ -70,7 +70,7 @@ export default NextAuth({
                         const userGoogleExists = await getUserByGoogleId(
                             user.id
                         )
-
+                        const firstName = user.name?.split(' ')[0]
                         // User already exists, connect directly
                         if (userGoogleExists) {
                             return true
@@ -79,7 +79,7 @@ export default NextAuth({
                                 `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
                                 {
                                     email: user.email,
-                                    name: user.name,
+                                    name: firstName,
                                     googleId: user.id,
                                 }
                             )
