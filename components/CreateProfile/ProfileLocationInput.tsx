@@ -52,8 +52,6 @@ const ProfileLocationInput = (props: Props) => {
                     e.pixel
                 )
 
-                console.log('coordinates', coordinates)
-
                 if (!coordinates) return
                 const transformedCoordinates = transform(
                     coordinates,
