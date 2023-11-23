@@ -40,7 +40,7 @@ const ConversationItem = ({
                     src={
                         user?.image
                             ? user?.image
-                            : `/images/avatar/${genderFolder}/1${user?.avatarNumber}.png`
+                            : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
                     }
                     name={user?.name}
                     size={'md'}

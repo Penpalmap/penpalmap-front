@@ -9,6 +9,24 @@
         "create-account": "Créer un compte",
         "nom": "Nom"
     },
+  "profileGenderInput": {
+    "woman": "Femme",
+    "man": "Homme",
+    "other": "Autre ...",
+    "transgender": "Transgenre",
+    "genderless": "Sans genre",
+    "bigender": "Bigenre",
+    "androgyne": "Androgyne",
+    "neuter": "Neutre",
+    "non-binary": "Non-binaire",
+    "genderqueer": "Genre fluide",
+    "genderfluid": "Genre fluide",
+    "two-spirit": "Deux-esprits",
+    "agender": "Agenre",
+    "pangender": "Pangenre",
+    "third-gender": "Troisième genre",
+    "othergender": "Autre"
+  },
     "presentation": {
         "devise1": "\"Chez PenPalMap, nous ne sommes pas là pour des interactions éphémères...",
         "devise2": "mais pour apprendre, connecter et évoluer, peu importe la distance.\"",
