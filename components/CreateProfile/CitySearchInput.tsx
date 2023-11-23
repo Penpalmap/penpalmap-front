@@ -11,6 +11,7 @@ import {
     useToast,
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
+import { useTranslation } from 'next-i18next'
 
 type Suggestion = {
     display_name: string
@@ -31,6 +32,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
     const ref = useRef<HTMLDivElement>(null)
     const timeoutRef = useRef<number | null>(null)
     const toast = useToast()
+    const { t } = useTranslation('common')
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value
@@ -131,7 +133,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
                 <Input
                     type="text"
                     value={inputValue}
-                    placeholder="Search for a place or city..."
+                    placeholder={t('map.searchPlace')}
                     onChange={handleInputChange}
                     onKeyPress={handleInputKeyPress}
                     borderRadius="md"

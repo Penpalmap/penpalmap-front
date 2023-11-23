@@ -21,11 +21,8 @@ const ConversationItem = ({
 }: ConversationItemProps) => {
     const user = members?.find((member) => member.id !== sessionUserId)
     const { flag } = useLocation(user?.latitude, user?.longitude)
-<<<<<<< HEAD
     const { t } = useTranslation('common')
-=======
     const genderFolder = user?.gender || 'other'
->>>>>>> 80f41995e1d4568a0ab6f17547bd052b0bab9864
 
     return (
         <Flex

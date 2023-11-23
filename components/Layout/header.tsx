@@ -24,6 +24,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { useTranslation } from 'next-i18next'
 import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import useLanguage from '../../hooks/useLanguage'
+import { useTranslation } from 'next-i18next'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
@@ -39,6 +40,8 @@ const Header = () => {
         disconnectFromSocketServer(appData.socket)
     }
     const genderFolder = session?.user?.gender || 'other'
+
+    const { t } = useTranslation('common')
 
     return (
         <>
@@ -112,13 +115,15 @@ const Header = () => {
                                 </Box>
                             </MenuItem>
                             <MenuDivider />
-                            <MenuItem onClick={onOpen}>Mon profil</MenuItem>
+                            <MenuItem onClick={onOpen}>
+                                {t('menu.myProfile')}
+                            </MenuItem>
                             <Link href={`/?settings=yes`} as={`/settings/`}>
-                                <MenuItem>Paramètres</MenuItem>
+                                <MenuItem> {t('menu.parameters')}</MenuItem>
                             </Link>
                             <MenuDivider />
                             <MenuItem onClick={disconnect}>
-                                Déconnexion
+                                {t('menu.logout')}
                             </MenuItem>
                         </MenuList>
                     </Menu>
@@ -134,8 +139,8 @@ const Header = () => {
                                 changeLocale(e.target.value)
                             }}
                         >
-                            <option value="fr">Français</option>
-                            <option value="en">Anglais</option>
+                            <option value="fr">{t('languages.fr')}</option>
+                            <option value="en">{t('languages.en')}</option>
                         </Select>
                     </Flex>
                 )}

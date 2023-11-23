@@ -42,7 +42,26 @@
         "IsTyping": "is typing...",
         "you": "You: ",
         "send": "Send",
-        "seen":"Seen"
+        "seen":"Seen",
+        "engageWith": "Start a discussion with",
+        "typeMessage": "Type your message..."
+    },
+    "map":{
+        "searchPlace": "Search for a place or city..."
+    },
+    "menu":{
+        "myProfile": "My profile",
+        "parameters": "Settings",
+        "logout": "Logout"
+    },
+    "languages":{
+        "en": "English",
+        "fr": "French"
+    },
+    "profil":{
+        "photos": "Photos",
+        "addPhotos": "Add photos",
+        "description": "Description"
     }
 
 }

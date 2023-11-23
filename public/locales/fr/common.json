@@ -44,6 +44,26 @@
         "IsTyping": "est en train d'écrire...",
         "you": "Vous: ",  
         "send": "Envoyer",
-        "seen": "Vu"
+        "seen": "Vu",
+        "engageWith": "Engagez la discussion avec",
+        "typeMessage": "Tape ton message..."
+    },
+    "map":{
+        "searchPlace": "Rechercher un lieu..."
+    },
+    "menu":{
+        "myProfile": "Mon profil",
+        "parameters": "Paramètres",
+        "logout": "Déconnexion"
+    },
+    "languages":{
+        "en": "Anglais",
+        "fr": "Français"
+    },
+    "profil":{
+        "photos": "Photos",
+        "addPhotos": "Ajouter des photos",
+        "description": "Description"
     }
+
 }
