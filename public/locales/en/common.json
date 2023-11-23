@@ -9,6 +9,24 @@
         "create-account": "Create an account",
         "nom": "Name"
     },
+    "profileGenderInput": {
+        "woman": "Woman",
+        "man": "Man",
+        "other": "Other ...",
+        "transgender": "Transgender",
+        "genderless": "Genderless",
+        "bigender": "Bigender",
+        "androgyne": "Androgyne",
+        "neuter": "Neuter",
+        "non-binary": "Non-binary",
+        "genderqueer": "Genderqueer",
+        "genderfluid": "Genderfluid",
+        "two-spirit": "Two-Spirit",
+        "agender": "Agender",
+        "pangender": "Pangender",
+        "third-gender": "Third Gender",
+        "othergender": "Other"
+      },
     "presentation": {
         "devise1": "\"Here at PenPalMap, we aren't about quick swipes...",
         "devise2": "About learning, connecting, and growing - no matter the distance.\"",
@@ -42,6 +60,7 @@
         "IsTyping": "is typing...",
         "you": "You: ",
         "send": "Send",
+<<<<<<< HEAD
         "seen":"Seen"
     },
     "legal": {
@@ -58,5 +77,27 @@
         "copyrightNotice": "COPYRIGHT @ PENPALMAP",
         "additionalCopyrightText": "Copies, potential downloads from the site, and applications are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, third-party copyrights are respected. Additionally, such material, especially third-party material, is identified as such. Nevertheless, if you notice any copyright infringements, we request that you inform us accordingly. Upon becoming aware of legal violations, we will immediately remove the affected content.",
         "moreKeys": "More keys..."
+=======
+        "seen":"Seen",
+        "engageWith": "Start a discussion with",
+        "typeMessage": "Type your message..."
+    },
+    "map":{
+        "searchPlace": "Search for a place or city..."
+    },
+    "menu":{
+        "myProfile": "My profile",
+        "parameters": "Settings",
+        "logout": "Logout"
+    },
+    "languages":{
+        "en": "English",
+        "fr": "French"
+    },
+    "profil":{
+        "photos": "Photos",
+        "addPhotos": "Add photos",
+        "description": "Description"
+>>>>>>> 2937fc65f1262939e072b51a8cd079102889b2ac
     }
 }

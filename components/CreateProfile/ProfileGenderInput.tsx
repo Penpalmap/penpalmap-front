@@ -3,6 +3,7 @@ import { UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 import { ReactElement, useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'next-i18next'
 import {
     faMars,
     faVenus,
@@ -56,6 +57,7 @@ export const ProfileGenderInputBox = ({
 const ProfileGenderInput = (props: Props) => {
     const { setValue, selectedGender } = props
     const [showOtherGenders, setShowOtherGenders] = useState(false)
+    const { t } = useTranslation('common')
 
     const handleClick = useCallback(
         (gender: string) => {
@@ -74,19 +76,19 @@ const ProfileGenderInput = (props: Props) => {
                     isSelected={selectedGender === 'woman'}
                     icon={<FontAwesomeIcon icon={faVenus} size="2x" />}
                     onClick={() => handleClick('woman')}
-                    text="Woman"
+                    text={t('profileGenderInput.woman')}
                 />
                 <ProfileGenderInputBox
                     isSelected={selectedGender === 'man'}
                     icon={<FontAwesomeIcon icon={faMars} size="2x" />}
                     onClick={() => handleClick('man')}
-                    text="Man"
+                    text={t('profileGenderInput.man')}
                 />
                 <ProfileGenderInputBox
                     isSelected={selectedGender === 'other' && showOtherGenders}
                     icon={<FontAwesomeIcon icon={faVenusMars} size="2x" />}
                     onClick={() => setShowOtherGenders(!showOtherGenders)}
-                    text="Other ..."
+                    text={t('profileGenderInput.other')}
                 />
             </Wrap>
             {showOtherGenders && (
@@ -121,7 +123,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('transgender')}
-                            text="Transgender"
+                            text={t('profileGenderInput.transgender')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'genderless'}
@@ -132,7 +134,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('genderless')}
-                            text="Genderless"
+                            text={t('profileGenderInput.genderless')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'bigender'}
@@ -143,7 +145,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('bigender')}
-                            text="Bigender"
+                            text={t('profileGenderInput.bigender')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'androgyne'}
@@ -154,13 +156,13 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('androgyne')}
-                            text="Androgyne"
+                            text={t('profileGenderInput.androgyne')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'neuter'}
                             icon={<FontAwesomeIcon icon={faNeuter} size="2x" />}
                             onClick={() => handleClick('neuter')}
-                            text="Neuter"
+                            text={t('profileGenderInput.neuter')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'non-binary'}
@@ -168,7 +170,7 @@ const ProfileGenderInput = (props: Props) => {
                                 <FontAwesomeIcon icon={faMercury} size="2x" />
                             }
                             onClick={() => handleClick('non-binary')}
-                            text="Non-binary"
+                            text={t('profileGenderInput."non-binary')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'genderqueer'}
@@ -179,7 +181,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('genderqueer')}
-                            text="Genderqueer"
+                            text={t('profileGenderInput.genderqueer')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'genderfluid'}
@@ -190,7 +192,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('genderfluid')}
-                            text="Genderfluid"
+                            text={t('profileGenderInput.genderfluid')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'two-spirit'}
@@ -201,7 +203,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('two-spirit')}
-                            text="Two-Spirit"
+                            text={t('profileGenderInput.two-spirit')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'agender'}
@@ -212,7 +214,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('agender')}
-                            text="Agender"
+                            text={t('profileGenderInput.agender')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'pangender'}
@@ -223,7 +225,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('pangender')}
-                            text="Pangender"
+                            text={t('profileGenderInput.pangender')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'third-gender'}
@@ -231,7 +233,7 @@ const ProfileGenderInput = (props: Props) => {
                                 <FontAwesomeIcon icon={faVenusMars} size="2x" />
                             }
                             onClick={() => handleClick('third-gender')}
-                            text="Third Gender"
+                            text={t('profileGenderInput.third-gender')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'othergender'}
@@ -242,7 +244,7 @@ const ProfileGenderInput = (props: Props) => {
                                 />
                             }
                             onClick={() => handleClick('othergender')}
-                            text="Other"
+                            text={t('profileGenderInput.othergender')}
                         />
                     </Wrap>
                 </Box>

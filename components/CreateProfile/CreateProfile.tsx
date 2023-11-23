@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const CreateProfile = () => {
     const { data: session, status, update: updateSession } = useSession()
@@ -159,3 +160,11 @@ const CreateProfile = () => {
 }
 
 export default CreateProfile
+
+// export async function getStaticProps({ locale }) {
+//     return {
+//         props: {
+//             ...(await serverSideTranslations(locale)),
+//         },
+//     }
+// }

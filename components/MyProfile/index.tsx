@@ -22,6 +22,7 @@ import { UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import ProfileImage from '../Profile/ProfileImages'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
     isOpen: boolean
@@ -32,6 +33,8 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
     const { data: session } = useSession()
 
     const [images, setImages] = useState<UserImage[]>([])
+
+    const { t } = useTranslation('common')
 
     useEffect(() => {
         if (session?.user?.userImages) {
@@ -70,10 +73,10 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
             <>
                 <Box mb={4}>
                     <Text fontWeight={'semibold'} fontSize={'lg'}>
-                        Photos
+                        {t('profil.photos')}
                     </Text>
                     <Text mb={2} fontSize={'small'}>
-                        Ajouter des photos
+                        {t('profil.addPhotos')}
                     </Text>
                     <ProfileImage images={images} />
                 </Box>
@@ -81,7 +84,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                 <Box mb={4}>
                     <FormControl>
                         <FormLabel fontWeight={'semibold'}>
-                            Description
+                            {t('profil.description')}
                         </FormLabel>
                         <Editable
                             defaultValue="Take some chakra"
@@ -112,7 +115,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                 borderRadius={'2xl'}
             >
                 <ModalHeader borderBottom={'1px solid #ededed'}>
-                    <Text>Mon profil</Text>
+                    <Text>{t('menu.myProfile')}</Text>
                 </ModalHeader>
                 <ModalCloseButton />
 

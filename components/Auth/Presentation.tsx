@@ -33,10 +33,12 @@ const Presentation = () => {
                 borderRadius="lg"
                 boxShadow="lg"
             >
-                {/* <Text fontWeight="bold" mb={4}>
-                    {t('presentation.funTitle')}
-                </Text> */}
-                <Text>{t('presentation.funText')}</Text>
+                <Text
+                    maxW={{ base: '100%', xl: '1300px' }} // Taille maximale de 1400px pour les écrans extra larges (xl)
+                    mx={{ base: '2', xl: 'auto' }}
+                >
+                    {t('presentation.funText')}
+                </Text>
             </Box>
             <Flex
                 w={'full'}
