@@ -35,15 +35,16 @@ const Settings = () => {
                     value={locale}
                     onChange={handleLocaleChange}
                 >
-                    <option value="fr">Français</option>
-                    <option value="en">Anglais</option>
+                    <option value="fr">{t('languages.fr')}</option>
+                    <option value="en">{t('languages.en')}</option>
                 </Select>
             </Flex>
             <Link href="/terms" color="blue.600" fontWeight="medium">
-                Terms of Use
+                {t('footer.terms')}
             </Link>
+            <br />
             <Link href="/legalnotice" color="blue.600" fontWeight="medium">
-                Mentions Légales
+                {t('footer.legal')}
             </Link>
         </div>
     )

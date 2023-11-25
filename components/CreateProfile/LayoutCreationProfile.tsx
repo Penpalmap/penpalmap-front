@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'next-i18next'
 
 type LayoutCreationProfileProps = {
     activeStep: number
@@ -38,6 +39,8 @@ const LayoutCreationProfile = ({
             titlePage: 'Select your language',
         },
     ]
+
+    const { t } = useTranslation('common')
 
     return (
         <Flex

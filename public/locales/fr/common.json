@@ -12,6 +12,24 @@
         "register": "S'inscrire",
         "sign-up": "inscrivez-vous!"
     },
+  "profileGenderInput": {
+    "woman": "Femme",
+    "man": "Homme",
+    "other": "Autre ...",
+    "transgender": "Transgenre",
+    "genderless": "Sans genre",
+    "bigender": "Bigenre",
+    "androgyne": "Androgyne",
+    "neuter": "Neutre",
+    "non-binary": "Non-binaire",
+    "genderqueer": "Genre fluide",
+    "genderfluid": "Genre fluide",
+    "two-spirit": "Deux-esprits",
+    "agender": "Agenre",
+    "pangender": "Pangenre",
+    "third-gender": "Troisième genre",
+    "othergender": "Autre"
+  },
     "presentation": {
         "devise1": "\"Chez PenPalMap, nous ne sommes pas là pour des interactions éphémères...",
         "devise2": "mais pour apprendre, connecter et évoluer, peu importe la distance.\"",
@@ -29,11 +47,58 @@
         "texte1": " Connectez-vous avec des amis du monde entier, où que vous soyez. Faites des amis, apprenez des langues et découvrez de nouvelles cultures quelque soit ta position.",
         "texte2": "PenPalMap est une application de messagerie instantanée qui permet de discuter avec des personnes du monde entier. Que tu sois en voyage, en déplacement ou chez vous, tu peux accéder à PenPalMap à tout moment, où que tu sois, en toute sécurité."
     },
+    "footer": {
+        "terms": "Conditions d'utilisation",
+        "privacy": "Politique de confidentialité",
+        "legal": "Mentions légales",
+        "contact": "Contact",
+        "about": "À propos"
+    },
     "settings": {
         "title": "Settings",
         "language": "Langage",
         "theme": "Theme",
         "dark": "Dark",
         "light": "Light"
+    },
+    "chat":{
+        "IsTyping": "est en train d'écrire...",
+        "you": "Vous: ",  
+        "send": "Envoyer",
+        "seen": "Vu",
+        "engageWith": "Engagez la discussion avec",
+        "typeMessage": "Tape ton message..."
+    },
+    "legal": {
+        "legalNoticeTitle": "Mentions Légales",
+        "companyName": "Penpalmap.com",
+        "companyEmail": "E-mail : contact@penpalmap.com",
+        "domainEstablished": "Le nom de domaine www.penpalmap.com a été créé le 15 septembre 2018.",
+        "disclaimer": "CLAUSE DE NON-RESPONSABILITÉ",
+        "disclaimerText": "Le contenu du site www.penpalmap.com a été créé avec le plus grand soin. Cependant, aucune garantie ne peut être donnée quant à l'exhaustivité, l'exactitude ou l'actualité du contenu du site. En tant que prestataires de services, nous sommes responsables de nos propres informations conformément à la législation générale. Cela n'affecte pas l'obligation de bloquer ou d'empêcher l'utilisation des informations en vertu de la législation générale. Cependant, la responsabilité n'est possible qu'une fois que nous avons connaissance d'une violation spécifique de la loi. Dans ce cas, nous supprimerons bien sûr immédiatement le contenu concerné.",
+        "liabilityForLinks": "RESPONSABILITÉ POUR LES LIENS",
+        "liabilityForLinksText": "Ce site Web peut contenir des liens vers des sites Web externes gérés par des tiers, sur le contenu desquels nous n'avons aucune influence. Nous ne pouvons donc pas non plus fournir de garantie pour ces contenus externes. Les opérateurs et fournisseurs respectifs sont eux-mêmes responsables du contenu de ces sites Web externes. Au moment de la création du lien, nous avons toutefois vérifié le site Web lié pour détecter d'éventuelles violations de la loi. Lorsque le lien a été établi, aucune violation de la loi n'a pu être identifiée par nous. Cependant, il n'est pas possible d'effectuer des contrôles réguliers du contenu des sites Web liés sans indications spécifiques d'une violation de la loi. En cas d'infraction à la loi, nous supprimerons immédiatement le lien vers le contenu illégal.",
+        "copyright": "DROITS D'AUTEUR",
+        "copyrightText": "Le contenu et les œuvres que nous avons créés sur ces pages sont soumis au droit d'auteur français et européen. Nous attirons votre attention sur le fait que toute duplication, édition, diffusion ou tout type d'utilisation en dehors des limites du droit d'auteur nécessite l'accord écrit de l'auteur ou du créateur concerné. Sans le consentement exprès et écrit de l'auteur, toute utilisation ultérieure, en particulier la publication, toute forme d'exploitation commerciale et de transfert à des tiers - y compris en partie et sous une forme révisée - est interdite. Le droit d'auteur pour le matériel publié ici et pour les objets créés par l'auteur appartient uniquement à l'exploitant de ces pages.",
+        "copyrightNotice": "COPYRIGHT @ PENPALMAP.",
+        "additionalCopyrightText": "Les copies, les téléchargements éventuels sur le site et les applications ne sont autorisés que pour un usage privé et non commercial. Dans la mesure où le contenu de ce site n'a pas été créé par l'exploitant, les droits d'auteur de tiers sont respectés. De plus, ce matériel, en particulier le matériel de tiers, est marqué comme tel. Si vous avez néanmoins connaissance d'une violation du droit d'auteur, nous vous demandons de nous en informer en conséquence. Si nous prenons connaissance d'infractions à la loi, nous supprimerons immédiatement le contenu concerné.",
+        "moreKeys": "Plus de clés..."
+    },
+    "map":{
+        "searchPlace": "Rechercher un lieu..."
+    },
+    "menu":{
+        "myProfile": "Mon profil",
+        "parameters": "Paramètres",
+        "logout": "Déconnexion"
+    },
+    "languages":{
+        "en": "Anglais",
+        "fr": "Français"
+    },
+    "profil":{
+        "photos": "Photos",
+        "addPhotos": "Ajouter des photos",
+        "description": "Description"
     }
 }

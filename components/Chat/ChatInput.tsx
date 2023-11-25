@@ -6,6 +6,7 @@ import { AppContext } from '../../context/AppContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { isTyping } from '../../sockets/socketManager'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
     room: Room | null
@@ -19,6 +20,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     const content = watch('content')
     const { ref } = register('content')
     const inputRef = useRef<HTMLInputElement | null>(null)
+    const { t } = useTranslation('common')
 
     useEffect(() => {
         setValue('roomId', room?.id)
@@ -66,7 +68,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
                     mr={2}
                     type="text"
                     fontSize={'small'}
-                    placeholder="Type your message"
+                    placeholder={t('chat.typeMessage')}
                     {...register('content', {
                         required: 'Message is empty',
                     })}

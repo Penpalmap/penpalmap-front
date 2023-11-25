@@ -2,6 +2,7 @@ import { Flex, Avatar, AvatarBadge, Icon, Box, Text } from '@chakra-ui/react'
 import dayjs from 'dayjs'
 import { Message, User } from '../../types'
 import useLocation from '../../hooks/useLocation'
+import { useTranslation } from 'next-i18next'
 
 type ConversationItemProps = {
     clickOnRoom: (members: User[]) => void
@@ -20,6 +21,7 @@ const ConversationItem = ({
 }: ConversationItemProps) => {
     const user = members?.find((member) => member.id !== sessionUserId)
     const { flag } = useLocation(user?.latitude, user?.longitude)
+    const { t } = useTranslation('common')
     const genderFolder = user?.gender || 'other'
 
     return (
@@ -38,7 +40,7 @@ const ConversationItem = ({
                     src={
                         user?.image
                             ? user?.image
-                            : `/images/avatar/${genderFolder}/1${user?.avatarNumber}.png`
+                            : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
                     }
                     name={user?.name}
                     size={'md'}
@@ -86,7 +88,9 @@ const ConversationItem = ({
                         whiteSpace={'nowrap'}
                         textOverflow={'ellipsis'}
                     >
-                        {lastMessage?.senderId === sessionUserId && 'Vous : '}
+                        {lastMessage?.senderId === sessionUserId
+                            ? t('chat.you')
+                            : ''}{' '}
                         {lastMessage?.content} -{' '}
                         {dayjs(lastMessage?.createdAt).format('D MMM')}
                     </Text>
