@@ -64,6 +64,10 @@ const ChatMessages = ({
 
             lastSenderId.current = message.senderId
 
+            const image =
+                appData?.userChat?.image ??
+                `/images/avatar/${genderFolder}/${appData.userChat?.avatarNumber}.png`
+
             // if top message, put a ref to scroll to it
             if (index === 0) {
                 return (
@@ -79,10 +83,7 @@ const ChatMessages = ({
                             isLastMessage={isLastMessage}
                             isOwnMessage={isOwnMessage}
                             seenText={seenText}
-                            image={
-                                (!isSameSender && appData?.userChat?.image) ||
-                                ''
-                            }
+                            image={(!isSameSender && image) || ''}
                         />
                     </Box>
                 )
@@ -94,11 +95,18 @@ const ChatMessages = ({
                     isLastMessage={isLastMessage}
                     isOwnMessage={isOwnMessage}
                     seenText={seenText}
-                    image={(!isSameSender && appData?.userChat?.image) || ''}
+                    image={(!isSameSender && image) || ''}
                 />
             )
         })
-    }, [appData?.userChat?.image, messages, session?.user?.id])
+    }, [
+        appData.userChat?.avatarNumber,
+        appData.userChat?.image,
+        genderFolder,
+        messages,
+        session?.user?.id,
+        t,
+    ])
 
     useEffect(() => {
         if (!appData.socket) return
