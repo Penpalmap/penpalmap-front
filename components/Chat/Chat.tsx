@@ -16,6 +16,8 @@ const Chat = () => {
     const { room, sendMessage, messages, offset, setOffset, isLoading } =
         useChat()
 
+    const genderFolder = appData?.userChat?.gender || 'other'
+
     const socket = useRef<Socket>()
 
     useEffect(() => {
@@ -49,7 +51,7 @@ const Chat = () => {
                 name={appData?.userChat?.name}
                 photoUrl={
                     appData?.userChat?.image ||
-                    'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg'
+                    `/images/avatar/${genderFolder}/${appData?.userChat?.avatarNumber}.png`
                 }
                 isOnline={appData?.userChat?.isOnline}
                 userId={appData?.userChat?.id}

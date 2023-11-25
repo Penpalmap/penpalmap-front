@@ -39,6 +39,8 @@ const ChatMessages = ({
     const lastSenderId = useRef<string | null>(null)
     const [bottomScrollIsDone, setBottomScrollIsDone] = useState(false)
 
+    const genderFolder = appData?.userChat?.gender || 'other'
+
     useEffect(() => {
         setBottomScrollIsDone(false)
     }, [appData.userChat])
@@ -149,7 +151,10 @@ const ChatMessages = ({
 
             {isNewChat && (
                 <EmptyChatMessages
-                    image={appData?.userChat?.image || ''}
+                    image={
+                        appData?.userChat?.image ||
+                        `/images/avatar/${genderFolder}/${appData?.userChat?.avatarNumber}.png`
+                    }
                     name={appData?.userChat?.name || ''}
                 />
             )}
