@@ -91,7 +91,7 @@ const Register = () => {
                     alignItems={'center'}
                 >
                     <Heading as="h1" size="lg" mb={6}>
-                        Inscrivez-vous
+                        {t('connect.sign-up')}
                     </Heading>
                     <GoogleLoginButton />
                     <Divider my={6} />
@@ -146,20 +146,20 @@ const Register = () => {
                                 </Alert>
                             )}
                             <Button type="submit" colorScheme="blue">
-                                S&apos;inscrire
+                                {t('connect.register')}
                             </Button>
                         </Stack>
                     </form>
                     <Box mt={4}>
                         <Text fontSize={'small'}>
-                            Vous avez déjà un compte ?{' '}
+                            {t('connect.already-account')}{' '}
                             <Link href="/auth/signin">
                                 <Text
                                     as="span"
                                     color="blue.500"
                                     cursor="pointer"
                                 >
-                                    Connectez-vous
+                                    {t('connect.connection')}
                                 </Text>
                             </Link>
                         </Text>

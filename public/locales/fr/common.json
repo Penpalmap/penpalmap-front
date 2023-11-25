@@ -7,7 +7,10 @@
         "connect": "Se connecter",
         "no-account": "Pas encore de compte ?",
         "create-account": "Créer un compte",
-        "nom": "Nom"
+        "nom": "Nom",
+        "already-account": "Déjà un compte ?",
+        "register": "S'inscrire",
+        "sign-up": "inscrivez-vous!"
     },
   "profileGenderInput": {
     "woman": "Femme",
