@@ -1,6 +1,14 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import CreateProfile from '../components/CreateProfile/CreateProfile'
 
-const createProfile = () => {
+export default function createProfile() {
     return <CreateProfile />
 }
-export default createProfile
+
+export async function getStaticProps({ locale }) {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale)),
+        },
+    }
+}
