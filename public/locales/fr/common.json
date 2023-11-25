@@ -62,7 +62,9 @@
         "IsTyping": "est en train d'écrire...",
         "you": "Vous: ",  
         "send": "Envoyer",
-        "seen": "Vu"
+        "seen": "Vu",
+        "engageWith": "Engagez la discussion avec",
+        "typeMessage": "Tape ton message..."
     },
     "legal": {
         "legalNoticeTitle": "Mentions Légales",
@@ -78,12 +80,6 @@
         "copyrightNotice": "COPYRIGHT @ PENPALMAP.",
         "additionalCopyrightText": "Les copies, les téléchargements éventuels sur le site et les applications ne sont autorisés que pour un usage privé et non commercial. Dans la mesure où le contenu de ce site n'a pas été créé par l'exploitant, les droits d'auteur de tiers sont respectés. De plus, ce matériel, en particulier le matériel de tiers, est marqué comme tel. Si vous avez néanmoins connaissance d'une violation du droit d'auteur, nous vous demandons de nous en informer en conséquence. Si nous prenons connaissance d'infractions à la loi, nous supprimerons immédiatement le contenu concerné.",
         "moreKeys": "Plus de clés..."
-    }
-    }
-
-        "seen": "Vu",
-        "engageWith": "Engagez la discussion avec",
-        "typeMessage": "Tape ton message..."
     },
     "map":{
         "searchPlace": "Rechercher un lieu..."
@@ -102,5 +98,4 @@
         "addPhotos": "Ajouter des photos",
         "description": "Description"
     }
-
 }

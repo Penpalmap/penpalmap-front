@@ -60,8 +60,9 @@
         "IsTyping": "is typing...",
         "you": "You: ",
         "send": "Send",
-<<<<<<< HEAD
-        "seen":"Seen"
+        "seen":"Seen",
+        "engageWith": "Start a discussion with",
+        "typeMessage": "Type your message..."
     },
     "legal": {
         "legalNoticeTitle": "Legal Notice",
@@ -77,10 +78,6 @@
         "copyrightNotice": "COPYRIGHT @ PENPALMAP",
         "additionalCopyrightText": "Copies, potential downloads from the site, and applications are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, third-party copyrights are respected. Additionally, such material, especially third-party material, is identified as such. Nevertheless, if you notice any copyright infringements, we request that you inform us accordingly. Upon becoming aware of legal violations, we will immediately remove the affected content.",
         "moreKeys": "More keys..."
-=======
-        "seen":"Seen",
-        "engageWith": "Start a discussion with",
-        "typeMessage": "Type your message..."
     },
     "map":{
         "searchPlace": "Search for a place or city..."
@@ -98,6 +95,5 @@
         "photos": "Photos",
         "addPhotos": "Add photos",
         "description": "Description"
->>>>>>> 2937fc65f1262939e072b51a8cd079102889b2ac
     }
 }
