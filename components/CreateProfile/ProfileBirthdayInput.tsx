@@ -11,6 +11,7 @@ import {
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 import { ProfileFormData } from '../../types'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
     register: UseFormRegister<ProfileFormData>
@@ -39,7 +40,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     const [day, setDay] = useState<number | null>(null)
     const [month, setMonth] = useState<number | null>(null)
     const [year, setYear] = useState<number | null>(null)
-
+    const { t } = useTranslation('common')
     const calculateAge = (birthdate: string): number => {
         const now = dayjs()
         const dob = dayjs(birthdate)
@@ -75,11 +76,9 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                     title: 'Hey, explorer! 🚸',
                     description: (
                         <>
-                            Just a heads-up: To journey in PenPalMap, you need
-                            to be at least 12 years old. Stay safe and enjoy the
-                            adventure! 🌍✨ Curious about the rules? Check our{' '}
+                            {t('connect.less12')}{' '}
                             <Link color="white.500" href="/terms" isExternal>
-                                Terms of Use
+                                {t('footer.terms')}
                             </Link>
                             . 📜
                         </>
@@ -94,14 +93,11 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                     title: 'Hey, explorer! 🚸',
                     description: (
                         <>
-                            🚸 Hey there, young explorer! Just a heads-up: there
-                            are adults on this app. Always stay safe and be
-                            cautious. 🛡️ Need more info? Check our{' '}
+                            {t('connect.more12part1')}{' '}
                             <Link color="white.500" href="/terms" isExternal>
-                                Terms of Use
+                                {t('footer.terms')}
                             </Link>
-                            . If something feels off, don&apos;t hesitate to
-                            reach out to the PenPalMap team! 💌
+                            {t('connect.more12part2')}
                         </>
                     ),
                     status: 'info',
@@ -116,7 +112,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
         <FormControl id="birthday">
             <Box display="flex" gap="4">
                 <Select
-                    placeholder="Jour"
+                    placeholder={t('connect.day')}
                     onChange={(e) => setDay(Number(e.target.value))}
                 >
                     {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
@@ -127,7 +123,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                 </Select>
 
                 <Select
-                    placeholder="Mois"
+                    placeholder={t('connect.month')}
                     onChange={(e) => setMonth(Number(e.target.value))}
                 >
                     {MONTHS.map((month, index) => (
@@ -138,7 +134,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                 </Select>
 
                 <Select
-                    placeholder="Année"
+                    placeholder={t('connect.year')}
                     onChange={(e) => setYear(Number(e.target.value))}
                 >
                     {Array.from(

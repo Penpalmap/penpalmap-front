@@ -1,5 +1,9 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
-import { faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons'
+import {
+    faArrowLeft,
+    faArrowRight,
+    faCheck,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
 
@@ -15,32 +19,33 @@ const LayoutCreationProfile = ({
     activeStep,
     children,
     handleNextStep,
+    handlePreviousStep,
     disabled,
 }: LayoutCreationProfileProps) => {
+    const { t } = useTranslation('common')
+
     const steps = [
         {
             title: 'Gender',
-            titlePage: 'Select your gender',
+            titlePage: t('connect.selectGender'),
         },
         {
             title: 'Birthday',
-            titlePage: 'Select your birthdate',
+            titlePage: t('connect.selectBirthday'),
         },
         {
             title: 'Photos',
-            titlePage: 'Pick some photos',
+            titlePage: t('connect.selectPhotos'),
         },
         {
             title: 'Map',
-            titlePage: 'Pick your position',
+            titlePage: t('connect.pickLocation'),
         },
         {
             title: 'Language',
-            titlePage: 'Select your language',
+            titlePage: t('connect.selectLanguage'),
         },
     ]
-
-    const { t } = useTranslation('common')
 
     return (
         <Flex
@@ -69,28 +74,41 @@ const LayoutCreationProfile = ({
                     >
                         {children}
                     </Flex>
-                </Box>{' '}
-                {activeStep !== 4 ? (
-                    <Button
-                        w={'full'}
-                        onClick={handleNextStep}
-                        colorScheme="blue"
-                        rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-                        isDisabled={disabled}
-                    >
-                        Suivant
-                    </Button>
-                ) : (
-                    <Button
-                        w={'full'}
-                        colorScheme="green"
-                        type="submit"
-                        rightIcon={<FontAwesomeIcon icon={faCheck} />}
-                        isDisabled={disabled}
-                    >
-                        Terminer
-                    </Button>
-                )}
+                </Box>
+                <Flex justifyContent="space-between">
+                    {activeStep !== 0 && (
+                        <Button
+                            w={'30%'}
+                            onClick={handlePreviousStep}
+                            colorScheme="white"
+                            textColor="gray.400"
+                            leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+                        >
+                            {t('connect.previous')}
+                        </Button>
+                    )}
+                    {activeStep !== 4 ? (
+                        <Button
+                            w={'50%'}
+                            onClick={handleNextStep}
+                            colorScheme="blue"
+                            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                            isDisabled={disabled}
+                        >
+                            {t('connect.next')}
+                        </Button>
+                    ) : (
+                        <Button
+                            w={'50%'}
+                            colorScheme="green"
+                            type="submit"
+                            rightIcon={<FontAwesomeIcon icon={faCheck} />}
+                            isDisabled={disabled}
+                        >
+                            {t('connect.finish')}
+                        </Button>
+                    )}
+                </Flex>
             </Box>
         </Flex>
     )
