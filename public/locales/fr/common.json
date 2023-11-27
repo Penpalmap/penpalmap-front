@@ -28,7 +28,16 @@
         "more12part1":"🚸 Salut ! Juste un avertissement : il y a des adultes sur cette application. Reste toujours en sécurité et sois prudent. 🛡️ Besoin de plus d'informations ? Consulte nos",
         "more12part2":". Si quelque chose te semble étrange, n'hésite pas à contacter l'équipe PenPalMap ! 💌",
         "editImage":"Editer votre image",
-        "toastLocationOut": "Oups ! Il semble que vous soyez au milieu de nulle part. Il est temps de sortir votre passeport imaginaire et d'explorer le 'Pays de Nulle Part' ! 🌍✈️"
+        "toastLocationOut": "Oups ! Il semble que vous soyez au milieu de nulle part. Il est temps de sortir votre passeport imaginaire et d'explorer le 'Pays de Nulle Part' ! 🌍✈️",
+        "selectALanguage": "Sélectionnez une langue",
+        "level": "Niveau",
+        "native": "Langue maternelle",
+        "fluent": "Courant",
+        "advanced": "Avancé",
+        "intermediate": "Intermédiaire",
+        "beginner": "Débutant",
+        "delete": "Supprimer",
+        "addLanguage": "Ajouter une langue"
     },
    "months": {
         "january":"common:Janvier",

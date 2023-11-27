@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { DeleteIcon } from '@chakra-ui/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
     setValue: any
@@ -15,16 +16,16 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
     const [languages, setLanguages] = useState<UserLanguage[]>([
         { language: '', level: '', userId: session.user.id },
     ])
-
+    const { t } = useTranslation('common')
     const [availableLanguages, setAvailableLanguages] = useState<
         { label: string; value: string }[]
     >([
         {
-            label: 'Français',
+            label: t('languages.fr'),
             value: 'fr',
         },
         {
-            label: 'Anglais',
+            label: t('languages.en'),
             value: 'en',
         },
     ])
@@ -73,7 +74,7 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
             {languages.map((language, index) => (
                 <Flex key={language.id} gap={4}>
                     <Select
-                        placeholder="Sélectionner une langue"
+                        placeholder={t('connect.selectALanguage')}
                         value={language.language}
                         onChange={(e) =>
                             handleLanguageChange(index, e.target.value)
@@ -86,20 +87,27 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
                         ))}
                     </Select>
                     <Select
-                        placeholder="Niveau"
+                        placeholder={t('connect.level')}
                         value={language.level}
                         onChange={(e) =>
                             handleLevelChange(index, e.target.value)
                         }
                     >
-                        <option value="native">Natif</option>
-                        <option value="fluent">Courant</option>
-                        <option value="intermediate">Intermédiaire</option>
-                        <option value="beginner">Débutant</option>
+                        <option value="native">{t('connect.native')}</option>
+                        <option value="fluent">{t('connect.fluent')}</option>
+                        <option value="advanced">
+                            {t('connect.advanced')}
+                        </option>
+                        <option value="intermediate">
+                            {t('connect.intermediate')}
+                        </option>
+                        <option value="beginner">
+                            {t('connect.beginner')}
+                        </option>
                     </Select>
 
                     <IconButton
-                        aria-label="delete"
+                        aria-label={t('languages.delete')}
                         icon={<FontAwesomeIcon icon={faTrash} />}
                         onClick={() => {
                             const updatedLanguages = [...languages]
@@ -110,7 +118,7 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
                     />
                 </Flex>
             ))}
-            <Button onClick={addLanguage}>Ajouter une langue</Button>
+            <Button onClick={addLanguage}>{t('connect.addLanguage')}</Button>
         </VStack>
     )
 }

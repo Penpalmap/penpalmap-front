@@ -28,7 +28,16 @@
         "more12part1":"🚸 Hey there, young explorer! Just a heads-up: there are adults on this app. Always stay safe and be cautious. 🛡️ Need more info? Check our",
         "more12part2":". If something feels off, don&apos;t hesitate to reach out to the PenPalMap team! 💌",
         "editImage": "Edit image",
-        "toastLocationOut": "Oops! It seems you're in the middle of nowhere. Time to bring out your imaginary passport and explore the 'Land of Nowhere'! 🌍✈️"
+        "toastLocationOut": "Oops! It seems you're in the middle of nowhere. Time to bring out your imaginary passport and explore the 'Land of Nowhere'! 🌍✈️",
+        "selectALanguage": "Select a language",
+        "level": "Level",
+        "native": "Native",
+        "fluent": "Fluent",
+        "advanced": "Advanced",
+        "intermediate": "Intermediate",
+        "beginner": "Beginner",
+        "delete": "Delete",
+        "addLanguage": "Add a language"
     },
     "months": {
         "january": "common:January",
@@ -61,6 +70,7 @@
         "pangender": "Pangender",
         "third-gender": "Third Gender",
         "othergender": "Other"
+    
       },
     "presentation": {
         "devise1": "\"Here at PenPalMap, we aren't about quick swipes...",
