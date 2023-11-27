@@ -26,8 +26,23 @@
         "heyExplorer": "Hey, explorer! 🚸",
         "less12":"Juste un avertissement : Pour voyager sur PenPalMap, tu dois avoir au moins 12 ans. Reste en sécurité et profite de l'aventure ! 🌍✨ Tu te demande quelles sont les règles ? Consulte nos",
         "more12part1":"🚸 Salut ! Juste un avertissement : il y a des adultes sur cette application. Reste toujours en sécurité et sois prudent. 🛡️ Besoin de plus d'informations ? Consulte nos",
-        "more12part2":". Si quelque chose te semble étrange, n'hésite pas à contacter l'équipe PenPalMap ! 💌"
+        "more12part2":". Si quelque chose te semble étrange, n'hésite pas à contacter l'équipe PenPalMap ! 💌",
+        "editImage":"Editer votre image"
     },
+   "months": {
+        "january":"common:Janvier",
+        "february":"common:Février",
+        "march":"common:Mars",
+        "april":"common:Avril",
+        "may":"common:Mai",
+        "june":"common:Juin",
+        "july":"common:Juillet",
+        "august":"common:Aoû",
+        "september":"common:Septembre",
+        "october":"common:Octobre",
+        "november":"common:Novembre",
+        "december":"common:Décembre"
+   },
   "profileGenderInput": {
     "woman": "Femme",
     "man": "Homme",

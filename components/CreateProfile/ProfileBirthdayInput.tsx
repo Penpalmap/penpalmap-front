@@ -40,7 +40,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     const [day, setDay] = useState<number | null>(null)
     const [month, setMonth] = useState<number | null>(null)
     const [year, setYear] = useState<number | null>(null)
-    const { t } = useTranslation('common')
+    const { t } = useTranslation(['common', 'months'])
     const calculateAge = (birthdate: string): number => {
         const now = dayjs()
         const dob = dayjs(birthdate)
@@ -76,7 +76,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                     title: 'Hey, explorer! 🚸',
                     description: (
                         <>
-                            {t('connect.less12')}{' '}
+                            {t('connect.more12part1')}{' '}
                             <Link color="white.500" href="/terms" isExternal>
                                 {t('footer.terms')}
                             </Link>
@@ -128,7 +128,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                 >
                     {MONTHS.map((month, index) => (
                         <option key={month} value={index + 1}>
-                            {month}
+                            {t(`months:${month}`)}
                         </option>
                     ))}
                 </Select>

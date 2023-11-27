@@ -31,11 +31,11 @@ const LayoutCreationProfile = ({
         },
         {
             title: 'Birthday',
-            titlePage: t('connect.selectBirthday'),
+            titlePage: t('connect.selectBirthdate'),
         },
         {
             title: 'Photos',
-            titlePage: t('connect.selectPhotos'),
+            titlePage: t('connect.selectPhoto'),
         },
         {
             title: 'Map',
