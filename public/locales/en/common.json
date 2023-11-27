@@ -27,7 +27,8 @@
         "less12":"Just a heads-up: To journey in PenPalMap, you need to be at least 12 years old. Stay safe and enjoy the adventure! 🌍✨ Curious about the rules? Check our",
         "more12part1":"🚸 Hey there, young explorer! Just a heads-up: there are adults on this app. Always stay safe and be cautious. 🛡️ Need more info? Check our",
         "more12part2":". If something feels off, don&apos;t hesitate to reach out to the PenPalMap team! 💌",
-        "editImage": "Edit image"
+        "editImage": "Edit image",
+        "toastLocationOut": "Oops! It seems you're in the middle of nowhere. Time to bring out your imaginary passport and explore the 'Land of Nowhere'! 🌍✈️"
     },
     "months": {
         "january": "common:January",

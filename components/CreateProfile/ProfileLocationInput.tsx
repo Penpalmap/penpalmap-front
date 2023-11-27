@@ -9,7 +9,7 @@ import { ProfileFormData } from '../../types'
 import { transform } from 'ol/proj'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'ol/ol.css'
-
+import { useTranslation } from 'next-i18next'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import CitySearchInput from './CitySearchInput'
 
@@ -31,6 +31,7 @@ const ProfileLocationInput = (props: Props) => {
     const markerRef = useRef<HTMLDivElement>(null)
     const [, setShowMarker] = useState(false)
     const toast = useToast()
+    const { t } = useTranslation(['common', 'months'])
 
     useEffect(() => {
         if (ref.current && !mapRef.current) {
@@ -86,6 +87,14 @@ const ProfileLocationInput = (props: Props) => {
                     const data = await response.json()
                     if (data && data.address && data.address.country) {
                         setCountryName(data.address.country)
+                    } else {
+                        toast({
+                            title: 'Hey, explorer! 🚸',
+                            description: t('connect.toastLocationOut'),
+                            status: 'warning',
+                            duration: 5000,
+                            isClosable: true,
+                        })
                     }
                 } catch (error) {
                     console.error('Error fetching country name:', error)
