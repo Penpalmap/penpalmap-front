@@ -111,14 +111,6 @@ const Profile = ({ profileId }: Props) => {
             },
         })
 
-        // !        const userFeature = new Feature({
-        //             geometry: new Point(fromLonLat([user.latitude, user.longitude])),
-        //             element: {
-        //                 ...user,
-        //                 strokeColor: '#FFFFFF',
-        //             },
-        //         })
-
         userSource.addFeatures([userFeature])
 
         return () => {
@@ -142,8 +134,8 @@ const Profile = ({ profileId }: Props) => {
             const coordinates = user.geom ? user.geom.coordinates : [0, 0]
 
             const positionData = await getPositionDataByCoords(
-                coordinates[0], // Utilise la latitude à la place de user.latitude
-                coordinates[1] // Utilise la longitude à la place de user.longitude
+                coordinates[0],
+                coordinates[1]
             )
 
             setCountry(positionData?.address?.country)

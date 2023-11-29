@@ -51,13 +51,13 @@ export type UserRoom = {
 }
 
 export type User = {
-    geom: any
     id: string
     email: string
     image: string
     name: string
     latitude: number
     longitude: number
+    geom: string
     points: number
     gender: string
     birthday: string
@@ -75,6 +75,7 @@ export type UserMap = {
     name: string
     latitude: number
     longitude: number
+    geom: string
     image: string
     points: number
     avatarNumber: number

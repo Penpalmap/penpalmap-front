@@ -88,9 +88,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     const showUserOverlay = useCallback((user: User) => {
         if (!mapObj.current) return
-        const { latitude, longitude } = user
+        const { geom } = user
 
-        const coordinate = fromLonLat([latitude, longitude])
+        if (!geom) {
+            // Gérer le cas où geom est manquant
+            return
+        }
+
+        const coordinate = fromLonLat(geom.coordinates)
 
         overlayRef.current = new Overlay({
             element: document.getElementById('overlay-profile') as HTMLElement,
@@ -140,7 +145,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             target: mapContainerRef.current,
             layers: [
                 new TileLayer({
-                    // source: new OSM(),
                     preload: Infinity,
                     zIndex: 0,
 
@@ -152,8 +156,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ],
             view: new View({
                 center: fromLonLat([
-                    session?.user?.latitude,
-                    session?.user?.longitude,
+                    session?.user?.geom?.coordinates?.[0] || 0,
+                    session?.user?.geom?.coordinates?.[1] || 0,
                 ]),
                 zoom: 5.5,
                 minZoom: 4.5,
@@ -199,7 +203,13 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         // add features to the source for users
         const features = users.map((user) => {
-            const { latitude, longitude } = user
+            const { geom } = user
+
+            if (!geom) {
+                // Gérer le cas où geom est manquant
+                return null
+            }
+
             const room = rooms?.find((room) => {
                 const otherUser = room.members.find(
                     (member) => member.id !== session?.user.id
@@ -213,7 +223,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             )
 
             return new Feature({
-                geometry: new Point(fromLonLat([latitude, longitude])),
+                geometry: new Point(fromLonLat(geom.coordinates)),
                 element: {
                     ...user,
                     strokeColor:
@@ -224,8 +234,11 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             })
         })
 
+        // Remove null entries from the features array
+        const filteredFeatures = features.filter((feature) => feature !== null)
+
         mapObj.current.once('rendercomplete', () => {
-            userSource.addFeatures(features)
+            userSource.addFeatures(filteredFeatures)
         })
 
         mapObj.current.on('click', onClick)
