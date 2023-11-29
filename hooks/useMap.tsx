@@ -12,7 +12,7 @@ import { Point } from 'ol/geom'
 import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
 import { useSession } from 'next-auth/react'
-import { User } from '../types'
+import { User, UserMap } from '../types'
 import XYZ from 'ol/source/XYZ'
 import { useRoom } from '../context/RoomsContext'
 import { pulse } from '../styles/openlayer/pulseFunctions'
@@ -31,7 +31,7 @@ interface UseMapResult {
 const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapContainerRef = useRef<HTMLDivElement>(null)
     const mapObj = useRef<OLMap | null>(null)
-    const [users, setUsers] = useState<User[]>([])
+    const [users, setUsers] = useState<UserMap[]>([])
     const [, setData] = useContext(AppContext)
     const { rooms } = useRoom()
     const { data: session } = useSession()
@@ -202,37 +202,37 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         mapObj.current.addLayer(userLayer)
 
         // add features to the source for users
-        const features = users.map((user) => {
-            const { geom } = user
+        const features = users
+            .filter((user) => user.geom)
+            .map((user) => {
+                const { geom } = user
 
-            if (!geom) {
-                // Gérer le cas où geom est manquant
-                return null
-            }
+                const room = rooms?.find((room) => {
+                    const otherUser = room.members.find(
+                        (member) => member.id !== session?.user.id
+                    )
 
-            const room = rooms?.find((room) => {
-                const otherUser = room.members.find(
-                    (member) => member.id !== session?.user.id
+                    return otherUser?.id === user.id
+                })
+
+                const otherMemberOnline = room?.members.find(
+                    (member) =>
+                        member.isOnline && member.id !== session?.user.id
                 )
 
-                return otherUser?.id === user.id
+                return new Feature({
+                    geometry: new Point(fromLonLat(geom.coordinates)),
+                    element: {
+                        ...user,
+                        strokeColor:
+                            user.id === session?.user?.id
+                                ? '#9de0fc'
+                                : '#FFFFFF',
+                        room: room,
+                        isOnline: otherMemberOnline?.isOnline,
+                    },
+                })
             })
-
-            const otherMemberOnline = room?.members.find(
-                (member) => member.isOnline && member.id !== session?.user.id
-            )
-
-            return new Feature({
-                geometry: new Point(fromLonLat(geom.coordinates)),
-                element: {
-                    ...user,
-                    strokeColor:
-                        user.id === session?.user?.id ? '#9de0fc' : '#FFFFFF',
-                    room: room,
-                    isOnline: otherMemberOnline?.isOnline,
-                },
-            })
-        })
 
         // Remove null entries from the features array
         const filteredFeatures = features.filter((feature) => feature !== null)

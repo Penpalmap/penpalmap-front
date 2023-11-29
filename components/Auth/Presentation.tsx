@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Image, Highlight, Button } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import SectionMapChatSecurity from './SectionMapChatSecurity'
 import SectionWhyPenpalmap from './SectionWhyPenpalmap'

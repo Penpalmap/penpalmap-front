@@ -1,8 +1,7 @@
-import { Box, Button, Flex, IconButton, Select, VStack } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Button, Flex, IconButton, Select, VStack } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { UserLanguage } from '../../types'
 import { useSession } from 'next-auth/react'
-import { DeleteIcon } from '@chakra-ui/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
@@ -13,13 +12,17 @@ type Props = {
 
 const ProfileLanguageForm = ({ setValue }: Props) => {
     const { data: session } = useSession()
-    const [languages, setLanguages] = useState<UserLanguage[]>([
-        { language: '', level: '', userId: session.user.id },
-    ])
+    const [languages, setLanguages] = useState<UserLanguage[]>([])
+
+    useEffect(() => {
+        if (session?.user?.id) {
+            setLanguages([{ language: '', level: '', userId: session.user.id }])
+        }
+    }, [session])
+
     const { t } = useTranslation('common')
-    const [availableLanguages, setAvailableLanguages] = useState<
-        { label: string; value: string }[]
-    >([
+
+    const availableLanguages = [
         {
             label: t('languages.fr'),
             value: 'fr',
@@ -28,7 +31,7 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
             label: t('languages.en'),
             value: 'en',
         },
-    ])
+    ]
 
     const addLanguage = () => {
         if (!session?.user.id) return

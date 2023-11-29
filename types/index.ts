@@ -10,7 +10,8 @@ export type ProfileFormData = {
     languageUsed: string
     userLanguages: Array<UserLanguage>
     isNewUser: boolean
-    geom: string
+    latitude: number
+    longitude: number
 }
 
 export type Message = {
@@ -53,7 +54,7 @@ export type User = {
     email: string
     image: string
     name: string
-    geom: string
+    geom: Geom
     points: number
     gender: string
     birthday: string
@@ -66,10 +67,14 @@ export type User = {
     userLanguages: Array<UserLanguage>
 }
 
+export type Geom = {
+    coordinates: Array<number>
+}
+
 export type UserMap = {
     id: string
     name: string
-    geom: string
+    geom: Geom
     image: string
     points: number
     avatarNumber: number

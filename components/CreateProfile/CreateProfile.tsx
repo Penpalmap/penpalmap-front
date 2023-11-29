@@ -1,6 +1,6 @@
 import { useSteps } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
-import { ProfileFormData, User } from '../../types'
+import { ProfileFormData } from '../../types'
 import { useForm } from 'react-hook-form'
 import ProfileGenderInput from './ProfileGenderInput'
 import ProfileBirthdayInput from './ProfileBirthdayInput'
@@ -11,7 +11,6 @@ import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const CreateProfile = () => {
     const { data: session, status, update: updateSession } = useSession()

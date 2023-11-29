@@ -133,17 +133,18 @@ const Profile = ({ profileId }: Props) => {
 
             const coordinates = user.geom ? user.geom.coordinates : [0, 0]
 
-            const positionData = await getPositionDataByCoords(
-                coordinates[0],
-                coordinates[1]
-            )
+            if (coordinates[0] && coordinates[1]) {
+                const positionData = await getPositionDataByCoords(
+                    coordinates[0],
+                    coordinates[1]
+                )
+                setCountry(positionData?.address?.country)
 
-            setCountry(positionData?.address?.country)
-
-            const flagUrlData = await getFlagByCountryCode(
-                positionData?.address?.country_code.toUpperCase()
-            )
-            setFlagUrl(flagUrlData)
+                const flagUrlData = await getFlagByCountryCode(
+                    positionData?.address?.country_code.toUpperCase()
+                )
+                setFlagUrl(flagUrlData)
+            }
         }
 
         fetchCountry()

@@ -1,19 +1,10 @@
 // Footer.js
 import React from 'react'
-import {
-    Box,
-    Flex,
-    HStack,
-    Image,
-    Link,
-    Select,
-    Text,
-    VStack,
-} from '@chakra-ui/react'
+import { Box, Flex, HStack, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
 const Footer = () => {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     return (
         <footer>

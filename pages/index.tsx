@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Box, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import Map from '../components/Map/Map'
 import Chat from '../components/Chat/Chat'
@@ -9,13 +9,11 @@ import Loading from '../components/Layout/loading'
 import Modal from 'react-modal'
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
 Modal.setAppElement('#__next')
 
 export default function Home() {
     const { data: session, status } = useSession()
     const router = useRouter()
-    const { t } = useTranslation('common')
 
     useEffect(() => {
         if (session?.user?.isNewUser) {

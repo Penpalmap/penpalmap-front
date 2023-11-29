@@ -6,7 +6,6 @@ import Fill from 'ol/style/Fill'
 import CircleStyle from 'ol/style/Circle'
 import Text from 'ol/style/Text'
 import Icon from 'ol/style/Icon'
-import { Console } from 'console'
 
 export const styleCache = {}
 

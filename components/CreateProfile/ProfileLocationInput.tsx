@@ -105,7 +105,7 @@ const ProfileLocationInput = (props: Props) => {
 
             mapRef.current.on('click', handleClicked)
         }
-    }, [ref, mapRef, setValue, toast])
+    }, [ref, mapRef, setValue, toast, t])
 
     const extractCountry = (displayName: string): string => {
         const components = displayName.split(', ')
