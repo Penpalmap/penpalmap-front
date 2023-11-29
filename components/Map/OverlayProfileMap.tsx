@@ -31,7 +31,10 @@ const OverlayProfileMap = ({
     onOpenChat,
 }: OverlayProfileMapProps) => {
     const { data: session } = useSession()
-    const { country } = useLocation(user?.latitude, user?.longitude)
+    const { country } = useLocation(
+        user?.geom?.coordinates?.[0],
+        user?.geom?.coordinates?.[1]
+    )
     const genderFolder = user?.gender || 'other'
 
     return (

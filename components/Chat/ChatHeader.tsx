@@ -25,8 +25,8 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
     const [appData, setAppData] = useContext(AppContext)
 
     const { city, country, flag } = useLocation(
-        appData?.userChat?.latitude,
-        appData?.userChat?.longitude
+        appData?.userChat?.geom?.coordinates?.[0],
+        appData?.userChat?.geom?.coordinates?.[1]
     )
 
     const onCloseChat = () => {
