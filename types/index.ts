@@ -6,8 +6,6 @@ export type RegisterUserInput = {
 
 export type ProfileFormData = {
     birthday: string
-    latitude: number
-    longitude: number
     gender: string
     languageUsed: string
     userLanguages: Array<UserLanguage>
@@ -55,8 +53,6 @@ export type User = {
     email: string
     image: string
     name: string
-    latitude: number
-    longitude: number
     geom: string
     points: number
     gender: string
@@ -73,8 +69,6 @@ export type User = {
 export type UserMap = {
     id: string
     name: string
-    latitude: number
-    longitude: number
     geom: string
     image: string
     points: number
