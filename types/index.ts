@@ -12,6 +12,7 @@ export type ProfileFormData = {
     languageUsed: string
     userLanguages: Array<UserLanguage>
     isNewUser: boolean
+    geom: string
 }
 
 export type Message = {
@@ -50,6 +51,7 @@ export type UserRoom = {
 }
 
 export type User = {
+    geom: any
     id: string
     email: string
     image: string

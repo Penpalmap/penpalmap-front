@@ -65,8 +65,9 @@ const Profile = ({ profileId }: Props) => {
                     }),
                 }),
             ],
+
             view: new View({
-                center: fromLonLat([user?.latitude, user?.longitude]),
+                center: fromLonLat(user.geom.coordinates),
                 zoom: 7,
                 extent: transformExtent(
                     [-999.453125, -58.813742, 999.453125, 70.004962],
@@ -85,6 +86,8 @@ const Profile = ({ profileId }: Props) => {
     }, [user])
 
     useEffect(() => {
+        console.log('user', user)
+
         if (!mapRef.current || !user) return undefined
 
         const userSource = new VectorSource()
@@ -96,13 +99,25 @@ const Profile = ({ profileId }: Props) => {
 
         mapRef.current.addLayer(userLayer)
 
+        const coordinates = user.geom
+            ? fromLonLat(user.geom.coordinates)
+            : [0, 0]
+
         const userFeature = new Feature({
-            geometry: new Point(fromLonLat([user.latitude, user.longitude])),
+            geometry: new Point(coordinates),
             element: {
                 ...user,
                 strokeColor: '#FFFFFF',
             },
         })
+
+        // !        const userFeature = new Feature({
+        //             geometry: new Point(fromLonLat([user.latitude, user.longitude])),
+        //             element: {
+        //                 ...user,
+        //                 strokeColor: '#FFFFFF',
+        //             },
+        //         })
 
         userSource.addFeatures([userFeature])
 
@@ -123,9 +138,12 @@ const Profile = ({ profileId }: Props) => {
     useEffect(() => {
         const fetchCountry = async () => {
             if (!user) return
+
+            const coordinates = user.geom ? user.geom.coordinates : [0, 0]
+
             const positionData = await getPositionDataByCoords(
-                user.latitude,
-                user.longitude
+                coordinates[0], // Utilise la latitude à la place de user.latitude
+                coordinates[1] // Utilise la longitude à la place de user.longitude
             )
 
             setCountry(positionData?.address?.country)
