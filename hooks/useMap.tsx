@@ -87,7 +87,12 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     }
 
     const showUserOverlay = useCallback((user: User) => {
-        if (!mapObj.current) return
+        if (
+            !mapObj.current ||
+            (user.geom?.coordinates[1] === undefined &&
+                user.geom?.coordinates[0] === undefined)
+        )
+            return
         const { geom } = user
 
         if (!geom) {
@@ -95,7 +100,10 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             return
         }
 
-        const coordinate = fromLonLat(geom.coordinates)
+        const coordinate = fromLonLat([
+            geom.coordinates[1] as number,
+            geom.coordinates[0] as number,
+        ])
 
         overlayRef.current = new Overlay({
             element: document.getElementById('overlay-profile') as HTMLElement,
@@ -156,8 +164,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ],
             view: new View({
                 center: fromLonLat([
-                    session?.user?.geom?.coordinates?.[0] || 0,
                     session?.user?.geom?.coordinates?.[1] || 0,
+                    session?.user?.geom?.coordinates?.[0] || 0,
                 ]),
                 zoom: 5.5,
                 minZoom: 4.5,
@@ -201,38 +209,47 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         mapObj.current.addLayer(userLayer)
 
+        const filteredWithGeom = users.filter((user) => {
+            return (
+                user.geom?.coordinates &&
+                user.geom?.coordinates.length > 0 &&
+                user.geom?.coordinates[1] &&
+                user.geom?.coordinates[0]
+            )
+        })
+
         // add features to the source for users
-        const features = users
-            .filter((user) => user.geom)
-            .map((user) => {
-                const { geom } = user
+        const features = filteredWithGeom.map((user) => {
+            const { geom } = user
 
-                const room = rooms?.find((room) => {
-                    const otherUser = room.members.find(
-                        (member) => member.id !== session?.user.id
-                    )
-
-                    return otherUser?.id === user.id
-                })
-
-                const otherMemberOnline = room?.members.find(
-                    (member) =>
-                        member.isOnline && member.id !== session?.user.id
+            const room = rooms?.find((room) => {
+                const otherUser = room.members.find(
+                    (member) => member.id !== session?.user.id
                 )
 
-                return new Feature({
-                    geometry: new Point(fromLonLat(geom.coordinates)),
-                    element: {
-                        ...user,
-                        strokeColor:
-                            user.id === session?.user?.id
-                                ? '#9de0fc'
-                                : '#FFFFFF',
-                        room: room,
-                        isOnline: otherMemberOnline?.isOnline,
-                    },
-                })
+                return otherUser?.id === user.id
             })
+
+            const otherMemberOnline = room?.members.find(
+                (member) => member.isOnline && member.id !== session?.user.id
+            )
+
+            return new Feature({
+                geometry: new Point(
+                    fromLonLat([
+                        geom.coordinates[1] as number,
+                        geom.coordinates[0] as number,
+                    ])
+                ),
+                element: {
+                    ...user,
+                    strokeColor:
+                        user.id === session?.user?.id ? '#9de0fc' : '#FFFFFF',
+                    room: room,
+                    isOnline: otherMemberOnline?.isOnline,
+                },
+            })
+        })
 
         // Remove null entries from the features array
         const filteredFeatures = features.filter((feature) => feature !== null)
