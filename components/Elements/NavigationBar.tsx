@@ -1,5 +1,7 @@
-import { Flex, Box, Text, Link } from '@chakra-ui/react'
+import { Flex, Box, Text } from '@chakra-ui/react'
 import { useMobileView } from '../../context/MobileViewContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome, faMessage } from '@fortawesome/free-solid-svg-icons'
 
 const NavigationBar = () => {
     const { mobileView, setMobileView } = useMobileView()
@@ -10,27 +12,41 @@ const NavigationBar = () => {
             bottom="0"
             left="0"
             right="0"
-            bg="gray.200"
+            bg="white"
             justify="space-around"
             align="center"
             p={4}
             boxShadow="0px -2px 5px rgba(0, 0, 0, 0.1)"
         >
-            <Box onClick={() => setMobileView('home')}>
-                <Text fontSize="sm" fontWeight="bold">
+            <Flex
+                direction={'column'}
+                onClick={() => setMobileView('home')}
+                gap={2}
+            >
+                <FontAwesomeIcon
+                    color={mobileView === 'home' ? '#3EB6A0' : '#A6A6A6'}
+                    icon={faHome}
+                />
+                <Text fontSize="xs" fontWeight="light">
                     Home
                 </Text>
-            </Box>
-            <Box onClick={() => setMobileView('conversations')}>
-                <Text fontSize="sm" fontWeight="bold">
-                    Conversations
+            </Flex>
+            <Flex
+                direction={'column'}
+                onClick={() => setMobileView('conversations')}
+                gap={2}
+            >
+                <FontAwesomeIcon
+                    color={
+                        mobileView === 'conversations' ? '#3EB6A0' : '#A6A6A6'
+                    }
+                    icon={faMessage}
+                />
+
+                <Text fontSize="xs" fontWeight="light">
+                    Chat
                 </Text>
-            </Box>
-            {/* <Box onClick={() => setMobileView('profile')}>
-                <Text fontSize="sm" fontWeight="bold">
-                    Profil
-                </Text>
-            </Box> */}
+            </Flex>
         </Flex>
     )
 }
