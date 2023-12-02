@@ -15,7 +15,7 @@ const SectionMapChatSecurity = () => {
             flexDir={{ base: 'column', md: 'row' }}
             flexWrap="wrap"
             maxW={{ base: '100%', xl: '1300px' }} // Taille maximale de 1400px pour les écrans extra larges (xl)
-            mx={{ base: '2', xl: 'auto' }} // Marge horizontale sur les côtés pour les écrans extra larges
+            mx={{ base: '0', xl: 'auto' }} // Marge horizontale sur les côtés pour les écrans extra larges
         >
             {/* Map Section */}
             <Box flex={1}>

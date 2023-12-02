@@ -24,7 +24,7 @@ const SectionWhyPenpalmap = () => {
                     borderRadius={'lg'}
                 />
                 <Box
-                    position="absolute"
+                    position={{ base: 'relative', md: 'absolute' }}
                     top={'30%'}
                     right={0} // Ajuster la valeur right à 0 pour atteindre le bord droit
                     bottom={'30%'}
@@ -42,7 +42,12 @@ const SectionWhyPenpalmap = () => {
                         {t('presentation.whyPenpalmapTitle')}
                     </Text>
                     <Text>{t('presentation.whyPenpalmapText')}</Text>
-                    <Button colorScheme="blue" size="md" width={'fit-content'}>
+                    <Button
+                        colorScheme="blue"
+                        size="md"
+                        width={'fit-content'}
+                        marginTop={2}
+                    >
                         {t('presentation.seeDetails')}
                     </Button>
                 </Box>
