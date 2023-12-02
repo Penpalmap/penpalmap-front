@@ -7,11 +7,14 @@ import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
 import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
+import { useMobileView } from '../../context/MobileViewContext'
 
 const ConversationList = () => {
     const { data: session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const { rooms, resetCountUnreadMessagesOfRoom } = useRoom()
+
+    const { setMobileView } = useMobileView()
 
     const clickOnConversation = useCallback(
         async (members) => {
@@ -39,6 +42,8 @@ const ConversationList = () => {
                     if (lastMessage) {
                         sendMessageSeen(appData.socket, lastMessage)
                     }
+
+                    setMobileView('chat')
                 }
             }
         },
@@ -48,6 +53,7 @@ const ConversationList = () => {
             rooms,
             session?.user?.id,
             setAppData,
+            setMobileView,
         ]
     )
 
