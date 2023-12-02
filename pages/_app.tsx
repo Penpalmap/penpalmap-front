@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react'
 import { AppProvider } from '../context/AppContext'
 import { RoomProvider } from '../context/RoomsContext'
 import { appWithTranslation } from 'next-i18next'
+import { MobileViewProvider } from '../context/MobileViewContext'
 // import '../i18n' // Assurez-vous que votre configuration i18n est chargée ici
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
@@ -13,13 +14,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return (
         <ChakraProvider theme={customTheme}>
             <AppProvider>
-                <SessionProvider session={session}>
-                    <RoomProvider>
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                    </RoomProvider>
-                </SessionProvider>
+                <MobileViewProvider>
+                    <SessionProvider session={session}>
+                        <RoomProvider>
+                            <Layout>
+                                <Component {...pageProps} />
+                            </Layout>
+                        </RoomProvider>
+                    </SessionProvider>
+                </MobileViewProvider>
             </AppProvider>
         </ChakraProvider>
     )

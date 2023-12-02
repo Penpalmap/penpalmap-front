@@ -25,12 +25,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import useLanguage from '../../hooks/useLanguage'
 import { useTranslation } from 'next-i18next'
+import { useMobileView } from '../../context/MobileViewContext'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
+
+    const { setMobileView } = useMobileView()
 
     const { changeLocale, locale } = useLanguage()
 
@@ -58,7 +61,7 @@ const Header = () => {
                 backgroundColor={'white'}
             >
                 <Flex alignItems={'center'}>
-                    <Link href={`/`}>
+                    <Link href={`/`} onClick={() => setMobileView('home')}>
                         <Flex alignItems={'center'}>
                             <Image
                                 src={'/images/logo.png'}

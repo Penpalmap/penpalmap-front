@@ -37,7 +37,7 @@ const Chat = () => {
 
     return (
         <Box
-            position={'absolute'}
+            position={{ base: 'initial', md: 'absolute' }}
             right={'10'}
             bottom={'0'}
             background={'white'}

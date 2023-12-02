@@ -1,19 +1,19 @@
 import { useRouter } from 'next/router'
-import { Box } from '@chakra-ui/react'
+import { useBreakpointValue } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
-import Map from '../components/Map/Map'
-import Chat from '../components/Chat/Chat'
 import { useEffect } from 'react'
-import ConversationList from '../components/Conversation/ConversationList'
 import Loading from '../components/Layout/loading'
 import Modal from 'react-modal'
-import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import LayoutMobile from '../components/Layout/LayoutMobile'
+import LayoutDesktop from '../components/Layout/LayoutDesktop'
 Modal.setAppElement('#__next')
 
 export default function Home() {
     const { data: session, status } = useSession()
     const router = useRouter()
+
+    const isMobile = useBreakpointValue({ base: true, md: false })
 
     useEffect(() => {
         if (session?.user?.isNewUser) {
@@ -24,23 +24,13 @@ export default function Home() {
             router.push('/auth/signin')
         }
     }, [router, session, status])
+
     return status === 'loading' || session?.user?.isNewUser ? (
         <Loading />
+    ) : isMobile ? (
+        <LayoutMobile />
     ) : (
-        <>
-            <Head>
-                <title>PenpalMap</title>
-            </Head>
-            <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
-                <Box>
-                    <ConversationList />
-                </Box>
-                <Box flex={3}>
-                    <Map />
-                </Box>
-                <Chat />
-            </Box>
-        </>
+        <LayoutDesktop />
     )
 }
 

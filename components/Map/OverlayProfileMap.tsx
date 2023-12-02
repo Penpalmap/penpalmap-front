@@ -18,6 +18,7 @@ import {
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import useLocation from '../../hooks/useLocation'
+import { useMobileView } from '../../context/MobileViewContext'
 
 type OverlayProfileMapProps = {
     user: User | null
@@ -37,6 +38,7 @@ const OverlayProfileMap = ({
     )
     const genderFolder = user?.gender || 'other'
 
+    const { setMobileView } = useMobileView()
     return (
         <Flex
             id="overlay-profile"
@@ -137,7 +139,10 @@ const OverlayProfileMap = ({
                         borderRadius={'4px'}
                         _hover={{ color: '#2b2b2b' }}
                         icon={<FontAwesomeIcon icon={faMessage} />}
-                        onClick={() => user && onOpenChat(user)}
+                        onClick={() => {
+                            user && onOpenChat(user)
+                            setMobileView('chat')
+                        }}
                         isDisabled={session?.user?.id === user?.id}
                     />
                 </Flex>
