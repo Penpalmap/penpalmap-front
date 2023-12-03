@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react'
 import Chat from '../Chat/Chat'
 
 const LayoutMobile = () => {
-    const { mobileView, setMobileView } = useMobileView()
+    const { mobileView } = useMobileView()
 
     const { data: session } = useSession()
     return (
@@ -17,13 +17,7 @@ const LayoutMobile = () => {
             <Head>
                 <title>PenpalMap</title>
             </Head>
-            <Box
-                w={'full'}
-                h={'full'}
-                display={'flex'}
-                position={'relative'}
-                background={'red.200'}
-            >
+            <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
                 <Box flex={1}>
                     {mobileView === 'home' && <Map />}
                     {mobileView === 'conversations' && <ConversationList />}
