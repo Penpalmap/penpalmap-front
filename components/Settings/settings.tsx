@@ -1,10 +1,24 @@
-import { Flex, Heading, Link, Select } from '@chakra-ui/react'
-import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
+import {
+    Box,
+    Button,
+    Flex,
+    Heading,
+    Link,
+    Select,
+    useBreakpointValue,
+} from '@chakra-ui/react'
+import {
+    faArrowAltCircleLeft,
+    faArrowLeft,
+    faChevronLeft,
+    faGlobeEurope,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
 import useLanguage from '../../hooks/useLanguage'
 import { updateUser } from '../../api/userApi'
 import { useSession } from 'next-auth/react'
+import { useMobileView } from '../../context/MobileViewContext'
 
 const Settings = () => {
     const { t } = useTranslation()
@@ -19,9 +33,20 @@ const Settings = () => {
         updateUser({ languageUsed: e.target.value }, session.user.id)
     }
 
+    const { setMobileView } = useMobileView()
+
+    const isMobile = useBreakpointValue({ base: true, md: false })
     return (
-        <div>
-            <h1>Settings</h1>
+        <Box p={2}>
+            {isMobile && (
+                <Button
+                    variant={'ghost'}
+                    leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
+                    onClick={() => setMobileView('home')}
+                >
+                    Retour
+                </Button>
+            )}
 
             <Heading as="h2" size="md" mb={2}>
                 {t('settings.language')}
@@ -46,7 +71,7 @@ const Settings = () => {
             <Link href="/legalnotice" color="blue.600" fontWeight="medium">
                 {t('footer.legal')}
             </Link>
-        </div>
+        </Box>
     )
 }
 
