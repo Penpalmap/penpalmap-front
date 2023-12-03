@@ -7,6 +7,7 @@ import ConversationList from '../Conversation/ConversationList'
 import Profile from '../Profile'
 import { useSession } from 'next-auth/react'
 import Chat from '../Chat/Chat'
+import Settings from '../Settings/settings'
 
 const LayoutMobile = () => {
     const { mobileView } = useMobileView()
@@ -24,6 +25,7 @@ const LayoutMobile = () => {
                     {mobileView === 'profile' && session?.user && (
                         <Profile profileId={session.user.id} />
                     )}
+                    {mobileView === 'settings' && <Settings />}
                     {/* {mobileView === 'chat' && <Chat />} */}
                     <Chat visible={mobileView === 'chat'} />
                 </Box>

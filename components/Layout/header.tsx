@@ -11,6 +11,7 @@ import {
     MenuList,
     Select,
     Text,
+    useBreakpointValue,
     useDisclosure,
 } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
@@ -33,7 +34,8 @@ const Header = () => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
 
-    const { setMobileView } = useMobileView()
+    const { mobileView, setMobileView } = useMobileView()
+    const isMobile = useBreakpointValue({ base: true, md: false })
 
     const { changeLocale, locale } = useLanguage()
 
@@ -121,9 +123,19 @@ const Header = () => {
                             <MenuItem onClick={onOpen}>
                                 {t('menu.myProfile')}
                             </MenuItem>
-                            <Link href={`/?settings=yes`} as={`/settings/`}>
-                                <MenuItem> {t('menu.parameters')}</MenuItem>
-                            </Link>
+
+                            {isMobile ? (
+                                <Link
+                                    href={`/`}
+                                    onClick={() => setMobileView('settings')}
+                                >
+                                    <MenuItem> {t('menu.parameters')}</MenuItem>
+                                </Link>
+                            ) : (
+                                <Link href={`/?settings=yes`} as={`/settings/`}>
+                                    <MenuItem> {t('menu.parameters')}</MenuItem>
+                                </Link>
+                            )}
                             <MenuDivider />
                             <MenuItem onClick={disconnect}>
                                 {t('menu.logout')}
