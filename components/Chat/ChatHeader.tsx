@@ -13,6 +13,7 @@ import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import NextLink from 'next/link'
 import useLocation from '../../hooks/useLocation'
+import { useMobileView } from '../../context/MobileViewContext'
 
 type Props = {
     name: string
@@ -24,12 +25,18 @@ type Props = {
 const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
     const [appData, setAppData] = useContext(AppContext)
 
+    const { mobileView, setMobileView } = useMobileView()
+
     const { city, country, flag } = useLocation(
         appData?.userChat?.geom?.coordinates?.[0],
         appData?.userChat?.geom?.coordinates?.[1]
     )
 
     const onCloseChat = () => {
+        if (mobileView === 'chat') {
+            setMobileView('conversations')
+        }
+
         setAppData({
             ...appData,
             userChat: null,
