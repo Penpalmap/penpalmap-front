@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import NavigationBar from '../Elements/NavigationBar'
-import { Box, useBreakpointValue } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useMobileView } from '../../context/MobileViewContext'
 import Map from '../Map/Map'
 import ConversationList from '../Conversation/ConversationList'
@@ -8,11 +8,16 @@ import Profile from '../Profile'
 import { useSession } from 'next-auth/react'
 import Chat from '../Chat/Chat'
 import Settings from '../Settings/settings'
+import { useContext } from 'react'
+import { AppContext } from '../../context/AppContext'
 
 const LayoutMobile = () => {
     const { mobileView } = useMobileView()
 
     const { data: session } = useSession()
+
+    const [appData] = useContext(AppContext)
+
     return (
         <>
             <Head>
@@ -23,10 +28,9 @@ const LayoutMobile = () => {
                     {mobileView === 'home' && <Map />}
                     {mobileView === 'conversations' && <ConversationList />}
                     {mobileView === 'profile' && session?.user && (
-                        <Profile profileId={session.user.id} />
+                        <Profile profileId={appData.userTarget.id} />
                     )}
                     {mobileView === 'settings' && <Settings />}
-                    {/* {mobileView === 'chat' && <Chat />} */}
                     <Chat visible={mobileView === 'chat'} />
                 </Box>
                 <NavigationBar />

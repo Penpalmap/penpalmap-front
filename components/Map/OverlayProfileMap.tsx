@@ -7,6 +7,7 @@ import {
     IconButton,
     Image,
     Text,
+    useBreakpointValue,
 } from '@chakra-ui/react'
 import { User } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -39,6 +40,9 @@ const OverlayProfileMap = ({
     const genderFolder = user?.gender || 'other'
 
     const { setMobileView } = useMobileView()
+
+    const isMobile = useBreakpointValue({ base: true, md: false })
+
     return (
         <Flex
             id="overlay-profile"
@@ -101,34 +105,38 @@ const OverlayProfileMap = ({
                     </Text>
                 </Box>
                 <Flex justifyContent={'space-between'} gap={'12px'}>
-                    <Link
-                        href={`/?profileId=${user?.id}`}
-                        as={`/profile/${user?.id}`}
-                    >
-                        <Button
-                            display={['none', 'block']}
-                            flex={'2'}
-                            leftIcon={<FontAwesomeIcon icon={faUser} />}
-                            colorScheme="teal"
-                            variant="solid"
-                            fontSize={'12px'}
-                            // onClick={() => user && onOpenChat(user)}
-                            isDisabled={session?.user?.id === user?.id}
-                        >
-                            Voir le profil
-                        </Button>
+                    {isMobile ? (
                         <IconButton
                             display={['block', 'none']}
-                            flex={'2'}
+                            flex={1}
                             icon={<FontAwesomeIcon icon={faUser} />}
                             colorScheme="teal"
                             variant="solid"
                             fontSize={'12px'}
-                            // onClick={() => user && onOpenChat(user)}
                             aria-label="Voir le profil"
                             isDisabled={session?.user?.id === user?.id}
+                            onClick={() => {
+                                setMobileView('profile')
+                            }}
                         />
-                    </Link>
+                    ) : (
+                        <Link
+                            href={`/?profileId=${user?.id}`}
+                            as={`/profile/${user?.id}`}
+                        >
+                            <Button
+                                display={['none', 'block']}
+                                flex={1}
+                                leftIcon={<FontAwesomeIcon icon={faUser} />}
+                                colorScheme="teal"
+                                variant="solid"
+                                fontSize={'12px'}
+                                isDisabled={session?.user?.id === user?.id}
+                            >
+                                Voir le profil
+                            </Button>
+                        </Link>
+                    )}
 
                     <IconButton
                         flex={'1'}

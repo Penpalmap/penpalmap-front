@@ -19,6 +19,7 @@ import {
 } from '../../utils/location'
 import {
     faArrowRight,
+    faChevronLeft,
     faMapPin,
     faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons'
@@ -32,6 +33,7 @@ import { Point } from 'ol/geom'
 import userStyle from '../../styles/openlayer/UserStyle'
 import { useRouter } from 'next/router'
 import { AppContext } from '../../context/AppContext'
+import { useMobileView } from '../../context/MobileViewContext'
 
 type Props = {
     profileId: string
@@ -48,6 +50,8 @@ const Profile = ({ profileId }: Props) => {
     const [appData, setAppData] = useContext(AppContext)
 
     const router = useRouter()
+
+    const { setMobileView } = useMobileView()
 
     useEffect(() => {
         if (!user || !mapRefContainer.current) return undefined
@@ -161,6 +165,8 @@ const Profile = ({ profileId }: Props) => {
             userChat: user,
             chatOpen: true,
         })
+
+        setMobileView('chat')
     }
 
     return (
@@ -172,6 +178,13 @@ const Profile = ({ profileId }: Props) => {
                     right={'4'}
                     onClick={onClose}
                 />
+                <Button
+                    onClick={() => setMobileView('home')}
+                    leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
+                    variant={'ghost'}
+                >
+                    Retour
+                </Button>
                 <Flex
                     alignItems={'center'}
                     justifyContent={'space-between'}
