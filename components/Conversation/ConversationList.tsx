@@ -39,7 +39,7 @@ const ConversationList = () => {
                             roomIncludeUser.messages.length - 1
                         ]
 
-                    if (lastMessage) {
+                    if (lastMessage && lastMessage.isSeen === false) {
                         sendMessageSeen(appData.socket, lastMessage)
                     }
 
@@ -76,7 +76,7 @@ const ConversationList = () => {
 
     return (
         <VStack
-            w={'280px'}
+            w={{ base: 'full', md: 'xs' }}
             left={0}
             zIndex={1}
             h={'full'}
