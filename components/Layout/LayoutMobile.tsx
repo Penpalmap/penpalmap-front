@@ -24,7 +24,8 @@ const LayoutMobile = () => {
                     {mobileView === 'profile' && session?.user && (
                         <Profile profileId={session.user.id} />
                     )}
-                    {mobileView === 'chat' && <Chat />}
+                    {/* {mobileView === 'chat' && <Chat />} */}
+                    <Chat visible={mobileView === 'chat'} />
                 </Box>
                 <NavigationBar />
             </Box>

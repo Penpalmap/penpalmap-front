@@ -18,7 +18,7 @@ const LayoutDesktop = () => {
                 <Box flex={3}>
                     <Map />
                 </Box>
-                <Chat />
+                <Chat visible={true} />
             </Box>
         </>
     )
