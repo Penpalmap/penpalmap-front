@@ -15,7 +15,7 @@ const NavigationBar = () => {
             bg="white"
             justify="space-around"
             align="center"
-            p={4}
+            h={16}
             boxShadow="0px -2px 5px rgba(0, 0, 0, 0.1)"
         >
             <Flex

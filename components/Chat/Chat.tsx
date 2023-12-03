@@ -41,9 +41,9 @@ const Chat = () => {
             right={'10'}
             bottom={'0'}
             background={'white'}
-            h={'xl'}
+            h={{ base: 'calc(100vh - 7.5rem )', md: 'xl' }}
             flexDirection={'column'}
-            w={'lg'}
+            w={{ base: 'full', md: 'xl' }}
             display={appData.chatOpen ? 'flex' : 'none'}
             borderTopRadius={'8'}
         >
@@ -56,6 +56,48 @@ const Chat = () => {
                 isOnline={appData?.userChat?.isOnline}
                 userId={appData?.userChat?.id}
             />
+
+            {/* <Box flex={1}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Deleniti velit, perspiciatis ipsa voluptatum voluptate in, sint
+                animi iusto dolor id illo possimus ex enim assumenda vel error.
+                Nemo, natus corporis!
+            </Box> */}
+            {/* <Box background={'facebook.300'} overflowY={'scroll'} flex={2}>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Impedit odio ipsam dolorum nulla, expedita mollitia rem deserunt
+                ipsum corporis illum temporibus dicta facilis quos, distinctio
+                quas, unde repudiandae exercitationem accusantium?Lorem, ipsum
+                dolor sit amet consectetur adipisicing elit. Impedit odio ipsam
+                dolorum nulla, expedita mollitia rem deserunt ipsum corporis
+                illum temporibus dicta facilis quos, distinctio quas, unde
+                repudiandae exercitationem accusantium?Lorem, ipsum dolor sit
+                amet consectetur adipisicing elit. Impedit odio ipsam dolorum
+                nulla, expedita mollitia rem deserunt ipsum corporis illum
+                temporibus dicta facilis quos, distinctio quas, unde repudiandae
+                exercitationem accusantium?Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Impedit odio ipsam dolorum nulla,
+                expedita mollitia rem deserunt ipsum corporis illum temporibus
+                dicta facilis quos, distinctio quas, unde repudiandae
+                exercitationem accusantium?Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Impedit odio ipsam dolorum nulla,
+                expedita mollitia rem deserunt ipsum corporis illum temporibus
+                dicta facilis quos, distinctio quas, unde repudiandae
+                exercitationem accusantium?Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Impedit odio ipsam dolorum nulla,
+                expedita mollitia rem deserunt ipsum corporis illum temporibus
+                dicta facilis quos, distinctio quas, unde repudiandae
+                exercitationem accusantium?Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Impedit odio ipsam dolorum nulla,
+                expedita mollitia rem deserunt ipsum corporis illum temporibus
+                dicta facilis quos, distinctio quas, unde repudiandae
+                exercitationem accusantium? Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Impedit odio ipsam dolorum nulla,
+                expedita mollitia rem deserunt ipsum corporis illum temporibus
+                dicta facilis quos, distinctio quas, unde repudiandae
+                exercitationem accusantium?
+            </Box> */}
+
             <ChatMessages
                 messages={messages.sort(sortByDate)}
                 isNewChat={!room}

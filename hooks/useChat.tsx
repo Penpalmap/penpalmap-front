@@ -52,7 +52,7 @@ const useChat = () => {
 
     const initialFetchMessages = useCallback(async () => {
         if (room) {
-            const messagesData = await getMessagesByRoomId(room.id, 15, 0)
+            const messagesData = await getMessagesByRoomId(room.id, 20, 0)
             setMessages(messagesData)
             setIsLoading(false)
             setRoomIsLoading(false)
@@ -65,7 +65,7 @@ const useChat = () => {
 
     const additonalFetchMessages = useCallback(async () => {
         if (appData?.userChat && room && !roomIsLoading) {
-            const messagesData = await getMessagesByRoomId(room.id, 15, offset)
+            const messagesData = await getMessagesByRoomId(room.id, 20, offset)
 
             setMessages((prevMessages) => [...messagesData, ...prevMessages])
             setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.

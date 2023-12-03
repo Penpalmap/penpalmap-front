@@ -47,7 +47,7 @@ const ChatMessages = ({
 
     useEffect(() => {
         // scroll to bottom when new userChat
-        if (chatContainerRef.current && messages && messages?.length === 15) {
+        if (chatContainerRef.current && messages && messages?.length === 20) {
             chatContainerRef.current.scrollTop =
                 chatContainerRef.current.scrollHeight
             setBottomScrollIsDone(true)
@@ -141,7 +141,7 @@ const ChatMessages = ({
             onScroll={(e) => {
                 const element = e.target as HTMLDivElement
                 if (element.scrollTop === 0 && bottomScrollIsDone) {
-                    setOffset(offset + 15)
+                    setOffset(offset + 20)
                     if (topMessageRef.current) {
                         topMessageRef.current.scrollIntoView({
                             behavior: 'auto',
