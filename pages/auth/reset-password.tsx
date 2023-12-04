@@ -1,14 +1,14 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Head from 'next/head'
-import ForgotPassword from '../../components/Auth/ForgotPassword'
+import ResetPassword from '../../components/Auth/ResetPassword'
 
-export default function forgotPassword() {
+export default function resetPassword() {
     return (
         <>
             <Head>
-                <title>PenpalMap - Mot de passe oublié</title>
+                <title>PenpalMap - Réinitialisation mot de passe</title>
             </Head>
-            <ForgotPassword />
+            <ResetPassword />
         </>
     )
 }
