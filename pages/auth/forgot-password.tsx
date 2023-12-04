@@ -1,5 +1,4 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import SignIn from '../../components/Auth/SignIn'
 import Head from 'next/head'
 import ForgotPassword from '../../components/Auth/ForgotPassword'
 

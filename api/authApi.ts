@@ -42,4 +42,16 @@ const logoutUser = async () => {
     }
 }
 
-export { registerUser, checkAuthStatus, logoutUser }
+const reinitializePassword = async (email: string) => {
+    try {
+        const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`,
+            { email }
+        )
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+export { registerUser, checkAuthStatus, logoutUser, reinitializePassword }

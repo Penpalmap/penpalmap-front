@@ -1,5 +1,5 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useState } from 'react'
+import { set, useForm } from 'react-hook-form'
 import {
     FormControl,
     FormLabel,
@@ -9,14 +9,28 @@ import {
     Flex,
     Heading,
     Text,
+    Alert,
+    AlertIcon,
+    AlertTitle,
 } from '@chakra-ui/react'
+import { reinitializePassword } from '../../api/authApi'
 
 const ForgotPassword = () => {
     const { register, handleSubmit } = useForm()
 
-    const onSubmit = (data) => {
-        // Soumettre les données pour demander la réinitialisation du mot de passe
-        console.log(data) // Remplace cette ligne par ton code de soumission des données
+    const [message, setMessage] = useState('')
+    const [error, setError] = useState('')
+
+    const onSubmit = async (data) => {
+        const response = await reinitializePassword(data.email)
+        console.log(response)
+        if (response.success === true) {
+            setMessage(response.message)
+            setError('')
+        } else {
+            setError(response.message)
+            setMessage('')
+        }
     }
 
     return (
@@ -57,6 +71,20 @@ const ForgotPassword = () => {
                         Envoyer
                     </Button>
                 </form>
+
+                {message && (
+                    <Alert status="success" mt={4}>
+                        <AlertIcon />
+                        <AlertTitle>{message}</AlertTitle>
+                    </Alert>
+                )}
+
+                {error && (
+                    <Alert status="error" mt={4}>
+                        <AlertIcon />
+                        <AlertTitle>{error}</AlertTitle>
+                    </Alert>
+                )}
             </Box>
         </Flex>
     )
