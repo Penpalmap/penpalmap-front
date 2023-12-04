@@ -7,6 +7,7 @@
         "connect": "Se connecter",
         "no-account": "Pas encore de compte ?",
         "create-account": "Créer un compte",
+        "forgot-password": "Mot de passe oublié ?",
         "nom": "Nom",
         "already-account": "Déjà un compte ?",
         "register": "S'inscrire",
@@ -20,14 +21,14 @@
         "previous": "Précédent",
         "skip": "Passer",
         "finish": "Terminer",
-        "day":"Jour",
-        "month":"Mois",
-        "year":"Année",
+        "day": "Jour",
+        "month": "Mois",
+        "year": "Année",
         "heyExplorer": "Hey, explorer! 🚸",
-        "less12":"Juste un avertissement : Pour voyager sur PenPalMap, tu dois avoir au moins 12 ans. Reste en sécurité et profite de l'aventure ! 🌍✨ Tu te demande quelles sont les règles ? Consulte nos",
-        "more12part1":"🚸 Salut ! Juste un avertissement : il y a des adultes sur cette application. Reste toujours en sécurité et sois prudent. 🛡️ Besoin de plus d'informations ? Consulte nos",
-        "more12part2":". Si quelque chose te semble étrange, n'hésite pas à contacter l'équipe PenPalMap ! 💌",
-        "editImage":"Editer votre image",
+        "less12": "Juste un avertissement : Pour voyager sur PenPalMap, tu dois avoir au moins 12 ans. Reste en sécurité et profite de l'aventure ! 🌍✨ Tu te demande quelles sont les règles ? Consulte nos",
+        "more12part1": "🚸 Salut ! Juste un avertissement : il y a des adultes sur cette application. Reste toujours en sécurité et sois prudent. 🛡️ Besoin de plus d'informations ? Consulte nos",
+        "more12part2": ". Si quelque chose te semble étrange, n'hésite pas à contacter l'équipe PenPalMap ! 💌",
+        "editImage": "Editer votre image",
         "toastLocationOut": "Oups ! Il semble que vous soyez au milieu de nulle part. Il est temps de sortir votre passeport imaginaire et d'explorer le 'Pays de Nulle Part' ! 🌍✈️",
         "selectALanguage": "Sélectionnez une langue",
         "level": "Niveau",
@@ -39,38 +40,38 @@
         "delete": "Supprimer",
         "addLanguage": "Ajouter une langue"
     },
-   "months": {
-        "january":"common:Janvier",
-        "february":"common:Février",
-        "march":"common:Mars",
-        "april":"common:Avril",
-        "may":"common:Mai",
-        "june":"common:Juin",
-        "july":"common:Juillet",
-        "august":"common:Aoû",
-        "september":"common:Septembre",
-        "october":"common:Octobre",
-        "november":"common:Novembre",
-        "december":"common:Décembre"
-   },
-  "profileGenderInput": {
-    "woman": "Femme",
-    "man": "Homme",
-    "other": "Autre ...",
-    "transgender": "Transgenre",
-    "genderless": "Sans genre",
-    "bigender": "Bigenre",
-    "androgyne": "Androgyne",
-    "neuter": "Neutre",
-    "non-binary": "Non-binaire",
-    "genderqueer": "Genre fluide",
-    "genderfluid": "Genre fluide",
-    "two-spirit": "Deux-esprits",
-    "agender": "Agenre",
-    "pangender": "Pangenre",
-    "third-gender": "Troisième genre",
-    "othergender": "Autre"
-  },
+    "months": {
+        "january": "common:Janvier",
+        "february": "common:Février",
+        "march": "common:Mars",
+        "april": "common:Avril",
+        "may": "common:Mai",
+        "june": "common:Juin",
+        "july": "common:Juillet",
+        "august": "common:Aoû",
+        "september": "common:Septembre",
+        "october": "common:Octobre",
+        "november": "common:Novembre",
+        "december": "common:Décembre"
+    },
+    "profileGenderInput": {
+        "woman": "Femme",
+        "man": "Homme",
+        "other": "Autre ...",
+        "transgender": "Transgenre",
+        "genderless": "Sans genre",
+        "bigender": "Bigenre",
+        "androgyne": "Androgyne",
+        "neuter": "Neutre",
+        "non-binary": "Non-binaire",
+        "genderqueer": "Genre fluide",
+        "genderfluid": "Genre fluide",
+        "two-spirit": "Deux-esprits",
+        "agender": "Agenre",
+        "pangender": "Pangenre",
+        "third-gender": "Troisième genre",
+        "othergender": "Autre"
+    },
     "presentation": {
         "devise1": "\"Chez PenPalMap, nous ne sommes pas là pour des interactions éphémères...",
         "devise2": "mais pour apprendre, connecter et évoluer, peu importe la distance.\"",
@@ -81,7 +82,7 @@
         "chatTitle": "Messagerie Instantanée",
         "chatText": "Notre messagerie instantanée vous rapproche de vos amis, que vous soyez en déplacement, en voyage ou simplement chez vous. Communiquez en temps réel avec des correspondants du monde entier.",
         "securityTitle": "Sécurité et Bienveillance",
-        "securityText": "Chez PenPalMap, votre sécurité et votre bien-être sont notre priorité. Nous avons mis en place des mesures de sécurité robustes pour vous assurer une expérience en ligne sécurisée et bienveillante. Connectez-vous en toute confiance !",    
+        "securityText": "Chez PenPalMap, votre sécurité et votre bien-être sont notre priorité. Nous avons mis en place des mesures de sécurité robustes pour vous assurer une expérience en ligne sécurisée et bienveillante. Connectez-vous en toute confiance !",
         "whyPenpalmapTitle": "Pourquoi Penpalmap ?",
         "whyPenpalmapText": "PenPalMap réinvente la correspondance en mettant l'accent sur la simplicité, la communauté et l'exploration. Contrairement à d'autres plateformes, notre service est entièrement gratuit. Plus besoin de lettres physiques ou de méthodes de correspondance désuètes. Nous éliminons les barrières pour vous permettre de vous connecter instantanément avec des amis du monde entier. Notre carte interactive est au cœur de l'expérience, facilitant la découverte de correspondants partout dans le monde. Explorez, apprenez, et construisez des amitiés sans frontières. Avec PenPalMap, votre aventure internationale commence ici. Rejoignez-nous et découvrez le monde avec des amis nouveaux et passionnants !",
         "seeDetails": "Voir les détails",
@@ -102,9 +103,9 @@
         "dark": "Dark",
         "light": "Light"
     },
-    "chat":{
+    "chat": {
         "IsTyping": "est en train d'écrire...",
-        "you": "Vous: ",  
+        "you": "Vous: ",
         "send": "Envoyer",
         "seen": "Vu",
         "engageWith": "Engagez la discussion avec",
@@ -125,19 +126,19 @@
         "additionalCopyrightText": "Les copies, les téléchargements éventuels sur le site et les applications ne sont autorisés que pour un usage privé et non commercial. Dans la mesure où le contenu de ce site n'a pas été créé par l'exploitant, les droits d'auteur de tiers sont respectés. De plus, ce matériel, en particulier le matériel de tiers, est marqué comme tel. Si vous avez néanmoins connaissance d'une violation du droit d'auteur, nous vous demandons de nous en informer en conséquence. Si nous prenons connaissance d'infractions à la loi, nous supprimerons immédiatement le contenu concerné.",
         "moreKeys": "Plus de clés..."
     },
-    "map":{
+    "map": {
         "searchPlace": "Rechercher un lieu..."
     },
-    "menu":{
+    "menu": {
         "myProfile": "Mon profil",
         "parameters": "Paramètres",
         "logout": "Déconnexion"
     },
-    "languages":{
+    "languages": {
         "en": "Anglais",
         "fr": "Français"
     },
-    "profil":{
+    "profil": {
         "photos": "Photos",
         "addPhotos": "Ajouter des photos",
         "description": "Description"

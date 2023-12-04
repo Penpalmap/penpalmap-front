@@ -8,7 +8,7 @@ const Footer = () => {
 
     return (
         <footer>
-            <Box bg="gray.200" py="4" px="6">
+            <Box bg="gray.200" py="4" px="6" h={'20'}>
                 <Flex justifyContent="space-between" alignItems="center">
                     <VStack spacing="2" align="center">
                         <HStack>

@@ -153,6 +153,17 @@ const SignIn = () => {
                                 {t('connect.connect')}
                             </Button>
                         </Stack>
+                        <Link href="/auth/forgot-password">
+                            <Text
+                                fontSize={'small'}
+                                textAlign={'end'}
+                                mt={4}
+                                color="blue.500"
+                                cursor="pointer"
+                            >
+                                {t('connect.forgot-password')}
+                            </Text>
+                        </Link>
                     </form>
 
                     <Box mt={4} w={'90%'}>

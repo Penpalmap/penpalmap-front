@@ -7,6 +7,7 @@
         "connect": "Connect",
         "no-account": "Don't have an account?",
         "create-account": "Create an account",
+        "forgot-password": "Forgot your password?",
         "nom": "Name",
         "already-account": "Already have an account?",
         "register": "Register",
@@ -20,13 +21,13 @@
         "previous": "Previous",
         "skip": "Skip",
         "finish": "Finish",
-        "day":"Day",
-        "month":"Month",
-        "year":"Year",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
         "heyExplorer": "Hey, explorer! 🚸",
-        "less12":"Just a heads-up: To journey in PenPalMap, you need to be at least 12 years old. Stay safe and enjoy the adventure! 🌍✨ Curious about the rules? Check our",
-        "more12part1":"🚸 Hey there, young explorer! Just a heads-up: there are adults on this app. Always stay safe and be cautious. 🛡️ Need more info? Check our",
-        "more12part2":". If something feels off, don&apos;t hesitate to reach out to the PenPalMap team! 💌",
+        "less12": "Just a heads-up: To journey in PenPalMap, you need to be at least 12 years old. Stay safe and enjoy the adventure! 🌍✨ Curious about the rules? Check our",
+        "more12part1": "🚸 Hey there, young explorer! Just a heads-up: there are adults on this app. Always stay safe and be cautious. 🛡️ Need more info? Check our",
+        "more12part2": ". If something feels off, don&apos;t hesitate to reach out to the PenPalMap team! 💌",
         "editImage": "Edit image",
         "toastLocationOut": "Oops! It seems you're in the middle of nowhere. Time to bring out your imaginary passport and explore the 'Land of Nowhere'! 🌍✈️",
         "selectALanguage": "Select a language",
@@ -52,7 +53,7 @@
         "october": "common:October",
         "november": "common:November",
         "december": "common:December"
-      },
+    },
     "profileGenderInput": {
         "woman": "Woman",
         "man": "Man",
@@ -70,8 +71,7 @@
         "pangender": "Pangender",
         "third-gender": "Third Gender",
         "othergender": "Other"
-    
-      },
+    },
     "presentation": {
         "devise1": "\"Here at PenPalMap, we aren't about quick swipes...",
         "devise2": "About learning, connecting, and growing - no matter the distance.\"",
@@ -101,11 +101,11 @@
         "dark": "Dark",
         "light": "Light"
     },
-    "chat":{
+    "chat": {
         "IsTyping": "is typing...",
         "you": "You: ",
         "send": "Send",
-        "seen":"Seen",
+        "seen": "Seen",
         "engageWith": "Start a discussion with",
         "typeMessage": "Type your message..."
     },
@@ -124,19 +124,19 @@
         "additionalCopyrightText": "Copies, potential downloads from the site, and applications are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, third-party copyrights are respected. Additionally, such material, especially third-party material, is identified as such. Nevertheless, if you notice any copyright infringements, we request that you inform us accordingly. Upon becoming aware of legal violations, we will immediately remove the affected content.",
         "moreKeys": "More keys..."
     },
-    "map":{
+    "map": {
         "searchPlace": "Search for a place or city..."
     },
-    "menu":{
+    "menu": {
         "myProfile": "My profile",
         "parameters": "Settings",
         "logout": "Logout"
     },
-    "languages":{
+    "languages": {
         "en": "English",
         "fr": "French"
     },
-    "profil":{
+    "profil": {
         "photos": "Photos",
         "addPhotos": "Add photos",
         "description": "Description"
