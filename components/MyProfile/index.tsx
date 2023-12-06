@@ -81,7 +81,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                     <ProfileImage images={images} />
                 </Box>
 
-                <Box mb={4}>
+                {/* <Box mb={4}>
                     <FormControl>
                         <FormLabel fontWeight={'semibold'}>
                             {t('profil.description')}
@@ -95,7 +95,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                             <EditableControls />
                         </Editable>
                     </FormControl>
-                </Box>
+                </Box> */}
             </>
         )
     }, [images])
