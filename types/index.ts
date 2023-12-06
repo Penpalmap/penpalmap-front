@@ -55,6 +55,7 @@ export type User = {
     image: string
     name: string
     geom: Geom
+    geomR: Geom
     points: number
     gender: string
     birthday: string
@@ -75,6 +76,7 @@ export type UserMap = {
     id: string
     name: string
     geom: Geom
+    geomR: Geom
     image: string
     points: number
     avatarNumber: number

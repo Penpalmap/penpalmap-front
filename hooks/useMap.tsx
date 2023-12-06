@@ -89,20 +89,20 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const showUserOverlay = useCallback((user: User) => {
         if (
             !mapObj.current ||
-            (user.geom?.coordinates[1] === undefined &&
-                user.geom?.coordinates[0] === undefined)
+            (user.geomR?.coordinates[1] === undefined &&
+                user.geomR?.coordinates[0] === undefined)
         )
             return
-        const { geom } = user
+        const { geomR } = user
 
-        if (!geom) {
+        if (!geomR) {
             // Gérer le cas où geom est manquant
             return
         }
 
         const coordinate = fromLonLat([
-            geom.coordinates[1] as number,
-            geom.coordinates[0] as number,
+            geomR.coordinates[1] as number,
+            geomR.coordinates[0] as number,
         ])
 
         overlayRef.current = new Overlay({
@@ -164,8 +164,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ],
             view: new View({
                 center: fromLonLat([
-                    session?.user?.geom?.coordinates?.[1] || 0,
-                    session?.user?.geom?.coordinates?.[0] || 0,
+                    session?.user?.geomR?.coordinates?.[1] || 0,
+                    session?.user?.geomR?.coordinates?.[0] || 0,
                 ]),
                 zoom: 5.5,
                 minZoom: 4.5,
@@ -211,16 +211,16 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         const filteredWithGeom = users.filter((user) => {
             return (
-                user.geom?.coordinates &&
-                user.geom?.coordinates.length > 0 &&
-                user.geom?.coordinates[1] &&
-                user.geom?.coordinates[0]
+                user.geomR?.coordinates &&
+                user.geomR?.coordinates.length > 0 &&
+                user.geomR?.coordinates[1] &&
+                user.geomR?.coordinates[0]
             )
         })
 
         // add features to the source for users
         const features = filteredWithGeom.map((user) => {
-            const { geom } = user
+            const { geomR } = user
 
             const room = rooms?.find((room) => {
                 const otherUser = room.members.find(
@@ -237,8 +237,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             return new Feature({
                 geometry: new Point(
                     fromLonLat([
-                        geom.coordinates[1] as number,
-                        geom.coordinates[0] as number,
+                        geomR.coordinates[1] as number,
+                        geomR.coordinates[0] as number,
                     ])
                 ),
                 element: {
