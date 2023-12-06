@@ -164,8 +164,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ],
             view: new View({
                 center: fromLonLat([
-                    session?.user?.geomR?.coordinates?.[1] || 0,
-                    session?.user?.geomR?.coordinates?.[0] || 0,
+                    session?.user?.geom?.coordinates?.[1] || 0,
+                    session?.user?.geom?.coordinates?.[0] || 0,
                 ]),
                 zoom: 5.5,
                 minZoom: 4.5,
