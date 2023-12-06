@@ -107,7 +107,41 @@ const TermsOfUse = () => {
                 PenPalMap reserves the right to change the terms of use with
                 appropriate notice of at least six weeks.
             </Text>
-
+            <Heading mb="2" as="h2" size="md">
+                Location Information
+            </Heading>
+            <Text mb="3">
+                <strong>Interactive Map:</strong> PenPalMap provides an
+                interactive map feature allowing users to connect based on
+                geographical locations. Users manually input their location
+                during registration, and no automatic geolocation is performed
+                on this site.
+            </Text>
+            <Text mb="3">
+                <strong>User-Provided Location:</strong> User locations stored
+                in the database are encrypted. Displayed locations on the map
+                intentionally have a level of degradation in precision to ensure
+                user privacy and security.
+            </Text>
+            <Text mb="3">
+                <strong>Prohibition of Information Scraping:</strong> It is
+                strictly forbidden to scrape or download user information,
+                including location data, from the interactive map without
+                explicit consent.
+            </Text>
+            <Text mb="3">
+                <strong>Data Protection:</strong> We are committed to
+                safeguarding user information, including location data, on our
+                servers. However, it is essential to recognize that the
+                transmission of data over the internet is not always entirely
+                secure.
+            </Text>
+            <Text mb="3">
+                <strong>Compliance:</strong> By using PenPalMap, you agree to
+                comply with these guidelines regarding location information on
+                the interactive map. Any violation of these terms may result in
+                the termination of your account.
+            </Text>
             <Box mt="5">
                 <Link href="/privacy-policy" color="blue.500">
                     For more details, refer to PenPalMap&quot;s Privacy Policy.
