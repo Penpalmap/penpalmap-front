@@ -37,7 +37,10 @@ const OverlayProfileMap = ({
         user?.geomR?.coordinates?.[0],
         user?.geomR?.coordinates?.[1]
     )
-    const genderFolder = user?.gender || 'other'
+    const genderFolder =
+        user?.gender === 'man' || user?.gender === 'woman'
+            ? user?.gender
+            : 'other'
 
     const { setMobileView } = useMobileView()
 

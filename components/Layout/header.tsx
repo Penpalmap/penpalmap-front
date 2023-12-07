@@ -44,7 +44,10 @@ const Header = () => {
         signOut()
         disconnectFromSocketServer(appData.socket)
     }
-    const genderFolder = session?.user?.gender || 'other'
+    const genderFolder =
+        session?.user?.gender === 'man' || session?.user?.gender === 'woman'
+            ? session?.user?.gender
+            : 'other'
 
     const { t } = useTranslation('common')
 

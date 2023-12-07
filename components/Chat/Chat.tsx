@@ -16,7 +16,11 @@ const Chat = ({ visible }) => {
     const { room, sendMessage, messages, offset, setOffset, isLoading } =
         useChat()
 
-    const genderFolder = appData?.userChat?.gender || 'other'
+    const genderFolder =
+        appData?.userChat?.gender === 'man' ||
+        appData?.userChat?.gender === 'woman'
+            ? appData?.userChat?.gender
+            : 'other'
 
     const socket = useRef<Socket>()
 
