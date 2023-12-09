@@ -17,11 +17,11 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import GoogleLoginButton from './GoogleLoginButton'
-import { signIn } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
+import axios from 'axios'
+import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google'
 
 interface LoginFormData {
     email: string
@@ -29,8 +29,6 @@ interface LoginFormData {
 }
 
 const SignIn = () => {
-    const router = useRouter()
-
     const {
         register,
         handleSubmit,
@@ -41,25 +39,29 @@ const SignIn = () => {
 
     const onSubmit = async (data: LoginFormData) => {
         try {
-            // Call the signIn function from NextAuth.js
-            const responseSignin = await signIn('credentials', {
-                email: data.email,
-                password: data.password,
-                redirect: false,
-            })
+            const responseSignin = await axios.post(
+                'http://localhost:5000/api/auth/login',
+                {
+                    email: data.email,
+                    password: data.password,
+                }
+            )
 
-            // If the response is successful, redirect to the profile page
-            if (responseSignin?.ok) {
-                router.push('/')
-            } else {
-                // Display the error message on the form
-                setError('Identifiants incorrects')
-            }
+            localStorage.setItem('token', responseSignin.data.token)
         } catch (error) {
             // Display the error message on the form
             setError('Authentication failed')
         }
     }
+
+    useGoogleOneTapLogin({
+        onSuccess: (credentialResponse) => {
+            console.log(credentialResponse)
+        },
+        onError: () => {
+            console.log('Login Failed')
+        },
+    })
 
     const [error, setError] = useState<string | null>(null)
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
@@ -103,8 +105,23 @@ const SignIn = () => {
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
                         <Text>{t('connect.connection')}</Text>
                     </Heading>
-                    <GoogleLoginButton />
+                    <GoogleLogin
+                        onSuccess={async (credentialResponse) => {
+                            console.log(credentialResponse)
+                            const response = await axios.post(
+                                'http://localhost:5000/api/auth/login/google',
+                                {
+                                    token: credentialResponse.credential,
+                                }
+                            )
 
+                            console.log('googlelogoin', response.data)
+                        }}
+                        onError={() => {
+                            console.log('Login Failed')
+                        }}
+                    />
+                    ;
                     <Divider my={6} />
                     <form
                         onSubmit={handleSubmit(onSubmit)}
@@ -165,7 +182,6 @@ const SignIn = () => {
                             </Text>
                         </Link>
                     </form>
-
                     <Box mt={4} w={'90%'}>
                         <Text fontSize={'small'}>
                             {t('connect.no-account')}{' '}

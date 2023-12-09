@@ -1,4 +1,4 @@
-import { Flex, Box, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import { useMobileView } from '../../context/MobileViewContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faMessage } from '@fortawesome/free-solid-svg-icons'

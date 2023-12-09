@@ -34,7 +34,7 @@ const Header = () => {
     const { data: session } = useSession()
     const [appData] = useContext(AppContext)
 
-    const { mobileView, setMobileView } = useMobileView()
+    const { setMobileView } = useMobileView()
     const isMobile = useBreakpointValue({ base: true, md: false })
 
     const { changeLocale, locale } = useLanguage()

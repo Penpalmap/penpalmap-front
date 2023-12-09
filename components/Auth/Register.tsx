@@ -24,6 +24,7 @@ import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
+import axios from 'axios'
 
 const Register = () => {
     const router = useRouter()
@@ -37,19 +38,32 @@ const Register = () => {
     const { t } = useTranslation('common')
 
     const onSubmit = async (data: RegisterUserInput) => {
-        const response = await registerUser(data)
-        if (response.error) {
-            setError('Une erreur est survenue, veuillez réessayer.')
-        } else {
-            // connect user (login)
-            await signIn('credentials', {
+        const responseRegister = await axios.post(
+            'http://localhost:5000/api/auth/register',
+            {
                 email: data.email,
                 password: data.password,
-                redirect: false,
-            })
-            // redirect to map
-            router.push('/create-profile')
-        }
+                name: data.name,
+            }
+        )
+
+        localStorage.setItem('token', responseRegister.data.token)
+
+        console.log(responseRegister.data.token)
+
+        // const response = await registerUser(data)
+        // if (response.error) {
+        //     setError('Une erreur est survenue, veuillez réessayer.')
+        // } else {
+        //     // connect user (login)
+        //     await signIn('credentials', {
+        //         email: data.email,
+        //         password: data.password,
+        //         redirect: false,
+        //     })
+        //     // redirect to map
+        //     router.push('/create-profile')
+        // }
     }
 
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
