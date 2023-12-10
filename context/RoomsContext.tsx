@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { Message, Room } from '../types'
 import { getRooms } from '../api/conversationApi'
-import { useSession } from 'next-auth/react'
+import { useSession } from '../hooks/useSession'
 import {
     onNewMessage,
     onSeenMessage,
@@ -40,7 +40,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     const [rooms, setRooms] = useState<Room[]>([])
     const [appData, setAppData] = useContext(AppContext)
 
-    const { data: session } = useSession()
+    const { session } = useSession()
 
     useEffect(() => {
         const fetchUserRooms = async () => {

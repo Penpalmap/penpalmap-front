@@ -1,6 +1,7 @@
 import {
     Avatar,
     Box,
+    Button,
     Flex,
     HStack,
     Image,
@@ -14,7 +15,6 @@ import {
     useBreakpointValue,
     useDisclosure,
 } from '@chakra-ui/react'
-import { signOut, useSession } from 'next-auth/react'
 import MyProfile from '../MyProfile'
 import packageJson from './../../package.json'
 import Link from 'next/link'
@@ -27,21 +27,23 @@ import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import useLanguage from '../../hooks/useLanguage'
 import { useTranslation } from 'next-i18next'
 import { useMobileView } from '../../context/MobileViewContext'
+import { useSession } from '../../hooks/useSession'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
-    const { data: session } = useSession()
+    const { session, setStatus } = useSession()
     const [appData] = useContext(AppContext)
 
-    const { mobileView, setMobileView } = useMobileView()
+    const { setMobileView } = useMobileView()
     const isMobile = useBreakpointValue({ base: true, md: false })
 
     const { changeLocale, locale } = useLanguage()
 
     // const { i18n } = useTranslation()
     const disconnect = () => {
-        signOut()
+        setStatus('unauthenticated')
+        localStorage.removeItem('token')
         disconnectFromSocketServer(appData.socket)
     }
     const genderFolder = session?.user?.gender || 'other'

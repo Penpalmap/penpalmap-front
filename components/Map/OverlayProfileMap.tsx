@@ -16,7 +16,7 @@ import {
     faMessage,
     faUser,
 } from '@fortawesome/free-solid-svg-icons'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import Link from 'next/link'
 import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
@@ -32,7 +32,7 @@ const OverlayProfileMap = ({
     closeOverlay,
     onOpenChat,
 }: OverlayProfileMapProps) => {
-    const { data: session } = useSession()
+    const { session } = useSession()
     const { country } = useLocation(
         user?.geomR?.coordinates?.[0],
         user?.geomR?.coordinates?.[1]

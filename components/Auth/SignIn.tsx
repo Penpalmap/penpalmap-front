@@ -16,12 +16,13 @@ import {
     keyframes,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import GoogleLoginButton from './GoogleLoginButton'
-import { signIn } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
+import axios from 'axios'
+import { GoogleLogin } from '@react-oauth/google'
+import { useRouter } from 'next/router'
+import { useSession } from '../../hooks/useSession'
 
 interface LoginFormData {
     email: string
@@ -29,8 +30,6 @@ interface LoginFormData {
 }
 
 const SignIn = () => {
-    const router = useRouter()
-
     const {
         register,
         handleSubmit,
@@ -39,22 +38,30 @@ const SignIn = () => {
 
     const { t } = useTranslation('common')
 
+    const router = useRouter()
+    const { setStatus } = useSession()
+    const loginSuccess = (token) => {
+        localStorage.setItem('token', token)
+
+        setStatus('authenticated')
+        router.push('/')
+    }
+
     const onSubmit = async (data: LoginFormData) => {
         try {
-            // Call the signIn function from NextAuth.js
-            const responseSignin = await signIn('credentials', {
-                email: data.email,
-                password: data.password,
-                redirect: false,
-            })
+            const responseSignin = await axios.post(
+                'http://localhost:5000/api/auth/login',
+                {
+                    email: data.email,
+                    password: data.password,
+                }
+            )
 
-            // If the response is successful, redirect to the profile page
-            if (responseSignin?.ok) {
-                router.push('/')
-            } else {
-                // Display the error message on the form
-                setError('Identifiants incorrects')
-            }
+            loginSuccess(responseSignin.data.token)
+            // localStorage.setItem('token', responseSignin.data.token)
+
+            // setStatus('authenticated')
+            // router.push('/')
         } catch (error) {
             // Display the error message on the form
             setError('Authentication failed')
@@ -103,8 +110,23 @@ const SignIn = () => {
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
                         <Text>{t('connect.connection')}</Text>
                     </Heading>
-                    <GoogleLoginButton />
+                    <GoogleLogin
+                        onSuccess={async (credentialResponse) => {
+                            console.log(credentialResponse)
+                            const response = await axios.post(
+                                'http://localhost:5000/api/auth/login/google',
+                                {
+                                    token: credentialResponse.credential,
+                                }
+                            )
 
+                            loginSuccess(response.data.token)
+                        }}
+                        onError={() => {
+                            console.log('Login Failed')
+                        }}
+                    />
+                    ;
                     <Divider my={6} />
                     <form
                         onSubmit={handleSubmit(onSubmit)}
@@ -165,7 +187,6 @@ const SignIn = () => {
                             </Text>
                         </Link>
                     </form>
-
                     <Box mt={4} w={'90%'}>
                         <Text fontSize={'small'}>
                             {t('connect.no-account')}{' '}

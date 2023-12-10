@@ -1,10 +1,10 @@
-import axios from 'axios'
 import { ProfileFormData, UserImage } from '../types'
+import axiosInstance from '../axiosInstance'
 
 const uploadProfileImage = async (formData: FormData, userId: string) => {
     try {
-        const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/image`,
+        const response = await axiosInstance.post(
+            `/api/users/${userId}/image`,
             formData
         )
 
@@ -19,8 +19,8 @@ const reorderProfileImages = async (
     newImagesOrder: UserImage[]
 ) => {
     try {
-        const response = await axios.put(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile/reorder`,
+        const response = await axiosInstance.put(
+            `/api/users/${userId}/profile/reorder`,
             {
                 newImagesOrder,
             }
@@ -34,8 +34,8 @@ const reorderProfileImages = async (
 
 const deleteProfileImage = async (position: number, userId: string) => {
     try {
-        const response = await axios.delete(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile/images/${position}`
+        const response = await axiosInstance.delete(
+            `/api/users/${userId}/profile/images/${position}`
         )
 
         return response.data
@@ -46,8 +46,8 @@ const deleteProfileImage = async (position: number, userId: string) => {
 
 const createProfile = async (profile: ProfileFormData, userId: string) => {
     try {
-        const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/details`,
+        const response = await axiosInstance.post(
+            `/api/users/${userId}/details`,
             profile
         )
 
@@ -59,8 +59,8 @@ const createProfile = async (profile: ProfileFormData, userId: string) => {
 
 const updateProfile = async (profile: ProfileFormData, userId: string) => {
     try {
-        const response = await axios.put(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile`,
+        const response = await axiosInstance.put(
+            `/api/users/${userId}/profile`,
             profile
         )
 
@@ -72,9 +72,7 @@ const updateProfile = async (profile: ProfileFormData, userId: string) => {
 
 const getProfile = async (userId: string) => {
     try {
-        const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/profile`
-        )
+        const response = await axiosInstance.get(`/api/users/${userId}/profile`)
 
         return response.data
     } catch (error) {

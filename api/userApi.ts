@@ -1,11 +1,9 @@
-import axios from 'axios'
 import { User, UserMap } from '../types'
+import axiosInstance from '../axiosInstance'
 
 const getUserByEmail = async (email: string): Promise<User> => {
     try {
-        const userInfos = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/email/${email}`
-        )
+        const userInfos = await axiosInstance.get(`/api/users/email/${email}`)
 
         return userInfos.data
     } catch (error) {
@@ -16,8 +14,8 @@ const getUserByEmail = async (email: string): Promise<User> => {
 
 const getUserByGoogleId = async (googleId: string): Promise<User> => {
     try {
-        const userInfos = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/googleId/${googleId}`
+        const userInfos = await axiosInstance.get(
+            `/api/users/googleId/${googleId}`
         )
 
         return userInfos.data
@@ -29,9 +27,7 @@ const getUserByGoogleId = async (googleId: string): Promise<User> => {
 
 const getUserById = async (id: string): Promise<User> => {
     try {
-        const userInfos = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`
-        )
+        const userInfos = await axiosInstance.get(`/api/users/${id}`)
 
         return userInfos.data
     } catch (error) {
@@ -42,9 +38,7 @@ const getUserById = async (id: string): Promise<User> => {
 
 const getUsersInMap = async (): Promise<UserMap[]> => {
     try {
-        const users = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/map/users`
-        )
+        const users = await axiosInstance.get(`/api/map/users`)
 
         return users.data
     } catch (error) {
@@ -55,10 +49,7 @@ const getUsersInMap = async (): Promise<UserMap[]> => {
 
 const updateUser = async (user: any, userId: string) => {
     try {
-        const response = await axios.put(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}`,
-            user
-        )
+        const response = await axiosInstance.put(`/api/users/${userId}`, user)
 
         return response.data
     } catch (error) {

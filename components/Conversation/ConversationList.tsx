@@ -1,7 +1,7 @@
 import { useContext, useMemo, useCallback } from 'react'
 import { Box, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
-import { useSession } from 'next-auth/react'
+import { useSession } from '../../hooks/useSession'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
 import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
@@ -10,7 +10,7 @@ import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 import { useMobileView } from '../../context/MobileViewContext'
 
 const ConversationList = () => {
-    const { data: session } = useSession()
+    const { session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const { rooms, resetCountUnreadMessagesOfRoom } = useRoom()
 

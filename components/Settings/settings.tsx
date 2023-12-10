@@ -7,12 +7,7 @@ import {
     Select,
     useBreakpointValue,
 } from '@chakra-ui/react'
-import {
-    faArrowAltCircleLeft,
-    faArrowLeft,
-    faChevronLeft,
-    faGlobeEurope,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
 import useLanguage from '../../hooks/useLanguage'
@@ -22,7 +17,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 
 const Settings = () => {
     const { t } = useTranslation()
-    const { data: session } = useSession()
+    const { session } = useSession()
 
     const { changeLocale, locale } = useLanguage()
 
