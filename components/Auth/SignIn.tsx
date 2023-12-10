@@ -16,12 +16,11 @@ import {
     keyframes,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
-import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google'
+import { GoogleLogin } from '@react-oauth/google'
 import { useRouter } from 'next/router'
 import { useSession } from '../../hooks/useSession'
 
@@ -68,15 +67,6 @@ const SignIn = () => {
             setError('Authentication failed')
         }
     }
-
-    useGoogleOneTapLogin({
-        onSuccess: (credentialResponse) => {
-            console.log(credentialResponse)
-        },
-        onError: () => {
-            console.log('Login Failed')
-        },
-    })
 
     const [error, setError] = useState<string | null>(null)
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
