@@ -3,7 +3,7 @@ import ChatHeader from './ChatHeader'
 import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
 import { AppContext } from '../../context/AppContext'
-import { useSession } from 'next-auth/react'
+import { useSession } from '../../hooks/useSession'
 import useChat from '../../hooks/useChat'
 import { useContext, useEffect, useRef } from 'react'
 import { Message } from '../../types'
@@ -11,7 +11,7 @@ import { Socket, io } from 'socket.io-client'
 import { SocketEvents } from '../../constants/socketEnum'
 
 const Chat = ({ visible }) => {
-    const { data: session } = useSession()
+    const { session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const { room, sendMessage, messages, offset, setOffset, isLoading } =
         useChat()

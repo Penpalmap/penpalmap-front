@@ -5,7 +5,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 import Map from '../Map/Map'
 import ConversationList from '../Conversation/ConversationList'
 import Profile from '../Profile'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import Chat from '../Chat/Chat'
 import Settings from '../Settings/settings'
 import { useContext } from 'react'
@@ -14,7 +14,7 @@ import { AppContext } from '../../context/AppContext'
 const LayoutMobile = () => {
     const { mobileView } = useMobileView()
 
-    const { data: session } = useSession()
+    const { session } = useSession()
 
     const [appData] = useContext(AppContext)
 

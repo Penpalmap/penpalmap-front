@@ -11,7 +11,7 @@ const ProfilePhotoUpload = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
     const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
-    const { data: session } = useSession()
+    const { session } = useSession()
 
     const { uploadImage } = useUploadUserImage()
 

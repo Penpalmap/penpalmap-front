@@ -12,12 +12,12 @@ import {
     useEditableControls,
 } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { UserImage } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import ProfileImage from '../Profile/ProfileImages'
 import { useTranslation } from 'next-i18next'
+import { useSession } from '../../hooks/useSession'
 
 type Props = {
     isOpen: boolean
@@ -25,7 +25,7 @@ type Props = {
 }
 
 const MyProfile = ({ isOpen, onClose }: Props) => {
-    const { data: session } = useSession()
+    const { session } = useSession()
 
     const [images, setImages] = useState<UserImage[]>([])
 

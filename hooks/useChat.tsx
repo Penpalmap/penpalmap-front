@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { SocketEvents } from '../constants/socketEnum'
 import { Message, MessageInput, Room } from '../types'
-import { useSession } from 'next-auth/react'
+import { useSession } from './useSession'
 import {
     createMessage,
     getMessagesByRoomId,
@@ -19,7 +19,7 @@ import { useRoom } from '../context/RoomsContext'
 
 const useChat = () => {
     const [room, setRoom] = useState<Room | null>(null)
-    const { data: session } = useSession()
+    const { session } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const [messages, setMessages] = useState<Message[]>([])
     const [offset, setOffset] = useState(0)

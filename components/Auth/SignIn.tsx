@@ -22,6 +22,8 @@ import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google'
+import { useRouter } from 'next/router'
+import { useSession } from '../../hooks/useSession'
 
 interface LoginFormData {
     email: string
@@ -37,6 +39,15 @@ const SignIn = () => {
 
     const { t } = useTranslation('common')
 
+    const router = useRouter()
+    const { setStatus } = useSession()
+    const loginSuccess = (token) => {
+        localStorage.setItem('token', token)
+
+        setStatus('authenticated')
+        router.push('/')
+    }
+
     const onSubmit = async (data: LoginFormData) => {
         try {
             const responseSignin = await axios.post(
@@ -47,7 +58,11 @@ const SignIn = () => {
                 }
             )
 
-            localStorage.setItem('token', responseSignin.data.token)
+            loginSuccess(responseSignin.data.token)
+            // localStorage.setItem('token', responseSignin.data.token)
+
+            // setStatus('authenticated')
+            // router.push('/')
         } catch (error) {
             // Display the error message on the form
             setError('Authentication failed')
@@ -115,7 +130,7 @@ const SignIn = () => {
                                 }
                             )
 
-                            console.log('googlelogoin', response.data)
+                            loginSuccess(response.data.token)
                         }}
                         onError={() => {
                             console.log('Login Failed')

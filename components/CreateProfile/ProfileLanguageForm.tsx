@@ -11,7 +11,7 @@ type Props = {
 }
 
 const ProfileLanguageForm = ({ setValue }: Props) => {
-    const { data: session } = useSession()
+    const { session } = useSession()
     const [languages, setLanguages] = useState<UserLanguage[]>([])
 
     useEffect(() => {

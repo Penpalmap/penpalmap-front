@@ -17,7 +17,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 
 const Settings = () => {
     const { t } = useTranslation()
-    const { data: session } = useSession()
+    const { session } = useSession()
 
     const { changeLocale, locale } = useLanguage()
 

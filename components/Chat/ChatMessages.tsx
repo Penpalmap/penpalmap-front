@@ -1,7 +1,7 @@
 import { Box, Spinner, Text } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import MessageItem from './MessageItem'
 import { AppContext } from '../../context/AppContext'
 import { onIsTyping } from '../../sockets/socketManager'
@@ -24,7 +24,7 @@ const ChatMessages = ({
     setOffset,
     isLoading,
 }: Props) => {
-    const { data: session } = useSession()
+    const { session } = useSession()
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(

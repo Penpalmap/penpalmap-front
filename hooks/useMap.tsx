@@ -11,7 +11,7 @@ import VectorLayer from 'ol/layer/Vector'
 import { Point } from 'ol/geom'
 import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
-import { useSession } from 'next-auth/react'
+import { useSession } from '../hooks/useSession'
 import { User, UserMap } from '../types'
 import XYZ from 'ol/source/XYZ'
 import { useRoom } from '../context/RoomsContext'
@@ -34,7 +34,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const [users, setUsers] = useState<UserMap[]>([])
     const [, setData] = useContext(AppContext)
     const { rooms } = useRoom()
-    const { data: session } = useSession()
+    const { session } = useSession()
 
     const userLayerRef = useRef<VectorLayer<Cluster> | null>(null)
 

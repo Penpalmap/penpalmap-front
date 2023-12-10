@@ -16,24 +16,23 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
-import { registerUser } from '../../api/authApi'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
+import { useSession } from '../../hooks/useSession'
 
 const Register = () => {
-    const router = useRouter()
     const [error, setError] = useState<string | null>(null)
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterUserInput>()
+
+    const { session, setStatus } = useSession()
 
     const { t } = useTranslation('common')
 
@@ -49,7 +48,8 @@ const Register = () => {
 
         localStorage.setItem('token', responseRegister.data.token)
 
-        console.log(responseRegister.data.token)
+        setStatus('authenticated')
+        // router.push('/create-profile')
 
         // const response = await registerUser(data)
         // if (response.error) {

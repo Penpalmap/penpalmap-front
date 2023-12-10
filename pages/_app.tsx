@@ -2,7 +2,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import Layout from '../components/Layout'
 import customTheme from '../styles/customTheme'
-import { SessionProvider } from 'next-auth/react'
+import { SessionProvider } from './../context/SessionContext'
 import { AppProvider } from '../context/AppContext'
 import { RoomProvider } from '../context/RoomsContext'
 import { appWithTranslation } from 'next-i18next'
@@ -17,17 +17,19 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <GoogleOAuthProvider
                 clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
             >
-                <AppProvider>
-                    <MobileViewProvider>
-                        <SessionProvider session={session}>
+                <SessionProvider>
+                    <AppProvider>
+                        <MobileViewProvider>
+                            {/* <SessionProvider> */}
                             <RoomProvider>
                                 <Layout>
                                     <Component {...pageProps} />
                                 </Layout>
                             </RoomProvider>
-                        </SessionProvider>
-                    </MobileViewProvider>
-                </AppProvider>
+                            {/* </SessionProvider> */}
+                        </MobileViewProvider>
+                    </AppProvider>
+                </SessionProvider>
             </GoogleOAuthProvider>
             ;
         </ChakraProvider>

@@ -4,13 +4,23 @@ import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import ProfilePage from '../../pages/profile/[profileId]'
 import Footer from './footer'
-import { useSession } from 'next-auth/react'
+// import { useSession } from '../../hooks/useSession'
 import SettingsPage from '../../pages/settings'
+import { useSession } from '../../hooks/useSession'
 
 Modal.setAppElement('#__next')
 const Layout = ({ children }) => {
     const router = useRouter()
+
     const { status } = useSession()
+    if (
+        status === 'authenticated' &&
+        (router.pathname === '/auth/signup' ||
+            router.pathname === '/auth/signin')
+    ) {
+        router.push('/')
+    }
+
     const customStyles = {
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.5)',

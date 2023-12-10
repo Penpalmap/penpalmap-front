@@ -1,7 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Register from '../../components/Auth/Register'
 import Head from 'next/head'
-import { useGoogleOneTapLogin } from '@react-oauth/google'
 
 export default function signup() {
     return (
