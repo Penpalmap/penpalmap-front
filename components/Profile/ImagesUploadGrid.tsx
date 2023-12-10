@@ -3,7 +3,7 @@ import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import { DndContext } from '@dnd-kit/core'
 import SortableItem from './SortableItem'
 import { Box, Button, Center, Flex, Grid, Image, Input } from '@chakra-ui/react'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import { reorderProfileImages } from '../../api/profileApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCrown, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -25,7 +25,8 @@ const ImagesUploadGrid = ({
     handleDeleteImage,
 }: Props) => {
     const refInputFile = useRef<HTMLInputElement>(null)
-    const { data: session, update: updateSession } = useSession()
+    const { session } = useSession()
+    // const { data: session, update: updateSession } = useSession()
 
     const items = useMemo(() => {
         return images.map((image) => image.src)

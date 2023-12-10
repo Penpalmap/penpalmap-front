@@ -28,8 +28,6 @@ import useLanguage from '../../hooks/useLanguage'
 import { useTranslation } from 'next-i18next'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useSession } from '../../hooks/useSession'
-import axios from 'axios'
-import axiosInstance from '../../axiosInstance'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()

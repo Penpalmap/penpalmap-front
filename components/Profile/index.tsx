@@ -90,8 +90,6 @@ const Profile = ({ profileId }: Props) => {
     }, [user])
 
     useEffect(() => {
-        console.log('user', user)
-
         if (!mapRef.current || !user) return undefined
 
         const userSource = new VectorSource()

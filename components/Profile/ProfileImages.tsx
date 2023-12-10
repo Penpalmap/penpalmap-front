@@ -1,5 +1,5 @@
 import { UserImage } from '../../types'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import { useState, useEffect } from 'react'
 import ImagesUploadGrid from './ImagesUploadGrid'
 import ModalImageCropped from '../Image/ModalImageCropped'
@@ -14,8 +14,8 @@ type Props = {
 const ProfileImage = ({ images }: Props) => {
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
     const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
-    const { data: session, update: updateSession } = useSession()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { session } = useSession()
 
     const { uploadImage } = useUploadUserImage()
     useEffect(() => {
@@ -46,7 +46,7 @@ const ProfileImage = ({ images }: Props) => {
 
         await deleteProfileImage(index, session.user.id)
 
-        updateSession()
+        // updateSession()
     }
 
     const handleImageCrop = async (croppedImage: Blob) => {
@@ -65,7 +65,7 @@ const ProfileImage = ({ images }: Props) => {
 
             setCroppedImages((prevImages) => [...prevImages, userImage])
 
-            updateSession()
+            // updateSession()
 
             onClose()
         }

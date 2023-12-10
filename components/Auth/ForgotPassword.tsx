@@ -23,7 +23,6 @@ const ForgotPassword = () => {
 
     const onSubmit = async (data) => {
         const response = await reinitializePassword(data.email)
-        console.log(response)
         if (response.success === true) {
             setMessage(response.message)
             setError('')

@@ -29,6 +29,7 @@ export const SessionProvider = ({ children }) => {
         if (token) {
             try {
                 const decoded = jwtDecode(token)
+                console.log('decoded', decoded)
                 const { user } = decoded as { user: User }
                 setSession({ user: user as User, token })
                 setStatus('authenticated')

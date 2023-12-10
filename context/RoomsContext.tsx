@@ -44,11 +44,8 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
 
     useEffect(() => {
         const fetchUserRooms = async () => {
-            debugger
-            console.log('session', session)
             if (!session?.user?.id) return
             const response = await getRooms(session?.user?.id)
-            console.log('response', response)
             if (response) {
                 setRooms(response.rooms)
             }
