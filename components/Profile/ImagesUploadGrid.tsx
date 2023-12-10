@@ -66,7 +66,7 @@ const ImagesUploadGrid = ({
             setImages(newImagesOrder)
             await reorderProfileImages(session?.user?.id, newImagesOrder)
 
-            updateSession()
+            // updateSession()
         }
 
         return

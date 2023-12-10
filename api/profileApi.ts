@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { ProfileFormData, UserImage } from '../types'
 import axiosInstance from '../axiosInstance'
 
