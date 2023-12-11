@@ -17,7 +17,6 @@ import {
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
 import { useState } from 'react'
-import GoogleLoginButton from './GoogleLoginButton'
 import Link from 'next/link'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
@@ -107,7 +106,6 @@ const Register = () => {
                     <Heading as="h1" size="lg" mb={6}>
                         {t('connect.sign-up')}
                     </Heading>
-                    <GoogleLoginButton />
                     <Divider my={6} />
                     <form
                         onSubmit={handleSubmit(onSubmit)}
