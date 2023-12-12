@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router'
-import { Button, Text, useBreakpointValue } from '@chakra-ui/react'
+import Router from 'next/router'
+import { useBreakpointValue } from '@chakra-ui/react'
 import { useSession } from './../hooks/useSession'
 import { useEffect } from 'react'
 import Loading from '../components/Layout/loading'
@@ -12,30 +12,28 @@ Modal.setAppElement('#__next')
 export default function Home() {
     const { session, status } = useSession()
 
-    const router = useRouter()
-
     const isMobile = useBreakpointValue({ base: true, md: false })
 
-    console.log('home', session)
     useEffect(() => {
         if (session?.user?.isNewUser) {
-            router.push('/create-profile')
+            Router.push('/create-profile')
         }
 
         if (status === 'unauthenticated') {
-            router.push('/auth/signin')
+            Router.push('/auth/signin')
         }
-    }, [router, session, status])
+
+        if (status === 'authenticated') {
+            Router.push('/')
+        }
+    }, [session, status])
 
     return status === 'loading' || session?.user?.isNewUser ? (
         <Loading />
     ) : isMobile ? (
         <LayoutMobile />
     ) : (
-        // <Text>Mobile</Text>
         <LayoutDesktop />
-
-        // <Text>Desktop</Text>
     )
 }
 

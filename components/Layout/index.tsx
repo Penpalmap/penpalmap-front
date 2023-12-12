@@ -13,13 +13,13 @@ const Layout = ({ children }) => {
     const router = useRouter()
 
     const { status } = useSession()
-    if (
-        status === 'authenticated' &&
-        (router.pathname === '/auth/signup' ||
-            router.pathname === '/auth/signin')
-    ) {
-        router.push('/')
-    }
+    // if (
+    //     status === 'authenticated' &&
+    //     (router.pathname === '/auth/signup' ||
+    //         router.pathname === '/auth/signin')
+    // ) {
+    //     router.push('/')
+    // }
 
     const customStyles = {
         overlay: {

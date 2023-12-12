@@ -39,9 +39,11 @@ const SignIn = () => {
     const { t } = useTranslation('common')
 
     const router = useRouter()
-    const { setStatus } = useSession()
-    const loginSuccess = (token) => {
+    const { setStatus, fetchUser } = useSession()
+    const loginSuccess = async (token) => {
         localStorage.setItem('token', token)
+
+        await fetchUser()
 
         setStatus('authenticated')
         router.push('/')
@@ -58,10 +60,6 @@ const SignIn = () => {
             )
 
             loginSuccess(responseSignin.data.token)
-            // localStorage.setItem('token', responseSignin.data.token)
-
-            // setStatus('authenticated')
-            // router.push('/')
         } catch (error) {
             // Display the error message on the form
             setError('Authentication failed')
@@ -112,7 +110,6 @@ const SignIn = () => {
                     </Heading>
                     <GoogleLogin
                         onSuccess={async (credentialResponse) => {
-                            console.log(credentialResponse)
                             const response = await axios.post(
                                 'http://localhost:5000/api/auth/login/google',
                                 {

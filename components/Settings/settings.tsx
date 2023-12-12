@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
 import useLanguage from '../../hooks/useLanguage'
 import { updateUser } from '../../api/userApi'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import { useMobileView } from '../../context/MobileViewContext'
 
 const Settings = () => {

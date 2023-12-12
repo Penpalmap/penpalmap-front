@@ -22,6 +22,7 @@ import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import { useSession } from '../../hooks/useSession'
+import { useRouter } from 'next/router'
 
 const Register = () => {
     const [error, setError] = useState<string | null>(null)
@@ -31,10 +32,11 @@ const Register = () => {
         formState: { errors },
     } = useForm<RegisterUserInput>()
 
-    const { session, setStatus } = useSession()
+    const { session, setStatus, fetchUser } = useSession()
 
     const { t } = useTranslation('common')
 
+    const router = useRouter()
     const onSubmit = async (data: RegisterUserInput) => {
         const responseRegister = await axios.post(
             'http://localhost:5000/api/auth/register',
@@ -48,21 +50,9 @@ const Register = () => {
         localStorage.setItem('token', responseRegister.data.token)
 
         setStatus('authenticated')
-        // router.push('/create-profile')
+        await fetchUser()
 
-        // const response = await registerUser(data)
-        // if (response.error) {
-        //     setError('Une erreur est survenue, veuillez réessayer.')
-        // } else {
-        //     // connect user (login)
-        //     await signIn('credentials', {
-        //         email: data.email,
-        //         password: data.password,
-        //         redirect: false,
-        //     })
-        //     // redirect to map
-        //     router.push('/create-profile')
-        // }
+        router.push('/create-profile')
     }
 
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`

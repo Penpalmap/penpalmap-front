@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { User } from '../types'
+import axiosInstance from '../axiosInstance'
 
 export const SessionContext = createContext<{
     session: {
@@ -9,10 +10,18 @@ export const SessionContext = createContext<{
     } | null
     status: string
     setStatus: (status: string) => void
+    fetchUser: () => void
+    setSession: (session: { user: User; token: string }) => void
 }>({
     session: null,
     status: 'loading',
     setStatus: () => {
+        // do nothing
+    },
+    fetchUser: () => {
+        // do nothing
+    },
+    setSession: () => {
         // do nothing
     },
 })
@@ -24,26 +33,35 @@ export const SessionProvider = ({ children }) => {
     } | null>(null)
     const [status, setStatus] = useState('loading')
 
-    useEffect(() => {
+    const fetchUser = async () => {
         const token = localStorage.getItem('token')
+
         if (token) {
-            try {
-                const decoded = jwtDecode(token)
-                console.log('decoded', decoded)
-                const { user } = decoded as { user: User }
-                setSession({ user: user as User, token })
-                setStatus('authenticated')
-            } catch (error) {
-                console.error('Erreur de décodage du JWT', error)
-                setStatus('unauthenticated')
+            const decoded = jwtDecode(token) as {
+                id: string
+                iat: number
+                exp: number
+                email
             }
-        } else {
-            setStatus('unauthenticated')
+            const response = (await axiosInstance.get(
+                `/api/users/${decoded.id}`
+            )) as any
+
+            if (response) {
+                setSession({ token: token, user: response.data })
+                setStatus('authenticated')
+            }
         }
+    }
+
+    useEffect(() => {
+        fetchUser()
     }, [])
 
     return (
-        <SessionContext.Provider value={{ session, status, setStatus }}>
+        <SessionContext.Provider
+            value={{ session, status, setStatus, fetchUser, setSession }}
+        >
             {children}
         </SessionContext.Provider>
     )

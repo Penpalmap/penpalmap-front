@@ -1,7 +1,7 @@
 import { Button, Flex, IconButton, Select, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { UserLanguage } from '../../types'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'

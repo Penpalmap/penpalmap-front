@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import ProfileGenderInput from './ProfileGenderInput'
 import ProfileBirthdayInput from './ProfileBirthdayInput'
 import ProfileLocationInput from './ProfileLocationInput'
-import { useSession } from 'next-auth/react'
+import { useSession } from './../../hooks/useSession'
 import { getUserById, updateUser } from '../../api/userApi'
 import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
@@ -13,7 +13,9 @@ import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
 
 const CreateProfile = () => {
-    const { data: session, status, update: updateSession } = useSession()
+    // const { data: session, status, update: updateSession } = useSession()
+
+    const { session, status, fetchUser } = useSession()
     const router = useRouter()
 
     const { register, handleSubmit, setValue, watch } =
@@ -89,6 +91,7 @@ const CreateProfile = () => {
     }, [router, session, status])
 
     const onSubmit = async (data: ProfileFormData) => {
+        debugger
         if (!session?.user.id) return
 
         if (router.locale) data.languageUsed = router.locale
@@ -105,7 +108,7 @@ const CreateProfile = () => {
         const response = await updateUser(data, session?.user.id)
 
         if (response) {
-            await updateSession()
+            await fetchUser()
             router.push('/')
         }
     }
