@@ -51,6 +51,8 @@ export const SessionProvider = ({ children }) => {
                 setSession({ token: token, user: response.data })
                 setStatus('authenticated')
             }
+        } else {
+            setStatus('unauthenticated')
         }
     }
 
