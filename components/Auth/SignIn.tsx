@@ -40,8 +40,12 @@ const SignIn = () => {
 
     const router = useRouter()
     const { setStatus, fetchUser } = useSession()
-    const loginSuccess = async (token) => {
-        localStorage.setItem('token', token)
+    const loginSuccess = async (params: {
+        accessToken: string
+        refreshToken: string
+    }) => {
+        localStorage.setItem('accessToken', params.accessToken)
+        localStorage.setItem('refreshToken', params.refreshToken)
 
         await fetchUser()
 
@@ -59,7 +63,7 @@ const SignIn = () => {
                 }
             )
 
-            loginSuccess(responseSignin.data.token)
+            loginSuccess(responseSignin.data)
         } catch (error) {
             // Display the error message on the form
             setError('Authentication failed')
@@ -117,7 +121,7 @@ const SignIn = () => {
                                 }
                             )
 
-                            loginSuccess(response.data.token)
+                            loginSuccess(response.data)
                         }}
                         onError={() => {
                             console.log('Login Failed')

@@ -47,7 +47,7 @@ const Register = () => {
             }
         )
 
-        localStorage.setItem('token', responseRegister.data.token)
+        localStorage.setItem('accessToken', responseRegister.data.accessToken)
 
         setStatus('authenticated')
         await fetchUser()

@@ -79,6 +79,20 @@ const resetPassword = async (token: string, password: string) => {
     }
 }
 
+const refreshToken = async (accessToken) => {
+    try {
+        const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
+            {
+                accessToken,
+            }
+        )
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+}
+
 export {
     registerUser,
     checkAuthStatus,
@@ -86,4 +100,5 @@ export {
     reinitializePassword,
     verifyResetPasswordToken,
     resetPassword,
+    refreshToken,
 }
