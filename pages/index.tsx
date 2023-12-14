@@ -6,7 +6,7 @@ import LayoutMobile from '../components/Layout/LayoutMobile'
 import LayoutDesktop from '../components/Layout/LayoutDesktop'
 
 import { useBreakpointValue } from '@chakra-ui/react'
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import Router from 'next/router'
 Modal.setAppElement('#__next')
 

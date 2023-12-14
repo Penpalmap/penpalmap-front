@@ -10,7 +10,7 @@ import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 import { useMobileView } from '../../context/MobileViewContext'
 
 const ConversationList = () => {
-    const { session } = useSession()
+    const { user } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const { rooms, resetCountUnreadMessagesOfRoom } = useRoom()
 
@@ -18,22 +18,23 @@ const ConversationList = () => {
 
     const clickOnConversation = useCallback(
         async (members) => {
-            const user = members?.find(
-                (member) => member.id !== session?.user?.id
-            )
-            if (user) {
+            const userMember = members?.find((member) => member.id !== user?.id)
+            if (userMember) {
                 const roomIncludeUser = rooms.find((room) =>
-                    room.members.includes(user)
+                    room.members.includes(userMember)
                 )
                 if (roomIncludeUser) {
                     setAppData({
                         ...appData,
-                        userChat: user,
+                        userChat: userMember,
                         chatOpen: true,
                     })
                     resetCountUnreadMessagesOfRoom(roomIncludeUser.id)
 
-                    await updateMessageIsReadByRoom(roomIncludeUser.id, user.id)
+                    await updateMessageIsReadByRoom(
+                        roomIncludeUser.id,
+                        userMember.id
+                    )
                     const lastMessage =
                         roomIncludeUser.messages[
                             roomIncludeUser.messages.length - 1
@@ -51,9 +52,9 @@ const ConversationList = () => {
             appData,
             resetCountUnreadMessagesOfRoom,
             rooms,
-            session?.user?.id,
             setAppData,
             setMobileView,
+            user?.id,
         ]
     )
 
@@ -66,12 +67,12 @@ const ConversationList = () => {
                         clickOnRoom={clickOnConversation}
                         lastMessage={room.messages[0]}
                         members={room.members}
-                        sessionUserId={session?.user?.id}
+                        sessionUserId={user?.id}
                         countUnreadMessages={room.countUnreadMessages}
                         key={index}
                     />
                 )),
-        [clickOnConversation, rooms, session?.user?.id]
+        [clickOnConversation, rooms, user?.id]
     )
 
     return (

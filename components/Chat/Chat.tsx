@@ -11,7 +11,7 @@ import { Socket, io } from 'socket.io-client'
 import { SocketEvents } from '../../constants/socketEnum'
 
 const Chat = ({ visible }) => {
-    const { session } = useSession()
+    const { user } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const { room, sendMessage, messages, offset, setOffset, isLoading } =
         useChat()
@@ -21,15 +21,15 @@ const Chat = ({ visible }) => {
     const socket = useRef<Socket>()
 
     useEffect(() => {
-        if (session?.user?.id) {
+        if (user?.id) {
             socket.current = io(process.env.NEXT_PUBLIC_API_URL as string)
-            socket.current.emit(SocketEvents.AddUser, session.user.id)
+            socket.current.emit(SocketEvents.AddUser, user.id)
             setAppData((prevData) => ({
                 ...prevData,
                 socket: socket.current,
             }))
         }
-    }, [session?.user.id, setAppData])
+    }, [user?.id, setAppData])
 
     const sortByDate = (a: Message, b: Message) => {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
@@ -65,10 +65,10 @@ const Chat = ({ visible }) => {
                 isLoading={isLoading}
             />
 
-            {session?.user?.id && (
+            {user?.id && (
                 <ChatInput
                     room={room}
-                    senderId={session?.user?.id}
+                    senderId={user?.id}
                     sendMessage={sendMessage}
                 />
             )}

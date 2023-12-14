@@ -22,22 +22,22 @@ import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
 
 type OverlayProfileMapProps = {
-    user: User | null
+    userMap: User | null
     closeOverlay: () => void
     onOpenChat: (user: User) => void
 }
 
 const OverlayProfileMap = ({
-    user,
+    userMap,
     closeOverlay,
     onOpenChat,
 }: OverlayProfileMapProps) => {
-    const { session } = useSession()
+    const { user } = useSession()
     const { country } = useLocation(
-        user?.geomR?.coordinates?.[0],
-        user?.geomR?.coordinates?.[1]
+        userMap?.geomR?.coordinates?.[0],
+        userMap?.geomR?.coordinates?.[1]
     )
-    const genderFolder = user?.gender || 'other'
+    const genderFolder = userMap?.gender || 'other'
 
     const { setMobileView } = useMobileView()
 
@@ -56,12 +56,12 @@ const OverlayProfileMap = ({
             <Flex flex={'1'} w={['150px', '200px']} h={['150px', '200px']}>
                 <Image
                     src={
-                        user?.userImages.find((img) => img.position === 0)
+                        userMap?.userImages.find((img) => img.position === 0)
                             ?.src ??
-                        `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
+                        `/images/avatar/${genderFolder}/${userMap?.avatarNumber}.png`
                     }
                     w={'100%'}
-                    alt={user?.name}
+                    alt={userMap?.name}
                     borderLeftRadius={'10px'}
                 />
             </Flex>
@@ -74,7 +74,7 @@ const OverlayProfileMap = ({
                 <Box>
                     <Flex alignItems={'center'} fontSize={['18px']}>
                         <Text fontWeight={'bold'} textTransform={'capitalize'}>
-                            {user?.name}
+                            {userMap?.name}
                         </Text>
                         <Text>, 21</Text>
                     </Flex>
@@ -95,7 +95,7 @@ const OverlayProfileMap = ({
                             </Flex>
                         )}
 
-                        {user?.isOnline && (
+                        {userMap?.isOnline && (
                             <Badge colorScheme="green">En ligne</Badge>
                         )}
                     </Flex>
@@ -114,15 +114,15 @@ const OverlayProfileMap = ({
                             variant="solid"
                             fontSize={'12px'}
                             aria-label="Voir le profil"
-                            isDisabled={session?.user?.id === user?.id}
+                            isDisabled={user?.id === userMap?.id}
                             onClick={() => {
                                 setMobileView('profile')
                             }}
                         />
                     ) : (
                         <Link
-                            href={`/?profileId=${user?.id}`}
-                            as={`/profile/${user?.id}`}
+                            href={`/?profileId=${userMap?.id}`}
+                            as={`/profile/${userMap?.id}`}
                         >
                             <Button
                                 display={['none', 'block']}
@@ -131,7 +131,7 @@ const OverlayProfileMap = ({
                                 colorScheme="teal"
                                 variant="solid"
                                 fontSize={'12px'}
-                                isDisabled={session?.user?.id === user?.id}
+                                isDisabled={user?.id === userMap?.id}
                             >
                                 Voir le profil
                             </Button>
@@ -148,10 +148,10 @@ const OverlayProfileMap = ({
                         _hover={{ color: '#2b2b2b' }}
                         icon={<FontAwesomeIcon icon={faMessage} />}
                         onClick={() => {
-                            user && onOpenChat(user)
+                            userMap && onOpenChat(userMap)
                             setMobileView('chat')
                         }}
-                        isDisabled={session?.user?.id === user?.id}
+                        isDisabled={user?.id === userMap?.id}
                     />
                 </Flex>
             </Flex>

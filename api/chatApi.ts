@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { Message, MessageInput, Room } from '../types'
 import axiosInstance from '../axiosInstance'
 

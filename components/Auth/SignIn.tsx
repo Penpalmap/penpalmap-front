@@ -21,7 +21,7 @@ import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import { GoogleLogin } from '@react-oauth/google'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 import { useSession } from '../../hooks/useSession'
 
 interface LoginFormData {

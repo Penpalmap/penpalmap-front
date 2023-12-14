@@ -1,7 +1,6 @@
 import {
     Avatar,
     Box,
-    Button,
     Flex,
     HStack,
     Image,
@@ -28,7 +27,6 @@ import useLanguage from '../../hooks/useLanguage'
 import { useTranslation } from 'next-i18next'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useSession } from '../../hooks/useSession'
-import axiosInstance from '../../axiosInstance'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()

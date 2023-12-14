@@ -11,7 +11,7 @@ const ProfilePhotoUpload = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
     const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
-    const { session } = useSession()
+    const { user } = useSession()
 
     const { uploadImage } = useUploadUserImage()
 
@@ -31,11 +31,11 @@ const ProfilePhotoUpload = () => {
         })
 
         const position = croppedImages.length
-        if (session?.user?.id) {
+        if (user?.id) {
             const userImage = await uploadImage(
                 croppedImageFile,
                 position,
-                session?.user?.id
+                user?.id
             )
 
             setCroppedImages((prevImages) => [...prevImages, userImage])
@@ -45,14 +45,14 @@ const ProfilePhotoUpload = () => {
     }
 
     const handleDeleteImage = async (index: number) => {
-        if (!session?.user?.id) return
+        if (!user) return
         setCroppedImages((prevImages) => {
             const newImages = [...prevImages]
             newImages.splice(index, 1)
             return newImages
         })
 
-        await deleteProfileImage(index, session.user.id)
+        await deleteProfileImage(index, user.id)
     }
 
     return (

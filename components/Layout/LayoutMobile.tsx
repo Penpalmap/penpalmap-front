@@ -14,7 +14,7 @@ import { AppContext } from '../../context/AppContext'
 const LayoutMobile = () => {
     const { mobileView } = useMobileView()
 
-    const { session } = useSession()
+    const { user } = useSession()
 
     const [appData] = useContext(AppContext)
 
@@ -27,7 +27,7 @@ const LayoutMobile = () => {
                 <Box flex={1}>
                     {mobileView === 'home' && <Map />}
                     {mobileView === 'conversations' && <ConversationList />}
-                    {mobileView === 'profile' && session?.user && (
+                    {mobileView === 'profile' && user && (
                         <Profile profileId={appData.userTarget.id} />
                     )}
                     {mobileView === 'settings' && <Settings />}

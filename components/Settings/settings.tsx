@@ -17,15 +17,15 @@ import { useMobileView } from '../../context/MobileViewContext'
 
 const Settings = () => {
     const { t } = useTranslation()
-    const { session } = useSession()
+    const { user } = useSession()
 
     const { changeLocale, locale } = useLanguage()
 
     const handleLocaleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        if (!session?.user.id) return
+        if (!user || !user.id) return
         changeLocale(e.target.value)
 
-        updateUser({ languageUsed: e.target.value }, session.user.id)
+        updateUser({ languageUsed: e.target.value }, user.id)
     }
 
     const { setMobileView } = useMobileView()

@@ -40,29 +40,29 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     const [rooms, setRooms] = useState<Room[]>([])
     const [appData, setAppData] = useContext(AppContext)
 
-    const { session } = useSession()
+    const { user } = useSession()
 
     useEffect(() => {
         const fetchUserRooms = async () => {
-            if (!session?.user?.id) return
-            const response = await getRooms(session?.user?.id)
+            if (!user?.id) return
+            const response = await getRooms(user.id)
             if (response) {
                 setRooms(response.rooms)
             }
         }
 
         fetchUserRooms()
-    }, [session?.user.id])
+    }, [user?.id])
 
     const updateLastMessageInRoom = useCallback(
         (message) => {
-            if (!session?.user?.id) return
+            if (!user) return
             setRooms((prevRooms) => {
                 return prevRooms.map((room) => {
                     if (room.id === message.roomId) {
                         let countUnreadMessages: string
 
-                        if (message.senderId === session?.user?.id) {
+                        if (message.senderId === user) {
                             countUnreadMessages = '0'
                         } else {
                             if (
@@ -91,7 +91,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
                 })
             })
         },
-        [session?.user?.id]
+        [user]
     )
 
     const resetCountUnreadMessagesOfRoom = useCallback((roomId) => {
@@ -115,7 +115,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         })
 
         onSeenMessage(appData.socket, (message) => {
-            if (message.senderId !== session?.user?.id) {
+            if (message.senderId !== user?.id) {
                 resetCountUnreadMessagesOfRoom(message.roomId)
             }
         })
@@ -163,7 +163,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         appData,
         appData.socket,
         resetCountUnreadMessagesOfRoom,
-        session?.user?.id,
+        user,
         setAppData,
         updateLastMessageInRoom,
     ])

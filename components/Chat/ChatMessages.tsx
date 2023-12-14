@@ -24,7 +24,7 @@ const ChatMessages = ({
     setOffset,
     isLoading,
 }: Props) => {
-    const { session } = useSession()
+    const { user } = useSession()
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(
@@ -57,7 +57,7 @@ const ChatMessages = ({
     const renderMessages = useMemo(() => {
         return messages?.map((message, index) => {
             const isLastMessage = index === messages.length - 1
-            const isOwnMessage = session?.user?.id === message.senderId
+            const isOwnMessage = user?.id === message.senderId
             const seenText = message.isSeen ? t('chat.seen') : t('chat.send')
 
             const isSameSender = lastSenderId.current === message.senderId
@@ -104,7 +104,7 @@ const ChatMessages = ({
         appData.userChat?.image,
         genderFolder,
         messages,
-        session?.user?.id,
+        user?.id,
         t,
     ])
 

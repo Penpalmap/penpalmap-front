@@ -1,7 +1,5 @@
 import {
     Box,
-    ButtonGroup,
-    IconButton,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -9,12 +7,9 @@ import {
     ModalHeader,
     ModalOverlay,
     Text,
-    useEditableControls,
 } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
 import { UserImage } from '../../types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import ProfileImage from '../Profile/ProfileImages'
 import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
@@ -25,43 +20,17 @@ type Props = {
 }
 
 const MyProfile = ({ isOpen, onClose }: Props) => {
-    const { session } = useSession()
+    const { user } = useSession()
 
     const [images, setImages] = useState<UserImage[]>([])
 
     const { t } = useTranslation('common')
 
     useEffect(() => {
-        if (session?.user?.userImages) {
-            setImages(session?.user?.userImages)
+        if (user?.userImages) {
+            setImages(user?.userImages)
         }
-    }, [session?.user?.userImages])
-
-    function EditableControls() {
-        const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
-            useEditableControls()
-
-        return isEditing ? (
-            <ButtonGroup
-                justifyContent="center"
-                size="sm"
-                position="absolute"
-                bottom={-30}
-                right={0}
-            >
-                <IconButton
-                    aria-label="Valider"
-                    icon={<FontAwesomeIcon icon={faCheck} />}
-                    {...getSubmitButtonProps()}
-                />
-                <IconButton
-                    aria-label="Annuler"
-                    icon={<FontAwesomeIcon icon={faXmark} />}
-                    {...getCancelButtonProps()}
-                />
-            </ButtonGroup>
-        ) : null
-    }
+    }, [user?.userImages])
 
     const renderProfile = useMemo(() => {
         return (
@@ -93,7 +62,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                 </Box> */}
             </>
         )
-    }, [images])
+    }, [images, t])
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>

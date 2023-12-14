@@ -34,7 +34,7 @@ const Map = () => {
             </Box>
             <Box display="none">
                 <OverlayProfileMap
-                    user={data.userTarget}
+                    userMap={data.userTarget}
                     closeOverlay={closeOverlay}
                     onOpenChat={() =>
                         setData({

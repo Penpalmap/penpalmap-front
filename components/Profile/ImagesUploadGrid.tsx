@@ -25,7 +25,7 @@ const ImagesUploadGrid = ({
     handleDeleteImage,
 }: Props) => {
     const refInputFile = useRef<HTMLInputElement>(null)
-    const { session } = useSession()
+    const { user } = useSession()
     // const { data: session, update: updateSession } = useSession()
 
     const items = useMemo(() => {
@@ -33,7 +33,7 @@ const ImagesUploadGrid = ({
     }, [images])
 
     const handleDragEnd = async (event) => {
-        if (!session?.user?.id) return
+        if (!user) return
         const { active, over } = event
 
         if (!over) {
@@ -64,7 +64,7 @@ const ImagesUploadGrid = ({
             })
 
             setImages(newImagesOrder)
-            await reorderProfileImages(session?.user?.id, newImagesOrder)
+            await reorderProfileImages(user.id, newImagesOrder)
 
             // updateSession()
         }
