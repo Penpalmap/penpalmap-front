@@ -38,7 +38,7 @@ const Register = () => {
 
     const onSubmit = async (data: RegisterUserInput) => {
         const resultRegisterData = await registerUser(data)
-        debugger
+
         if (!resultRegisterData.success) {
             setError("Une erreur s'est produite")
             return

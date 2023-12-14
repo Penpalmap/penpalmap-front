@@ -109,7 +109,6 @@ export const SessionProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        debugger
         if (status === 'loading') {
             refreshTokenFunc().then((success) => {
                 if (!success) {
