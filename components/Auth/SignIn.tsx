@@ -21,7 +21,7 @@ import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import { GoogleLogin } from '@react-oauth/google'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useSession } from '../../hooks/useSession'
 
 interface LoginFormData {
@@ -38,20 +38,18 @@ const SignIn = () => {
 
     const { t } = useTranslation('common')
 
-    const router = useRouter()
-    const { setStatus, fetchUser } = useSession()
-    const loginSuccess = async (params: {
-        accessToken: string
-        refreshToken: string
-    }) => {
-        localStorage.setItem('accessToken', params.accessToken)
-        localStorage.setItem('refreshToken', params.refreshToken)
+    const { login, status } = useSession()
+    console.log('status', status)
+    // const loginSuccess = async (params: {
+    //     accessToken: string
+    //     refreshToken: string
+    // }) => {
+    //     localStorage.setItem('accessToken', params.accessToken)
+    //     localStorage.setItem('refreshToken', params.refreshToken)
 
-        await fetchUser()
-
-        setStatus('authenticated')
-        router.push('/')
-    }
+    //     setStatus('authenticated')
+    //     router.push('/')
+    // }
 
     const onSubmit = async (data: LoginFormData) => {
         try {
@@ -63,7 +61,11 @@ const SignIn = () => {
                 }
             )
 
-            loginSuccess(responseSignin.data)
+            login(responseSignin.data)
+
+            Router.push('/')
+
+            // loginSuccess(responseSignin.data)
         } catch (error) {
             // Display the error message on the form
             setError('Authentication failed')
@@ -121,7 +123,8 @@ const SignIn = () => {
                                 }
                             )
 
-                            loginSuccess(response.data)
+                            login(response.data)
+                            Router.push('/')
                         }}
                         onError={() => {
                             console.log('Login Failed')

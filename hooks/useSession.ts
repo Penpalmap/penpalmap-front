@@ -1,8 +1,15 @@
 import { useContext } from 'react'
 import { SessionContext } from '../context/SessionContext'
+import { AuthContextType } from '../types'
 
-export const useSession = () => {
-    const session = useContext(SessionContext)
+export const useSession = (): AuthContextType => {
+    const context = useContext(SessionContext)
 
-    return session
+    if (!context) {
+        throw new Error(
+            'useSession doit être utilisé à l’intérieur d’un SessionProvider'
+        )
+    }
+
+    return context
 }

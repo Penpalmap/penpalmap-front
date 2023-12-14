@@ -15,7 +15,7 @@ import ProfileLanguageForm from './ProfileLanguageForm'
 const CreateProfile = () => {
     // const { data: session, status, update: updateSession } = useSession()
 
-    const { session, status, fetchUser } = useSession()
+    const { status, user, fetchUser } = useSession()
     const router = useRouter()
 
     const { register, handleSubmit, setValue, watch } =
@@ -77,9 +77,9 @@ const CreateProfile = () => {
     useEffect(() => {
         const checkCreationProfile = async () => {
             if (status === 'loading') return // Do nothing while loading
-            if (session) {
-                const user = await getUserById(session.user.id)
-                if (user && user.isNewUser === false) {
+            if (user) {
+                const userById = await getUserById(user.id)
+                if (userById && userById.isNewUser === false) {
                     //rediriger vers la page de profil
                     router.push('/')
                 }
@@ -88,11 +88,10 @@ const CreateProfile = () => {
             }
         }
         checkCreationProfile()
-    }, [router, session, status])
+    }, [router, user, status])
 
     const onSubmit = async (data: ProfileFormData) => {
-        debugger
-        if (!session?.user.id) return
+        if (!user || !user.id) return
 
         if (router.locale) data.languageUsed = router.locale
 
@@ -105,10 +104,10 @@ const CreateProfile = () => {
             )
         }
 
-        const response = await updateUser(data, session?.user.id)
+        const response = await updateUser(data, user.id)
 
+        fetchUser()
         if (response) {
-            await fetchUser()
             router.push('/')
         }
     }

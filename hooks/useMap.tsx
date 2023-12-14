@@ -34,7 +34,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const [users, setUsers] = useState<UserMap[]>([])
     const [, setData] = useContext(AppContext)
     const { rooms } = useRoom()
-    const { session } = useSession()
+    const { user } = useSession()
 
     const userLayerRef = useRef<VectorLayer<Cluster> | null>(null)
 
@@ -147,7 +147,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     // Initialize the map
     useEffect(() => {
-        if (!mapContainerRef.current || !session?.user) return undefined
+        if (!mapContainerRef.current || !user) return undefined
 
         const map = new OLMap({
             target: mapContainerRef.current,
@@ -164,8 +164,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ],
             view: new View({
                 center: fromLonLat([
-                    session?.user?.geom?.coordinates?.[1] || 0,
-                    session?.user?.geom?.coordinates?.[0] || 0,
+                    user?.geom?.coordinates?.[1] || 0,
+                    user?.geom?.coordinates?.[0] || 0,
                 ]),
                 zoom: 5.5,
                 minZoom: 4.5,
@@ -187,7 +187,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         return () => {
             map.setTarget(undefined)
         }
-    }, [session?.user])
+    }, [user])
 
     // Add users to the map
     useEffect(() => {
@@ -224,14 +224,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
             const room = rooms?.find((room) => {
                 const otherUser = room.members.find(
-                    (member) => member.id !== session?.user.id
+                    (member) => member.id !== user.id
                 )
 
                 return otherUser?.id === user.id
             })
 
             const otherMemberOnline = room?.members.find(
-                (member) => member.isOnline && member.id !== session?.user.id
+                (member) => member.isOnline && member.id !== user.id
             )
 
             return new Feature({
@@ -243,8 +243,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                 ),
                 element: {
                     ...user,
-                    strokeColor:
-                        user.id === session?.user?.id ? '#9de0fc' : '#FFFFFF',
+                    strokeColor: user.id === user?.id ? '#9de0fc' : '#FFFFFF',
                     room: room,
                     isOnline: otherMemberOnline?.isOnline,
                 },
@@ -265,8 +264,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             if (!mapObj.current) return
             const features = userSource.getFeatures()
             features.forEach((feature) => {
-                const user = feature.get('element')
-                if (user?.id === session?.user?.id) {
+                const userMe = feature.get('element')
+                if (user?.id === userMe?.id) {
                     pulse(feature, userLayer, mapObj.current)
                 }
             })
@@ -277,7 +276,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             mapObj.current?.un('click', onClick)
             mapObj.current?.un('pointermove', onPointermove)
         }
-    }, [rooms, onClick, onPointermove, session?.user?.id, users])
+    }, [rooms, onClick, onPointermove, user?.id, users])
 
     return { mapObj, mapContainerRef, overlayRef: overlayRef.current }
 }

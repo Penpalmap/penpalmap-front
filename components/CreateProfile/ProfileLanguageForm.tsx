@@ -11,14 +11,14 @@ type Props = {
 }
 
 const ProfileLanguageForm = ({ setValue }: Props) => {
-    const { session } = useSession()
+    const { user } = useSession()
     const [languages, setLanguages] = useState<UserLanguage[]>([])
 
     useEffect(() => {
-        if (session?.user?.id) {
-            setLanguages([{ language: '', level: '', userId: session.user.id }])
+        if (user?.id) {
+            setLanguages([{ language: '', level: '', userId: user.id }])
         }
-    }, [session])
+    }, [user])
 
     const { t } = useTranslation('common')
 
@@ -34,12 +34,12 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
     ]
 
     const addLanguage = () => {
-        if (!session?.user.id) return
+        if (!user || !user.id) return
 
         const newLanguage: UserLanguage = {
             language: '',
             level: '',
-            userId: session.user.id,
+            userId: user.id,
         }
         setLanguages([...languages, newLanguage])
         setValue('userLanguages', [...languages, newLanguage])

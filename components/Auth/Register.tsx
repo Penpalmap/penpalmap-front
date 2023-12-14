@@ -22,7 +22,8 @@ import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import { useSession } from '../../hooks/useSession'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
+import { registerUser } from '../../api/authApi'
 
 const Register = () => {
     const [error, setError] = useState<string | null>(null)
@@ -32,27 +33,33 @@ const Register = () => {
         formState: { errors },
     } = useForm<RegisterUserInput>()
 
-    const { session, setStatus, fetchUser } = useSession()
+    const { login } = useSession()
 
     const { t } = useTranslation('common')
 
-    const router = useRouter()
     const onSubmit = async (data: RegisterUserInput) => {
-        const responseRegister = await axios.post(
-            'http://localhost:5000/api/auth/register',
-            {
-                email: data.email,
-                password: data.password,
-                name: data.name,
-            }
-        )
+        // const responseRegister = await axios.post(
+        //     'http://localhost:5000/api/auth/register',
+        //     {
+        //         email: data.email,
+        //         password: data.password,
+        //         name: data.name,
+        //     }
+        // )
 
-        localStorage.setItem('accessToken', responseRegister.data.accessToken)
+        const resultRegisterData = await registerUser(data)
+        debugger
+        if (!resultRegisterData.success) {
+            setError("Une erreur s'est produite")
+            return
+        }
 
-        setStatus('authenticated')
-        await fetchUser()
+        login({
+            accessToken: resultRegisterData.accessToken,
+            refreshToken: resultRegisterData.refreshToken,
+        })
 
-        router.push('/create-profile')
+        Router.push('/create-profile')
     }
 
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`

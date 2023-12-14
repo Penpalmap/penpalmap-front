@@ -28,11 +28,12 @@ import useLanguage from '../../hooks/useLanguage'
 import { useTranslation } from 'next-i18next'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useSession } from '../../hooks/useSession'
+import axiosInstance from '../../axiosInstance'
 
 const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
-    const { session, setStatus } = useSession()
+    const { logout, user } = useSession()
     const [appData] = useContext(AppContext)
 
     const { setMobileView } = useMobileView()
@@ -42,11 +43,11 @@ const Header = () => {
 
     // const { i18n } = useTranslation()
     const disconnect = () => {
-        setStatus('unauthenticated')
+        logout()
         localStorage.removeItem('token')
         disconnectFromSocketServer(appData.socket)
     }
-    const genderFolder = session?.user?.gender || 'other'
+    const genderFolder = user?.gender || 'other'
 
     const { t } = useTranslation('common')
 
@@ -87,17 +88,17 @@ const Header = () => {
                         {packageJson.version}
                     </Text>
                 </Flex>
-                {session ? (
+                {user ? (
                     <Menu>
                         <MenuButton
                             as={Avatar}
                             size="sm"
-                            name={session?.user?.name}
+                            name={user.name}
                             cursor="pointer"
                             src={
-                                session?.user?.image
-                                    ? session?.user?.image
-                                    : `/images/avatar/${genderFolder}/${session?.user?.avatarNumber}.png`
+                                user?.image
+                                    ? user?.image
+                                    : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
                             }
                             // Ajoutez boxShadow ici
                             boxShadow="0px 4px 6px rgba(0, 0, 0, 0.3)"
@@ -108,17 +109,15 @@ const Header = () => {
                                 <Box display="flex" alignItems="center">
                                     <Avatar
                                         size="sm"
-                                        name={session?.user?.name}
+                                        name={user?.name}
                                         src={
-                                            session?.user?.image
-                                                ? session?.user?.image
-                                                : `/images/avatar/${genderFolder}/${session?.user?.avatarNumber}.png`
+                                            user?.image
+                                                ? user?.image
+                                                : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
                                         }
                                         marginRight={2}
                                     />
-                                    <Text fontWeight="bold">
-                                        {session?.user?.name}
-                                    </Text>
+                                    <Text fontWeight="bold">{user?.name}</Text>
                                 </Box>
                             </MenuItem>
                             <MenuDivider />
@@ -162,7 +161,7 @@ const Header = () => {
                     </Flex>
                 )}
             </HStack>
-            {session && <MyProfile onClose={onClose} isOpen={isOpen} />}
+            {user && <MyProfile onClose={onClose} isOpen={isOpen} />}
         </>
     )
 }
