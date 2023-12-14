@@ -219,19 +219,19 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         })
 
         // add features to the source for users
-        const features = filteredWithGeom.map((user) => {
-            const { geomR } = user
+        const features = filteredWithGeom.map((userElement) => {
+            const { geomR } = userElement
 
             const room = rooms?.find((room) => {
                 const otherUser = room.members.find(
-                    (member) => member.id !== user.id
+                    (member) => member.id !== userElement.id
                 )
 
-                return otherUser?.id === user.id
+                return otherUser?.id === userElement.id
             })
 
             const otherMemberOnline = room?.members.find(
-                (member) => member.isOnline && member.id !== user.id
+                (member) => member.isOnline && member.id !== userElement.id
             )
 
             return new Feature({
@@ -242,8 +242,9 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                     ])
                 ),
                 element: {
-                    ...user,
-                    strokeColor: user.id === user?.id ? '#9de0fc' : '#FFFFFF',
+                    ...userElement,
+                    strokeColor:
+                        userElement.id === user?.id ? '#9de0fc' : '#FFFFFF',
                     room: room,
                     isOnline: otherMemberOnline?.isOnline,
                 },

@@ -1,8 +1,9 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { AuthContextType, User } from '../types'
 import axios from 'axios'
 import axiosInstance from '../axiosInstance'
 import { jwtDecode } from 'jwt-decode'
+import Router from 'next/router'
 
 export const SessionContext = createContext<AuthContextType | undefined>(
     undefined
@@ -45,7 +46,7 @@ export const SessionProvider = ({ children }) => {
     }
 
     // Fonction pour rafraîchir le token
-    const refreshTokenFunc = async (): Promise<boolean> => {
+    const refreshTokenFunc = useCallback(async (): Promise<boolean> => {
         const refreshToken = localStorage.getItem('refreshToken')
         if (!refreshToken) {
             logout()
@@ -96,7 +97,7 @@ export const SessionProvider = ({ children }) => {
             logout()
             return false
         }
-    }
+    }, [])
 
     const fetchUser = async () => {
         if (user) {
@@ -106,6 +107,21 @@ export const SessionProvider = ({ children }) => {
             setUser(response.data)
         }
     }
+
+    useEffect(() => {
+        debugger
+        if (status === 'loading') {
+            refreshTokenFunc().then((success) => {
+                if (!success) {
+                    Router.push('/auth/signin')
+                }
+            })
+        } else if (status === 'unauthenticated') {
+            Router.push('/auth/signin')
+        } else if (status === 'authenticated' && user?.isNewUser) {
+            Router.push('/create-profile')
+        }
+    }, [refreshTokenFunc, status, user?.isNewUser])
 
     return (
         <SessionContext.Provider

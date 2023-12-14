@@ -37,15 +37,6 @@ const Register = () => {
     const { t } = useTranslation('common')
 
     const onSubmit = async (data: RegisterUserInput) => {
-        // const responseRegister = await axios.post(
-        //     'http://localhost:5000/api/auth/register',
-        //     {
-        //         email: data.email,
-        //         password: data.password,
-        //         name: data.name,
-        //     }
-        // )
-
         const resultRegisterData = await registerUser(data)
         debugger
         if (!resultRegisterData.success) {

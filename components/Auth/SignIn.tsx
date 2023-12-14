@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Alert,
     AlertIcon,
@@ -38,18 +38,7 @@ const SignIn = () => {
 
     const { t } = useTranslation('common')
 
-    const { login, status } = useSession()
-    console.log('status', status)
-    // const loginSuccess = async (params: {
-    //     accessToken: string
-    //     refreshToken: string
-    // }) => {
-    //     localStorage.setItem('accessToken', params.accessToken)
-    //     localStorage.setItem('refreshToken', params.refreshToken)
-
-    //     setStatus('authenticated')
-    //     router.push('/')
-    // }
+    const { login } = useSession()
 
     const onSubmit = async (data: LoginFormData) => {
         try {
