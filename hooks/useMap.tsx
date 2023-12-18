@@ -12,7 +12,7 @@ import { Point } from 'ol/geom'
 import clusterStyle from '../styles/openlayer/ClusterStyle'
 import { AppContext } from '../context/AppContext'
 import { useSession } from '../hooks/useSession'
-import { User, UserMap } from '../types'
+import { User, UserElement, UserMap } from '../types'
 import XYZ from 'ol/source/XYZ'
 import { useRoom } from '../context/RoomsContext'
 import { pulse } from '../styles/openlayer/pulseFunctions'
@@ -55,7 +55,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         target.style.cursor = hit ? 'pointer' : ''
     }, [])
 
-    const getUserInCluster = (feature) => {
+    const getUserInCluster = (feature): UserElement => {
         let user = null
 
         // Verifie si ce n'est pas l'utilisateur connecté
@@ -140,6 +140,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                     userTarget: user,
                 }))
                 showUserOverlay(user)
+
+                mapObj.current.getView().animate({
+                    center: fromLonLat([
+                        user?.geomR?.coordinates?.[1] || 0,
+                        user?.geomR?.coordinates?.[0] || 0,
+                    ]),
+                    duration: 500,
+                })
             }
         },
         [setData, showUserOverlay]
