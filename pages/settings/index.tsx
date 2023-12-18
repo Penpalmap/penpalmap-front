@@ -8,7 +8,7 @@ export default function SettingsPage() {
 export async function getStaticProps({ locale }) {
     return {
         props: {
-            ...(await serverSideTranslations(locale)),
+            ...(await serverSideTranslations(locale, ['common'])),
         },
     }
 }

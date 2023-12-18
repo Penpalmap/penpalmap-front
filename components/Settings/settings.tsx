@@ -1,72 +1,84 @@
+import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react'
 import {
-    Box,
-    Button,
-    Flex,
-    Heading,
-    Link,
-    Select,
-    useBreakpointValue,
-} from '@chakra-ui/react'
-import { faChevronLeft, faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
+    faChevronLeft,
+    faGlobeEurope,
+    faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
-import useLanguage from '../../hooks/useLanguage'
-import { updateUser } from '../../api/userApi'
-import { useSession } from './../../hooks/useSession'
 import { useMobileView } from '../../context/MobileViewContext'
+import { useState } from 'react'
+import LanguageSettings from './LanguageSettings'
+import InformationsSettings from './InformationsSettings'
 
 const Settings = () => {
     const { t } = useTranslation()
-    const { user } = useSession()
-
-    const { changeLocale, locale } = useLanguage()
-
-    const handleLocaleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        if (!user || !user.id) return
-        changeLocale(e.target.value)
-
-        updateUser({ languageUsed: e.target.value }, user.id)
-    }
 
     const { setMobileView } = useMobileView()
 
-    const isMobile = useBreakpointValue({ base: true, md: false })
-    return (
-        <Box p={2}>
-            {isMobile && (
-                <Button
-                    variant={'ghost'}
-                    leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
-                    onClick={() => setMobileView('home')}
-                >
-                    Retour
-                </Button>
-            )}
+    const menuTabs = [
+        {
+            name: 'language',
+            label: t('settings.language'),
+            icon: faGlobeEurope,
+        },
+        {
+            name: 'informations',
+            label: t('settings.informations'),
+            icon: faInfoCircle,
+        },
+    ]
 
-            <Heading as="h2" size="md" mb={2}>
-                {t('settings.language')}
-            </Heading>
-            <Flex alignItems={'center'} gap={'2'}>
-                <FontAwesomeIcon icon={faGlobeEurope} />
-                <Select
-                    variant={'flushed'}
-                    size="sm"
-                    w="fit-content"
-                    value={locale}
-                    onChange={handleLocaleChange}
-                >
-                    <option value="fr">{t('languages.fr')}</option>
-                    <option value="en">{t('languages.en')}</option>
-                </Select>
-            </Flex>
-            <Link href="/terms" color="blue.600" fontWeight="medium">
-                {t('footer.terms')}
-            </Link>
-            <br />
-            <Link href="/legalnotice" color="blue.600" fontWeight="medium">
-                {t('footer.legal')}
-            </Link>
-        </Box>
+    const [selectedTab, setSelectedTab] = useState(menuTabs[0]?.name)
+
+    const handleTabChange = (tabName: string) => {
+        setSelectedTab(tabName)
+    }
+
+    const isMobile = useBreakpointValue({ base: true, md: false })
+
+    return (
+        <Flex>
+            <Box flex={1} h={'100vh'} borderRight={'1px solid #e2e8f0'}>
+                {menuTabs.map((tab) => (
+                    <Box
+                        key={tab.name}
+                        cursor={'pointer'}
+                        color={tab.name === selectedTab ? 'white' : 'black'}
+                        backgroundColor={
+                            tab.name === selectedTab ? 'teal.400' : 'white'
+                        }
+                        p={4}
+                        fontWeight="medium"
+                        onClick={() => handleTabChange(tab.name)}
+                    >
+                        {tab.icon && (
+                            <FontAwesomeIcon
+                                icon={tab.icon}
+                                style={{ marginRight: '10px' }}
+                            />
+                        )}
+                        {tab.label}
+                    </Box>
+                ))}
+            </Box>
+            <Box flex={5} p={4}>
+                {isMobile && (
+                    <Button
+                        variant={'ghost'}
+                        leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
+                        onClick={() => setMobileView('home')}
+                    >
+                        Retour
+                    </Button>
+                )}
+
+                <Flex alignItems={'center'} gap={'2'}>
+                    {selectedTab === 'language' && <LanguageSettings />}
+                    {selectedTab === 'informations' && <InformationsSettings />}
+                </Flex>
+            </Box>
+        </Flex>
     )
 }
 

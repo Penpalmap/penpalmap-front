@@ -6,12 +6,10 @@ import LayoutMobile from '../components/Layout/LayoutMobile'
 import LayoutDesktop from '../components/Layout/LayoutDesktop'
 
 import { useBreakpointValue } from '@chakra-ui/react'
-import { useEffect } from 'react'
-import Router from 'next/router'
 Modal.setAppElement('#__next')
 
 export default function Home() {
-    const { status, user, refreshTokenFunc } = useSession()
+    const { status, user } = useSession()
     const isMobile = useBreakpointValue({ base: true, md: false })
 
     return status === 'loading' || user?.isNewUser ? (

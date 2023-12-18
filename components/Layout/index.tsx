@@ -56,15 +56,6 @@ const Layout = ({ children }) => {
             >
                 <ProfilePage />
             </Modal>
-            <Modal
-                isOpen={!!router.query.settings}
-                onRequestClose={() => {
-                    router.push('/')
-                }}
-                style={customStyles}
-            >
-                <SettingsPage />
-            </Modal>
         </>
     )
 }

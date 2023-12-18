@@ -131,7 +131,7 @@ const Header = () => {
                                     <MenuItem> {t('menu.parameters')}</MenuItem>
                                 </Link>
                             ) : (
-                                <Link href={`/?settings=yes`} as={`/settings/`}>
+                                <Link href={`/settings`}>
                                     <MenuItem> {t('menu.parameters')}</MenuItem>
                                 </Link>
                             )}
