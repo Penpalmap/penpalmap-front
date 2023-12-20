@@ -1,9 +1,9 @@
 import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react'
 import {
     faChevronLeft,
-    faDeafness,
     faGlobeEurope,
     faInfoCircle,
+    faShield,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
@@ -32,7 +32,7 @@ const Settings = () => {
         {
             name: 'security',
             label: t('settings.security'),
-            icon: faDeafness,
+            icon: faShield,
         },
     ]
 
