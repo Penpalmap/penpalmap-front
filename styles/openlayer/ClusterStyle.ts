@@ -133,6 +133,9 @@ const clusterStyle = function (feature) {
 
     // Cluster d'une seule personne
     else {
+        if (!feature.get('features')[0]) {
+            return null
+        }
         const user: UserElement = feature.get('features')[0].get('element')
         const uid = user.id
         if (!uid) {
