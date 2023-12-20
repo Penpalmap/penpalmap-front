@@ -100,7 +100,9 @@
         "theme": "Theme",
         "dark": "Dark",
         "light": "Light",
-        "informations": "Informations"
+        "informations": "Informations",
+        "security": "Security",
+        "changePassword": "Change password"
     },
     "chat": {
         "IsTyping": "is typing...",
@@ -141,5 +143,9 @@
         "photos": "Photos",
         "addPhotos": "Add photos",
         "description": "Description"
+    },
+    "form": {
+        "messageError": "An error occurred, please try again later.",
+        "messagePasswordChange": "Your password has been changed."
     }
 }

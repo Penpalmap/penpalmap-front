@@ -1,6 +1,7 @@
 import { Box, Button, Flex, useBreakpointValue } from '@chakra-ui/react'
 import {
     faChevronLeft,
+    faDeafness,
     faGlobeEurope,
     faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons'
@@ -10,6 +11,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 import { useState } from 'react'
 import LanguageSettings from './LanguageSettings'
 import InformationsSettings from './InformationsSettings'
+import SecuritySettings from './SecuritySettings'
 
 const Settings = () => {
     const { t } = useTranslation()
@@ -26,6 +28,11 @@ const Settings = () => {
             name: 'informations',
             label: t('settings.informations'),
             icon: faInfoCircle,
+        },
+        {
+            name: 'security',
+            label: t('settings.security'),
+            icon: faDeafness,
         },
     ]
 
@@ -76,6 +83,7 @@ const Settings = () => {
                 <Flex alignItems={'center'} gap={'2'}>
                     {selectedTab === 'language' && <LanguageSettings />}
                     {selectedTab === 'informations' && <InformationsSettings />}
+                    {selectedTab === 'security' && <SecuritySettings />}
                 </Flex>
             </Box>
         </Flex>

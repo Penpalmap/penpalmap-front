@@ -58,10 +58,29 @@ const updateUser = async (user: any, userId: string) => {
     }
 }
 
+const changePassword = async (
+    oldPassword: string,
+    newPassword: string,
+    userId: string
+) => {
+    try {
+        const response = await axiosInstance.put(
+            `/api/users/${userId}/password`,
+            { oldPassword, newPassword }
+        )
+
+        return response.data
+    } catch (error) {
+        console.error('Error while updating user', error)
+        throw error
+    }
+}
+
 export {
     getUserByEmail,
     getUserById,
     getUsersInMap,
     getUserByGoogleId,
     updateUser,
+    changePassword,
 }
