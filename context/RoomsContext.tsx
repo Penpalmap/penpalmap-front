@@ -62,7 +62,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
                     if (room.id === message.roomId) {
                         let countUnreadMessages: string
 
-                        if (message.senderId === user) {
+                        if (message.senderId === user.id) {
                             countUnreadMessages = '0'
                         } else {
                             if (
