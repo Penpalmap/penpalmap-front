@@ -85,7 +85,12 @@ const ConversationItem = ({
                         {user?.name}
                     </Text>
                 </Box>
-                <Box>
+                <Flex gap={1}>
+                    <Text
+                        fontSize={'.8em'}
+                        whiteSpace={'nowrap'}
+                        textOverflow={'ellipsis'}
+                    ></Text>
                     <Text
                         fontSize={'.8em'}
                         whiteSpace={'nowrap'}
@@ -94,10 +99,28 @@ const ConversationItem = ({
                         {lastMessage?.senderId === sessionUserId
                             ? t('chat.you')
                             : ''}{' '}
-                        {lastMessage?.content} -{' '}
-                        {dayjs(lastMessage?.createdAt).format('D MMM')}
                     </Text>
-                </Box>
+                    <Text
+                        fontSize={'.8em'}
+                        whiteSpace={'nowrap'}
+                        textOverflow={'ellipsis'}
+                        fontWeight={
+                            parseInt(countUnreadMessages) > 0
+                                ? 'bold'
+                                : 'normal'
+                        }
+                    >
+                        {lastMessage?.content}
+                    </Text>
+
+                    <Text
+                        fontSize={'.8em'}
+                        whiteSpace={'nowrap'}
+                        textOverflow={'ellipsis'}
+                    >
+                        - {dayjs(lastMessage?.createdAt).format('D MMM')}
+                    </Text>
+                </Flex>
             </Flex>
 
             <Flex
