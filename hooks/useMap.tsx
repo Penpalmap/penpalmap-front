@@ -229,17 +229,17 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         // add features to the source for users
         const features = filteredWithGeom.map((userElement) => {
             const { geomR } = userElement
-
+            // chaque room que l'on a (nous)
             const room = rooms?.find((room) => {
                 const otherUser = room.members.find(
-                    (member) => member.id !== userElement.id
+                    (member) => member.id !== user?.id
                 )
 
                 return otherUser?.id === userElement.id
             })
 
             const otherMemberOnline = room?.members.find(
-                (member) => member.isOnline && member.id !== userElement.id
+                (member) => member.isOnline && member.id !== user?.id
             )
 
             return new Feature({

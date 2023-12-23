@@ -20,6 +20,8 @@ const Chat = ({ visible }) => {
 
     const socket = useRef<Socket>()
 
+    console.log('appData', appData)
+
     useEffect(() => {
         if (user?.id) {
             socket.current = io(process.env.NEXT_PUBLIC_API_URL as string)

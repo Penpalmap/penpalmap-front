@@ -119,7 +119,7 @@ const SignIn = () => {
                             console.log('Login Failed')
                         }}
                     />
-                    ;
+
                     <Divider my={6} />
                     <form
                         onSubmit={handleSubmit(onSubmit)}

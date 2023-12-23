@@ -17,6 +17,16 @@ export const joinRoom = (socket, roomId: string) => {
     socket.emit(SocketEvents.JoinRoom, roomId)
 }
 
+export const createRoom = (socket, data: any) => {
+    socket.emit(SocketEvents.CreateRoom, data)
+}
+
+export const onNewRoom = (socket: Socket, callback: (room: any) => void) => {
+    socket.on(SocketEvents.NewRoom, (room: any) => {
+        callback(room)
+    })
+}
+
 export const leaveRoom = (socket, roomId: string) => {
     // Quitter une room spécifique
     socket.emit(SocketEvents.LeaveRoom, roomId)

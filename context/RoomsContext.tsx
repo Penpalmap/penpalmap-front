@@ -20,6 +20,7 @@ interface RoomContextType {
     rooms: Room[]
     resetCountUnreadMessagesOfRoom: (roomId: string) => void
     updateLastMessageInRoom: (message: Message) => void
+    addRoomToRooms: (room: Room) => void
 }
 
 interface RoomProviderProps {
@@ -53,6 +54,15 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
 
         fetchUserRooms()
     }, [user?.id])
+
+    const addRoomToRooms = useCallback(
+        (room: Room) => {
+            setRooms((prevRooms) => {
+                return [...prevRooms, room]
+            })
+        },
+        [setRooms]
+    )
 
     const updateLastMessageInRoom = useCallback(
         (message) => {
@@ -174,6 +184,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
                 rooms,
                 resetCountUnreadMessagesOfRoom,
                 updateLastMessageInRoom,
+                addRoomToRooms,
             }}
         >
             {children}
