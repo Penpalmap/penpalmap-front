@@ -9,4 +9,6 @@ export enum SocketEvents {
     IsTyping = 'IS_TYPING',
     StopIsTyping = 'STOP_IS_TYPING',
     OnlineUsers = 'ONLINE_USERS',
+    CreateRoom = 'CREATE_ROOM',
+    NewRoom = 'NEW_ROOM',
 }

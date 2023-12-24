@@ -5,12 +5,15 @@ import { useSession } from './useSession'
 import {
     createMessage,
     getMessagesByRoomId,
+    getRoomById,
     getRoomOfTwoUsers,
     updateMessageIsReadByRoom,
 } from '../api/chatApi'
 import { AppContext } from '../context/AppContext'
 import {
+    createRoom,
     onNewMessage,
+    onNewRoom,
     onSeenMessage,
     sendMessageSeen,
     sendMessageSocket,
@@ -26,7 +29,7 @@ const useChat = () => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [roomIsLoading, setRoomIsLoading] = useState(true)
-    const { updateLastMessageInRoom } = useRoom()
+    const { updateLastMessageInRoom, addRoomToRooms } = useRoom()
 
     useEffect(() => {
         const fetchRoom = async () => {
@@ -90,7 +93,16 @@ const useChat = () => {
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
+            debugger
             if (newMessage.isNewRoom) {
+                createRoom(appData.socket, {
+                    roomId: newMessage.roomId,
+                    senderId: newMessage.senderId,
+                    receiverId: message.receiverId,
+                })
+
+                const room = await getRoomById(newMessage.roomId)
+                addRoomToRooms(room)
             }
 
             newMessage.receiverId = message.receiverId
@@ -98,7 +110,7 @@ const useChat = () => {
             sendMessageSocket(appData.socket, newMessage)
             addMessageToRoom(newMessage)
         },
-        [addMessageToRoom, appData.socket]
+        [addMessageToRoom, addRoomToRooms, appData.socket]
     )
 
     useEffect(() => {
@@ -151,10 +163,23 @@ const useChat = () => {
             }
         })
 
+        onNewRoom(appData.socket, async (roomId) => {
+            const newRoom = await getRoomById(roomId)
+            addRoomToRooms(newRoom)
+        })
+
         return () => {
             appData.socket.off(SocketEvents.NewMessage)
         }
-    }, [addMessageToRoom, appData, appData.socket, room, user, setAppData])
+    }, [
+        addMessageToRoom,
+        appData.socket,
+        room,
+        user,
+        setAppData,
+        addRoomToRooms,
+        appData,
+    ])
 
     return {
         messages: messages,

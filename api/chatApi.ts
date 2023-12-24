@@ -38,6 +38,16 @@ const getRoomOfTwoUsers = async (
     }
 }
 
+const getRoomById = async (roomId: string): Promise<Room> => {
+    try {
+        const response = await axiosInstance.get(`/api/rooms/${roomId}`)
+
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+
 const updateMessage = async (messageId: string, message: Message) => {
     try {
         const response = await axiosInstance.put(
@@ -86,4 +96,5 @@ export {
     updateMessage,
     updateMessageIsReadByRoom,
     getMessagesByRoomId,
+    getRoomById,
 }

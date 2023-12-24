@@ -20,6 +20,7 @@ interface RoomContextType {
     rooms: Room[]
     resetCountUnreadMessagesOfRoom: (roomId: string) => void
     updateLastMessageInRoom: (message: Message) => void
+    addRoomToRooms: (room: Room) => void
 }
 
 interface RoomProviderProps {
@@ -54,6 +55,15 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         fetchUserRooms()
     }, [user?.id])
 
+    const addRoomToRooms = useCallback(
+        (room: Room) => {
+            setRooms((prevRooms) => {
+                return [...prevRooms, room]
+            })
+        },
+        [setRooms]
+    )
+
     const updateLastMessageInRoom = useCallback(
         (message) => {
             if (!user) return
@@ -62,7 +72,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
                     if (room.id === message.roomId) {
                         let countUnreadMessages: string
 
-                        if (message.senderId === user) {
+                        if (message.senderId === user.id) {
                             countUnreadMessages = '0'
                         } else {
                             if (
@@ -174,6 +184,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
                 rooms,
                 resetCountUnreadMessagesOfRoom,
                 updateLastMessageInRoom,
+                addRoomToRooms,
             }}
         >
             {children}

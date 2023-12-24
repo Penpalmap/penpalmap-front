@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Flex, VStack } from '@chakra-ui/react'
 import Header from './header'
 import Modal from 'react-modal'
 import { useRouter } from 'next/router'
@@ -42,11 +42,13 @@ const Layout = ({ children }) => {
 
     return (
         <>
-            <Box>
+            <Flex direction={'column'}>
                 <Header />
-                <Box w={'100%'}>{children}</Box>
+                <Box h={'calc(100vh - 5.5rem)'} w={'100%'}>
+                    {children}
+                </Box>
                 {status === 'unauthenticated' && <Footer />}
-            </Box>
+            </Flex>
             <Modal
                 isOpen={!!router.query.profileId}
                 onRequestClose={() => {

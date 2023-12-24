@@ -171,7 +171,7 @@ const clusterStyle = function (feature) {
                       image: new Icon({
                           src: '/images/conversation_icon.png',
                           displacement: [20, 26],
-                          scale: 0.5,
+                          scale: 0.8,
                       }),
                   })
                 : new Style({}),
