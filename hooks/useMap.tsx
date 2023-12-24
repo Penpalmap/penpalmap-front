@@ -101,8 +101,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         }
 
         const coordinate = fromLonLat([
-            geomR.coordinates[1] as number,
             geomR.coordinates[0] as number,
+            geomR.coordinates[1] as number,
         ])
 
         overlayRef.current = new Overlay({
@@ -143,8 +143,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
                 mapObj.current.getView().animate({
                     center: fromLonLat([
-                        user?.geomR?.coordinates?.[1] || 0,
                         user?.geomR?.coordinates?.[0] || 0,
+                        user?.geomR?.coordinates?.[1] || 0,
                     ]),
                     duration: 500,
                 })
@@ -172,8 +172,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ],
             view: new View({
                 center: fromLonLat([
-                    user?.geom?.coordinates?.[1] || 0,
                     user?.geom?.coordinates?.[0] || 0,
+                    user?.geom?.coordinates?.[1] || 0,
                 ]),
                 zoom: 5.5,
                 minZoom: 4.5,
@@ -242,11 +242,13 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                 (member) => member.isOnline && member.id !== user?.id
             )
 
+            if (userElement.name === 'long') console.log('geomR', geomR)
+
             return new Feature({
                 geometry: new Point(
                     fromLonLat([
-                        geomR.coordinates[1] as number,
                         geomR.coordinates[0] as number,
+                        geomR.coordinates[1] as number,
                     ])
                 ),
                 element: {

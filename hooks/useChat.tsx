@@ -93,7 +93,7 @@ const useChat = () => {
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
-            debugger
+
             if (newMessage.isNewRoom) {
                 createRoom(appData.socket, {
                     roomId: newMessage.roomId,

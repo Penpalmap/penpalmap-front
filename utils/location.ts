@@ -6,15 +6,19 @@ export const getPositionDataByCoords = async (
     lon: number
 ): Promise<any | null> => {
     // get data with nomitatim
-    const coords = fromLonLat([lon, lat], 'EPSG:4326')
-    const response = await axios.get(
-        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords[0]}&lon=${coords[1]}`
-    )
-    const data = response.data
+    try {
+        const response = await axios.get(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
+        )
+        console.log(response)
 
-    if (data.error) return null
+        const data = response.data
 
-    return data
+        return data
+    } catch (error) {
+        console.log(error)
+        return null
+    }
 }
 
 export const getFlagByCountryCode = async (

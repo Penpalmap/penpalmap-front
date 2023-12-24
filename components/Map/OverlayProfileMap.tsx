@@ -34,8 +34,8 @@ const OverlayProfileMap = ({
 }: OverlayProfileMapProps) => {
     const { user } = useSession()
     const { country } = useLocation(
-        userMap?.geomR?.coordinates?.[0],
-        userMap?.geomR?.coordinates?.[1]
+        userMap?.geomR?.coordinates?.[1],
+        userMap?.geomR?.coordinates?.[0]
     )
     const genderFolder = userMap?.gender || 'other'
 
