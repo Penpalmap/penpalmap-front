@@ -53,12 +53,16 @@ const ProfileLocationInput = (props: Props) => {
                     e.pixel
                 )
 
+                console.log('coordinates', coordinates)
+
                 if (!coordinates) return
                 const transformedCoordinates = transform(
                     coordinates,
                     'EPSG:3857',
                     'EPSG:4326'
                 )
+
+                console.log('transformedCoordinates', transformedCoordinates)
 
                 if (markerRef.current) {
                     const marker = new Overlay({
@@ -75,8 +79,8 @@ const ProfileLocationInput = (props: Props) => {
                     transformedCoordinates[0] &&
                     transformedCoordinates[1]
                 ) {
-                    setValue('latitude', transformedCoordinates[0])
-                    setValue('longitude', transformedCoordinates[1])
+                    setValue('latitude', transformedCoordinates[1])
+                    setValue('longitude', transformedCoordinates[0])
                 }
 
                 // Fetch country name
