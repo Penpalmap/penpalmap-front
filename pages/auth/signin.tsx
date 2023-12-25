@@ -7,6 +7,10 @@ export default function signin() {
         <>
             <Head>
                 <title>PenpalMap - Connexion</title>
+                <meta
+                    name="description"
+                    content="Connect with friends from all over the world, wherever you are. Make friends, learn languages and discover new cultures whatever your location"
+                ></meta>
             </Head>
             <SignIn />
         </>

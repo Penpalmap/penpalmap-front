@@ -6,6 +6,7 @@ import LayoutMobile from '../components/Layout/LayoutMobile'
 import LayoutDesktop from '../components/Layout/LayoutDesktop'
 
 import { useBreakpointValue } from '@chakra-ui/react'
+import Head from 'next/head'
 Modal.setAppElement('#__next')
 
 export default function Home() {
@@ -13,7 +14,16 @@ export default function Home() {
     const isMobile = useBreakpointValue({ base: true, md: false })
 
     return status === 'loading' || user?.isNewUser ? (
-        <Loading />
+        <>
+            <Head>
+                <meta
+                    name="description"
+                    content="Connect with friends from all over the world, wherever you are. Make friends, learn languages and discover new cultures whatever your location"
+                ></meta>
+            </Head>
+
+            <Loading />
+        </>
     ) : isMobile ? (
         <LayoutMobile />
     ) : (
