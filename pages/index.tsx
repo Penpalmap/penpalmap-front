@@ -13,7 +13,7 @@ export default function Home() {
     const { status, user } = useSession()
     const isMobile = useBreakpointValue({ base: true, md: false })
 
-    return status === 'loading' || user?.isNewUser ? (
+    return (
         <>
             <Head>
                 <meta
@@ -21,13 +21,14 @@ export default function Home() {
                     content="Connect with friends from all over the world, wherever you are. Make friends, learn languages and discover new cultures whatever your location"
                 ></meta>
             </Head>
-
-            <Loading />
+            {status === 'loading' || user?.isNewUser ? (
+                <Loading />
+            ) : isMobile ? (
+                <LayoutMobile />
+            ) : (
+                <LayoutDesktop />
+            )}
         </>
-    ) : isMobile ? (
-        <LayoutMobile />
-    ) : (
-        <LayoutDesktop />
     )
 }
 
