@@ -42,13 +42,14 @@ const Layout = ({ children }) => {
 
     return (
         <>
-            <Flex direction={'column'}>
-                <Header />
-                <Box h={'calc(100vh - 5.5rem)'} w={'100%'}>
-                    {children}
+            <Flex direction={'column'} h={'100vh'}>
+                <Box height={'4rem'}>
+                    <Header />
                 </Box>
+                <Box style={{ flexGrow: 1 }}>{children}</Box>
                 {status === 'unauthenticated' && <Footer />}
             </Flex>
+
             <Modal
                 isOpen={!!router.query.profileId}
                 onRequestClose={() => {

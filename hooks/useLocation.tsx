@@ -17,8 +17,10 @@ const useLocation = (latitude, longitude) => {
                 longitude
             )
 
-            if (!dataCoords) return
-            const countryCode = dataCoords.address.country_code.toUpperCase()
+            if (!dataCoords && !dataCoords?.address?.country_code) return
+            const countryCode = dataCoords?.address?.country_code.toUpperCase()
+
+            if (!countryCode) return
             const flag = await getFlagByCountryCode(countryCode)
 
             setFlag(flag)

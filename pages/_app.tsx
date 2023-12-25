@@ -31,7 +31,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     </AppProvider>
                 </SessionProvider>
             </GoogleOAuthProvider>
-            ;
         </ChakraProvider>
     )
 }

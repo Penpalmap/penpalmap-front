@@ -53,14 +53,14 @@ const Header = () => {
         <>
             <HStack
                 as="header"
-                p={4}
+                px={4}
                 justifyContent={'space-between'}
-                h={'14'}
                 boxShadow={'md'}
                 zIndex={10} // une valeur élevée pour s'assurer que le header se superpose à d'autres éléments
                 position={'sticky'} // fixe la position
                 top={0} // positionne le header en haut de la page
                 width={'100%'} // s'assure qu'il prend toute la largeur de la fenêtre
+                height={'3.5rem'}
                 backgroundColor={'white'}
             >
                 <Flex alignItems={'center'}>

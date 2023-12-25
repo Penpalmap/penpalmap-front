@@ -58,6 +58,7 @@ const Settings = () => {
                         p={4}
                         fontWeight="medium"
                         onClick={() => handleTabChange(tab.name)}
+                        fontSize={'sm'}
                     >
                         {tab.icon && (
                             <FontAwesomeIcon
