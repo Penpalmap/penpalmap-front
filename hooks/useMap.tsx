@@ -242,8 +242,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                 (member) => member.isOnline && member.id !== user?.id
             )
 
-            if (userElement.name === 'long') console.log('geomR', geomR)
-
             return new Feature({
                 geometry: new Point(
                     fromLonLat([

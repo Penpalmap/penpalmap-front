@@ -37,7 +37,6 @@ const SecuritySettings = () => {
     const { user } = useSession()
 
     const onSubmit = async (data: FormData) => {
-        console.log(data)
         if (!user?.id) return
 
         try {

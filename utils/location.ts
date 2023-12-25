@@ -10,7 +10,6 @@ export const getPositionDataByCoords = async (
         const response = await axios.get(
             `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
         )
-        console.log(response)
 
         const data = response.data
 

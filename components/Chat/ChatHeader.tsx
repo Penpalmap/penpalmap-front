@@ -32,9 +32,6 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
         appData?.userChat?.geom?.coordinates?.[0]
     )
 
-    console.log('userChat', appData?.userChat)
-    console.log('city', city, 'country', country, 'flag', flag)
-
     const onCloseChat = () => {
         if (mobileView === 'chat') {
             setMobileView('conversations')

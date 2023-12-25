@@ -1,13 +1,15 @@
-import { Box, Spinner, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Spinner, Text } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
 import { useSession } from './../../hooks/useSession'
 import MessageItem from './MessageItem'
 import { AppContext } from '../../context/AppContext'
-import { onIsTyping } from '../../sockets/socketManager'
+import { onIsTyping, onNewMessage } from '../../sockets/socketManager'
 import { SocketEvents } from '../../constants/socketEnum'
 import EmptyChatMessages from './EmptyChatMessages'
 import { useTranslation } from 'next-i18next'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowDown, faHome } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
     messages: Array<Message> | undefined
@@ -41,18 +43,68 @@ const ChatMessages = ({
 
     const genderFolder = appData?.userChat?.gender || 'other'
 
+    const [arrowDisplay, setArrowDisplay] = useState<boolean>(false)
+
     useEffect(() => {
         setBottomScrollIsDone(false)
     }, [appData.userChat])
 
+    const checkIfAtBottom = (offsetHeight: number) => {
+        if (!chatContainerRef.current) return false
+
+        return (
+            chatContainerRef.current.scrollTop +
+                chatContainerRef.current.clientHeight >=
+            chatContainerRef.current.scrollHeight - offsetHeight
+        )
+    }
+
     useEffect(() => {
-        // scroll to bottom when new userChat
         if (chatContainerRef.current && messages && messages?.length === 20) {
             chatContainerRef.current.scrollTop =
                 chatContainerRef.current.scrollHeight
             setBottomScrollIsDone(true)
         }
-    }, [appData.userChat, messages, messages?.length])
+    }, [appData.userChat, messages])
+
+    useEffect(() => {
+        const currentChatContainer = chatContainerRef.current
+
+        if (currentChatContainer) {
+            const isAtBottom = checkIfAtBottom(100)
+
+            if (isAtBottom) {
+                setTimeout(() => {
+                    if (chatContainerRef.current) {
+                        chatContainerRef.current.scrollTop =
+                            chatContainerRef.current.scrollHeight
+                    }
+                }, 100)
+            }
+        }
+
+        const checkScrollBottom = () => {
+            if (chatContainerRef.current) {
+                const isAtBottom = checkIfAtBottom(0)
+
+                if (isAtBottom) setArrowDisplay(false)
+            }
+        }
+
+        if (currentChatContainer) {
+            currentChatContainer.addEventListener('scroll', checkScrollBottom)
+        }
+
+        // Nettoyage de l'effet
+        return () => {
+            if (currentChatContainer) {
+                currentChatContainer.removeEventListener(
+                    'scroll',
+                    checkScrollBottom
+                )
+            }
+        }
+    }, [messages])
 
     const renderMessages = useMemo(() => {
         return messages?.map((message, index) => {
@@ -111,6 +163,17 @@ const ChatMessages = ({
     useEffect(() => {
         if (!appData.socket) return
 
+        onNewMessage(appData.socket, () => {
+            if (chatContainerRef.current) {
+                if (chatContainerRef.current) {
+                    const isAtBottom = checkIfAtBottom(0)
+                    if (!isAtBottom) {
+                        setArrowDisplay(true)
+                    }
+                }
+            }
+        })
+
         const handleIsTyping = () => {
             clearTimeout(typingTimeout as NodeJS.Timeout)
             setOtherUserIsTyping(true)
@@ -129,6 +192,13 @@ const ChatMessages = ({
             appData.socket.off(SocketEvents.StopIsTyping)
         }
     }, [appData.socket, typingTimeout])
+
+    const clickOnArrowNewMessage = () => {
+        setArrowDisplay(false)
+        if (chatContainerRef.current)
+            chatContainerRef.current.scrollTop =
+                chatContainerRef.current.scrollHeight
+    }
 
     return (
         <Box
@@ -173,7 +243,21 @@ const ChatMessages = ({
                     </Text>
                 </Box>
             )}
-            {/* <Box ref={messagesEndRef} /> */}
+
+            {arrowDisplay && (
+                <Button
+                    position={'absolute'}
+                    bottom={20}
+                    left={'50%'}
+                    borderRadius={'lg'}
+                    transform={'translateX(-50%)'}
+                    backgroundColor={'gray.100'}
+                    rightIcon={<FontAwesomeIcon icon={faArrowDown} />}
+                    onClick={clickOnArrowNewMessage}
+                >
+                    New message
+                </Button>
+            )}
         </Box>
     )
 }
