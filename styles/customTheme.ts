@@ -1,4 +1,20 @@
 import { extendTheme } from '@chakra-ui/react'
+import { Maven_Pro, Manrope, Raleway } from '@next/font/google'
+
+// const comfortaa = Comfortaa({
+//     style: 'normal',
+//     subsets: ['latin-ext'],
+// })
+
+const raleway = Raleway({
+    style: 'normal',
+    subsets: ['latin-ext'],
+})
+
+const manrope = Manrope({
+    style: 'normal',
+    subsets: ['latin-ext'],
+})
 
 const customTheme = extendTheme({
     colors: {
@@ -6,7 +22,7 @@ const customTheme = extendTheme({
         background: '#F5F5F5',
     },
     fonts: {
-        body: 'Montserrat, sans-serif',
+        body: raleway.style.fontFamily,
     },
     breakpoints: {
         sm: '30em',

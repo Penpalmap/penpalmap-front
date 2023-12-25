@@ -69,7 +69,6 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
                             {city && <Text>{city}</Text>}
                             {country && city && <Text mr={2}>,</Text>}
                             {country && <Text>{country}</Text>}
-                            {console.log(flag)}
                             {flag && (
                                 <Image
                                     src={flag}

@@ -32,7 +32,7 @@ const Header = () => {
     const { isOpen, onClose, onOpen } = useDisclosure()
 
     const { logout, user } = useSession()
-    const [appData] = useContext(AppContext)
+    const [appData, setAppData] = useContext(AppContext)
 
     const { setMobileView } = useMobileView()
     const isMobile = useBreakpointValue({ base: true, md: false })
@@ -41,8 +41,15 @@ const Header = () => {
 
     // const { i18n } = useTranslation()
     const disconnect = () => {
+        setAppData({
+            userTarget: null,
+            userChat: null,
+            rooms: [],
+            chatOpen: false,
+        })
         logout()
         localStorage.removeItem('token')
+
         disconnectFromSocketServer(appData.socket)
     }
     const genderFolder = user?.gender || 'other'

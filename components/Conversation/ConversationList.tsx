@@ -1,5 +1,5 @@
 import { useContext, useMemo, useCallback } from 'react'
-import { Box, VStack } from '@chakra-ui/react'
+import { Box, Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
@@ -8,6 +8,8 @@ import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
 import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 import { useMobileView } from '../../context/MobileViewContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMessage } from '@fortawesome/free-solid-svg-icons'
 
 const ConversationList = () => {
     const { user } = useSession()
@@ -76,11 +78,13 @@ const ConversationList = () => {
     )
 
     return (
-        <VStack
+        <Flex
+            flex={1}
+            flexDirection={'column'}
             w={{ base: 'full', md: 'xs' }}
             left={0}
             zIndex={1}
-            h={'full'}
+            height={'full'}
             px={2}
             py={4}
             gap={2}
@@ -100,8 +104,51 @@ const ConversationList = () => {
                 },
             }}
         >
-            <Box w={'full'}>{conversationsRender}</Box>
-        </VStack>
+            <Text
+                fontSize={'small'}
+                paddingLeft={'2'}
+                fontWeight={'bold'}
+                marginBottom={'2'}
+                color={'gray.500'}
+            >
+                Conversations ({rooms.length})
+            </Text>
+            {conversationsRender}
+
+            {rooms.length === 0 && (
+                <VStack
+                    h={'full'}
+                    display={'flex'}
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    flexDirection={'column'}
+                >
+                    <Image
+                        src={'/images/begin_chat.svg'}
+                        width={'150px'}
+                        alt="no conversations"
+                    />
+                    <Text
+                        fontSize={'small'}
+                        paddingLeft={'2'}
+                        marginBottom={'2'}
+                        textAlign={'center'}
+                        color={'gray.500'}
+                    >
+                        No conversations
+                        <br />
+                        Start a conversation by clicking on users on the map
+                    </Text>
+                    <Text
+                        textAlign={'center'}
+                        fontSize={'small'}
+                        paddingLeft={'2'}
+                        marginBottom={'2'}
+                        color={'gray.500'}
+                    ></Text>
+                </VStack>
+            )}
+        </Flex>
     )
 }
 
