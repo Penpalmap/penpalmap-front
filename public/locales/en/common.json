@@ -110,7 +110,13 @@
         "send": "Send",
         "seen": "Seen",
         "engageWith": "Start a discussion with",
-        "typeMessage": "Type your message..."
+        "typeMessage": "Type your message...",
+        "newMessage": "New message"
+    },
+    "conversation": {
+        "conversations": "Conversations",
+        "noConversation": "No conversation yet",
+        "noConversationText": "Start a conversation by clicking on users on the map"
     },
     "legal": {
         "legalNoticeTitle": "Legal Notice",

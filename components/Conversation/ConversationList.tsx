@@ -10,11 +10,13 @@ import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 import { useMobileView } from '../../context/MobileViewContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMessage } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'next-i18next'
 
 const ConversationList = () => {
     const { user } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const { rooms, resetCountUnreadMessagesOfRoom } = useRoom()
+    const { t } = useTranslation()
 
     const { setMobileView } = useMobileView()
 
@@ -111,7 +113,7 @@ const ConversationList = () => {
                 marginBottom={'2'}
                 color={'gray.500'}
             >
-                Conversations ({rooms.length})
+                {t('conversation.conversations')} ({rooms.length})
             </Text>
             {conversationsRender}
 
@@ -135,9 +137,9 @@ const ConversationList = () => {
                         textAlign={'center'}
                         color={'gray.500'}
                     >
-                        No conversations
+                        {t('conversation.noConversation')}
                         <br />
-                        Start a conversation by clicking on users on the map
+                        {t('conversation.noConversationText')}
                     </Text>
                     <Text
                         textAlign={'center'}

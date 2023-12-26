@@ -112,7 +112,13 @@
         "send": "Envoyer",
         "seen": "Vu",
         "engageWith": "Engagez la discussion avec",
-        "typeMessage": "Tape ton message..."
+        "typeMessage": "Tape ton message...",
+        "newMessage": "Nouveau message"
+    },
+    "conversation": {
+        "conversations": "Conversations",
+        "noConversation": "Aucune conversation",
+        "noConversationText": "Pour en commencer un conversation, cliquez sur un utilisateur sur la carte"
     },
     "legal": {
         "legalNoticeTitle": "Mentions Légales",

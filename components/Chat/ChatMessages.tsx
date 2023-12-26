@@ -255,7 +255,7 @@ const ChatMessages = ({
                     rightIcon={<FontAwesomeIcon icon={faArrowDown} />}
                     onClick={clickOnArrowNewMessage}
                 >
-                    New message
+                    {t('chat.newMessage')}
                 </Button>
             )}
         </Box>
