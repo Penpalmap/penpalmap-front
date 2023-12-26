@@ -84,8 +84,8 @@
         "whyPenpalmapTitle": "Pourquoi Penpalmap ?",
         "whyPenpalmapText": "PenPalMap réinvente la correspondance en mettant l'accent sur la simplicité, la communauté et l'exploration. Contrairement à d'autres plateformes, notre service est entièrement gratuit. Plus besoin de lettres physiques ou de méthodes de correspondance désuètes. Nous éliminons les barrières pour vous permettre de vous connecter instantanément avec des amis du monde entier. Notre carte interactive est au cœur de l'expérience, facilitant la découverte de correspondants partout dans le monde. Explorez, apprenez, et construisez des amitiés sans frontières. Avec PenPalMap, votre aventure internationale commence ici. Rejoignez-nous et découvrez le monde avec des amis nouveaux et passionnants !",
         "seeDetails": "Voir les détails",
-        "texte1": "Connectez-vous avec des amis du monde entier, où que vous soyez. Faites des amis, apprenez des langues et découvrez de nouvelles cultures quelque soit ta position.",
-        "texte2": "PenPalMap est une application de messagerie instantanée qui permet de discuter avec des personnes du monde entier. Que tu sois en voyage, en déplacement ou chez vous, tu peux accéder à PenPalMap à tout moment, où que tu sois, en toute sécurité."
+        "text1": "Connectez-vous avec des amis du monde entier, où que vous soyez. Faites des amis, apprenez des langues et découvrez de nouvelles cultures quelque soit ta position.",
+        "text2": "PenPalMap est une application de messagerie instantanée qui permet de discuter avec des personnes du monde entier. Que tu sois en voyage, en déplacement ou chez vous, tu peux accéder à PenPalMap à tout moment, où que tu sois, en toute sécurité."
     },
     "footer": {
         "terms": "Conditions d'utilisation",
@@ -102,7 +102,12 @@
         "light": "Light",
         "informations": "Informations",
         "security": "Sécurité",
-        "changePassword": "Changer le mot de passe"
+        "changePassword": "Changer le mot de passe",
+        "back": "Retour",
+        "lastPassword": "Ancien mot de passe",
+        "newPassword": "Nouveau mot de passe",
+        "confirmNewPassword": "Confirmer le nouveau mot de passe",
+        "changePasswordButton": "Changer le mot de passe"
     },
     "chat": {
         "IsTyping": "est en train d'écrire...",
@@ -143,12 +148,43 @@
     },
     "languages": {
         "en": "Anglais",
-        "fr": "Français"
+        "fr": "Français",
+        "es": "Espagnol",
+        "de": "Allemand",
+        "pt": "Portugais",
+        "it": "Italien",
+        "ru": "Russe",
+        "ja": "Japonais",
+        "zh": "Chinois",
+        "ar": "Arabe",
+        "hi": "Hindi",
+        "tr": "Turc",
+        "ko": "Coréen",
+        "pl": "Polonais",
+        "nl": "Néerlandais"
+    },
+    "languagesOrigin": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español",
+        "de": "Deutsch",
+        "pt": "Português",
+        "it": "Italiano",
+        "ru": "Русский",
+        "ja": "日本語",
+        "zh": "中文",
+        "ar": "العربية",
+        "hi": "हिन्दी",
+        "tr": "Türkçe",
+        "ko": "한국어",
+        "pl": "Polski",
+        "nl": "Nederlands"
     },
     "profil": {
         "photos": "Photos",
         "addPhotos": "Ajouter des photos",
-        "description": "Description"
+        "description": "Description",
+        "SeeTheProfile": "Voir le profil"
     },
     "form": {
         "messageError": "Une erreur est survenue, veuillez réessayer plus tard.",

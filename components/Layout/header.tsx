@@ -160,8 +160,51 @@ const Header = () => {
                                 changeLocale(e.target.value)
                             }}
                         >
-                            <option value="fr">{t('languages.fr')}</option>
-                            <option value="en">{t('languages.en')}</option>
+                            <option value="en">
+                                {t('languagesOrigin.en')}
+                            </option>
+                            <option value="fr">
+                                {t('languagesOrigin.fr')}
+                            </option>
+                            <option value="de">
+                                {t('languagesOrigin.de')}
+                            </option>
+                            <option value="es">
+                                {t('languagesOrigin.es')}
+                            </option>
+                            <option value="it">
+                                {t('languagesOrigin.it')}
+                            </option>
+                            <option value="pt">
+                                {t('languagesOrigin.pt')}
+                            </option>
+                            <option value="ru">
+                                {t('languagesOrigin.ru')}
+                            </option>
+                            <option value="zh">
+                                {t('languagesOrigin.zh')}
+                            </option>
+                            <option value="ja">
+                                {t('languagesOrigin.ja')}
+                            </option>
+                            <option value="ar">
+                                {t('languagesOrigin.ar')}
+                            </option>
+                            <option value="hi">
+                                {t('languagesOrigin.hi')}
+                            </option>
+                            <option value="ko">
+                                {t('languagesOrigin.ko')}
+                            </option>
+                            <option value="tr">
+                                {t('languagesOrigin.tr')}
+                            </option>
+                            <option value="pl">
+                                {t('languagesOrigin.pl')}
+                            </option>
+                            <option value="nl">
+                                {t('languagesOrigin.nl')}
+                            </option>
                         </Select>
                     </Flex>
                 )}

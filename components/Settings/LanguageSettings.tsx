@@ -30,6 +30,19 @@ const LanguageSettings = () => {
             >
                 <option value="fr">{t('languages.fr')}</option>
                 <option value="en">{t('languages.en')}</option>
+                <option value="de">{t('languages.de')}</option>
+                <option value="es">{t('languages.es')}</option>
+                <option value="it">{t('languages.it')}</option>
+                <option value="pt">{t('languages.pt')}</option>
+                <option value="ru">{t('languages.ru')}</option>
+                <option value="zh">{t('languages.zh')}</option>
+                <option value="ja">{t('languages.ja')}</option>
+                <option value="ar">{t('languages.ar')}</option>
+                <option value="hi">{t('languages.hi')}</option>
+                <option value="ko">{t('languages.ko')}</option>
+                <option value="tr">{t('languages.tr')}</option>
+                <option value="pl">{t('languages.pl')}</option>
+                <option value="nl">{t('languages.nl')}</option>
             </Select>
         </Box>
     )

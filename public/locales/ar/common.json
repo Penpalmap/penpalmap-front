@@ -1,0 +1,193 @@
+{
+    "connect": {
+        "connection": "تسجيل الدخول إلى PenPalMap",
+        "login-google": "تسجيل الدخول بواسطة Google",
+        "mail": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "connect": "تسجيل الدخول",
+        "no-account": "لا يوجد حساب بعد؟",
+        "create-account": "إنشاء حساب",
+        "forgot-password": "نسيت كلمة المرور؟",
+        "nom": "الاسم",
+        "already-account": "هل لديك حساب بالفعل؟",
+        "register": "سجل",
+        "sign-up": "سجل!",
+        "selectGender": "اختر جنسك",
+        "selectBirthdate": "اختر تاريخ ميلادك",
+        "selectPhoto": "اختر صورة لك",
+        "pickLocation": "اختر موقعك",
+        "selectLanguage": "اختر لغتك",
+        "next": "التالي",
+        "previous": "السابق",
+        "skip": "تخطى",
+        "finish": "انتهاء",
+        "day": "يوم",
+        "month": "شهر",
+        "year": "سنة",
+        "heyExplorer": "مرحبًا، مستكشف! 🚸",
+        "less12": "مجرد تحذير: للسفر عبر PenPalMap ، يجب أن تكون على الأقل 12 عامًا. ابق آمنًا وتمتع بالمغامرة! 🌍✨ هل تتساءل عن ما هي القواعد؟ اطلع على صفحتنا",
+        "more12part1": "🚸 مرحبًا! مجرد تحذير: هناك بالغون في هذا التطبيق. ابق دائمًا في أمان وكن حذرًا. 🛡️ هل تحتاج إلى مزيد من المعلومات؟ اطلع على صفحتنا",
+        "more12part2": ". إذا كنت تجد شيئًا غريبًا ، فلا تتردد في الاتصال بفريق PenPalMap! 💌",
+        "editImage": "تحرير صورتك",
+        "toastLocationOut": "أوبس! يبدو أنك في منتصف لا مكان. حان الوقت لاستخدام جواز سفرك الوهمي واستكشاف 'بلاد لا مكان'! 🌍✈️",
+        "selectALanguage": "اختر لغة",
+        "level": "مستوى",
+        "native": "اللغة الأم",
+        "fluent": "طليق",
+        "advanced": "متقدم",
+        "intermediate": "متوسط",
+        "beginner": "مبتدئ",
+        "delete": "حذف",
+        "addLanguage": "إضافة لغة"
+    },
+    "months": {
+        "january": "common:كانون الثاني",
+        "february": "common:شباط",
+        "march": "common:آذار",
+        "april": "common:نيسان",
+        "may": "common:أيار",
+        "june": "common:حزيران",
+        "july": "common:تموز",
+        "august": "common:آب",
+        "september": "common:أيلول",
+        "october": "common:تشرين الأول",
+        "november": "common:تشرين الثاني",
+        "december": "common:كانون الأول"
+    },
+    "profileGenderInput": {
+        "woman": "امرأة",
+        "man": "رجل",
+        "other": "آخر ...",
+        "transgender": "ترانسجندر",
+        "genderless": "بلا جنس",
+        "bigender": "بيجندر",
+        "androgyne": "أندروجين",
+        "neuter": "محايد",
+        "non-binary": "ليس ثنائي الجنس",
+        "genderqueer": "النوع الجنسي الغريب",
+        "genderfluid": "النوع الجنسي السائل",
+        "two-spirit": "روحانيان",
+        "agender": "بدون جنس",
+        "pangender": "بانجندر",
+        "third-gender": "الجنس الثالث",
+        "othergender": "آخر"
+    },
+    "presentation": {
+        "devise1": "\"في PenPalMap، لسنا هنا لتفاعلات عابرة...",
+        "devise2": "بل لنتعلم، ونتصل، ونتطور، بغض النظر عن المسافة.\"",
+        "mapTitle": "الخريطة التفاعلية",
+        "mapText": "استكشف خريطتنا التفاعلية لاكتشاف مراسلين من جميع أنحاء العالم. ابحث عن أصدقاء عبر القارات وتواصل مع تنوع من الثقافات والآراء.",
+        "chatTitle": "الدردشة الفورية",
+        "chatText": "تقربك دردشتنا الفورية من أصدقائك، سواء كنت في التنقل أو في رحلة أو في المنزل. تواصل في الوقت الحقيقي مع مراسلين من جميع أنحاء العالم.",
+        "securityTitle": "الأمان والرعاية",
+        "securityText": "في PenPalMap، يتمثل أمانك ورفاهيتك في أولويتنا. لقد قمنا بتنفيذ تدابير أمان قوية لضمان تجربة أمان ورعاية عبر الإنترنت. اتصل بثقة!",
+        "whyPenpalmapTitle": "لماذا Penpalmap؟",
+        "whyPenpalmapText": "تعيد PenPalMap ابتكار المراسلات مع التركيز على البساطة والمجتمع والاستكشاف. على عكس منصات أخرى، خدمتنا مجانية تمامًا. لا داعي لرسائل البريد الورقية أو طرق المراسلة القديمة. نزيل الحواجز لتتمكن من الاتصال فورًا بأصدقاء من جميع أنحاء العالم. تقع خريطتنا التفاعلية في قلب التجربة، مما يسهل اكتشاف المراسلين في جميع أنحاء العالم. استكشف وتعلم وبني صداقات لا حدود لها. مع PenPalMap، تبدأ مغامرتك الدولية هنا. انضم إلينا واكتشف العالم مع أصدقاء جدد ومثيرين!",
+        "seeDetails": "رؤية التفاصيل",
+        "text1": "تواصل مع أصدقاء من جميع أنحاء العالم، أينما كنت. كن صديقًا، وتعلم لغات، واكتشف ثقافات جديدة بغض النظر عن موقعك.",
+        "text2": "PenPalMap هو تطبيق مراسلة فورية يتيح لك التحدث مع الأشخاص من جميع أنحاء العالم. سواء كنت في رحلة، أو في التنقل، أو في المنزل، يمكنك الوصول إلى PenPalMap في أي وقت وفي أي مكان بأمان."
+    },
+    "footer": {
+        "terms": "شروط الاستخدام",
+        "privacy": "سياسة الخصوصية",
+        "legal": "إشعارات قانونية",
+        "contact": "اتصل بنا",
+        "about": "معلومات عنا"
+    },
+    "settings": {
+        "title": "الإعدادات",
+        "language": "اللغة",
+        "theme": "المظهر",
+        "dark": "داكن",
+        "light": "فاتح",
+        "informations": "معلومات",
+        "security": "الأمان",
+        "changePassword": "تغيير كلمة المرور",
+        "back": "رجوع",
+        "lastPassword": "آخر كلمة مرور",
+        "newPassword": "كلمة مرور جديدة",
+        "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+        "changePasswordButton": "تغيير كلمة المرور"
+    },
+    "chat": {
+        "IsTyping": "يكتب...",
+        "you": "أنت: ",
+        "send": "إرسال",
+        "seen": "تمت القراءة",
+        "engageWith": "ابدأ في المحادثة مع",
+        "typeMessage": "اكتب رسالتك...",
+        "newMessage": "رسالة جديدة"
+    },
+    "conversation": {
+        "conversations": "محادثات",
+        "noConversation": "لا توجد محادثات",
+        "noConversationText": "لبدء المحادثة ، انقر فوق مستخدم على الخريطة"
+    },
+    "legal": {
+        "legalNoticeTitle": "Legal Notice",
+        "companyName": "Penpalmap.com",
+        "companyEmail": "Email: contact@penpalmap.com",
+        "domainEstablished": "The domain name www.penpalmap.com was established on September 15, 2018.",
+        "disclaimer": "DISCLAIMER",
+        "disclaimerText": "The content of the site www.penpalmap.com has been prepared with the utmost care. However, we cannot provide any guarantees regarding the completeness, accuracy, or timeliness of the website's content. We are responsible for our own information in accordance with general legislation. This does not affect the obligation to block or prevent the use of information under general laws. However, liability is only possible once we become aware of a specific legal violation. In this case, we will promptly remove the affected content.",
+        "liabilityForLinks": "LIABILITY FOR LINKS",
+        "liabilityForLinksText": "This website may contain links to external third-party websites over which we have no control. We therefore cannot provide any guarantees for this external content. The respective operators and providers bear sole responsibility for the content of these external websites. However, at the time of linking, we checked the linked website for any potential legal violations. No such violations were identifiable when the link was established. Nevertheless, regular reviews of the content of linked websites without specific indications of a legal violation are not feasible. If we become aware of legal violations, we will immediately remove links to any illegal content.",
+        "copyright": "COPYRIGHT",
+        "copyrightText": "The content and works we've created on these pages are subject to French and European copyright laws. We highlight that any duplication, processing, distribution, or any form beyond the scope of copyright law requires the written consent of the respective author or creator. Without explicit and written consent from the author, any further use, especially publication and any form of commercial exploitation, is prohibited. The copyright for published material here and objects created by the author solely belongs to the operator of these pages.",
+        "copyrightNotice": "COPYRIGHT @ PENPALMAP",
+        "additionalCopyrightText": "Copies, potential downloads from the site, and applications are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, third-party copyrights are respected. Additionally, such material, especially third-party material, is identified as such. Nevertheless, if you notice any copyright infringements, we request that you inform us accordingly. Upon becoming aware of legal violations, we will immediately remove the affected content.",
+        "moreKeys": "More keys..."
+    },
+    "map": {
+        "searchPlace": "ابحث عن مكان أو مدينة..."
+    },
+    "menu": {
+        "myProfile": "ملفي",
+        "parameters": "الإعدادات",
+        "logout": "تسجيل الخروج"
+    },
+    "languages": {
+        "en": "English",
+        "fr": "الفرنسية",
+        "es": "الإسبانية",
+        "de": "الألمانية",
+        "pt": "البرتغالية",
+        "it": "الإيطالية",
+        "ru": "الروسية",
+        "ja": "اليابانية",
+        "zh": "الصينية",
+        "ar": "العربية",
+        "hi": "الهندية",
+        "tr": "التركية",
+        "ko": "الكورية",
+        "pl": "البولندية",
+        "nl": "الهولندية"
+    },
+    "languagesOrigin": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español",
+        "de": "Deutsch",
+        "pt": "Português",
+        "it": "Italiano",
+        "ru": "Русский",
+        "ja": "日本語",
+        "zh": "中文",
+        "ar": "العربية",
+        "hi": "हिन्दी",
+        "tr": "Türkçe",
+        "ko": "한국어",
+        "pl": "Polski",
+        "nl": "Nederlands"
+    },
+    "profil": {
+        "photos": "照片",
+        "addPhotos": "添加照片",
+        "description": "描述",
+        "SeeTheProfile": "رؤية الملف الشخصي"
+    },
+    "form": {
+        "messageError": "发生错误，请稍后重试。",
+        "messagePasswordChange": "您的密码已成功更改！"
+    }
+}

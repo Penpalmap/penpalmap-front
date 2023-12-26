@@ -77,7 +77,7 @@ const Settings = () => {
                         leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
                         onClick={() => setMobileView('home')}
                     >
-                        Retour
+                        {t('settings.back')}
                     </Button>
                 )}
 

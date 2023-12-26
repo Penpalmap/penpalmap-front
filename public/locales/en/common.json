@@ -102,7 +102,12 @@
         "light": "Light",
         "informations": "Informations",
         "security": "Security",
-        "changePassword": "Change password"
+        "changePassword": "Change password",
+        "back": "Back",
+        "lastPassword": "Last password",
+        "newPassword": "New password",
+        "confirmNewPassword": "Confirm new password",
+        "changePasswordButton": "Change password"
     },
     "chat": {
         "IsTyping": "is typing...",
@@ -143,12 +148,43 @@
     },
     "languages": {
         "en": "English",
-        "fr": "French"
+        "fr": "French",
+        "es": "Spanish",
+        "de": "German",
+        "pt": "Portuguese",
+        "it": "Italian",
+        "ru": "Russian",
+        "ja": "Japanese",
+        "zh": "Chinese",
+        "ar": "Arabic",
+        "hi": "Hindi",
+        "tr": "Turkish",
+        "ko": "Korean",
+        "pl": "Polish",
+        "nl": "Dutch"
+    },
+    "languagesOrigin": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español",
+        "de": "Deutsch",
+        "pt": "Português",
+        "it": "Italiano",
+        "ru": "Русский",
+        "ja": "日本語",
+        "zh": "中文",
+        "ar": "العربية",
+        "hi": "हिन्दी",
+        "tr": "Türkçe",
+        "ko": "한국어",
+        "pl": "Polski",
+        "nl": "Nederlands"
     },
     "profil": {
         "photos": "Photos",
         "addPhotos": "Add photos",
-        "description": "Description"
+        "description": "Description",
+        "SeeTheProfile": "See the profile"
     },
     "form": {
         "messageError": "An error occurred, please try again later.",
