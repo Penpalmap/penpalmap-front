@@ -37,7 +37,9 @@ const Presentation = () => {
                     maxW={{ base: '100%', xl: '1300px' }} // Taille maximale de 1400px pour les écrans extra larges (xl)
                     mx={{ base: '2', xl: 'auto' }}
                 >
-                    {t('presentation.funText')}
+                    {t('presentation.text1')}
+                    <br />
+                    {t('presentation.text2')}
                 </Text>
             </Box>
             <Flex
