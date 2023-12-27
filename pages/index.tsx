@@ -1,18 +1,20 @@
 import { useSession } from './../hooks/useSession'
 import Loading from '../components/Layout/loading'
-import Modal from 'react-modal'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import LayoutMobile from '../components/Layout/LayoutMobile'
 import LayoutDesktop from '../components/Layout/LayoutDesktop'
 
-import { useBreakpointValue } from '@chakra-ui/react'
+import { Box, Button, useBreakpointValue } from '@chakra-ui/react'
 import Head from 'next/head'
-Modal.setAppElement('#__next')
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Modal } from '../components/Elements/Modal'
+import Profile from '../components/Profile'
 
 export default function Home() {
     const { status, user } = useSession()
     const isMobile = useBreakpointValue({ base: true, md: false })
-
+    const router = useRouter()
     return (
         <>
             <Head>
@@ -27,6 +29,16 @@ export default function Home() {
                 <LayoutMobile />
             ) : (
                 <LayoutDesktop />
+            )}
+
+            {router.query.profileId && (
+                <Modal
+                    onClose={() => {
+                        router.push('/')
+                    }}
+                >
+                    <Profile profileId={router.query.profileId as string} />
+                </Modal>
             )}
         </>
     )

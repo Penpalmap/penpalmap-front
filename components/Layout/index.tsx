@@ -1,44 +1,21 @@
 import { Box, Flex, VStack } from '@chakra-ui/react'
 import Header from './header'
-import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import ProfilePage from '../../pages/profile/[profileId]'
 import Footer from './footer'
 // import { useSession } from '../../hooks/useSession'
 import SettingsPage from '../../pages/settings'
 import { useSession } from '../../hooks/useSession'
+import Profile from '../Profile'
+import { Modal } from '../Elements/Modal'
 
-Modal.setAppElement('#__next')
+// Modal.setAppElement('#__next')
 const Layout = ({ children }) => {
     const router = useRouter()
 
     const { status } = useSession()
-    // if (
-    //     status === 'authenticated' &&
-    //     (router.pathname === '/auth/signup' ||
-    //         router.pathname === '/auth/signin')
-    // ) {
-    //     router.push('/')
-    // }
 
-    const customStyles = {
-        overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        },
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            width: '80%',
-            height: '90%',
-            backgroundColor: 'white',
-            borderRadius: '10px',
-            padding: '0',
-        },
-    }
+    console.log('router.query.profileId', router.query.profileId)
 
     return (
         <>
@@ -49,16 +26,6 @@ const Layout = ({ children }) => {
                 <Box style={{ flexGrow: 1 }}>{children}</Box>
                 {status === 'unauthenticated' && <Footer />}
             </Flex>
-
-            <Modal
-                isOpen={!!router.query.profileId}
-                onRequestClose={() => {
-                    router.push('/')
-                }}
-                style={customStyles}
-            >
-                <ProfilePage />
-            </Modal>
         </>
     )
 }
