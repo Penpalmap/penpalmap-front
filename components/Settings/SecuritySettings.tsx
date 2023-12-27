@@ -65,7 +65,7 @@ const SecuritySettings = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isInvalid={!!errors.oldPassword}>
                     <FormLabel htmlFor="oldPassword">
-                        Ancien mot de passe
+                        {t('settings.lastPassword')}
                     </FormLabel>
                     <Input
                         id="oldPassword"
@@ -81,7 +81,7 @@ const SecuritySettings = () => {
 
                 <FormControl isInvalid={!!errors.newPassword} mt={4}>
                     <FormLabel htmlFor="newPassword">
-                        Nouveau mot de passe
+                        {t('settings.newPassword')}
                     </FormLabel>
                     <Input
                         id="newPassword"
@@ -102,7 +102,7 @@ const SecuritySettings = () => {
 
                 <FormControl isInvalid={!!errors.confirmPassword} mt={4}>
                     <FormLabel htmlFor="confirmPassword">
-                        Confirmer le mot de passe
+                        {t('settings.confirmNewPassword')}
                     </FormLabel>
                     <Input
                         id="confirmPassword"
@@ -132,7 +132,7 @@ const SecuritySettings = () => {
                 )}
 
                 <Button mt={4} colorScheme="teal" type="submit">
-                    Changer le mot de passe
+                    {t('settings.changePasswordButton')}
                 </Button>
             </form>
         </Box>

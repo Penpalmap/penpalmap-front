@@ -20,6 +20,7 @@ import { useSession } from './../../hooks/useSession'
 import Link from 'next/link'
 import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
+import { useTranslation } from 'next-i18next'
 
 type OverlayProfileMapProps = {
     userMap: User | null
@@ -42,6 +43,8 @@ const OverlayProfileMap = ({
     const { setMobileView } = useMobileView()
 
     const isMobile = useBreakpointValue({ base: true, md: false })
+
+    const { t } = useTranslation('common')
 
     return (
         <Flex
@@ -113,7 +116,7 @@ const OverlayProfileMap = ({
                             colorScheme="teal"
                             variant="solid"
                             fontSize={'12px'}
-                            aria-label="Voir le profil"
+                            aria-label={t('profil.SeeTheProfile')}
                             isDisabled={user?.id === userMap?.id}
                             onClick={() => {
                                 setMobileView('profile')
@@ -133,7 +136,7 @@ const OverlayProfileMap = ({
                                 fontSize={'12px'}
                                 isDisabled={user?.id === userMap?.id}
                             >
-                                Voir le profil
+                                {t('profil.SeeTheProfile')}
                             </Button>
                         </Link>
                     )}

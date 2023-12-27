@@ -31,6 +31,58 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
             label: t('languages.en'),
             value: 'en',
         },
+        {
+            label: t('languages.es'),
+            value: 'es',
+        },
+        {
+            label: t('languages.de'),
+            value: 'de',
+        },
+        {
+            label: t('languages.pt'),
+            value: 'pt',
+        },
+        {
+            label: t('languages.it'),
+            value: 'it',
+        },
+        {
+            label: t('languages.ru'),
+            value: 'ru',
+        },
+        {
+            label: t('languages.ja'),
+            value: 'ja',
+        },
+        {
+            label: t('languages.zh'),
+            value: 'zh',
+        },
+        {
+            label: t('languages.ar'),
+            value: 'ar',
+        },
+        {
+            label: t('languages.hi'),
+            value: 'hi',
+        },
+        {
+            label: t('languages.tr'),
+            value: 'tr',
+        },
+        {
+            label: t('languages.ko'),
+            value: 'ko',
+        },
+        {
+            label: t('languages.pl'),
+            value: 'pl',
+        },
+        {
+            label: t('languages.nl'),
+            value: 'nl',
+        },
     ]
 
     const addLanguage = () => {
