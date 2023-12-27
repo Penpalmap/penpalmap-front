@@ -12,13 +12,15 @@ const userStyle = function (feature) {
     let style: Style = userStyleCache[uid]
 
     if (!style) {
+        const imageUrl =
+            user?.image ??
+            `/images/avatar/${user.gender}/${user?.avatarNumber}.png`
+
         const photo = user.image
 
         style = userStyleCache[uid] = new Style({
             image: new Photo({
-                src: photo
-                    ? photo
-                    : 'https://t4.ftcdn.net/jpg/02/89/59/55/360_F_289595573_wCKO1nxxx7HGk69z5szjvSOqPnZVTfTG.jpg',
+                src: photo ? photo : imageUrl,
                 radius: 30,
                 crop: true,
                 kind: 'circle',

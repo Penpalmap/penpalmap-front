@@ -3,8 +3,10 @@ import Profile from '../../components/Profile'
 import { Box, Button } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticPaths } from 'next'
 
-const ProfilePage = () => {
+export default function ProfilePage() {
     const router = useRouter()
     const { profileId } = router.query as { profileId: string }
 
@@ -42,4 +44,16 @@ const ProfilePage = () => {
     )
 }
 
-export default ProfilePage
+export async function getStaticProps({ locale }) {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale)),
+        },
+    }
+}
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+    return {
+        paths: [],
+        fallback: 'blocking',
+    }
+}

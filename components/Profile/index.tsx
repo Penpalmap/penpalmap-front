@@ -37,10 +37,14 @@ import { AppContext } from '../../context/AppContext'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useSession } from '../../hooks/useSession'
 import useLocation from '../../hooks/useLocation'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
     profileId: string
 }
+
+type ContentType = 'image' | 'bio' | 'map' | 'languages'
+type ContentArray = ContentType[]
 
 const Profile = ({ profileId }: Props) => {
     const mapRefContainer = useRef<HTMLDivElement>(null)
@@ -51,6 +55,10 @@ const Profile = ({ profileId }: Props) => {
         user?.geom.coordinates[1],
         user?.geom.coordinates[0]
     )
+
+    const [listProfiles, setListProfiles] = useState<ContentArray>([])
+
+    const { t } = useTranslation()
 
     useEffect(() => {
         if (!user || !mapRefContainer.current) return undefined
@@ -128,20 +136,210 @@ const Profile = ({ profileId }: Props) => {
         fetchUser()
     }, [profileId])
 
+    useEffect(() => {
+        if (user) {
+            const profileContent: ContentArray = []
+
+            // Ajouter Image2 s'il existe
+            if (user.userImages && user.userImages[1]) {
+                profileContent.push('image')
+            }
+
+            // Ajouter Bio
+            if (user.bio) {
+                profileContent.push('bio')
+            }
+
+            // Ajouter Languages
+            if (user.userLanguages && user.userLanguages.length > 0) {
+                profileContent.push('languages')
+            }
+
+            if (user.userImages && user.userImages.length <= 3) {
+                profileContent.push('map')
+            }
+            // Ajouter Map
+
+            // Ajouter Image3 s'il existe
+            if (user.userImages && user.userImages[2]) {
+                profileContent.push('image')
+            }
+
+            // Ajouter Image4 s'il existe
+            if (user.userImages && user.userImages[3]) {
+                profileContent.push('image')
+            }
+
+            if (user.userImages && user.userImages.length > 3) {
+                profileContent.push('map')
+            }
+
+            setListProfiles(profileContent)
+        }
+    }, [user])
+
+    const renderMap = useMemo(() => {
+        if (!user) return null
+
+        return (
+            <>
+                <Box
+                    ref={mapRefContainer}
+                    h={['400px', '450px']}
+                    w={'full'}
+                    className="map"
+                    borderRadius={'xl'}
+                ></Box>
+                <Flex
+                    alignItems={'center'}
+                    position={'absolute'}
+                    bottom={'5'}
+                    left={'5'}
+                    zIndex={1}
+                >
+                    <FontAwesomeIcon icon={faMapPin} color="#494949" />
+                    <Text
+                        fontWeight={'semibold'}
+                        letterSpacing={'wider'}
+                        color={'gray.600'}
+                        ml={'2'}
+                    >
+                        Around
+                    </Text>
+                    <Text fontWeight={'bold'} ml={1}>
+                        {country}
+                    </Text>
+                </Flex>
+            </>
+        )
+    }, [country, user])
+
     const renderLanguages = useMemo(() => {
         if (!user) return null
 
-        return user.userLanguages.map((language) => (
-            <Badge
-                key={language.id}
-                variant={'solid'}
-                borderRadius={'full'}
-                px={2}
+        return (
+            <Flex
+                direction={'column'}
+                flex={1}
+                gap={2}
+                justifyContent={'center'}
             >
-                {language.language}
-            </Badge>
-        ))
-    }, [user])
+                <Text
+                    color={'gray.600'}
+                    fontSize={'small'}
+                    textTransform={'uppercase'}
+                    fontWeight={'semibold'}
+                    textAlign={'center'}
+                >
+                    Langues
+                </Text>
+                <VStack>
+                    {user.userLanguages.map((language) => (
+                        <Badge
+                            key={language.id}
+                            variant={'solid'}
+                            borderRadius={'full'}
+                            px={2}
+                            colorScheme={'blue'}
+                        >
+                            <Flex>
+                                {' '}
+                                <Text>
+                                    {t(`languages.${language.language}`)}
+                                </Text>
+                            </Flex>
+                        </Badge>
+                    ))}
+                </VStack>
+            </Flex>
+        )
+    }, [t, user])
+
+    const renderImage = (imageUrl) => {
+        return (
+            <Image
+                w={'100%'}
+                h={'100%'} // Définir la hauteur à 100% pour remplir le conteneur
+                maxW={'100%'}
+                objectFit="cover" // Ajouté pour maintenir les proportions de l'image tout en la remplissant
+                src={imageUrl}
+            />
+        )
+    }
+
+    const renderBio = useMemo(() => {
+        return (
+            <Flex direction={'column'} w={'80%'} gap={2}>
+                <Text
+                    color={'gray.600'}
+                    fontSize={'small'}
+                    textTransform={'uppercase'}
+                    fontWeight={'semibold'}
+                >
+                    A propos
+                </Text>
+                <Text fontWeight={'semibold'}>
+                    Coucou tout le monde, moi c’est Louise et je fais beaucoup
+                    de sport je suis drole et j’aime les chiens et les chat Mais
+                    j’aime également les éléphants 🐘
+                </Text>
+            </Flex>
+        )
+    }, [])
+
+    const profileContent = useMemo(() => {
+        const groupedContents = []
+        let imageIndex = 1
+        for (let i = 0; i < listProfiles.length; i += 2) {
+            const group = listProfiles
+                .slice(i, i + 2)
+                .map((contentType, index) => {
+                    switch (contentType) {
+                        case 'image':
+                            const imageUrl =
+                                user?.userImages[imageIndex]?.src ||
+                                'default-image-url'
+                            imageIndex++
+                            return (
+                                <Flex flex={1} key={index}>
+                                    {renderImage(imageUrl)}
+                                </Flex>
+                            )
+                        case 'bio':
+                            return (
+                                <Flex flex={1} key={index}>
+                                    {renderBio}
+                                </Flex>
+                            )
+                        case 'map':
+                            return (
+                                <Flex
+                                    flex={1}
+                                    key={index}
+                                    position={'relative'}
+                                >
+                                    {renderMap}
+                                </Flex>
+                            )
+                        case 'languages':
+                            return (
+                                <Flex flex={1} key={index}>
+                                    {renderLanguages}
+                                </Flex>
+                            )
+                        default:
+                            return null
+                    }
+                })
+
+            groupedContents.push(
+                <Flex maxH={'450px'} bg={'teal.100'} key={i}>
+                    {group}
+                </Flex>
+            )
+        }
+        return groupedContents
+    }, [listProfiles, renderMap, renderLanguages, renderImage, renderBio, user])
 
     return (
         <Box overflow={'auto'}>
@@ -201,17 +399,74 @@ const Profile = ({ profileId }: Props) => {
                     </Button>
                 </Flex>
             </Flex>
-            <Flex maxH={'450px'}>
-                <Flex flex={1} bg={'red'}>
-                    <Image
-                        w={'100%'}
-                        h={'100%'} // Définir la hauteur à 100% pour remplir le conteneur
-                        maxW={'100%'}
-                        objectFit="cover" // Ajouté pour maintenir les proportions de l'image tout en la remplissant
-                        src={
-                            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                        }
-                    />
+            {/* <Flex maxH={'450px'} bg={'teal.100'}>
+                {user?.bio ? (
+                    user?.userImages.length < 1 ? (
+                        <>
+                            <Flex flex={1} bg={'teal.100'}>
+                                {renderBio}
+                            </Flex>
+                        </>
+                    ) : (
+                        <>
+                            <Flex flex={1}>
+                                {renderImage(
+                                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                                )}
+                            </Flex>
+                            <Flex flex={1} bg={'teal.100'}>
+                                {renderBio}
+                            </Flex>
+                        </>
+                    )
+                ) : user?.userImages.length < 1 ? (
+                    <>
+                        <Flex
+                            h={'450px'} // Définir la hauteur à 450px pour occuper toute la hauteur du conteneur parent
+                            bg={'teal.100'}
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                            flex={1} // Assurez-vous que ce Flex prend toute la largeur disponible
+                        >
+                            {renderLanguages}
+                        </Flex>
+                        <Flex flex={1}>{renderMap}</Flex>
+                    </>
+                ) : (
+                    <>
+                        <Flex flex={1}>
+                            {renderImage(
+                                'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                            )}
+                        </Flex>
+                        <Flex
+                            flex={1}
+                            bg={'teal.100'}
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                        >
+                            {renderLanguages}
+                        </Flex>
+                    </>
+                )}
+            </Flex> */}
+            {profileContent}
+            {/* {user?.userImages.length > 0 && (} */}
+            {/* <Flex maxH={'450px'}>
+                {user?.bio ? (
+                    <>
+                        <Flex flex={1}>{renderLanguages}</Flex>
+                        <Flex flex={1}>{renderMap}</Flex>
+                    </>
+                ) : (
+                    <Flex flex={1}>{renderMap}</Flex>
+                )}
+            </Flex> */}
+            {/* <Flex maxH={'450px'}>
+                <Flex flex={1}>
+                    {renderImage(
+                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                    )}
                 </Flex>
                 <Flex
                     flex={1}
@@ -219,21 +474,7 @@ const Profile = ({ profileId }: Props) => {
                     alignItems={'center'}
                     justifyContent={'center'}
                 >
-                    <Flex direction={'column'} w={'80%'} gap={2}>
-                        <Text
-                            color={'gray.600'}
-                            fontSize={'small'}
-                            textTransform={'uppercase'}
-                            fontWeight={'semibold'}
-                        >
-                            A propos
-                        </Text>
-                        <Text fontWeight={'semibold'}>
-                            Coucou tout le monde, moi c’est Louise et je fais
-                            beaucoup de sport je suis drole et j’aime les chiens
-                            et les chat Mais j’aime également les éléphants 🐘
-                        </Text>
-                    </Flex>
+                    {renderBio}
                 </Flex>
             </Flex>
             <Flex>
@@ -243,401 +484,25 @@ const Profile = ({ profileId }: Props) => {
                     alignItems={'center'}
                     justifyContent={'center'}
                 >
-                    <Flex
-                        direction={'column'}
-                        w={'80%'}
-                        gap={2}
-                        justifyContent={'center'}
-                    >
-                        <Text
-                            color={'gray.600'}
-                            fontSize={'small'}
-                            textTransform={'uppercase'}
-                            fontWeight={'semibold'}
-                            textAlign={'center'}
-                        >
-                            Languages
-                        </Text>
-                        <VStack>{renderLanguages}</VStack>
-                    </Flex>
+                    {renderLanguages}
                 </Flex>
                 <Flex flex={1} position={'relative'}>
-                    <Box
-                        ref={mapRefContainer}
-                        h={['400px', '450px']}
-                        w={'full'}
-                        className="map"
-                        borderRadius={'xl'}
-                    ></Box>
-                    <Flex
-                        alignItems={'center'}
-                        position={'absolute'}
-                        bottom={'5'}
-                        left={'5'}
-                        zIndex={1}
-                    >
-                        <FontAwesomeIcon icon={faMapPin} color="#494949" />
-                        <Text
-                            fontWeight={'semibold'}
-                            letterSpacing={'wider'}
-                            color={'gray.600'}
-                            ml={'2'}
-                        >
-                            Around
-                        </Text>
-                        <Text fontWeight={'bold'} ml={1}>
-                            {country}
-                        </Text>
-                    </Flex>
+                    {renderMap}
                 </Flex>
             </Flex>
             <Flex maxH={'450px'}>
-                <Flex flex={1} bg={'red'}>
-                    <Image
-                        w={'100%'}
-                        h={'100%'} // Définir la hauteur à 100% pour remplir le conteneur
-                        maxW={'100%'}
-                        objectFit="cover" // Ajouté pour maintenir les proportions de l'image tout en la remplissant
-                        src={
-                            'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                        }
-                    />
+                <Flex flex={1}>
+                    {renderImage(
+                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                    )}
                 </Flex>
-                <Flex flex={1} bg={'red'}>
-                    <Image
-                        w={'100%'}
-                        h={'100%'} // Définir la hauteur à 100% pour remplir le conteneur
-                        maxW={'100%'}
-                        objectFit="cover" // Ajouté pour maintenir les proportions de l'image tout en la remplissant
-                        src={
-                            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                        }
-                    />
+                <Flex flex={1}>
+                    {renderImage(
+                        "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'"
+                    )}
                 </Flex>
-            </Flex>
+            </Flex> */}
         </Box>
     )
-
-    // const [user, setUser] = useState<User | null>(null)
-    // const [country, setCountry] = useState<string | null>(null)
-    // const [flagUrl, setFlagUrl] = useState<string | null>(null)
-
-    // const mapRef = useRef<OLMap | null>(null)
-    // const mapRefContainer = useRef<HTMLDivElement>(null)
-
-    // const [appData, setAppData] = useContext(AppContext)
-
-    // const router = useRouter()
-
-    // const { setMobileView } = useMobileView()
-
-    // useEffect(() => {
-    //     if (!user || !mapRefContainer.current) return undefined
-
-    //     const map = new OLMap({
-    //         target: mapRefContainer.current,
-    //         layers: [
-    //             new TileLayer({
-    //                 preload: Infinity,
-    //                 zIndex: 0,
-
-    //                 source: new XYZ({
-    //                     url: 'https://api.mapbox.com/styles/v1/gabnoire/cjpzpqvr03a5h2sqidpht5qhm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Fibm9pcmUiLCJhIjoiY2p0ZmhtYTVvMDVqcDQzb2NiYXY1YW4xMyJ9.9AquqYCdPTiPiDNmh7dMhQ',
-    //                     crossOrigin: 'anonymous',
-    //                 }),
-    //             }),
-    //         ],
-
-    //         view: new View({
-    //             center: fromLonLat(user.geom.coordinates),
-    //             zoom: 7,
-    //             extent: transformExtent(
-    //                 [-999.453125, -58.813742, 999.453125, 70.004962],
-    //                 'EPSG:4326',
-    //                 'EPSG:3857'
-    //             ),
-    //         }),
-    //         interactions: [],
-    //     })
-
-    //     mapRef.current = map
-
-    //     return () => {
-    //         map.setTarget(undefined)
-    //     }
-    // }, [user])
-
-    // useEffect(() => {
-    //     if (!mapRef.current || !user) return undefined
-
-    //     const userSource = new VectorSource()
-
-    //     const userLayer = new VectorLayer({
-    //         source: userSource,
-    //         style: userStyle,
-    //     })
-
-    //     mapRef.current.addLayer(userLayer)
-
-    //     const coordinates = user.geom
-    //         ? fromLonLat(user.geom.coordinates)
-    //         : [0, 0]
-
-    //     const userFeature = new Feature({
-    //         geometry: new Point(coordinates),
-    //         element: {
-    //             ...user,
-    //             strokeColor: '#FFFFFF',
-    //         },
-    //     })
-
-    //     userSource.addFeatures([userFeature])
-
-    //     return () => {
-    //         mapRef.current?.removeLayer(userLayer)
-    //     }
-    // }, [user])
-
-    // useEffect(() => {
-    //     const fetchUser = async () => {
-    //         const user = await getProfile(profileId)
-    //         setUser(user)
-    //     }
-
-    //     fetchUser()
-    // }, [profileId])
-
-    // useEffect(() => {
-    //     const fetchCountry = async () => {
-    //         if (!user) return
-
-    //         const coordinates = user.geom ? user.geom.coordinates : [0, 0]
-
-    //         if (coordinates[0] && coordinates[1]) {
-    //             const positionData = await getPositionDataByCoords(
-    //                 coordinates[0],
-    //                 coordinates[1]
-    //             )
-    //             setCountry(positionData?.address?.country)
-
-    //             const flagUrlData = await getFlagByCountryCode(
-    //                 positionData?.address?.country_code.toUpperCase()
-    //             )
-    //             setFlagUrl(flagUrlData)
-    //         }
-    //     }
-
-    //     fetchCountry()
-    // }, [user])
-
-    // const onClose = () => {
-    //     router.push('/')
-    // }
-
-    // const onOpenChat = () => {
-    //     router.push('/')
-    //     setAppData({
-    //         ...appData,
-    //         userChat: user,
-    //         chatOpen: true,
-    //     })
-
-    //     setMobileView('chat')
-    // }
-
-    // return (
-    //     user && (
-    //         <Box>
-    //             <CloseButton
-    //                 position={'absolute'}
-    //                 top={'4'}
-    //                 right={'4'}
-    //                 onClick={onClose}
-    //             />
-    //             <Button
-    //                 onClick={() => setMobileView('home')}
-    //                 leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
-    //                 variant={'ghost'}
-    //             >
-    //                 Retour
-    //             </Button>
-    //             <Flex
-    //                 alignItems={'center'}
-    //                 justifyContent={'space-between'}
-    //                 bg={' #E3F7F3'}
-    //                 p={10}
-    //                 flexDir={['column', 'row']}
-    //             >
-    //                 <Flex alignItems={'center'} flexDir={['column', 'row']}>
-    //                     <Box mr={'8'}>
-    //                         <Image
-    //                             src={user?.userImages[0]?.src}
-    //                             alt="profile image"
-    //                             boxSize="150px"
-    //                             objectFit="cover"
-    //                             borderRadius={'full'}
-    //                         />
-    //                     </Box>
-    //                     <Box>
-    //                         <Text fontWeight={'bold'} fontSize={'4xl'}>
-    //                             {user?.name}
-    //                         </Text>
-    //                         <Box>
-    //                             <HStack mb={'2'} alignItems={'center'} w={'44'}>
-    //                                 <Flex flex={1}>
-    //                                     <Box w={'full'}>
-    //                                         {flagUrl && (
-    //                                             <Image
-    //                                                 src={flagUrl}
-    //                                                 alt="flag of the country"
-    //                                             />
-    //                                         )}
-    //                                     </Box>
-    //                                 </Flex>
-    //                                 <Box flex={4}>
-    //                                     <Text color={'gray.800'}>
-    //                                         {country}
-    //                                     </Text>
-    //                                 </Box>
-    //                             </HStack>
-    //                             <HStack alignItems={'center'} mb={'2'} w={'44'}>
-    //                                 <Box flex={1}>
-    //                                     <Text fontSize={'2xl'}>
-    //                                         {user.gender === 'women'
-    //                                             ? '👩'
-    //                                             : '👨'}
-    //                                     </Text>
-    //                                 </Box>
-    //                                 <Box flex={4}>
-    //                                     <Text color={'gray.800'}>
-    //                                         {user.gender}
-    //                                     </Text>
-    //                                 </Box>
-    //                             </HStack>
-    //                             <HStack alignItems={'center'} mb={'2'} w={'44'}>
-    //                                 <Box flex={1}>
-    //                                     <Text fontSize={'2xl'}>🎂</Text>
-    //                                 </Box>
-    //                                 <Box flex={4}>
-    //                                     <Text color={'gray.800'}>
-    //                                         {getAgeByDate(user.birthday)}yo
-    //                                     </Text>
-    //                                 </Box>
-    //                             </HStack>
-    //                         </Box>
-    //                     </Box>
-    //                 </Flex>
-    //                 <VStack alignItems={'stretch'} alignSelf={'flex-end'}>
-    //                     <Button
-    //                         leftIcon={<FontAwesomeIcon icon={faPaperPlane} />}
-    //                         colorScheme="teal"
-    //                         variant="solid"
-    //                         onClick={onOpenChat}
-    //                     >
-    //                         Message
-    //                     </Button>
-    //                     <Button
-    //                         rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-    //                         colorScheme="teal"
-    //                         variant="outline"
-    //                         bg={'white'}
-    //                     >
-    //                         Add to friends
-    //                     </Button>
-    //                 </VStack>
-    //             </Flex>
-    //             <Flex flexDir={['column', 'row']} mt={'8'}>
-    //                 <Box mb={'8'} p={10} flex={'2'}>
-    //                     <Box mb={'4'}>
-    //                         <Text
-    //                             fontWeight={'semibold'}
-    //                             letterSpacing={'wider'}
-    //                             color={'gray.600'}
-    //                         >
-    //                             A PROPOS
-    //                         </Text>
-    //                         <Text
-    //                             color={'gray.800'}
-    //                             fontFamily={'Montserrat'}
-    //                             fontSize={'md'}
-    //                             fontWeight={'400'}
-    //                             fontStyle={'normal'}
-    //                             lineHeight={'176.4%'}
-    //                         >
-    //                             {user.bio} Lorem ipsum, dolor sit amet
-    //                             consectetur adipisicing elit. Quisquam expedita
-    //                             aliquid, ducimus tempore optio soluta fugit
-    //                             recusandae ut dolore iste odio sapiente nostrum
-    //                             fugiat commodi aperiam porro repudiandae a cum.
-    //                         </Text>
-    //                     </Box>
-    //                     <Box>
-    //                         <Text
-    //                             mb={'4'}
-    //                             fontWeight={'semibold'}
-    //                             letterSpacing={'wider'}
-    //                             color={'gray.600'}
-    //                         >
-    //                             PHOTOS
-    //                         </Text>
-
-    //                         <Flex
-    //                             wrap={'wrap'}
-    //                             justifyContent={'center'} // Pour centrer horizontalement
-    //                             alignItems={'center'} // Pour centrer verticalement
-    //                             gap={'20px'} // Espace entre les images
-    //                         >
-    //                             {user?.userImages.map((image) => (
-    //                                 <Box key={image.position}>
-    //                                     <Image
-    //                                         src={image.src}
-    //                                         alt="profile image"
-    //                                         boxSize={[
-    //                                             '100px',
-    //                                             '150px',
-    //                                             '200px',
-    //                                             '300px',
-    //                                         ]} // Tailles en fonction du responsive
-    //                                         objectFit="cover"
-    //                                         borderRadius={'xl'}
-    //                                     />
-    //                                 </Box>
-    //                             ))}
-    //                         </Flex>
-    //                     </Box>
-    //                 </Box>
-    //                 <Box position={'relative'} flex={'2'} h={'800px'}>
-    //                     <Flex
-    //                         alignItems={'center'}
-    //                         position={'absolute'}
-    //                         bottom={'5'}
-    //                         left={'5'}
-    //                         zIndex={1}
-    //                     >
-    //                         <FontAwesomeIcon icon={faMapPin} color="#494949" />
-    //                         <Text
-    //                             fontWeight={'semibold'}
-    //                             letterSpacing={'wider'}
-    //                             color={'gray.600'}
-    //                             ml={'2'}
-    //                         >
-    //                             Around
-    //                         </Text>
-    //                         <Text fontWeight={'bold'} ml={1}>
-    //                             {country}
-    //                         </Text>
-    //                     </Flex>
-    //                     <Box
-    //                         ref={mapRefContainer}
-    //                         h={['400px', '800px']}
-    //                         w={'full'}
-    //                         className="map"
-    //                         borderRadius={'xl'}
-    //                     ></Box>
-    //                 </Box>
-    //             </Flex>
-    //         </Box>
-    //     )
-    // )
 }
 export default Profile
