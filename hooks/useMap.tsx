@@ -229,6 +229,20 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         const allUsersFeatures = filteredWithGeom.map((userElement) => {
             const { geomR } = userElement
+
+            // chaque room que l'on a (nous)
+            const room = rooms?.find((room) => {
+                const otherUser = room.members.find(
+                    (member) => member.id !== currentUser?.id
+                )
+
+                return otherUser?.id === userElement.id
+            })
+
+            const otherMemberOnline = room?.members.find(
+                (member) => member.isOnline && member.id !== currentUser?.id
+            )
+
             return new Feature({
                 geometry: new Point(
                     fromLonLat([
@@ -239,6 +253,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                 element: {
                     ...userElement,
                     strokeColor: '#FFFFFF', // couleur pour les autres utilisateurs
+                    room: room,
+                    isOnline: otherMemberOnline?.isOnline,
                 },
             })
         })

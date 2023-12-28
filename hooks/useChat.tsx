@@ -29,7 +29,7 @@ const useChat = () => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [roomIsLoading, setRoomIsLoading] = useState(true)
-    const { updateLastMessageInRoom, addRoomToRooms } = useRoom()
+    const { updateLastMessageInRoom, setRooms } = useRoom()
 
     useEffect(() => {
         const fetchRoom = async () => {
@@ -102,7 +102,7 @@ const useChat = () => {
                 })
 
                 const room = await getRoomById(newMessage.roomId)
-                addRoomToRooms(room)
+                setRooms((prevRooms) => [...prevRooms, room])
             }
 
             newMessage.receiverId = message.receiverId
@@ -110,7 +110,7 @@ const useChat = () => {
             sendMessageSocket(appData.socket, newMessage)
             addMessageToRoom(newMessage)
         },
-        [addMessageToRoom, addRoomToRooms, appData.socket]
+        [addMessageToRoom, appData.socket, setRooms]
     )
 
     useEffect(() => {
@@ -165,7 +165,8 @@ const useChat = () => {
 
         onNewRoom(appData.socket, async (roomId) => {
             const newRoom = await getRoomById(roomId)
-            addRoomToRooms(newRoom)
+            // addRoomToRooms(newRoom)
+            setRooms((prevRooms) => [...prevRooms, newRoom])
         })
 
         return () => {
@@ -177,8 +178,8 @@ const useChat = () => {
         room,
         user,
         setAppData,
-        addRoomToRooms,
         appData,
+        setRooms,
     ])
 
     return {

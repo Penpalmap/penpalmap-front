@@ -12,25 +12,24 @@ export const styleCache = {}
 const clusterStyle = function (feature) {
     const features = feature.get('features')
     if (!features) {
-        // // Si ce n'est pas un cluster, traiter la feature normalement
-        // // Ici, vous devez retourner un style approprié pour une feature individuelle
-        // const userElement = feature.get('element')
-        // return [
-        //     new Style({
-        //         image: new Photo({
-        //             src: userElement.image,
-        //             radius: 30,
-        //             crop: true,
-        //             kind: 'circle',
-        //             shadow: 5,
-        //             stroke: new Stroke({
-        //                 color: userElement.strokeColor,
-        //                 width: 2,
-        //             }),
-        //         }),
-        //     }),
-        // ]
-        return null
+        // Si ce n'est pas un cluster, traiter la feature normalement
+        // Ici, vous devez retourner un style approprié pour une feature individuelle
+        const userElement = feature.get('element')
+        return [
+            new Style({
+                image: new Photo({
+                    src: userElement.image,
+                    radius: 30,
+                    crop: true,
+                    kind: 'circle',
+                    shadow: 5,
+                    stroke: new Stroke({
+                        color: userElement.strokeColor,
+                        width: 2,
+                    }),
+                }),
+            }),
+        ]
     }
 
     const size = feature.get('features').length
@@ -174,6 +173,8 @@ const clusterStyle = function (feature) {
 
         // if (!style) {
         const photo = user.image
+
+        console.log('user.room.countUnreadMessages', user?.room)
         style = styleCache[uid] = [
             new Style({
                 image: new Photo({
