@@ -5,6 +5,7 @@ import {
     Box,
     Button,
     Divider,
+    Flex,
     FormControl,
     FormErrorMessage,
     FormLabel,
@@ -119,6 +120,7 @@ const SignIn = () => {
                     </Heading>
                     <Box style={googleLoginStyle}>
                         <GoogleLogin
+                            width={320}
                             onSuccess={async (credentialResponse) => {
                                 const response = await axios.post(
                                     'http://localhost:5000/api/auth/login/google',
@@ -135,7 +137,19 @@ const SignIn = () => {
                             }}
                         />
                     </Box>
-                    <Divider my={6} />
+                    <Flex
+                        alignItems="center"
+                        mt={6}
+                        mb={6}
+                        w="90%"
+                        justify="space-between"
+                    >
+                        <Box flex="1" h="1px" bg="gray.400"></Box>
+                        <Text mx={2} color="gray.900" fontWeight="bold">
+                            OR
+                        </Text>
+                        <Box flex="1" h="1px" bg="gray.400"></Box>
+                    </Flex>
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         style={{ width: '90%' }}
