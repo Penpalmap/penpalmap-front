@@ -39,7 +39,7 @@ const OverlayProfileMap = ({
         userMap?.geomR?.coordinates?.[0]
     )
     const genderFolder =
-    userMap?.gender === 'man' || userMap?.gender === 'woman'
+        userMap?.gender === 'man' || userMap?.gender === 'woman'
             ? userMap?.gender
             : 'other'
 
