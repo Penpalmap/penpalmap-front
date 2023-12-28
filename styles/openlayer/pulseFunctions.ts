@@ -46,7 +46,6 @@ export function pulse(
     }
 
     const start = Date.now()
-    console.log('feature', feature)
     const flashGeom = feature?.getGeometry()?.clone()
     const listenerKey = userLayer.on('prerender', animate)
 }

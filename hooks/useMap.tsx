@@ -138,6 +138,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                     ...data,
                     userTarget: user,
                 }))
+
                 showUserOverlay(user)
 
                 mapObj.current.getView().animate({
@@ -261,13 +262,12 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         if (currentUserFeature) {
             currentUserSource.addFeature(currentUserFeature)
 
-            const pulseInterval = setInterval(() => {
+            setInterval(() => {
                 if (!mapObj.current) return
                 pulse(currentUserFeature, currentUserLayer, mapObj.current)
             }, 1000)
         }
 
-        console.log('allUsersFeatures', allUsersFeatures)
         allUsersSource.addFeatures(allUsersFeatures)
 
         mapObj.current.on('click', onClick)

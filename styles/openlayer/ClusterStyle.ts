@@ -12,94 +12,25 @@ export const styleCache = {}
 const clusterStyle = function (feature) {
     const features = feature.get('features')
     if (!features) {
-        // Si ce n'est pas un cluster, traiter la feature normalement
-        // Ici, vous devez retourner un style approprié pour une feature individuelle
-        const userElement = feature.get('element')
-        return [
-            new Style({
-                image: new Photo({
-                    src: userElement.image,
-                    radius: 30,
-                    crop: true,
-                    kind: 'circle',
-                    shadow: 5,
-                    stroke: new Stroke({
-                        color: userElement.strokeColor,
-                        width: 2,
-                    }),
-                }),
-            }),
-            // Pas de message non lu
-            userElement.room &&
-            userElement.room.countUnreadMessages &&
-            parseInt(userElement.room.countUnreadMessages) === 0
-                ? new Style({
-                      image: new Icon({
-                          src: '/images/conversation_icon.png',
-                          displacement: [20, 26],
-                          scale: 0.8,
-                      }),
-                  })
-                : new Style({}),
-
-            // Message non lu
-            userElement.room &&
-            userElement.room.countUnreadMessages &&
-            parseInt(userElement.room.countUnreadMessages) > 0
-                ? new Style({
-                      image: new CircleStyle({
-                          radius: 9,
-                          fill: new Fill({
-                              color: '#FF0808',
-                          }),
-                          displacement: [20, 26],
-                          stroke: new Stroke({
-                              color: '#fff',
-                              width: 2,
-                          }),
-                      }),
-                      text: new Text({
-                          text: userElement.room.countUnreadMessages,
-                          fill: new Fill({
-                              color: '#fff',
-                          }),
-                          font: 'bold 10px Montserrat',
-
-                          offsetX: 20.5,
-                          offsetY: -26,
-                      }),
-                  })
-                : new Style({}),
-
-            // Utilisateur en ligne
-            userElement.isOnline
-                ? new Style({
-                      image: new CircleStyle({
-                          radius: 6,
-                          fill: new Fill({
-                              color: '#38A169',
-                          }),
-                          displacement: [20, -20],
-                          stroke: new Stroke({
-                              color: '#fff',
-                              width: 2,
-                          }),
-                      }),
-                  })
-                : new Style({
-                      image: new CircleStyle({
-                          radius: 6,
-                          fill: new Fill({
-                              color: '#E2E8F0',
-                          }),
-                          displacement: [20, -20],
-                          stroke: new Stroke({
-                              color: '#fff',
-                              width: 2,
-                          }),
-                      }),
-                  }),
-        ]
+        // // Si ce n'est pas un cluster, traiter la feature normalement
+        // // Ici, vous devez retourner un style approprié pour une feature individuelle
+        // const userElement = feature.get('element')
+        // return [
+        //     new Style({
+        //         image: new Photo({
+        //             src: userElement.image,
+        //             radius: 30,
+        //             crop: true,
+        //             kind: 'circle',
+        //             shadow: 5,
+        //             stroke: new Stroke({
+        //                 color: userElement.strokeColor,
+        //                 width: 2,
+        //             }),
+        //         }),
+        //     }),
+        // ]
+        return null
     }
 
     const size = feature.get('features').length
@@ -110,10 +41,7 @@ const clusterStyle = function (feature) {
         let featureMaxUser: UserElement | null = null
         let max = null
         for (let I = 0; I < size; I++) {
-            // A FIX : Point == null
             if (
-                parseInt(feature.get('features')[I].get('element').points) ===
-                    0 ||
                 max === null ||
                 feature.get('features')[I].get('element').points > max
             ) {
