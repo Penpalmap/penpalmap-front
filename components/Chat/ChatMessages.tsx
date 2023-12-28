@@ -42,8 +42,9 @@ const ChatMessages = ({
     const [bottomScrollIsDone, setBottomScrollIsDone] = useState(false)
 
     const genderFolder =
-        user?.gender === 'man' || user?.gender === 'woman'
-            ? user?.gender
+        appData?.userChat?.gender === 'man' ||
+        appData?.userChat?.gender === 'woman'
+            ? appData?.userChat?.gender
             : 'other'
     const [arrowDisplay, setArrowDisplay] = useState<boolean>(false)
 
