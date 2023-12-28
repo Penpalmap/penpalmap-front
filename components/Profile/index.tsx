@@ -9,21 +9,12 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { useEffect, useRef, useState, useContext, useMemo } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    getFlagByCountryCode,
-    getPositionDataByCoords,
-} from '../../utils/location'
-import {
-    faArrowRight,
-    faChevronLeft,
-    faMapPin,
-    faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons'
+import { faMapPin, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { Feature, Map as OLMap, View } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { fromLonLat, transformExtent } from 'ol/proj'
@@ -32,10 +23,6 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import { Point } from 'ol/geom'
 import userStyle from '../../styles/openlayer/UserStyle'
-import { useRouter } from 'next/router'
-import { AppContext } from '../../context/AppContext'
-import { useMobileView } from '../../context/MobileViewContext'
-import { useSession } from '../../hooks/useSession'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
 

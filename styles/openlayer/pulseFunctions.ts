@@ -9,10 +9,11 @@ import Fill from 'ol/style/Fill'
 import Style from 'ol/style/Style'
 import OLMap from 'ol/Map'
 import { Geometry } from 'ol/geom'
+import VectorSource from 'ol/source/Vector'
 
 export function pulse(
     feature: Feature,
-    userLayer: VectorLayer<Cluster>,
+    userLayer: VectorLayer<VectorSource<Geometry>>,
     mapObj: OLMap | null,
     duration = 3500
 ) {
@@ -45,6 +46,7 @@ export function pulse(
     }
 
     const start = Date.now()
+    console.log('feature', feature)
     const flashGeom = feature?.getGeometry()?.clone()
     const listenerKey = userLayer.on('prerender', animate)
 }

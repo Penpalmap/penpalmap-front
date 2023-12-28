@@ -34,7 +34,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const [users, setUsers] = useState<UserMap[]>([])
     const [, setData] = useContext(AppContext)
     const { rooms } = useRoom()
-    const { user } = useSession()
+    const { user: currentUser } = useSession()
 
     const userLayerRef = useRef<VectorLayer<Cluster> | null>(null)
 
@@ -58,7 +58,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const getUserInCluster = (feature): UserElement => {
         let user = null
 
-        // Verifie si ce n'est pas l'utilisateur connecté
         if (feature.get('features')) {
             const size = feature.get('features').length
 
@@ -155,7 +154,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     // Initialize the map
     useEffect(() => {
-        if (!mapContainerRef.current || !user) return undefined
+        if (!mapContainerRef.current || !currentUser) return undefined
 
         const map = new OLMap({
             target: mapContainerRef.current,
@@ -172,8 +171,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ],
             view: new View({
                 center: fromLonLat([
-                    user?.geom?.coordinates?.[0] || 0,
-                    user?.geom?.coordinates?.[1] || 0,
+                    currentUser?.geom?.coordinates?.[0] || 0,
+                    currentUser?.geom?.coordinates?.[1] || 0,
                 ]),
                 zoom: 5.5,
                 minZoom: 4.5,
@@ -195,53 +194,40 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         return () => {
             map.setTarget(undefined)
         }
-    }, [user])
+    }, [currentUser])
 
     // Add users to the map
     useEffect(() => {
         if (!mapObj.current) return undefined
 
-        const userSource = new VectorSource()
+        const allUsersSource = new VectorSource()
+        const currentUserSource = new VectorSource()
 
-        const clusterSource = new Cluster({
-            distance: 55,
-            source: userSource,
-        })
-
-        const userLayer = new VectorLayer({
-            source: clusterSource,
+        const allUsersLayer = new VectorLayer({
+            source: new Cluster({
+                distance: 55,
+                source: allUsersSource,
+            }),
             style: clusterStyle,
         })
 
-        userLayerRef.current = userLayer
-
-        mapObj.current.addLayer(userLayer)
-
-        const filteredWithGeom = users.filter((user) => {
-            return (
-                user.geomR?.coordinates &&
-                user.geomR?.coordinates.length > 0 &&
-                user.geomR?.coordinates[1] &&
-                user.geomR?.coordinates[0]
-            )
+        const currentUserLayer = new VectorLayer({
+            source: currentUserSource,
+            style: clusterStyle, // Vous pouvez personnaliser ce style si nécessaire
         })
 
-        // add features to the source for users
-        const features = filteredWithGeom.map((userElement) => {
+        mapObj.current.addLayer(allUsersLayer)
+        mapObj.current.addLayer(currentUserLayer)
+
+        const filteredWithGeom = users.filter(
+            (user) => user.id !== currentUser?.id
+        )
+        const filteredCurrentUser = users.find(
+            (user) => user.id === currentUser?.id
+        )
+
+        const allUsersFeatures = filteredWithGeom.map((userElement) => {
             const { geomR } = userElement
-            // chaque room que l'on a (nous)
-            const room = rooms?.find((room) => {
-                const otherUser = room.members.find(
-                    (member) => member.id !== user?.id
-                )
-
-                return otherUser?.id === userElement.id
-            })
-
-            const otherMemberOnline = room?.members.find(
-                (member) => member.isOnline && member.id !== user?.id
-            )
-
             return new Feature({
                 geometry: new Point(
                     fromLonLat([
@@ -251,41 +237,49 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                 ),
                 element: {
                     ...userElement,
-                    strokeColor:
-                        userElement.id === user?.id ? '#9de0fc' : '#FFFFFF',
-                    room: room,
-                    isOnline: otherMemberOnline?.isOnline,
+                    strokeColor: '#FFFFFF', // couleur pour les autres utilisateurs
                 },
             })
         })
 
-        // Remove null entries from the features array
-        const filteredFeatures = features.filter((feature) => feature !== null)
+        const currentUserFeature = filteredCurrentUser
+            ? new Feature({
+                  geometry: new Point(
+                      fromLonLat([
+                          filteredCurrentUser.geomR.coordinates[0],
+                          filteredCurrentUser.geomR.coordinates[1],
+                      ])
+                  ),
+                  element: {
+                      ...filteredCurrentUser,
+                      points: Infinity,
+                      strokeColor: '#9de0fc', // couleur spécifique pour l'utilisateur actuel
+                  },
+              })
+            : null
 
-        mapObj.current.once('rendercomplete', () => {
-            userSource.addFeatures(filteredFeatures)
-        })
+        if (currentUserFeature) {
+            currentUserSource.addFeature(currentUserFeature)
+
+            const pulseInterval = setInterval(() => {
+                if (!mapObj.current) return
+                pulse(currentUserFeature, currentUserLayer, mapObj.current)
+            }, 1000)
+        }
+
+        console.log('allUsersFeatures', allUsersFeatures)
+        allUsersSource.addFeatures(allUsersFeatures)
 
         mapObj.current.on('click', onClick)
         mapObj.current.on('pointermove', onPointermove)
 
-        setInterval(() => {
-            if (!mapObj.current) return
-            const features = userSource.getFeatures()
-            features.forEach((feature) => {
-                const userMe = feature.get('element')
-                if (user?.id === userMe?.id) {
-                    pulse(feature, userLayer, mapObj.current)
-                }
-            })
-        }, 1000)
-
         return () => {
-            mapObj.current?.removeLayer(userLayer)
+            mapObj.current?.removeLayer(allUsersLayer)
+            mapObj.current?.removeLayer(currentUserLayer)
             mapObj.current?.un('click', onClick)
             mapObj.current?.un('pointermove', onPointermove)
         }
-    }, [rooms, onClick, onPointermove, user?.id, users])
+    }, [rooms, onClick, onPointermove, currentUser, users])
 
     return { mapObj, mapContainerRef, overlayRef: overlayRef.current }
 }
