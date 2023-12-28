@@ -65,7 +65,7 @@ const SignIn = () => {
     const [error, setError] = useState<string | null>(null)
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
     const googleLoginStyle = {
-        boxShadow: '0 6px 8px rgba(0, 0, 0, 0.2)',
+        boxShadow: '0 6px 8px rgba(0, 0, 0, 0.1)',
     }
     return (
         <>
