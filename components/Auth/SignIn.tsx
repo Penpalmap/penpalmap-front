@@ -65,25 +65,30 @@ const SignIn = () => {
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
     return (
         <>
-            <Box position="relative" h="Auto" w="full" overflow="hidden">
-                {/* <MapConnexion /> */}
+            <Box
+                position="relative"
+                height={'calc(100vh - 3.5rem)'}
+                overflow="hidden"
+            >
                 <Box
-                    w="400vh" // Double de la largeur pour contenir les deux images
-                    animation={`${scrollLeftToRight} 120s linear infinite`} // Appliquez l'animation
-                    // bg="#8CBBD4" // Ajout de la couleur de fond
+                    id="toto"
+                    height={'100%'}
+                    display="flex"
+                    animation={`${scrollLeftToRight} 60s linear infinite`}
+                    marginLeft="-50%"
                 >
-                    <Image
-                        src="/images/LandingMap_light.png"
-                        alt="PenPalMap"
-                        width="50%"
-                        display="inline-block"
-                    />
-                    <Image
-                        src="/images/LandingMap_light.png"
-                        alt="PenPalMap"
-                        width="50%"
-                        display="inline-block"
-                    />
+                    {[...Array(6)].map((_, index) => (
+                        <Box key={index} flex="0 0 auto">
+                            <Image
+                                src="/images/LandingMap_light.png"
+                                alt="PenPalMap"
+                                height="100%"
+                                width="auto"
+                                aspectRatio={'auto'}
+                                display="inline-block"
+                            />
+                        </Box>
+                    ))}
                 </Box>
                 <Box
                     position={'absolute'}
