@@ -25,8 +25,10 @@ const ConversationItem = ({
         user?.geom?.coordinates?.[0]
     )
     const { t } = useTranslation('common')
-    const genderFolder = user?.gender || 'other'
-
+    const genderFolder =
+        user?.gender === 'man' || user?.gender === 'woman'
+            ? user?.gender
+            : 'other'
     return (
         <Flex
             p={2}
