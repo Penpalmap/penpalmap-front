@@ -1,6 +1,6 @@
 {
     "connect": {
-        "connection": "PenPalMap में लॉगिन करें",
+        "connection": "PenPalMap में लॉगिन करें!",
         "login-google": "Google से लॉगिन करें",
         "mail": "ईमेल पता",
         "password": "पासवर्ड",

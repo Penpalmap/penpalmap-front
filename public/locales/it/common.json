@@ -1,6 +1,6 @@
 {
     "connect": {
-        "connection": "accesso a PenPalMap",
+        "connection": "accesso a PenPalMap!",
         "login-google": "Accedi con Google",
         "mail": "Indirizzo email",
         "password": "Password",

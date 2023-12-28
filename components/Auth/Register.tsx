@@ -95,6 +95,12 @@ const Register = () => {
                     flexDirection={'column'}
                     alignItems={'center'}
                 >
+                    <Image
+                        src="/images/logo.png"
+                        alt="PenPalMap Logo"
+                        boxSize="14"
+                        marginBottom={2}
+                    />
                     <Heading as="h1" size="lg" mb={6}>
                         {t('connect.sign-up')}
                     </Heading>

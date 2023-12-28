@@ -63,6 +63,9 @@ const SignIn = () => {
 
     const [error, setError] = useState<string | null>(null)
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
+    const googleLoginStyle = {
+        boxShadow: '0 6px 8px rgba(0, 0, 0, 0.2)',
+    }
     return (
         <>
             <Box
@@ -75,7 +78,7 @@ const SignIn = () => {
                     height={'100%'}
                     display="flex"
                     animation={`${scrollLeftToRight} 60s linear infinite`}
-                    marginLeft="-50%"
+                    // marginLeft="-50%"
                 >
                     {[...Array(6)].map((_, index) => (
                         <Box key={index} flex="0 0 auto">
@@ -105,26 +108,33 @@ const SignIn = () => {
                     alignItems={'center'}
                     boxShadow={'lg'}
                 >
+                    <Image
+                        src="/images/logo.png"
+                        alt="PenPalMap Logo"
+                        boxSize="14"
+                        marginBottom={2}
+                    />
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
                         <Text>{t('connect.connection')}</Text>
                     </Heading>
-                    <GoogleLogin
-                        onSuccess={async (credentialResponse) => {
-                            const response = await axios.post(
-                                'http://localhost:5000/api/auth/login/google',
-                                {
-                                    token: credentialResponse.credential,
-                                }
-                            )
+                    <Box style={googleLoginStyle}>
+                        <GoogleLogin
+                            onSuccess={async (credentialResponse) => {
+                                const response = await axios.post(
+                                    'http://localhost:5000/api/auth/login/google',
+                                    {
+                                        token: credentialResponse.credential,
+                                    }
+                                )
 
-                            login(response.data)
-                            Router.push('/')
-                        }}
-                        onError={() => {
-                            console.log('Login Failed')
-                        }}
-                    />
-
+                                login(response.data)
+                                Router.push('/')
+                            }}
+                            onError={() => {
+                                console.log('Login Failed')
+                            }}
+                        />
+                    </Box>
                     <Divider my={6} />
                     <form
                         onSubmit={handleSubmit(onSubmit)}
