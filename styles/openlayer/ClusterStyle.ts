@@ -131,7 +131,11 @@ const clusterStyle = function (feature) {
         }
 
         let style = styleCache[uid]
-        const genderFolder = featureMaxUser?.gender || 'other'
+        const genderFolder =
+            featureMaxUser?.gender === 'man' ||
+            featureMaxUser?.gender === 'woman'
+                ? featureMaxUser?.gender
+                : 'other'
 
         // if (!style) {
         const photo = featureMaxUser?.image
@@ -235,7 +239,10 @@ const clusterStyle = function (feature) {
             return null
         }
         let style = styleCache[uid]
-        const genderFolder = user?.gender || 'other'
+        const genderFolder =
+            user?.gender === 'man' || user?.gender === 'woman'
+                ? user?.gender
+                : 'other'
 
         // if (!style) {
         const photo = user.image

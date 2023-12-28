@@ -41,8 +41,11 @@ const ChatMessages = ({
     const lastSenderId = useRef<string | null>(null)
     const [bottomScrollIsDone, setBottomScrollIsDone] = useState(false)
 
-    const genderFolder = appData?.userChat?.gender || 'other'
-
+    const genderFolder =
+        appData?.userChat?.gender === 'man' ||
+        appData?.userChat?.gender === 'woman'
+            ? appData?.userChat?.gender
+            : 'other'
     const [arrowDisplay, setArrowDisplay] = useState<boolean>(false)
 
     useEffect(() => {
