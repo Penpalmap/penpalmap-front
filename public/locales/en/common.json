@@ -1,6 +1,6 @@
 {
     "connect": {
-        "connection": "login at PenPalMap",
+        "connection": "login at PenpalMap!",
         "login-google": "Connnect with Google",
         "mail": "E-mail",
         "password": "Password",
@@ -25,9 +25,9 @@
         "month": "Month",
         "year": "Year",
         "heyExplorer": "Hey, explorer! 🚸",
-        "less12": "Just a heads-up: To journey in PenPalMap, you need to be at least 12 years old. Stay safe and enjoy the adventure! 🌍✨ Curious about the rules? Check our",
+        "less12": "Just a heads-up: To journey in PenpalMap, you need to be at least 12 years old. Stay safe and enjoy the adventure! 🌍✨ Curious about the rules? Check our",
         "more12part1": "🚸 Hey there, young explorer! Just a heads-up: there are adults on this app. Always stay safe and be cautious. 🛡️ Need more info? Check our",
-        "more12part2": ". If something feels off, don&apos;t hesitate to reach out to the PenPalMap team! 💌",
+        "more12part2": ". If something feels off, don&apos;t hesitate to reach out to the PenpalMap team! 💌",
         "editImage": "Edit image",
         "toastLocationOut": "Oops! It seems you're in the middle of nowhere. Time to bring out your imaginary passport and explore the 'Land of Nowhere'! 🌍✈️",
         "selectALanguage": "Select a language",
@@ -73,19 +73,19 @@
         "othergender": "Other"
     },
     "presentation": {
-        "devise1": "\"Here at PenPalMap, we aren't about quick swipes...",
+        "devise1": "\"Here at PenpalMap, we aren't about quick swipes...",
         "devise2": "About learning, connecting, and growing - no matter the distance.\"",
         "mapTitle": "Interactive Map",
         "mapText": "Explore our interactive map to discover pen pals from around the world. Find friends across continents and connect with a diversity of cultures and perspectives.",
         "chatTitle": "Instant Messaging",
         "chatText": "Our instant messaging brings you closer to friends, whether you're on the go, traveling, or simply at home. Communicate in real-time with pen pals from around the world.",
         "securityTitle": "Security and Kindness",
-        "securityText": "At PenPalMap, your security and well-being are our priority. We have implemented robust security measures to ensure a safe and kind online experience. Connect with confidence!",
-        "whyPenpalmapTitle": "Why PenPalMap?",
-        "whyPenpalmapText": "PenPalMap reinvents penpalling with a focus on simplicity, community, and exploration. Unlike other platforms, our service is completely free. No more need for physical letters or outdated correspondence methods. We break down barriers, allowing you to connect instantly with friends from around the globe. Our interactive map is at the heart of the experience, making it easy to discover penpals worldwide. Explore, learn, and build friendships without borders. With PenPalMap, your international adventure begins here. Join us and explore the world with new and exciting friends!",
+        "securityText": "At PenpalMap, your security and well-being are our priority. We have implemented robust security measures to ensure a safe and kind online experience. Connect with confidence!",
+        "whyPenpalmapTitle": "Why PenpalMap?",
+        "whyPenpalmapText": "PenpalMap reinvents penpalling with a focus on simplicity, community, and exploration. Unlike other platforms, our service is completely free. No more need for physical letters or outdated correspondence methods. We break down barriers, allowing you to connect instantly with friends from around the globe. Our interactive map is at the heart of the experience, making it easy to discover penpals worldwide. Explore, learn, and build friendships without borders. With PenpalMap, your international adventure begins here. Join us and explore the world with new and exciting friends!",
         "seeDetails": "See Details",
         "text1": "Connect with friends from around the world, wherever you are. Make friends, learn languages, and explore new cultures no matter your location.",
-        "text2": "PenPalMap is an instant messaging application that allows you to chat with people from around the world. Whether you're traveling, on the go, or at home, you can access PenPalMap anytime, anywhere, securely."
+        "text2": "PenpalMap is an instant messaging application that allows you to chat with people from around the world. Whether you're traveling, on the go, or at home, you can access PenpalMap anytime, anywhere, securely."
     },
     "footer": {
         "terms": "Terms of use",

@@ -1,5 +1,5 @@
 import { useContext, useMemo, useCallback } from 'react'
-import { Box, Flex, Image, Text, VStack } from '@chakra-ui/react'
+import { Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import { updateMessageIsReadByRoom } from '../../api/chatApi'
@@ -8,8 +8,6 @@ import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
 import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 import { useMobileView } from '../../context/MobileViewContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMessage } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
 
 const ConversationList = () => {

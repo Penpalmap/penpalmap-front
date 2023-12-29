@@ -1,6 +1,6 @@
 {
     "connect": {
-        "connection": "PenPalMap'te giriş yap",
+        "connection": "PenpalMap'te giriş yap",
         "login-google": "Google ile Giriş Yap",
         "mail": "E-posta adresi",
         "password": "Parola",
@@ -25,9 +25,9 @@
         "month": "Ay",
         "year": "Yıl",
         "heyExplorer": "Hey, kaşif! 🚸",
-        "less12": "Sadece bir uyarı: PenPalMap'ta seyahat etmek için en az 12 yaşında olmalısınız. Güvende kalın ve maceranın tadını çıkarın! 🌍✨ Kurallar nelerdir merak mı ediyorsunuz? Hemen göz atın",
+        "less12": "Sadece bir uyarı: PenpalMap'ta seyahat etmek için en az 12 yaşında olmalısınız. Güvende kalın ve maceranın tadını çıkarın! 🌍✨ Kurallar nelerdir merak mı ediyorsunuz? Hemen göz atın",
         "more12part1": "🚸 Merhaba! Sadece bir uyarı: Bu uygulamada yetişkinler de var. Her zaman güvende kalın ve dikkatli olun. 🛡️ Daha fazla bilgiye ihtiyacınız mı var? Hemen göz atın",
-        "more12part2": ". Eğer bir şey size garip geliyorsa, PenPalMap ekibi ile iletişime geçmekten çekinmeyin! 💌",
+        "more12part2": ". Eğer bir şey size garip geliyorsa, PenpalMap ekibi ile iletişime geçmekten çekinmeyin! 💌",
         "editImage": "Resminizi düzenleyin",
         "toastLocationOut": "Hoppala! Sanki ıssız bir yerdesiniz. Hayalinizdeki pasaportunuzu çıkarmanın ve 'Hiçbir Yer Ülkesi'ni keşfetmenin zamanı geldi! 🌍✈️",
         "selectALanguage": "Bir dil seçin",
@@ -73,19 +73,19 @@
         "othergender": "Diğer"
     },
     "presentation": {
-        "devise1": "\"PenPalMap'te geçici etkileşimler için burada değiliz...",
+        "devise1": "\"PenpalMap'te geçici etkileşimler için burada değiliz...",
         "devise2": "ancak öğrenmek, bağlantı kurmak ve mesafe ne olursa olsun gelişmek için buradayız.\"",
         "mapTitle": "Etkileşimli Harita",
         "mapText": "Dünya genelinden korespondanları keşfetmek için etkileşimli haritamızı keşfedin. Kıtalar arasında arkadaşlar bulun ve çeşitli kültürler ve bakış açılarıyla bağlantı kurun.",
         "chatTitle": "Anlık Mesajlaşma",
         "chatText": "Anlık mesajlaşmamız, seyahat ediyor olsanız, hareket halinde veya sadece evde olmanız fark etmeksizin arkadaşlarınıza daha da yaklaşmanıza yardımcı olur. Dünya genelinden korespondanlarla gerçek zamanlı iletişim kurun.",
         "securityTitle": "Güvenlik ve İyi Niyet",
-        "securityText": "PenPalMap'te güvenliğiniz ve sağlığınız önceliğimizdir. Çevrimiçi deneyiminizde güvenli ve saygılı bir ortam sağlamak için sağlam güvenlik önlemleri aldık. Güvenle bağlanın!",
+        "securityText": "PenpalMap'te güvenliğiniz ve sağlığınız önceliğimizdir. Çevrimiçi deneyiminizde güvenli ve saygılı bir ortam sağlamak için sağlam güvenlik önlemleri aldık. Güvenle bağlanın!",
         "whyPenpalmapTitle": "Neden Penpalmap?",
-        "whyPenpalmapText": "PenPalMap, basitlik, topluluk ve keşif üzerine vurgu yaparak mektuplaşmayı yeniden tanımlar. Diğer platformlardan farklı olarak, hizmetimiz tamamen ücretsizdir. Artık fiziksel mektuplara veya modası geçmiş mektuplaşma yöntemlerine gerek yok. Sizi dünya genelindeki arkadaşlarınıza anında bağlamak için engelleri kaldırıyoruz. İnteraktif haritamız deneyimin kalbinde yer alarak dünya genelinde korespondanları kolayca keşfetmenize yardımcı olur. Sınırlar olmadan keşfedin, öğrenin ve dostluklar kurun. PenPalMap ile uluslararası maceranız burada başlıyor. Bize katılın ve yeni ve heyecan verici arkadaşlarla dünyayı keşfedin!",
+        "whyPenpalmapText": "PenpalMap, basitlik, topluluk ve keşif üzerine vurgu yaparak mektuplaşmayı yeniden tanımlar. Diğer platformlardan farklı olarak, hizmetimiz tamamen ücretsizdir. Artık fiziksel mektuplara veya modası geçmiş mektuplaşma yöntemlerine gerek yok. Sizi dünya genelindeki arkadaşlarınıza anında bağlamak için engelleri kaldırıyoruz. İnteraktif haritamız deneyimin kalbinde yer alarak dünya genelinde korespondanları kolayca keşfetmenize yardımcı olur. Sınırlar olmadan keşfedin, öğrenin ve dostluklar kurun. PenpalMap ile uluslararası maceranız burada başlıyor. Bize katılın ve yeni ve heyecan verici arkadaşlarla dünyayı keşfedin!",
         "seeDetails": "Detayları Gör",
         "text1": "Nerede olursanız olun dünya genelinden arkadaşlarınızla bağlantı kurun. Konumunuza bakılmaksızın arkadaş edinin, diller öğrenin ve yeni kültürler keşfedin.",
-        "text2": "PenPalMap, dünya genelinden insanlarla sohbet etmenizi sağlayan anlık mesajlaşma uygulamasıdır. Seyahat ediyor, hareket halinde veya sadece evde olun, her zaman ve her yerde PenPalMap'e güvenli bir şekilde erişebilirsiniz."
+        "text2": "PenpalMap, dünya genelinden insanlarla sohbet etmenizi sağlayan anlık mesajlaşma uygulamasıdır. Seyahat ediyor, hareket halinde veya sadece evde olun, her zaman ve her yerde PenpalMap'e güvenli bir şekilde erişebilirsiniz."
     },
     "footer": {
         "terms": "Kullanım Şartları",

@@ -1,6 +1,6 @@
 {
     "connect": {
-        "connection": "iniciar sesión en PenPalMap",
+        "connection": "iniciar sesión en PenpalMap!",
         "login-google": "Iniciar sesión con Google",
         "mail": "Correo electrónico",
         "password": "Contraseña",
@@ -25,9 +25,9 @@
         "month": "Mes",
         "year": "Año",
         "heyExplorer": "¡Hola, explorador! 🚸",
-        "less12": "Solo una advertencia: Para viajar en PenPalMap, debes tener al menos 12 años. ¡Mantente seguro y disfruta de la aventura! 🌍✨ ¿Te preguntas cuáles son las reglas? Consulta nuestras",
+        "less12": "Solo una advertencia: Para viajar en PenpalMap, debes tener al menos 12 años. ¡Mantente seguro y disfruta de la aventura! 🌍✨ ¿Te preguntas cuáles son las reglas? Consulta nuestras",
         "more12part1": "🚸 ¡Hola! Solo una advertencia: hay adultos en esta aplicación. ¡Mantente siempre seguro y sé prudente! 🛡️ ¿Necesitas más información? Consulta nuestras",
-        "more12part2": ". Si algo te parece extraño, ¡no dudes en contactar al equipo de PenPalMap! 💌",
+        "more12part2": ". Si algo te parece extraño, ¡no dudes en contactar al equipo de PenpalMap! 💌",
         "editImage": "Editar tu imagen",
         "toastLocationOut": "¡Ups! Parece que estás en medio de la nada. ¡Es hora de sacar tu pasaporte imaginario y explorar el 'País de la Nada'! 🌍✈️",
         "selectALanguage": "Selecciona un idioma",
@@ -73,19 +73,19 @@
         "othergender": "Otro"
     },
     "presentation": {
-        "devise1": "\"En PenPalMap, no estamos aquí para interacciones efímeras...",
+        "devise1": "\"En PenpalMap, no estamos aquí para interacciones efímeras...",
         "devise2": "sino para aprender, conectar y evolucionar, sin importar la distancia.\"",
         "mapTitle": "Mapa Interactivo",
         "mapText": "Explora nuestro mapa interactivo para descubrir corresponsales de todo el mundo. Encuentra amigos a través de los continentes y conecta con una diversidad de culturas y perspectivas.",
         "chatTitle": "Chat Instantáneo",
         "chatText": "Nuestro chat instantáneo te acerca a tus amigos, ya sea que estés en movimiento, de viaje o simplemente en casa. Comunícate en tiempo real con corresponsales de todo el mundo.",
         "securityTitle": "Seguridad y Cuidado",
-        "securityText": "En PenPalMap, tu seguridad y bienestar son nuestra prioridad. Hemos implementado medidas de seguridad sólidas para garantizar una experiencia en línea segura y cuidadosa. ¡Conéctate con confianza!",
-        "whyPenpalmapTitle": "¿Por qué PenPalMap?",
-        "whyPenpalmapText": "PenPalMap reinventa la correspondencia con un enfoque en la simplicidad, la comunidad y la exploración. A diferencia de otras plataformas, nuestro servicio es completamente gratuito. No más cartas físicas ni métodos de correspondencia obsoletos. Eliminamos las barreras para permitirte conectarte instantáneamente con amigos de todo el mundo. Nuestro mapa interactivo está en el centro de la experiencia, facilitando el descubrimiento de corresponsales en todo el mundo. Explora, aprende y construye amistades sin fronteras. Con PenPalMap, tu aventura internacional comienza aquí. ¡Únete y descubre el mundo con amigos nuevos y emocionantes!",
+        "securityText": "En PenpalMap, tu seguridad y bienestar son nuestra prioridad. Hemos implementado medidas de seguridad sólidas para garantizar una experiencia en línea segura y cuidadosa. ¡Conéctate con confianza!",
+        "whyPenpalmapTitle": "¿Por qué PenpalMap?",
+        "whyPenpalmapText": "PenpalMap reinventa la correspondencia con un enfoque en la simplicidad, la comunidad y la exploración. A diferencia de otras plataformas, nuestro servicio es completamente gratuito. No más cartas físicas ni métodos de correspondencia obsoletos. Eliminamos las barreras para permitirte conectarte instantáneamente con amigos de todo el mundo. Nuestro mapa interactivo está en el centro de la experiencia, facilitando el descubrimiento de corresponsales en todo el mundo. Explora, aprende y construye amistades sin fronteras. Con PenpalMap, tu aventura internacional comienza aquí. ¡Únete y descubre el mundo con amigos nuevos y emocionantes!",
         "seeDetails": "Ver detalles",
         "text1": "Conéctate con amigos de todo el mundo, estés donde estés. Haz amigos, aprende idiomas y descubre nuevas culturas, sin importar tu ubicación.",
-        "text2": "PenPalMap es una aplicación de chat instantáneo que te permite conversar con personas de todo el mundo. Ya sea que estés de viaje, en movimiento o en casa, puedes acceder a PenPalMap en cualquier momento, estés donde estés, de manera segura."
+        "text2": "PenpalMap es una aplicación de chat instantáneo que te permite conversar con personas de todo el mundo. Ya sea que estés de viaje, en movimiento o en casa, puedes acceder a PenpalMap en cualquier momento, estés donde estés, de manera segura."
     },
     "footer": {
         "terms": "Términos de uso",

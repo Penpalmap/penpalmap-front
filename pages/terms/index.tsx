@@ -11,7 +11,7 @@ const TermsOfUse = () => {
                 Generalities
             </Heading>
             <Text mb="3">
-                PenPalMap provides a platform enabling individuals from all over
+                PenpalMap provides a platform enabling individuals from all over
                 the world to connect and communicate. We value and uphold your
                 privacy, ensuring you can interact with other members on our
                 platform. By posting or uploading content potentially protected
@@ -25,7 +25,7 @@ const TermsOfUse = () => {
             </Heading>
             <List spacing={2}>
                 <ListItem>
-                    Photo Upload: As a PenPalMap user, you&apos;re allowed to
+                    Photo Upload: As a PenpalMap user, you&apos;re allowed to
                     upload personal photos to complete your profile. These
                     photos can be centered on a specific part of the image
                     according to your choice, and you can upload several to
@@ -33,17 +33,17 @@ const TermsOfUse = () => {
                 </ListItem>
                 <ListItem>
                     Photo Ownership: As a user, you certify that you hold all
-                    necessary rights for photos you upload to PenPalMap.
+                    necessary rights for photos you upload to PenpalMap.
                 </ListItem>
                 <ListItem>
-                    Photo License: When uploading a photo, you grant PenPalMap a
+                    Photo License: When uploading a photo, you grant PenpalMap a
                     non-exclusive, transferable, sublicensable, free, worldwide
                     license to use, reproduce, distribute, and display this
-                    photo in relation to PenPalMap&apos;s services.
+                    photo in relation to PenpalMap&apos;s services.
                 </ListItem>
                 <ListItem>
                     Prohibition of Scraping: It&apos;s strictly forbidden to
-                    scrape or download photos of other PenPalMap users without
+                    scrape or download photos of other PenpalMap users without
                     their explicit consent.
                 </ListItem>
                 <ListItem>
@@ -67,7 +67,7 @@ const TermsOfUse = () => {
                 Accounts
             </Heading>
             <Text mb="3">
-                You can register as a member of the PenPalMap community. Follow
+                You can register as a member of the PenpalMap community. Follow
                 the respective instructions during registration. An user account
                 can be created with a personal email address.
             </Text>
@@ -76,8 +76,8 @@ const TermsOfUse = () => {
                 Termination
             </Heading>
             <Text mb="3">
-                PenPalMap may terminate your access to all or part of the
-                PenPalMap services at any time, with or without reason, with or
+                PenpalMap may terminate your access to all or part of the
+                PenpalMap services at any time, with or without reason, with or
                 without notice, effective immediately. If you wish to terminate
                 this agreement or your account, you can delete your account from
                 your account profile settings.
@@ -88,7 +88,7 @@ const TermsOfUse = () => {
             </Heading>
             <Text mb="3">
                 The website and mobile applications are provided &quot;as
-                is&quot;. PenPalMap disclaims all responsibility for the
+                is&quot;. PenpalMap disclaims all responsibility for the
                 accuracy, quality, completeness, reliability, or credibility of
                 the content.
             </Text>
@@ -97,20 +97,20 @@ const TermsOfUse = () => {
                 Privacy
             </Heading>
             <Text mb="3">
-                PenPalMap gives top priority to user information protection.
+                PenpalMap gives top priority to user information protection.
             </Text>
 
             <Heading mb="2" as="h2" size="md">
                 Modifications
             </Heading>
             <Text mb="3">
-                PenPalMap reserves the right to change the terms of use with
+                PenpalMap reserves the right to change the terms of use with
                 appropriate notice of at least six weeks.
             </Text>
 
             <Box mt="5">
                 <Link href="/privacy-policy" color="blue.500">
-                    For more details, refer to PenPalMap&quot;s Privacy Policy.
+                    For more details, refer to PenpalMap&quot;s Privacy Policy.
                 </Link>
             </Box>
         </Box>

@@ -2,7 +2,6 @@ import {
     Badge,
     Box,
     Button,
-    CloseButton,
     Flex,
     HStack,
     Image,
@@ -275,7 +274,7 @@ const Profile = ({ profileId }: Props) => {
     }, [])
 
     const profileContent = useMemo(() => {
-        const groupedContents = []
+        const groupedContents: JSX.Element[] = []
         let imageIndex = 1
         for (let i = 0; i < listProfiles.length; i += 2) {
             const group = listProfiles
