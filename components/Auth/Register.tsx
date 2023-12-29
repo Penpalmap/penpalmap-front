@@ -25,7 +25,7 @@ import Router from 'next/router'
 import { registerUser } from '../../api/authApi'
 
 const Register = () => {
-    const labelRef = useRef<HTMLElement | null>(null)
+    const labelRef = useRef<HTMLParagraphElement | null>(null)
     const [error, setError] = useState<string | null>(null)
     const {
         register,
@@ -142,10 +142,8 @@ const Register = () => {
                             <FormControl
                                 isInvalid={!!errors.password}
                                 isRequired
-                                bg={'red.600'}
                             >
-                                <FormLabel>{t('connect.password')}</FormLabel>
-                                <Box bg={'pink.300'} position={'relative'}>
+                                <Box position={'relative'} marginTop={2}>
                                     <Input
                                         type="password"
                                         {...register('password', {
@@ -153,9 +151,24 @@ const Register = () => {
                                         })}
                                         bg={'white'}
                                         onFocus={() => {
-                                            console.log('focus')
                                             labelRef.current?.style.setProperty(
                                                 'top',
+                                                '-30%'
+                                            )
+                                            labelRef.current?.style.setProperty(
+                                                'color',
+                                                '#3EB6A0'
+                                            )
+                                            labelRef.current?.style.setProperty(
+                                                'font-weight',
+                                                'bold'
+                                            )
+                                            labelRef.current?.style.setProperty(
+                                                'font-size',
+                                                '12px'
+                                            )
+                                            labelRef.current?.style.setProperty(
+                                                'left',
                                                 '0'
                                             )
                                         }}
@@ -167,13 +180,24 @@ const Register = () => {
                                             )
                                             labelRef.current?.style.setProperty(
                                                 'color',
-                                                'red.500'
+                                                '#718096'
+                                            )
+                                            labelRef.current?.style.setProperty(
+                                                'font-weight',
+                                                'normal'
+                                            )
+                                            labelRef.current?.style.setProperty(
+                                                'font-size',
+                                                '16px'
+                                            )
+                                            labelRef.current?.style.setProperty(
+                                                'left',
+                                                '1rem'
                                             )
                                         }}
-                                        transition={'linear 0.2s all'}
                                     />
                                     <Text
-                                        fontSize={'small'}
+                                        fontSize={'md'}
                                         position={'absolute'}
                                         top={'50%'}
                                         transform={'translateY(-50%)'}
@@ -181,6 +205,7 @@ const Register = () => {
                                         zIndex={1}
                                         ref={labelRef}
                                         color={'gray.500'}
+                                        transition={'linear 0.2s all'}
                                     >
                                         {t('connect.password')}
                                     </Text>
