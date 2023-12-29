@@ -13,6 +13,7 @@ import {
     Text,
     Image,
     keyframes,
+    Flex,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
@@ -24,6 +25,8 @@ import { useSession } from '../../hooks/useSession'
 import Router from 'next/router'
 import { registerUser } from '../../api/authApi'
 import Input from '../Elements/Input'
+import { GoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
 
 const Register = () => {
     const labelRef = useRef<HTMLParagraphElement | null>(null)
@@ -55,7 +58,9 @@ const Register = () => {
     }
 
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
-
+    const googleLoginStyle = {
+        boxShadow: '0 6px 8px rgba(0, 0, 0, 0.1)',
+    }
     return (
         <>
             <Box
@@ -106,13 +111,48 @@ const Register = () => {
                     <Heading as="h1" size="lg" mb={6}>
                         {t('connect.sign-up')}
                     </Heading>
-                    <Divider my={6} />
+                    <Box style={googleLoginStyle}>
+                        <GoogleLogin
+                            width={320}
+                            onSuccess={async (credentialResponse) => {
+                                const response = await axios.post(
+                                    'http://localhost:5000/api/auth/login/google',
+                                    {
+                                        token: credentialResponse.credential,
+                                    }
+                                )
+
+                                login(response.data)
+                                Router.push('/')
+                            }}
+                            onError={() => {
+                                console.log('Login Failed')
+                            }}
+                        />
+                    </Box>
+                    <Flex
+                        alignItems="center"
+                        mt={6}
+                        mb={6}
+                        w="90%"
+                        justify="space-between"
+                    >
+                        <Box flex="1" h="1px" bg="gray.400"></Box>
+                        <Text mx={2} color="gray.900" fontWeight="bold">
+                            OR
+                        </Text>
+                        <Box flex="1" h="1px" bg="gray.400"></Box>
+                    </Flex>
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         style={{ width: '90%' }}
                     >
                         <Stack spacing={4}>
-                            <FormControl isInvalid={!!errors.email} isRequired>
+                            <FormControl
+                                isInvalid={!!errors.email}
+                                isRequired
+                                marginTop={4}
+                            >
                                 <Input
                                     type="email"
                                     {...register('email', {
@@ -125,7 +165,11 @@ const Register = () => {
                                     {errors.email?.message}
                                 </FormErrorMessage>
                             </FormControl>
-                            <FormControl isInvalid={!!errors.name} isRequired>
+                            <FormControl
+                                isInvalid={!!errors.name}
+                                isRequired
+                                top={2}
+                            >
                                 <Input
                                     type="text"
                                     {...register('name', {
@@ -142,7 +186,7 @@ const Register = () => {
                                 isInvalid={!!errors.password}
                                 isRequired
                             >
-                                <Box position={'relative'} marginTop={2}>
+                                <Box position={'relative'} marginTop={4}>
                                     <Input
                                         type="password"
                                         {...register('password', {
@@ -163,19 +207,24 @@ const Register = () => {
                                     {error}
                                 </Alert>
                             )}
-                            <Button type="submit" colorScheme="blue">
+                            <Button
+                                type="submit"
+                                backgroundColor={'#3EB6A0'}
+                                color={'white'}
+                            >
                                 {t('connect.register')}
                             </Button>
                         </Stack>
                     </form>
                     <Box mt={4}>
-                        <Text fontSize={'small'}>
+                        <Text fontSize={'small'} textColor={'#3EB6A0'}>
                             {t('connect.already-account')}{' '}
                             <Link href="/auth/signin">
                                 <Text
                                     as="span"
-                                    color="blue.500"
+                                    color="#3EB6A0"
                                     cursor="pointer"
+                                    fontWeight="bold"
                                 >
                                     {t('connect.connection')}
                                 </Text>

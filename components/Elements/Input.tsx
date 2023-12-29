@@ -30,7 +30,7 @@ const Input = ({ placeholderText, ...props }) => {
     }
 
     return (
-        <Box position={'relative'} marginTop={2}>
+        <Box position={'relative'}>
             <ChakraInput
                 {...props}
                 bg={'white'}

@@ -156,7 +156,11 @@ const SignIn = () => {
                         style={{ width: '90%' }}
                     >
                         <Stack spacing={3}>
-                            <FormControl isInvalid={!!errors.email} isRequired>
+                            <FormControl
+                                isInvalid={!!errors.email}
+                                isRequired
+                                marginTop={2}
+                            >
                                 {/* <FormLabel htmlFor="email">
                                     {t('connect.mail')}
                                 </FormLabel>
@@ -182,6 +186,7 @@ const SignIn = () => {
                             <FormControl
                                 isInvalid={!!errors.password}
                                 isRequired
+                                top={2}
                             >
                                 <Input
                                     placeholderText={t('connect.password')}
@@ -205,36 +210,45 @@ const SignIn = () => {
                                     {errors.password && errors.password.message}
                                 </FormErrorMessage>
                             </FormControl>
+                            <Link href="/auth/forgot-password">
+                                <Text
+                                    fontSize={'sm'}
+                                    textAlign={'end'}
+                                    color="gray.400"
+                                    cursor="pointer"
+                                >
+                                    {t('connect.forgot-password')}
+                                </Text>
+                            </Link>
                             {error && (
                                 <Alert status="error" my={4}>
                                     <AlertIcon />
                                     {error}
                                 </Alert>
                             )}
-                            <Button type="submit" colorScheme="blue">
+
+                            <Button
+                                type="submit"
+                                backgroundColor={'#3EB6A0'}
+                                color={'white'}
+                            >
                                 {t('connect.connect')}
                             </Button>
                         </Stack>
-                        <Link href="/auth/forgot-password">
-                            <Text
-                                fontSize={'small'}
-                                textAlign={'end'}
-                                mt={4}
-                                color="blue.500"
-                                cursor="pointer"
-                            >
-                                {t('connect.forgot-password')}
-                            </Text>
-                        </Link>
                     </form>
                     <Box mt={4} w={'90%'}>
-                        <Text fontSize={'small'}>
-                            {t('connect.no-account')}{' '}
+                        <Text
+                            fontSize={'medium'}
+                            fontWeight={'bold'}
+                            textAlign={'center'}
+                        >
+                            {/* {t('connect.no-account')}{' '} */}
                             <Link href="/auth/signup">
                                 <Text
                                     as="span"
-                                    color="blue.500"
                                     cursor="pointer"
+                                    textAlign={'center'}
+                                    textColor={'#3EB6A0'}
                                 >
                                     {t('connect.create-account')}
                                 </Text>
