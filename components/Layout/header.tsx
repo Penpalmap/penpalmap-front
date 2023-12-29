@@ -78,8 +78,8 @@ const Header = () => {
                             <Image
                                 src={'/images/logo.png'}
                                 alt={'logo'}
-                                w={'9'}
-                                h={'9'}
+                                w={'8'}
+                                h={'8'}
                             />
                             <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
                                 PenpalMap
