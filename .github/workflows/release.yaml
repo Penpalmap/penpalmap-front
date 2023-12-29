@@ -39,11 +39,15 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - id: repository-to-lowercase
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ github.repository }}
       - id: docker-build-push
         name: Build Docker image and push to Github Container Registry
         uses: docker/build-push-action@v5
         with:
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ needs.version.outputs.new-version }}
-            ${{ env.REGISTRY }}/${{ github.repository }}:latest
+            ${{ env.REGISTRY }}/${{ steps.repository-to-lowercase.outputs.lowercase }}:${{ needs.version.outputs.new-version }}
+            ${{ env.REGISTRY }}/${{ steps.repository-to-lowercase.outputs.lowercase }}:latest
