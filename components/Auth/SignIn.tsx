@@ -25,6 +25,8 @@ import { GoogleLogin } from '@react-oauth/google'
 import Router from 'next/router'
 import { useSession } from '../../hooks/useSession'
 import Input from '../Elements/Input'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 interface LoginFormData {
     email: string
@@ -119,7 +121,7 @@ const SignIn = () => {
                     <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
                         <Text>{t('connect.connection')}</Text>
                     </Heading>
-                    <Box style={googleLoginStyle}>
+                    <Box style={googleLoginStyle} marginBottom={2}>
                         <GoogleLogin
                             width={320}
                             onSuccess={async (credentialResponse) => {
@@ -256,6 +258,25 @@ const SignIn = () => {
                         </Text>
                     </Box>
                 </Box>
+                <FontAwesomeIcon
+                    icon={faChevronDown}
+                    size="2x" // Taille de l'icône
+                    color="white" // Couleur de l'icône
+                    style={{
+                        position: 'absolute',
+                        bottom: '2rem', // Ajustez la distance par rapport au bas selon vos besoins
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        cursor: 'pointer', // Donne un aspect de lien cliquable
+                    }}
+                    onClick={() => {
+                        // Faites défiler la page vers le bas de 500 pixels
+                        window.scrollTo({
+                            top: window.scrollY + 500,
+                            behavior: 'smooth', // Ajoute un effet de défilement fluide
+                        })
+                    }}
+                />
             </Box>
             <Presentation />
         </>

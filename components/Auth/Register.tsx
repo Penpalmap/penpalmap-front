@@ -27,6 +27,8 @@ import { registerUser } from '../../api/authApi'
 import Input from '../Elements/Input'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 const Register = () => {
     const labelRef = useRef<HTMLParagraphElement | null>(null)
@@ -111,7 +113,7 @@ const Register = () => {
                     <Heading as="h1" size="lg" mb={6}>
                         {t('connect.sign-up')}
                     </Heading>
-                    <Box style={googleLoginStyle}>
+                    <Box style={googleLoginStyle} marginBottom={4}>
                         <GoogleLogin
                             width={320}
                             onSuccess={async (credentialResponse) => {
@@ -232,6 +234,25 @@ const Register = () => {
                         </Text>
                     </Box>
                 </Box>
+                <FontAwesomeIcon
+                    icon={faChevronDown}
+                    size="2x" // Taille de l'icône
+                    color="white" // Couleur de l'icône
+                    style={{
+                        position: 'absolute',
+                        bottom: '2rem', // Ajustez la distance par rapport au bas selon vos besoins
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        cursor: 'pointer', // Donne un aspect de lien cliquable
+                    }}
+                    onClick={() => {
+                        // Faites défiler la page vers le bas de 500 pixels
+                        window.scrollTo({
+                            top: window.scrollY + 500,
+                            behavior: 'smooth', // Ajoute un effet de défilement fluide
+                        })
+                    }}
+                />
             </Box>
             <Presentation />
         </>
