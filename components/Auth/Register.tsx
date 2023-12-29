@@ -165,6 +165,10 @@ const Register = () => {
                                                 'top',
                                                 '50%'
                                             )
+                                            labelRef.current?.style.setProperty(
+                                                'color',
+                                                'red.500'
+                                            )
                                         }}
                                         transition={'linear 0.2s all'}
                                     />
@@ -173,11 +177,12 @@ const Register = () => {
                                         position={'absolute'}
                                         top={'50%'}
                                         transform={'translateY(-50%)'}
-                                        left={'5'}
+                                        left={'4'}
                                         zIndex={1}
                                         ref={labelRef}
+                                        color={'gray.500'}
                                     >
-                                        Text
+                                        {t('connect.password')}
                                     </Text>
                                 </Box>
 
