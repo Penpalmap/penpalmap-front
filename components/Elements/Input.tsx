@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Box, Input as ChakraInput, FormLabel } from '@chakra-ui/react'
-import { FieldValues, UseFormRegister, FieldErrors } from 'react-hook-form'
+import { UseFormRegister } from 'react-hook-form'
 
 interface CustomInputProps extends Record<string, any> {
     name: string
@@ -18,7 +18,6 @@ const Input: React.FC<CustomInputProps> = ({
     ...props
 }) => {
     const labelRef = useRef<HTMLLabelElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
     const [hasValue, setHasValue] = useState(false)
 
     const {
@@ -66,7 +65,6 @@ const Input: React.FC<CustomInputProps> = ({
                 onChange={handleCustomChange}
                 ref={(e) => {
                     ref(e)
-                    inputRef.current = e
                 }}
                 {...props}
                 {...restRegisterProps}

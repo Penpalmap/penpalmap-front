@@ -1,17 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
     Alert,
     AlertIcon,
     Box,
     Button,
-    Divider,
     Flex,
     FormControl,
     FormErrorMessage,
-    FormLabel,
     Heading,
     Image,
-    // Input,
     Stack,
     Text,
     keyframes,

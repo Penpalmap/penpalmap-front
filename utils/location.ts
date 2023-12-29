@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { fromLonLat } from 'ol/proj'
 
 export const getPositionDataByCoords = async (
     lat: number,

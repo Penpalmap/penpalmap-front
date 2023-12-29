@@ -3,12 +3,9 @@ import {
     AlertIcon,
     Box,
     Button,
-    Divider,
     FormControl,
     FormErrorMessage,
-    FormLabel,
     Heading,
-    // Input,
     Stack,
     Text,
     Image,
@@ -17,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
-import { HtmlHTMLAttributes, useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
@@ -31,7 +28,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 const Register = () => {
-    const labelRef = useRef<HTMLParagraphElement | null>(null)
     const [error, setError] = useState<string | null>(null)
     const {
         register,

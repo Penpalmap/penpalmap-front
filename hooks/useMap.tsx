@@ -36,8 +36,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     const { rooms } = useRoom()
     const { user: currentUser } = useSession()
 
-    const userLayerRef = useRef<VectorLayer<Cluster> | null>(null)
-
     const overlayRef = useRef<Overlay | null>(null)
 
     const getUsers = async () => {
@@ -55,7 +53,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         target.style.cursor = hit ? 'pointer' : ''
     }, [])
 
-    const getUserInCluster = (feature): UserElement => {
+    const getUserInCluster = (feature): UserElement | null => {
         let user = null
 
         if (feature.get('features')) {
@@ -80,8 +78,12 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             // Cluster d'une seule personne
             else {
                 user = feature.get('features')[0].get('element')
+                if (user) {
+                    return user
+                }
             }
         }
+
         return user
     }
 
@@ -263,8 +265,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             ? new Feature({
                   geometry: new Point(
                       fromLonLat([
-                          filteredCurrentUser.geomR.coordinates[0],
-                          filteredCurrentUser.geomR.coordinates[1],
+                          filteredCurrentUser.geomR.coordinates[0] || 0,
+                          filteredCurrentUser.geomR.coordinates[1] || 0,
                       ])
                   ),
                   element: {

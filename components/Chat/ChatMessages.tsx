@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Spinner, Text } from '@chakra-ui/react'
+import { Box, Button, Spinner, Text } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
 import { useSession } from './../../hooks/useSession'
@@ -9,7 +9,7 @@ import { SocketEvents } from '../../constants/socketEnum'
 import EmptyChatMessages from './EmptyChatMessages'
 import { useTranslation } from 'next-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faHome } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
     messages: Array<Message> | undefined
