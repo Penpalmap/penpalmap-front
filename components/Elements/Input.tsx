@@ -1,13 +1,10 @@
 import { Box, Input as ChakraInput, FormLabel } from '@chakra-ui/react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 const Input = ({ placeholderText, ...props }) => {
     const labelRef = useRef<HTMLLabelElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
-
-    const hasValue =
-        inputRef.current?.value !== undefined &&
-        inputRef?.current.value !== null
+    const [hasValue, setHasValue] = useState(false)
 
     const handleFocus = () => {
         labelRef.current?.style.setProperty('top', '-30%')
@@ -27,6 +24,11 @@ const Input = ({ placeholderText, ...props }) => {
         }
     }
 
+    const handleChange = () => {
+        if (inputRef.current)
+            setHasValue(inputRef.current?.value.trim().length > 0)
+    }
+
     return (
         <Box position={'relative'} marginTop={2}>
             <ChakraInput
@@ -34,17 +36,18 @@ const Input = ({ placeholderText, ...props }) => {
                 bg={'white'}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                onChange={handleChange}
                 ref={inputRef}
             />
             <FormLabel
                 fontSize={'md'}
                 position={'absolute'}
-                top={hasValue ? '-30%' : '50%'}
+                top={'50%'}
                 transform={'translateY(-50%)'}
                 left={'4'}
                 zIndex={1}
                 ref={labelRef}
-                color={hasValue ? '#3EB6A0' : 'gray.500'}
+                color={'gray.500'}
                 transition={'linear 0.2s all'}
             >
                 {placeholderText}
