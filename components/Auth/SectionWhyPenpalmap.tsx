@@ -18,7 +18,7 @@ const SectionWhyPenpalmap = () => {
             <Box flex={1} position="relative">
                 <Image
                     src="/images/photo1.jpeg"
-                    alt="Why PenPalMap Image"
+                    alt="Why PenpalMap Image"
                     width={'100%'}
                     maxWidth={['100%', '70%']} // Définir une largeur maximale
                     borderRadius={'lg'}

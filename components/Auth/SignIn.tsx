@@ -85,7 +85,7 @@ const SignIn = () => {
                         <Box key={index} flex="0 0 auto">
                             <Image
                                 src="/images/LandingMap_light.png"
-                                alt="PenPalMap"
+                                alt="PenpalMap"
                                 height="100%"
                                 width="auto"
                                 aspectRatio={'auto'}
@@ -111,7 +111,7 @@ const SignIn = () => {
                 >
                     <Image
                         src="/images/logo.png"
-                        alt="PenPalMap Logo"
+                        alt="PenpalMap Logo"
                         boxSize="14"
                         marginBottom={2}
                     />
@@ -155,7 +155,7 @@ const SignIn = () => {
                         style={{ width: '90%' }}
                     >
                         <Stack spacing={3}>
-                            <FormControl isInvalid={!!errors.email}>
+                            <FormControl isInvalid={!!errors.email} isRequired>
                                 <FormLabel htmlFor="email">
                                     {t('connect.mail')}
                                 </FormLabel>
@@ -171,7 +171,10 @@ const SignIn = () => {
                                     {errors.email && errors.email.message}
                                 </FormErrorMessage>
                             </FormControl>
-                            <FormControl isInvalid={!!errors.password}>
+                            <FormControl
+                                isInvalid={!!errors.password}
+                                isRequired
+                            >
                                 <FormLabel htmlFor="password">
                                     {t('connect.password')}
                                 </FormLabel>

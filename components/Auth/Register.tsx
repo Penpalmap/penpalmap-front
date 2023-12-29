@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
-import { useState } from 'react'
+import { HtmlHTMLAttributes, useRef, useState } from 'react'
 import Link from 'next/link'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
@@ -25,6 +25,7 @@ import Router from 'next/router'
 import { registerUser } from '../../api/authApi'
 
 const Register = () => {
+    const labelRef = useRef<HTMLElement | null>(null)
     const [error, setError] = useState<string | null>(null)
     const {
         register,
@@ -72,7 +73,7 @@ const Register = () => {
                         <Box key={index} flex="0 0 auto">
                             <Image
                                 src="/images/LandingMap_light.png"
-                                alt="PenPalMap"
+                                alt="PenpalMap"
                                 height="100%"
                                 width="auto"
                                 aspectRatio={'auto'}
@@ -97,7 +98,7 @@ const Register = () => {
                 >
                     <Image
                         src="/images/logo.png"
-                        alt="PenPalMap Logo"
+                        alt="PenpalMap Logo"
                         boxSize="14"
                         marginBottom={2}
                     />
@@ -110,7 +111,7 @@ const Register = () => {
                         style={{ width: '90%' }}
                     >
                         <Stack spacing={4}>
-                            <FormControl isInvalid={!!errors.email}>
+                            <FormControl isInvalid={!!errors.email} isRequired>
                                 <FormLabel>{t('connect.mail')}</FormLabel>
                                 <Input
                                     type="email"
@@ -118,12 +119,13 @@ const Register = () => {
                                         required: 'Email is required',
                                     })}
                                     bg={'white'}
+                                    placeholder={t('connect.mail')}
                                 />
                                 <FormErrorMessage>
                                     {errors.email?.message}
                                 </FormErrorMessage>
                             </FormControl>
-                            <FormControl isInvalid={!!errors.name}>
+                            <FormControl isInvalid={!!errors.name} isRequired>
                                 <FormLabel>{t('connect.nom')}</FormLabel>
                                 <Input
                                     type="text"
@@ -131,20 +133,54 @@ const Register = () => {
                                         required: 'Name is required',
                                     })}
                                     bg={'white'}
+                                    placeholder={t('connect.nom')}
                                 />
                                 <FormErrorMessage>
                                     {errors.name?.message}
                                 </FormErrorMessage>
                             </FormControl>
-                            <FormControl isInvalid={!!errors.password}>
+                            <FormControl
+                                isInvalid={!!errors.password}
+                                isRequired
+                                bg={'red.600'}
+                            >
                                 <FormLabel>{t('connect.password')}</FormLabel>
-                                <Input
-                                    type="password"
-                                    {...register('password', {
-                                        required: 'Password is required',
-                                    })}
-                                    bg={'white'}
-                                />
+                                <Box bg={'pink.300'} position={'relative'}>
+                                    <Input
+                                        type="password"
+                                        {...register('password', {
+                                            required: 'Password is required',
+                                        })}
+                                        bg={'white'}
+                                        onFocus={() => {
+                                            console.log('focus')
+                                            labelRef.current?.style.setProperty(
+                                                'top',
+                                                '0'
+                                            )
+                                        }}
+                                        onBlur={() => {
+                                            console.log('blur')
+                                            labelRef.current?.style.setProperty(
+                                                'top',
+                                                '50%'
+                                            )
+                                        }}
+                                        transition={'linear 0.2s all'}
+                                    />
+                                    <Text
+                                        fontSize={'small'}
+                                        position={'absolute'}
+                                        top={'50%'}
+                                        transform={'translateY(-50%)'}
+                                        left={'5'}
+                                        zIndex={1}
+                                        ref={labelRef}
+                                    >
+                                        Text
+                                    </Text>
+                                </Box>
+
                                 <FormErrorMessage>
                                     {errors.password?.message}
                                 </FormErrorMessage>

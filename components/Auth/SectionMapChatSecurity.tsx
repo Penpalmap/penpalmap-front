@@ -21,7 +21,7 @@ const SectionMapChatSecurity = () => {
             <Box flex={1}>
                 <Image
                     src="/images/LandingI-01.png"
-                    alt="PenPalMap Map"
+                    alt="PenpalMap Map"
                     width={'100%'}
                     borderRadius={'lg'}
                 />
@@ -35,7 +35,7 @@ const SectionMapChatSecurity = () => {
             <Box flex={1}>
                 <Image
                     src="/images/LandingI-02.png"
-                    alt="PenPalMap Chat"
+                    alt="PenpalMap Chat"
                     width={'100%'}
                     borderRadius={'lg'}
                 />
@@ -49,7 +49,7 @@ const SectionMapChatSecurity = () => {
             <Box flex={1}>
                 <Image
                     src="/images/LandingI-03.png"
-                    alt="PenPalMap Security"
+                    alt="PenpalMap Security"
                     width={'100%'}
                     borderRadius={'lg'}
                 />
