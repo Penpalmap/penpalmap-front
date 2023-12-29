@@ -1,22 +1,49 @@
-name: release
-run-name: Release
+name: Version production
 on:
-    push:
-        branches:
-            - main
-
+  push:
+    branches:
+      - main
+env:
+  REGISTRY: ghcr.io
 jobs:
-    build-and-push:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - name: Login to Docker Hub
-              uses: docker/login-action@v2
-              with:
-                  username: ${{ secrets.DOCKER_USERNAME }}
-                  password: ${{ secrets.DOCKER_TOKEN }}
-            - name: Build and push
-              uses: docker/build-push-action@v4
-              with:
-                  push: true
-                  tags: registry.penpalmap.redbean.fr/penpalmap/frontend:latest
+  version:
+    name: Create tag and push to GitHub
+    runs-on: ubuntu-latest
+    outputs:
+      new-version: ${{ steps.bump-version.outputs.new_tag }}
+    steps:
+      - id: checkout
+        name: Checkout code
+        uses: actions/checkout@v4
+      - id: bump-version
+        name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: Build and push docker image to Github Container Registry
+    runs-on: ubuntu-latest
+    needs: version
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
+      - id: docker-login
+        name: Log in to Github Container registry
+        uses: docker/login-action@3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: docker-build-push
+        name: Build Docker image and push to Github Container Registry
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ needs.version.outputs.new-version }}
+            ${{ env.REGISTRY }}/${{ github.repository }}:latest
