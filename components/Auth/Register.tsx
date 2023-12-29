@@ -8,7 +8,7 @@ import {
     FormErrorMessage,
     FormLabel,
     Heading,
-    Input,
+    // Input,
     Stack,
     Text,
     Image,
@@ -23,6 +23,7 @@ import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
 import Router from 'next/router'
 import { registerUser } from '../../api/authApi'
+import Input from '../Elements/Input'
 
 const Register = () => {
     const labelRef = useRef<HTMLParagraphElement | null>(null)
@@ -112,28 +113,26 @@ const Register = () => {
                     >
                         <Stack spacing={4}>
                             <FormControl isInvalid={!!errors.email} isRequired>
-                                <FormLabel>{t('connect.mail')}</FormLabel>
                                 <Input
                                     type="email"
                                     {...register('email', {
                                         required: 'Email is required',
                                     })}
                                     bg={'white'}
-                                    placeholder={t('connect.mail')}
+                                    placeholderText={t('connect.mail')}
                                 />
                                 <FormErrorMessage>
                                     {errors.email?.message}
                                 </FormErrorMessage>
                             </FormControl>
                             <FormControl isInvalid={!!errors.name} isRequired>
-                                <FormLabel>{t('connect.nom')}</FormLabel>
                                 <Input
                                     type="text"
                                     {...register('name', {
                                         required: 'Name is required',
                                     })}
                                     bg={'white'}
-                                    placeholder={t('connect.nom')}
+                                    placeholderText={t('connect.nom')}
                                 />
                                 <FormErrorMessage>
                                     {errors.name?.message}
@@ -150,65 +149,8 @@ const Register = () => {
                                             required: 'Password is required',
                                         })}
                                         bg={'white'}
-                                        onFocus={() => {
-                                            labelRef.current?.style.setProperty(
-                                                'top',
-                                                '-30%'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'color',
-                                                '#3EB6A0'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'font-weight',
-                                                'bold'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'font-size',
-                                                '12px'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'left',
-                                                '0'
-                                            )
-                                        }}
-                                        onBlur={() => {
-                                            console.log('blur')
-                                            labelRef.current?.style.setProperty(
-                                                'top',
-                                                '50%'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'color',
-                                                '#718096'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'font-weight',
-                                                'normal'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'font-size',
-                                                '16px'
-                                            )
-                                            labelRef.current?.style.setProperty(
-                                                'left',
-                                                '1rem'
-                                            )
-                                        }}
+                                        placeholderText={t('connect.password')}
                                     />
-                                    <Text
-                                        fontSize={'md'}
-                                        position={'absolute'}
-                                        top={'50%'}
-                                        transform={'translateY(-50%)'}
-                                        left={'4'}
-                                        zIndex={1}
-                                        ref={labelRef}
-                                        color={'gray.500'}
-                                        transition={'linear 0.2s all'}
-                                    >
-                                        {t('connect.password')}
-                                    </Text>
                                 </Box>
 
                                 <FormErrorMessage>

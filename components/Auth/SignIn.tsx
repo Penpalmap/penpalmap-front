@@ -11,7 +11,7 @@ import {
     FormLabel,
     Heading,
     Image,
-    Input,
+    // Input,
     Stack,
     Text,
     keyframes,
@@ -24,6 +24,7 @@ import axios from 'axios'
 import { GoogleLogin } from '@react-oauth/google'
 import Router from 'next/router'
 import { useSession } from '../../hooks/useSession'
+import Input from '../Elements/Input'
 
 interface LoginFormData {
     email: string
@@ -156,12 +157,19 @@ const SignIn = () => {
                     >
                         <Stack spacing={3}>
                             <FormControl isInvalid={!!errors.email} isRequired>
-                                <FormLabel htmlFor="email">
+                                {/* <FormLabel htmlFor="email">
                                     {t('connect.mail')}
                                 </FormLabel>
                                 <Input
                                     type="email"
                                     id="email"
+                                    {...register('email', {
+                                        required: 'Ce champ est requis',
+                                    })}
+                                    bg={'white'}
+                                /> */}
+                                <Input
+                                    placeholderText={t('connect.mail')}
                                     {...register('email', {
                                         required: 'Ce champ est requis',
                                     })}
@@ -175,7 +183,14 @@ const SignIn = () => {
                                 isInvalid={!!errors.password}
                                 isRequired
                             >
-                                <FormLabel htmlFor="password">
+                                <Input
+                                    placeholderText={t('connect.password')}
+                                    {...register('password', {
+                                        required: 'Ce champ est requis',
+                                    })}
+                                    bg={'white'}
+                                />
+                                {/* <FormLabel htmlFor="password">
                                     {t('connect.password')}
                                 </FormLabel>
                                 <Input
@@ -185,7 +200,7 @@ const SignIn = () => {
                                     {...register('password', {
                                         required: 'Ce champ est requis',
                                     })}
-                                />
+                                /> */}
                                 <FormErrorMessage>
                                     {errors.password && errors.password.message}
                                 </FormErrorMessage>
