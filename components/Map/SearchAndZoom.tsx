@@ -9,7 +9,7 @@ interface SearchAndZoomProps {
 }
 
 const SearchAndZoom: React.FC<SearchAndZoomProps> = ({ mapObj }) => {
-    const handleLocationSelected = (lat: string, lon: string) => {
+    const handleLocationSelected = (lon: string, lat: string) => {
         if (!mapObj.current) return
 
         const numericLat = parseFloat(lat)
