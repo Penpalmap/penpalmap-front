@@ -1,4 +1,4 @@
-import { useSteps } from '@chakra-ui/react'
+import { useSteps, useToast } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
 import { ProfileFormData } from '../../types'
 import { useForm } from 'react-hook-form'
@@ -27,6 +27,7 @@ const CreateProfile = () => {
         index: 0,
         count: 5,
     })
+    const toast = useToast()
     const selectedGender = watch('gender')
     const usersLanguages = watch('userLanguages')
     const watchForm = watch()
@@ -105,7 +106,6 @@ const CreateProfile = () => {
         }
 
         const response = await updateUser(data, user.id)
-
         fetchUser()
         if (response) {
             router.push('/')
@@ -113,6 +113,8 @@ const CreateProfile = () => {
     }
 
     const renderActiveStep = useMemo(() => {
+        toast.closeAll()
+
         switch (activeStep) {
             case 0:
                 return (
