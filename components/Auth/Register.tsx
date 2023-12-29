@@ -211,8 +211,13 @@ const Register = () => {
                             )}
                             <Button
                                 type="submit"
-                                backgroundColor={'#3EB6A0'}
                                 color={'white'}
+                                variant="outline"
+                                bgGradient="linear(to-r, #3EB6A0, #38B2AC)"
+                                _hover={{
+                                    bgGradient:
+                                        'linear(to-r, #297B70, #2C9185)',
+                                }}
                             >
                                 {t('connect.register')}
                             </Button>

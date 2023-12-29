@@ -231,8 +231,13 @@ const SignIn = () => {
 
                             <Button
                                 type="submit"
-                                backgroundColor={'#3EB6A0'}
                                 color={'white'}
+                                variant="outline"
+                                bgGradient="linear(to-r, #3EB6A0, #38B2AC)"
+                                _hover={{
+                                    bgGradient:
+                                        'linear(to-r, #297B70, #2C9185)',
+                                }}
                             >
                                 {t('connect.connect')}
                             </Button>
@@ -268,13 +273,6 @@ const SignIn = () => {
                         left: '50%',
                         transform: 'translateX(-50%)',
                         cursor: 'pointer', // Donne un aspect de lien cliquable
-                    }}
-                    onClick={() => {
-                        // Faites défiler la page vers le bas de 500 pixels
-                        window.scrollTo({
-                            top: window.scrollY + 500,
-                            behavior: 'smooth', // Ajoute un effet de défilement fluide
-                        })
                     }}
                 />
             </Box>
