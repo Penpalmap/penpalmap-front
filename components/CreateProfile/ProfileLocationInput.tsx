@@ -138,12 +138,12 @@ const ProfileLocationInput = (props: Props) => {
         lon: string,
         displayName?: string
     ) => {
-        const coords: [number, number] = [parseFloat(lon), parseFloat(lat)]
+        const coords: [number, number] = [parseFloat(lat), parseFloat(lon)]
 
         setCoordinates(coords)
         if (setValue && coords[0] && coords[1]) {
-            setValue('latitude', coords[0])
-            setValue('longitude', coords[1])
+            setValue('latitude', coords[1])
+            setValue('longitude', coords[0])
         }
 
         if (displayName) {
