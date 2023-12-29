@@ -157,11 +157,12 @@ const Register = () => {
                             >
                                 <Input
                                     type="email"
-                                    {...register('email', {
+                                    label="Email"
+                                    name="email"
+                                    register={register}
+                                    validationSchema={{
                                         required: 'Email is required',
-                                    })}
-                                    bg={'white'}
-                                    placeholderText={t('connect.mail')}
+                                    }}
                                 />
                                 <FormErrorMessage>
                                     {errors.email?.message}
@@ -174,11 +175,12 @@ const Register = () => {
                             >
                                 <Input
                                     type="text"
-                                    {...register('name', {
+                                    label="Name"
+                                    name="name"
+                                    register={register}
+                                    validationSchema={{
                                         required: 'Name is required',
-                                    })}
-                                    bg={'white'}
-                                    placeholderText={t('connect.nom')}
+                                    }}
                                 />
                                 <FormErrorMessage>
                                     {errors.name?.message}
@@ -188,14 +190,15 @@ const Register = () => {
                                 isInvalid={!!errors.password}
                                 isRequired
                             >
-                                <Box position={'relative'} marginTop={4}>
+                                <Box marginTop={4}>
                                     <Input
+                                        name="password"
+                                        label="Password"
                                         type="password"
-                                        {...register('password', {
+                                        register={register}
+                                        validationSchema={{
                                             required: 'Password is required',
-                                        })}
-                                        bg={'white'}
-                                        placeholderText={t('connect.password')}
+                                        }}
                                     />
                                 </Box>
 

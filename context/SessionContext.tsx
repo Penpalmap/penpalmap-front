@@ -3,7 +3,7 @@ import { AuthContextType, User } from '../types'
 import axios from 'axios'
 import axiosInstance from '../axiosInstance'
 import { jwtDecode } from 'jwt-decode'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 export const SessionContext = createContext<AuthContextType | undefined>(
     undefined
@@ -14,6 +14,7 @@ export const SessionProvider = ({ children }) => {
     const [status, setStatus] = useState<
         'loading' | 'authenticated' | 'unauthenticated'
     >('loading')
+    const router = useRouter()
 
     // Fonction pour se connecter
     const login = async (tokens: {
@@ -112,15 +113,29 @@ export const SessionProvider = ({ children }) => {
         if (status === 'loading') {
             refreshTokenFunc().then((success) => {
                 if (!success) {
-                    Router.push('/auth/signin')
+                    if (
+                        router.pathname === '/auth/signin' ||
+                        router.pathname === '/auth/signup'
+                    ) {
+                        return
+                    } else {
+                        Router.push('/auth/signin')
+                    }
                 }
             })
         } else if (status === 'unauthenticated') {
-            Router.push('/auth/signin')
+            if (
+                router.pathname === '/auth/signin' ||
+                router.pathname === '/auth/signup'
+            ) {
+                return
+            } else {
+                Router.push('/auth/signin')
+            }
         } else if (status === 'authenticated' && user?.isNewUser) {
             Router.push('/create-profile')
         }
-    }, [refreshTokenFunc, status, user?.isNewUser])
+    }, [refreshTokenFunc, router.pathname, status, user?.isNewUser])
 
     return (
         <SessionContext.Provider

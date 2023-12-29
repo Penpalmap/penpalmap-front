@@ -175,11 +175,10 @@ const SignIn = () => {
                                     bg={'white'}
                                 /> */}
                                 <Input
-                                    placeholderText={t('connect.mail')}
-                                    {...register('email', {
-                                        required: 'Ce champ est requis',
-                                    })}
-                                    bg={'white'}
+                                    register={register}
+                                    validationSchema={{}}
+                                    name={'email'}
+                                    label={'Email'}
                                 />
                                 <FormErrorMessage>
                                     {errors.email && errors.email.message}
@@ -191,11 +190,14 @@ const SignIn = () => {
                                 top={2}
                             >
                                 <Input
-                                    placeholderText={t('connect.password')}
-                                    {...register('password', {
-                                        required: 'Ce champ est requis',
-                                    })}
                                     bg={'white'}
+                                    type="password"
+                                    label="Password"
+                                    name="password"
+                                    register={register}
+                                    validationSchema={{
+                                        required: 'Ce champ est requis',
+                                    }}
                                 />
                                 {/* <FormLabel htmlFor="password">
                                     {t('connect.password')}
