@@ -61,6 +61,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     const toast = useToast()
 
     useEffect(() => {
+        toast.closeAll()
         if (day && month && year) {
             const birthday = dayjs(`${year}-${month}-${day}`).format(
                 'YYYY-MM-DD'
