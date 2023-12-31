@@ -30,7 +30,7 @@ const ChatMessages = ({
     const [appData] = useContext(AppContext)
     const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
     const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout>(
-        null as any
+        null as unknown as NodeJS.Timeout
     )
 
     const { t } = useTranslation('common')

@@ -4,7 +4,7 @@ import {
     Modal as ChakraModal,
 } from '@chakra-ui/react'
 
-export function Modal({ onClose = () => {}, children }) {
+export function Modal({ onClose, children }) {
     return (
         <ChakraModal
             isOpen={true}

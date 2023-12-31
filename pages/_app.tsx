@@ -10,7 +10,7 @@ import { MobileViewProvider } from '../context/MobileViewContext'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 // import '../i18n' // Assurez-vous que votre configuration i18n est chargée ici
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps: { ...pageProps } }) {
     // Utilisation de ChakraProvider pour envelopper tous les composants
     return (
         <ChakraProvider theme={customTheme}>

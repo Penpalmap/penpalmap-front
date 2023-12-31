@@ -107,7 +107,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                 })
             }
         }
-    }, [day, month, year, setValue, setIsUnderage, toast])
+    }, [day, month, year, setValue, setIsUnderage, toast, t])
 
     return (
         <FormControl id="birthday">
