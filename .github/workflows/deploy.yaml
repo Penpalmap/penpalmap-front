@@ -30,4 +30,4 @@ jobs:
                       docker pull ghcr.io/penpalmap/penpalmap-front:latest
                       docker stop penpalmap-front
                       docker rm penpalmap-front
-                      docker run -d --name penpalmap-front  --env-file .env-back -p 3000:3000 ghcr.io/penpalmap/penpalmap-front:latest
+                      docker run -d --name penpalmap-front  --env-file .env-front -p 3000:3000 ghcr.io/penpalmap/penpalmap-front:latest
