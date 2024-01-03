@@ -114,7 +114,7 @@ const Register = () => {
                             width={320}
                             onSuccess={async (credentialResponse) => {
                                 const response = await axios.post(
-                                    'http://localhost:5000/api/auth/login/google',
+                                    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/google`,
                                     {
                                         token: credentialResponse.credential,
                                     }

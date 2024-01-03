@@ -140,7 +140,7 @@ const CreateProfile = () => {
             default:
                 return null
         }
-    }, [activeStep, setValue, selectedGender, register])
+    }, [toast, activeStep, setValue, selectedGender, register])
 
     return (
         <form
