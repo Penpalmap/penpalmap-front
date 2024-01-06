@@ -115,7 +115,9 @@ export const SessionProvider = ({ children }) => {
                 if (!success) {
                     if (
                         router.pathname === '/auth/signin' ||
-                        router.pathname === '/auth/signup'
+                        router.pathname === '/auth/signup' ||
+                        router.pathname === '/auth/forgot-password' ||
+                        router.pathname === '/auth/reset-password'
                     ) {
                         return
                     } else {
@@ -126,7 +128,9 @@ export const SessionProvider = ({ children }) => {
         } else if (status === 'unauthenticated') {
             if (
                 router.pathname === '/auth/signin' ||
-                router.pathname === '/auth/signup'
+                router.pathname === '/auth/signup' ||
+                router.pathname === '/auth/forgot-password' ||
+                router.pathname === '/auth/reset-password'
             ) {
                 return
             } else {

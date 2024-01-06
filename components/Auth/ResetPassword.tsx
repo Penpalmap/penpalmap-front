@@ -28,7 +28,7 @@ const ResetPassword = () => {
             data.newPassword
         )
         if (resetPasswordResult.success) {
-            router.push('/login')
+            router.push('/auth/signin')
         } else {
             setError('Une erreur est survenue, veuillez réessayer.')
         }
