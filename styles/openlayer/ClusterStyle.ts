@@ -15,10 +15,19 @@ const clusterStyle = function (feature) {
         // Si ce n'est pas un cluster, traiter la feature normalement
         // Ici, vous devez retourner un style approprié pour une feature individuelle
         const userElement = feature.get('element')
+
+        const genderFolder =
+            userElement?.gender === 'man' || userElement?.gender === 'woman'
+                ? userElement?.gender
+                : 'other'
+
+        // if (!style) {
         return [
             new Style({
                 image: new Photo({
-                    src: userElement.image,
+                    src:
+                        userElement.image ||
+                        `/images/avatar/${genderFolder}/${userElement.avatarNumber}.png`,
                     radius: 30,
                     crop: true,
                     kind: 'circle',
@@ -174,7 +183,6 @@ const clusterStyle = function (feature) {
         // if (!style) {
         const photo = user.image
 
-        console.log('user.room.countUnreadMessages', user?.room)
         style = styleCache[uid] = [
             new Style({
                 image: new Photo({
