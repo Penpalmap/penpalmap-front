@@ -8,7 +8,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useState, useMemo, Suspense } from 'react'
 import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
@@ -17,14 +17,14 @@ import { faMapPin, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { Feature, Map as OLMap, View } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { fromLonLat, transformExtent } from 'ol/proj'
-// import XYZ from 'ol/source/XYZ'
+import XYZ from 'ol/source/XYZ'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import { Point } from 'ol/geom'
 import userStyle from '../../styles/openlayer/UserStyle'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
-import OSM from 'ol/source/OSM'
+import MapProfile from './Map'
 
 type Props = {
     profileId: string
@@ -46,75 +46,6 @@ const Profile = ({ profileId }: Props) => {
     const [listProfiles, setListProfiles] = useState<ContentArray>([])
 
     const { t } = useTranslation()
-
-    useEffect(() => {
-        if (!user || !mapRefContainer.current) return undefined
-
-        const map = new OLMap({
-            target: mapRefContainer.current,
-            layers: [
-                new TileLayer({
-                    preload: Infinity,
-                    zIndex: 0,
-
-                    source: new OSM(),
-
-                    // source: new XYZ({
-                    //     url: 'https://api.mapbox.com/styles/v1/gabnoire/cjpzpqvr03a5h2sqidpht5qhm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Fibm9pcmUiLCJhIjoiY2p0ZmhtYTVvMDVqcDQzb2NiYXY1YW4xMyJ9.9AquqYCdPTiPiDNmh7dMhQ',
-                    //     crossOrigin: 'anonymous',
-                    // }),
-                }),
-            ],
-
-            view: new View({
-                center: fromLonLat(user.geom.coordinates),
-                zoom: 7,
-                extent: transformExtent(
-                    [-999.453125, -58.813742, 999.453125, 70.004962],
-                    'EPSG:4326',
-                    'EPSG:3857'
-                ),
-            }),
-            interactions: [],
-        })
-
-        mapRef.current = map
-
-        return () => {
-            map.setTarget(undefined)
-        }
-    }, [user])
-
-    useEffect(() => {
-        if (!mapRef.current || !user) return undefined
-
-        const userSource = new VectorSource()
-
-        const userLayer = new VectorLayer({
-            source: userSource,
-            style: userStyle,
-        })
-
-        mapRef.current.addLayer(userLayer)
-
-        const coordinates = user.geom
-            ? fromLonLat(user.geom.coordinates)
-            : [0, 0]
-
-        const userFeature = new Feature({
-            geometry: new Point(coordinates),
-            element: {
-                ...user,
-                strokeColor: '#FFFFFF',
-            },
-        })
-
-        userSource.addFeatures([userFeature])
-
-        return () => {
-            mapRef.current?.removeLayer(userLayer)
-        }
-    }, [user])
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -168,38 +99,11 @@ const Profile = ({ profileId }: Props) => {
     }, [user])
 
     const renderMap = useMemo(() => {
-        if (!user) return null
-
+        if (!user || !country) return null
         return (
-            <>
-                <Box
-                    ref={mapRefContainer}
-                    h={['400px', '450px']}
-                    w={'full'}
-                    className="map"
-                    borderRadius={'xl'}
-                ></Box>
-                <Flex
-                    alignItems={'center'}
-                    position={'absolute'}
-                    bottom={'5'}
-                    left={'5'}
-                    zIndex={1}
-                >
-                    <FontAwesomeIcon icon={faMapPin} color="#494949" />
-                    <Text
-                        fontWeight={'semibold'}
-                        letterSpacing={'wider'}
-                        color={'gray.600'}
-                        ml={'2'}
-                    >
-                        Around
-                    </Text>
-                    <Text fontWeight={'bold'} ml={1}>
-                        {country}
-                    </Text>
-                </Flex>
-            </>
+            <Suspense fallback={<div>Chargement de la carte...</div>}>
+                <MapProfile user={user} country={country} />
+            </Suspense>
         )
     }, [country, user])
 
