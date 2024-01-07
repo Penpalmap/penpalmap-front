@@ -51,8 +51,6 @@ const Register = () => {
             accessToken: resultRegisterData.accessToken,
             refreshToken: resultRegisterData.refreshToken,
         })
-
-        Router.push('/create-profile')
     }
 
     const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`

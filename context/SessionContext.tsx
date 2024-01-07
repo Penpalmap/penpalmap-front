@@ -31,9 +31,7 @@ export const SessionProvider = ({ children }) => {
             email
         }
 
-        const response = (await axiosInstance.get(
-            `/api/users/${decoded.userId}`
-        )) as any
+        const response = await axiosInstance.get(`/api/users/${decoded.userId}`)
         setUser(response.data)
         setStatus('authenticated')
     }
@@ -110,6 +108,7 @@ export const SessionProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        debugger
         if (status === 'loading') {
             refreshTokenFunc().then((success) => {
                 if (!success) {
@@ -138,6 +137,8 @@ export const SessionProvider = ({ children }) => {
             }
         } else if (status === 'authenticated' && user?.isNewUser) {
             Router.push('/create-profile')
+        } else if (status === 'authenticated' && !user?.isNewUser) {
+            Router.push('/')
         }
     }, [refreshTokenFunc, router.pathname, status, user?.isNewUser])
 

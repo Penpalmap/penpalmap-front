@@ -52,10 +52,6 @@ const SignIn = () => {
             )
 
             login(responseSignin.data)
-
-            Router.push('/')
-
-            // loginSuccess(responseSignin.data)
         } catch (error) {
             // Display the error message on the form
             setError('Authentication failed')
