@@ -24,6 +24,7 @@ import { Point } from 'ol/geom'
 import userStyle from '../../styles/openlayer/UserStyle'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
+import OSM from 'ol/source/OSM'
 
 type Props = {
     profileId: string
@@ -56,10 +57,12 @@ const Profile = ({ profileId }: Props) => {
                     preload: Infinity,
                     zIndex: 0,
 
-                    source: new XYZ({
-                        url: 'https://api.mapbox.com/styles/v1/gabnoire/cjpzpqvr03a5h2sqidpht5qhm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Fibm9pcmUiLCJhIjoiY2p0ZmhtYTVvMDVqcDQzb2NiYXY1YW4xMyJ9.9AquqYCdPTiPiDNmh7dMhQ',
-                        crossOrigin: 'anonymous',
-                    }),
+                    source: new OSM(),
+
+                    // source: new XYZ({
+                    //     url: 'https://api.mapbox.com/styles/v1/gabnoire/cjpzpqvr03a5h2sqidpht5qhm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Fibm9pcmUiLCJhIjoiY2p0ZmhtYTVvMDVqcDQzb2NiYXY1YW4xMyJ9.9AquqYCdPTiPiDNmh7dMhQ',
+                    //     crossOrigin: 'anonymous',
+                    // }),
                 }),
             ],
 
