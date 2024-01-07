@@ -8,20 +8,12 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { useEffect, useRef, useState, useMemo, Suspense } from 'react'
+import { useEffect, useState, useMemo, Suspense } from 'react'
 import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapPin, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import { Feature, Map as OLMap, View } from 'ol'
-import TileLayer from 'ol/layer/Tile'
-import { fromLonLat, transformExtent } from 'ol/proj'
-import XYZ from 'ol/source/XYZ'
-import VectorLayer from 'ol/layer/Vector'
-import VectorSource from 'ol/source/Vector'
-import { Point } from 'ol/geom'
-import userStyle from '../../styles/openlayer/UserStyle'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
 import MapProfile from './Map'
@@ -34,9 +26,6 @@ type ContentType = 'image' | 'bio' | 'map' | 'languages'
 type ContentArray = ContentType[]
 
 const Profile = ({ profileId }: Props) => {
-    const mapRefContainer = useRef<HTMLDivElement>(null)
-    const mapRef = useRef<OLMap | null>(null)
-
     const [user, setUser] = useState<User | null>(null)
     const { country, flag, city } = useLocation(
         user?.geom.coordinates[1],
