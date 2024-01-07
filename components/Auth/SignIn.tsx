@@ -19,7 +19,6 @@ import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import { GoogleLogin } from '@react-oauth/google'
-import Router from 'next/router'
 import { useSession } from '../../hooks/useSession'
 import Input from '../Elements/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -126,7 +125,6 @@ const SignIn = () => {
                                 )
 
                                 login(response.data)
-                                Router.push('/')
                             }}
                             onError={() => {
                                 console.log('Login Failed')

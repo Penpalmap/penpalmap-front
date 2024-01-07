@@ -119,7 +119,6 @@ const Register = () => {
                                 )
 
                                 login(response.data)
-                                Router.push('/')
                             }}
                             onError={() => {
                                 console.log('Login Failed')
