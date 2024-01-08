@@ -8,7 +8,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { useEffect, useState, useMemo, Suspense } from 'react'
+import { useEffect, useState, useMemo, Suspense, useContext } from 'react'
 import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
@@ -17,6 +17,8 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
 import MapProfile from './Map'
+import { useMobileView } from '../../context/MobileViewContext'
+import { AppContext } from '../../context/AppContext'
 
 type Props = {
     profileId: string
@@ -31,6 +33,9 @@ const Profile = ({ profileId }: Props) => {
         user?.geom.coordinates[1],
         user?.geom.coordinates[0]
     )
+
+    const [appData, setAppData] = useContext(AppContext)
+    const { setMobileView } = useMobileView()
 
     const [listProfiles, setListProfiles] = useState<ContentArray>([])
 
@@ -276,6 +281,14 @@ const Profile = ({ profileId }: Props) => {
                         colorScheme="teal"
                         variant="solid"
                         rightIcon={<FontAwesomeIcon icon={faPaperPlane} />}
+                        onClick={() => {
+                            setAppData({
+                                ...appData,
+                                chatOpen: true,
+                                userChat: appData.userTarget,
+                            })
+                            setMobileView('chat')
+                        }}
                     >
                         Message
                     </Button>

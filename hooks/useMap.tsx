@@ -248,8 +248,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
             return new Feature({
                 geometry: new Point(
                     fromLonLat([
-                        geomR.coordinates[0] as number,
-                        geomR.coordinates[1] as number,
+                        geomR?.coordinates[0] as number,
+                        geomR?.coordinates[1] as number,
                     ])
                 ),
                 element: {

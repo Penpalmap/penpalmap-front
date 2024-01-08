@@ -11,6 +11,7 @@ export function Modal({ onClose, children }) {
             onClose={onClose}
             size={'3xl'}
             scrollBehavior="inside"
+            trapFocus={false}
         >
             <ModalOverlay />
             <ModalContent>{children}</ModalContent>
