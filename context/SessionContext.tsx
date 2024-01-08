@@ -108,7 +108,6 @@ export const SessionProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        debugger
         if (status === 'loading') {
             refreshTokenFunc().then((success) => {
                 if (!success) {
@@ -138,7 +137,7 @@ export const SessionProvider = ({ children }) => {
         } else if (status === 'authenticated' && user?.isNewUser) {
             Router.push('/create-profile')
         } else if (status === 'authenticated' && !user?.isNewUser) {
-            Router.push('/')
+            return
         }
     }, [refreshTokenFunc, router.pathname, status, user?.isNewUser])
 

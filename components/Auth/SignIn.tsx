@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Alert,
     AlertIcon,
@@ -23,6 +23,7 @@ import { useSession } from '../../hooks/useSession'
 import Input from '../Elements/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'next/router'
 
 interface LoginFormData {
     email: string
@@ -38,7 +39,14 @@ const SignIn = () => {
 
     const { t } = useTranslation('common')
 
-    const { login } = useSession()
+    const { login, status } = useSession()
+    const router = useRouter()
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            router.push('/')
+        }
+    }, [status, router])
 
     const onSubmit = async (data: LoginFormData) => {
         try {

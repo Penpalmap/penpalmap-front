@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
@@ -25,18 +25,26 @@ import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'next/router'
 
 const Register = () => {
     const [error, setError] = useState<string | null>(null)
+    const router = useRouter()
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterUserInput>()
 
-    const { login } = useSession()
+    const { login, status } = useSession()
 
     const { t } = useTranslation('common')
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            router.push('/')
+        }
+    }, [status, router])
 
     const onSubmit = async (data: RegisterUserInput) => {
         const resultRegisterData = await registerUser(data)
