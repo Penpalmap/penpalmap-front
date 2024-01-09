@@ -76,6 +76,18 @@ const changePassword = async (
     }
 }
 
+const updateBio = async (description: string, userId: string) => {
+    try {
+        const response = await axiosInstance.put(`/api/users/${userId}/bio`, {
+            description,
+        })
+
+        return response.data
+    } catch (error) {
+        console.error('Error while updating description', error)
+    }
+}
+
 export {
     getUserByEmail,
     getUserById,
@@ -83,4 +95,5 @@ export {
     getUserByGoogleId,
     updateUser,
     changePassword,
+    updateBio,
 }

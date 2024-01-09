@@ -1,5 +1,8 @@
 import {
     Box,
+    Button,
+    FormLabel,
+    Input,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -13,6 +16,7 @@ import { UserImage } from '../../types'
 import ProfileImage from '../Profile/ProfileImages'
 import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
+import { updateBio } from '../../api/userApi'
 
 type Props = {
     isOpen: boolean
@@ -20,7 +24,9 @@ type Props = {
 }
 
 const MyProfile = ({ isOpen, onClose }: Props) => {
-    const { user } = useSession()
+    const { user, fetchUser } = useSession()
+
+    const [bio, setBio] = useState<string>('')
 
     const [images, setImages] = useState<UserImage[]>([])
 
@@ -33,6 +39,15 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
     }, [user?.userImages])
 
     const renderProfile = useMemo(() => {
+        const save = async () => {
+            if (bio && bio !== user?.bio && user?.id) {
+                await updateBio(bio, user?.id)
+            }
+
+            fetchUser()
+            onClose()
+        }
+
         return (
             <>
                 <Box mb={4}>
@@ -45,24 +60,23 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                     <ProfileImage images={images} />
                 </Box>
 
-                {/* <Box mb={4}>
-                    <FormControl>
-                        <FormLabel fontWeight={'semibold'}>
-                            {t('profil.description')}
-                        </FormLabel>
-                        <Editable
-                            defaultValue="Take some chakra"
-                            border={'2px solid black'}
-                        >
-                            <EditablePreview w={'full'} />
-                            <EditableInput />
-                            <EditableControls />
-                        </Editable>
-                    </FormControl>
-                </Box> */}
+                <Box mb={4}>
+                    <FormLabel>{t('profil.description')}</FormLabel>
+                    <Input
+                        placeholder={t('profil.enterDescription')}
+                        defaultValue={user?.bio}
+                        onChange={(e) => setBio(e.target.value)}
+                    />
+                </Box>
+
+                <Box flex={1} mb={4}>
+                    <Button width={'100%'} colorScheme="blue" onClick={save}>
+                        {t('form.save')}
+                    </Button>
+                </Box>
             </>
         )
-    }, [images, t])
+    }, [bio, fetchUser, images, onClose, t, user?.bio, user?.id])
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>

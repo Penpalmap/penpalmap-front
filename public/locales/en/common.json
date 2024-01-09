@@ -184,10 +184,12 @@
         "photos": "Photos",
         "addPhotos": "Add photos",
         "description": "Description",
-        "SeeTheProfile": "See the profile"
+        "SeeTheProfile": "See the profile",
+        "EnterDescription": "Enter a description"
     },
     "form": {
         "messageError": "An error occurred, please try again later.",
-        "messagePasswordChange": "Your password has been changed."
+        "messagePasswordChange": "Your password has been changed.",
+        "save": "Save"
     }
 }

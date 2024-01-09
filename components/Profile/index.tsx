@@ -165,11 +165,7 @@ const Profile = ({ profileId }: Props) => {
                 >
                     A propos
                 </Text>
-                <Text fontWeight={'semibold'}>
-                    Coucou tout le monde, moi c’est Louise et je fais beaucoup
-                    de sport je suis drole et j’aime les chiens et les chat Mais
-                    j’aime également les éléphants 🐘
-                </Text>
+                <Text fontWeight={'semibold'}>{user?.bio}</Text>
             </Flex>
         )
     }, [])

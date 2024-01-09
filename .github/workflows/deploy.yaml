@@ -28,6 +28,4 @@ jobs:
                       cd /penpalmap-front
                       docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
                       docker pull ghcr.io/penpalmap/penpalmap-front:latest
-                      docker stop penpalmap-front
-                      docker rm penpalmap-front
-                      docker run -d --name penpalmap-front -p 3000:3000 ghcr.io/penpalmap/penpalmap-front:latest
+                      docker-compose up -d
