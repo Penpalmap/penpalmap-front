@@ -170,7 +170,7 @@ const ProfileGenderInput = (props: Props) => {
                                 <FontAwesomeIcon icon={faMercury} size="2x" />
                             }
                             onClick={() => handleClick('non-binary')}
-                            text={t('profileGenderInput."non-binary')}
+                            text={t('profileGenderInput.non-binary')}
                         />
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'genderqueer'}
