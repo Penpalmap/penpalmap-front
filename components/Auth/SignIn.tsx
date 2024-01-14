@@ -275,6 +275,13 @@ const SignIn = () => {
                         transform: 'translateX(-50%)',
                         cursor: 'pointer', // Donne un aspect de lien cliquable
                     }}
+                    onClick={() => {
+                        // Faites défiler la page vers le bas de 500 pixels
+                        window.scrollTo({
+                            top: window.scrollY + 500,
+                            behavior: 'smooth', // Ajoute un effet de défilement fluide
+                        })
+                    }}
                 />
             </Box>
             <Presentation />
