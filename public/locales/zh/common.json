@@ -189,5 +189,11 @@
     "form": {
         "messageError": "发生错误，请稍后重试。",
         "messagePasswordChange": "您的密码已成功更改！"
+    },
+    "contact": {
+        "title": "联系我们",
+        "content": "随时联系我们，提出任何疑问或反馈。",
+        "email": "电子邮件",
+        "follow_us": "关注我们"
     }
 }

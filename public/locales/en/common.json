@@ -191,5 +191,11 @@
         "messageError": "An error occurred, please try again later.",
         "messagePasswordChange": "Your password has been changed.",
         "save": "Save"
+    },
+    "contact": {
+        "title": "Contact Us",
+        "content": "Feel free to reach out to us for any inquiries or feedback.",
+        "email": "Email",
+        "follow_us": "Follow Us"
     }
 }

@@ -189,5 +189,11 @@
     "form": {
         "messageError": "Wystąpił błąd, spróbuj ponownie później.",
         "messagePasswordChange": "Twoje hasło zostało pomyślnie zmienione!"
+    },
+    "contact": {
+        "title": "Skontaktuj się z nami",
+        "content": "Nie wahaj się skontaktować z nami w razie jakichkolwiek pytań lub uwag.",
+        "email": "E-mail",
+        "follow_us": "Śledź nas"
     }
 }

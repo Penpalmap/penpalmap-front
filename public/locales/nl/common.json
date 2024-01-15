@@ -189,5 +189,11 @@
     "form": {
         "messageError": "Er is een fout opgetreden, probeer het later opnieuw.",
         "messagePasswordChange": "Uw wachtwoord is succesvol gewijzigd!"
+    },
+    "contact": {
+        "title": "Neem contact met ons op",
+        "content": "Neem gerust contact met ons op voor vragen of feedback.",
+        "email": "E-mail",
+        "follow_us": "Volg ons"
     }
 }

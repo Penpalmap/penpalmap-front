@@ -189,5 +189,11 @@
     "form": {
         "messageError": "Se ha producido un error, inténtelo de nuevo más tarde.",
         "messagePasswordChange": "¡Su contraseña ha sido cambiada con éxito!"
+    },
+    "contact": {
+        "title": "Contáctenos",
+        "content": "No dude en ponerse en contacto con nosotros para cualquier pregunta o comentario.",
+        "email": "Correo electrónico",
+        "follow_us": "Síguenos"
     }
 }
