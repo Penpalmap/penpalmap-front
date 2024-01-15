@@ -20,8 +20,7 @@ const TermsAndConditionsStep: React.FC<TermsAndConditionsStepProps> = ({
             <br />
             <Text>{t('connect.conditionsPart3')}</Text>
             <br />
-            <br />
-            <Link as="u" href="/terms">
+            <Link href="/terms" textDecoration="underline" color={'gray.500'}>
                 {t('connect.seeTerns')}
             </Link>
         </Box>

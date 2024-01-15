@@ -64,7 +64,7 @@ const LayoutCreationProfile = ({
                 <Box mb={8}>
                     <Box mb={8}>
                         <Text
-                            fontSize={'3xl'}
+                            fontSize={'2xl'}
                             fontWeight={'bold'}
                             textAlign={'center'}
                         >
@@ -99,7 +99,8 @@ const LayoutCreationProfile = ({
                         <Button
                             w={'50%'}
                             onClick={handleNextStep}
-                            colorScheme="blue"
+                            colorScheme="#3EB6A0"
+                            backgroundColor={'#3EB6A0'}
                             rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
                             isDisabled={disabled}
                         >
