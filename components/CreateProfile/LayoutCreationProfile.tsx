@@ -26,6 +26,10 @@ const LayoutCreationProfile = ({
 
     const steps = [
         {
+            title: 'terms',
+            titlePage: t('connect.validateTerms'),
+        },
+        {
             title: 'Gender',
             titlePage: t('connect.selectGender'),
         },
@@ -46,6 +50,8 @@ const LayoutCreationProfile = ({
             titlePage: t('connect.selectLanguage'),
         },
     ]
+
+    const hasBackButton = activeStep !== 0
 
     return (
         <Flex
@@ -75,7 +81,9 @@ const LayoutCreationProfile = ({
                         {children}
                     </Flex>
                 </Box>
-                <Flex justifyContent="space-between">
+                <Flex
+                    justifyContent={hasBackButton ? 'space-between' : 'center'}
+                >
                     {activeStep !== 0 && (
                         <Button
                             w={'30%'}
@@ -95,7 +103,9 @@ const LayoutCreationProfile = ({
                             rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
                             isDisabled={disabled}
                         >
-                            {t('connect.next')}
+                            {activeStep === 0
+                                ? t('connect.validateConnections') // Change text for the first step
+                                : t('connect.next')}
                         </Button>
                     ) : (
                         <Button
