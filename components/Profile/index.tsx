@@ -50,6 +50,8 @@ const Profile = ({ profileId }: Props) => {
         fetchUser()
     }, [profileId])
 
+    console.log(user)
+
     useEffect(() => {
         if (user) {
             const profileContent: ContentArray = []
@@ -156,19 +158,26 @@ const Profile = ({ profileId }: Props) => {
 
     const renderBio = useMemo(() => {
         return (
-            <Flex direction={'column'} w={'80%'} gap={2}>
+            <Flex
+                direction={'column'}
+                flex={1}
+                gap={2}
+                justifyContent={'center'}
+                alignItems={'center'}
+            >
                 <Text
                     color={'gray.600'}
                     fontSize={'small'}
                     textTransform={'uppercase'}
                     fontWeight={'semibold'}
+                    textAlign={'center'}
                 >
                     A propos
                 </Text>
                 <Text fontWeight={'semibold'}>{user?.bio}</Text>
             </Flex>
         )
-    }, [])
+    }, [user?.bio])
 
     const profileContent = useMemo(() => {
         const groupedContents: JSX.Element[] = []
@@ -216,7 +225,7 @@ const Profile = ({ profileId }: Props) => {
                 })
 
             groupedContents.push(
-                <Flex maxH={'450px'} bg={'teal.100'} key={i}>
+                <Flex minH={'450px'} bg={'teal.100'} key={i}>
                     {group}
                 </Flex>
             )

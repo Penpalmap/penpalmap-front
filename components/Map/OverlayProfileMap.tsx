@@ -107,7 +107,7 @@ const OverlayProfileMap = ({
                     </Flex>
 
                     <Text display={['none', 'block']} fontSize={'sm'}>
-                        Salut je suis un exemple de Bio
+                        {userMap?.bio}
                     </Text>
                 </Box>
                 <Flex justifyContent={'space-between'} gap={'12px'}>
