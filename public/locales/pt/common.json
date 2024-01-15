@@ -40,7 +40,13 @@
         "delete": "Excluir",
         "addLanguage": "Adicionar um idioma",
         "cookiesUsed": "Este site utiliza cookies para melhorar a experiência do usuário",
-        "AcceptClose": "Aceitar e fechar"
+        "AcceptClose": "Aceitar e fechar",
+        "validateTerms": "Termos de Uso",
+        "seeTerms": "Ver Termos de Uso",
+        "conditionsPart1": "A Penpalmap coleta seus dados para fornecer seus serviços e assistência, garantir o bom funcionamento do aplicativo, enviar conteúdo promocional próprio e de seus parceiros, e realizar estudos e estatísticas.",
+        "conditionsPart2": "Essas informações são destinadas à Penpalmap e seus colaboradores dentro e fora da UE. Você tem o direito de acessar, corrigir e excluir informações sobre você e, se aplicável, tem o direito de se opor, à portabilidade de seus dados, à limitação do processamento e, por fim, à possibilidade de definir diretrizes para a classificação de seus dados após a morte. Sem o seu consentimento, uma conta não pode ser criada.",
+        "conditionsPart3": "Ao clicar em 'Aceito os termos', você consente ao uso de cookies para otimizar a experiência do usuário, melhorar o site e o aplicativo da web.",
+        "validateConnections": "Aceito os termos"
     },
     "months": {
         "january": "common:Janeiro",

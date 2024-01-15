@@ -40,7 +40,13 @@
         "delete": "Verwijderen",
         "addLanguage": "Voeg een taal toe",
         "cookiesUsed": "Deze site maakt gebruik van cookies om de gebruikerservaring te verbeteren",
-        "AcceptClose": "Accepteren en sluiten"
+        "AcceptClose": "Accepteren en sluiten",
+        "validateTerms": "Gebruiksvoorwaarden",
+        "seeTerms": "Gebruiksvoorwaarden bekijken",
+        "conditionsPart1": "Penpalmap verzamelt uw gegevens om u zijn diensten en ondersteuning te bieden, de goede werking van de toepassing te waarborgen, u promotionele inhoud van zichzelf en zijn partners te sturen, en studies en statistieken uit te voeren.",
+        "conditionsPart2": "Deze informatie is bestemd voor Penpalmap en zijn medewerkers binnen en buiten de EU. U heeft het recht om toegang te krijgen, informatie over u te corrigeren en te verwijderen en, indien van toepassing, bezwaar te maken, de draagbaarheid van uw gegevens, beperking van de verwerking en ten slotte de mogelijkheid om richtlijnen voor de sortering van uw gegevens na uw overlijden vast te stellen. Zonder uw toestemming kan er geen account worden aangemaakt.",
+        "conditionsPart3": "Door op 'Ik accepteer de voorwaarden' te klikken, stemt u in met het gebruik van cookies om de gebruikerservaring te optimaliseren, de website en de webtoepassing te verbeteren.",
+        "validateConnections": "Ik accepteer de voorwaarden"
     },
     "months": {
         "january": "common:Januari",

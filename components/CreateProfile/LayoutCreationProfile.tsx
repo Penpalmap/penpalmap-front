@@ -60,7 +60,12 @@ const LayoutCreationProfile = ({
             h={'calc(100vh - 60px)'}
             background={'#3EB6A020'}
         >
-            <Box background={'white'} padding={'20px'} borderRadius={'10px'}>
+            <Box
+                background={'white'}
+                padding={'20px'}
+                borderRadius={'10px'}
+                maxWidth={'60%'}
+            >
                 <Box mb={8}>
                     <Box mb={8}>
                         <Text
