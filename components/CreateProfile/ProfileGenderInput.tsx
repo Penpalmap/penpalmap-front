@@ -113,7 +113,12 @@ const ProfileGenderInput = (props: Props) => {
                         },
                     }}
                 >
-                    <Wrap spacing={4} justify={'center'} pb={4}>
+                    <Wrap
+                        spacing={4}
+                        justify={'center'}
+                        pb={4}
+                        maxWidth="600px"
+                    >
                         <ProfileGenderInputBox
                             isSelected={selectedGender === 'transgender'}
                             icon={
