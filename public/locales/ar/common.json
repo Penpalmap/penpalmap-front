@@ -38,7 +38,9 @@
         "intermediate": "متوسط",
         "beginner": "مبتدئ",
         "delete": "حذف",
-        "addLanguage": "إضافة لغة"
+        "addLanguage": "إضافة لغة",
+        "cookiesUsed": "يستخدم هذا الموقع ملفات تعريف الارتباط لتحسين تجربة المستخدم",
+        "AcceptClose": "قبول وإغلاق"
     },
     "months": {
         "january": "common:كانون الثاني",

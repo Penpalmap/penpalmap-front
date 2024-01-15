@@ -38,7 +38,9 @@
         "intermediate": "Средний",
         "beginner": "Новичок",
         "delete": "Удалить",
-        "addLanguage": "Добавить язык"
+        "addLanguage": "Добавить язык",
+        "cookiesUsed": "Этот сайт использует файлы cookie для улучшения пользовательского опыта",
+        "AcceptClose": "Принять и закрыть"
     },
     "months": {
         "january": "common:Январь",

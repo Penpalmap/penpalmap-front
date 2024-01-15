@@ -38,7 +38,9 @@
         "intermediate": "Intermediário",
         "beginner": "Iniciante",
         "delete": "Excluir",
-        "addLanguage": "Adicionar um idioma"
+        "addLanguage": "Adicionar um idioma",
+        "cookiesUsed": "Este site utiliza cookies para melhorar a experiência do usuário",
+        "AcceptClose": "Aceitar e fechar"
     },
     "months": {
         "january": "common:Janeiro",

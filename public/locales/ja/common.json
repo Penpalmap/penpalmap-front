@@ -38,7 +38,9 @@
         "intermediate": "中級",
         "beginner": "初心者",
         "delete": "削除",
-        "addLanguage": "言語を追加"
+        "addLanguage": "言語を追加",
+        "cookiesUsed": "このサイトではクッキーを使用してユーザーエクスペリエンスを向上させています",
+        "AcceptClose": "承諾して閉じる"
     },
     "months": {
         "january": "common:1月",

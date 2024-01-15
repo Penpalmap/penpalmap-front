@@ -38,7 +38,9 @@
         "intermediate": "Mittelstufe",
         "beginner": "Anfänger",
         "delete": "Löschen",
-        "addLanguage": "Sprache hinzufügen"
+        "addLanguage": "Sprache hinzufügen",
+        "cookiesUsed": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern",
+        "AcceptClose": "Akzeptieren und schließen"
     },
     "months": {
         "january": "common:Januar",

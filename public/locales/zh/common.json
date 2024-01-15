@@ -38,7 +38,9 @@
         "intermediate": "中级",
         "beginner": "初学者",
         "delete": "删除",
-        "addLanguage": "添加一种语言"
+        "addLanguage": "添加一种语言",
+        "cookiesUsed": "此网站使用 cookie 来提升用户体验",
+        "AcceptClose": "接受并关闭"
     },
     "months": {
         "january": "common:一月",

@@ -38,7 +38,9 @@
         "intermediate": "Orta",
         "beginner": "Başlangıç",
         "delete": "Sil",
-        "addLanguage": "Dil ekleyin"
+        "addLanguage": "Dil ekleyin",
+        "cookiesUsed": "Bu site, kullanıcı deneyimini artırmak için çerezleri kullanır",
+        "AcceptClose": "Kabul et ve kapat"
     },
     "months": {
         "january": "common:Ocak",

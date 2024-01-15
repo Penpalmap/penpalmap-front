@@ -38,7 +38,9 @@
         "intermediate": "Gevorderd",
         "beginner": "Beginner",
         "delete": "Verwijderen",
-        "addLanguage": "Voeg een taal toe"
+        "addLanguage": "Voeg een taal toe",
+        "cookiesUsed": "Deze site maakt gebruik van cookies om de gebruikerservaring te verbeteren",
+        "AcceptClose": "Accepteren en sluiten"
     },
     "months": {
         "january": "common:Januari",

@@ -38,7 +38,9 @@
         "intermediate": "इंटरमीडिएट",
         "beginner": "प्रारंभिक",
         "delete": "हटाएं",
-        "addLanguage": "एक भाषा जोड़ें"
+        "addLanguage": "एक भाषा जोड़ें",
+        "cookiesUsed": "इस साइट ने उपयोगकर्ता अनुभव को सुधारने के लिए कुकीज़ का उपयोग किया है",
+        "AcceptClose": "स्वीकार करें और बंद करें"
     },
     "months": {
         "january": "common:जनवरी",
