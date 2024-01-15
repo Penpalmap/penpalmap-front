@@ -74,7 +74,16 @@ const Header = () => {
             >
                 <Flex alignItems={'center'}>
                     <Link href={`/`} onClick={() => setMobileView('home')}>
-                        <Flex alignItems={'center'}>
+                        <Flex
+                            alignItems={'center'}
+                            padding={'0.4rem'}
+                            _hover={{
+                                textDecoration: 'none',
+                                borderRadius: 'md', // Border radius
+                                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)', // Box shadow when hovering
+                                transition: 'all 0.3s ease-in-out', // Transition effect
+                            }}
+                        >
                             <Image
                                 src={'/images/logo.png'}
                                 alt={'logo'}

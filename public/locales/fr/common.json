@@ -38,7 +38,15 @@
         "intermediate": "Intermédiaire",
         "beginner": "Débutant",
         "delete": "Supprimer",
-        "addLanguage": "Ajouter une langue"
+        "addLanguage": "Ajouter une langue",
+        "cookiesUsed": "Ce site utilise des cookies pour améliorer l'expérience utilisateur",
+        "AcceptClose": "Accepter et fermer",
+        "validateTerms": "Conditions d'utilisation",
+        "seeTerns": "Voir les conditions d'utilisation",
+        "conditionsPart1": " Penpalmap recueille vos données afin de vous fournir ses services et assistance, permettre le bon fonctionnement de l'application, vous envoyer du contenu promotionnel ainsi que celui de ses partenaires et réaliser des études et des statistiques.",
+        "conditionsPart2": "et réaliser des études et des statistiques. Ces informations sont destinées à Penpalmap et ses intervenants situés à l'intérieur et à l'extérieur de l'UE. Vous bénéficiez d'un droit d'accès, de rectification et de suppression des informations vous concernant et, le cas échéant, d'un droit d'opposition, à la portabilité de vos données, à la limitation du traitement et enfin la possibilité de définir des directives relatives au tri de vos données après la mort. Sans votre consentement, votre compte ne peut pas être créé.",
+        "conditionsPart3": "En cliquant sur 'J'accepte le conditions', vous consentez à l'utilisation de cookies afin d'optimiser l'expérience utilisateur, d'améliorer le site et l'application web.",
+        "validateConnections": "J'accepte les conditions"
     },
     "months": {
         "january": "common:Janvier",
@@ -190,5 +198,11 @@
         "messageError": "Une erreur est survenue, veuillez réessayer plus tard.",
         "messagePasswordChange": "Votre mot de passe a bien été modifié !",
         "save": "Enregistrer"
+    },
+    "contact": {
+        "title": "Nous Contacter",
+        "content": "N'hésitez pas à nous contacter pour toute question ou commentaire.",
+        "email": "E-mail",
+        "follow_us": "Suivez-nous"
     }
 }

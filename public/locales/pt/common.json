@@ -38,7 +38,9 @@
         "intermediate": "Intermediário",
         "beginner": "Iniciante",
         "delete": "Excluir",
-        "addLanguage": "Adicionar um idioma"
+        "addLanguage": "Adicionar um idioma",
+        "cookiesUsed": "Este site utiliza cookies para melhorar a experiência do usuário",
+        "AcceptClose": "Aceitar e fechar"
     },
     "months": {
         "january": "common:Janeiro",
@@ -189,5 +191,11 @@
     "form": {
         "messageError": "Ocorreu um erro, por favor, tente novamente mais tarde.",
         "messagePasswordChange": "Sua senha foi alterada com sucesso!"
+    },
+    "contact": {
+        "title": "Skontaktuj się z nami",
+        "content": "Nie wahaj się skontaktować z nami w razie jakichkolwiek pytań lub uwag.",
+        "email": "E-mail",
+        "follow_us": "Śledź nas"
     }
 }

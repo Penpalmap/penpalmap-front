@@ -38,7 +38,9 @@
         "intermediate": "Orta",
         "beginner": "Başlangıç",
         "delete": "Sil",
-        "addLanguage": "Dil ekleyin"
+        "addLanguage": "Dil ekleyin",
+        "cookiesUsed": "Bu site, kullanıcı deneyimini artırmak için çerezleri kullanır",
+        "AcceptClose": "Kabul et ve kapat"
     },
     "months": {
         "january": "common:Ocak",
@@ -189,5 +191,11 @@
     "form": {
         "messageError": "Bir hata oluştu, lütfen daha sonra tekrar deneyin.",
         "messagePasswordChange": "Şifreniz başarıyla değiştirildi!"
+    },
+    "contact": {
+        "title": "Bizimle iletişime geçin",
+        "content": "Herhangi bir soru veya geri bildirim için bize ulaşmaktan çekinmeyin.",
+        "email": "E-posta",
+        "follow_us": "Bizi takip edin"
     }
 }

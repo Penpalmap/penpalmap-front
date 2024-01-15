@@ -11,6 +11,8 @@ import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import TermsAndConditionsStep from './TermsAndConditionsStep'
 
 const CreateProfile = () => {
     // const { data: session, status, update: updateSession } = useSession()
@@ -50,14 +52,16 @@ const CreateProfile = () => {
 
         switch (activeStep) {
             case 0:
-                return !selectedGender
-            case 1:
-                return !watchForm.birthday || isUnderage
-            case 2:
                 return false
+            case 1:
+                return !selectedGender
+            case 2:
+                return !watchForm.birthday || isUnderage
             case 3:
-                return !watchForm.latitude || !watchForm.longitude
+                return false
             case 4:
+                return !watchForm.latitude || !watchForm.longitude
+            case 5:
                 return !isFormLanguageValid()
             default:
                 return false
@@ -117,13 +121,15 @@ const CreateProfile = () => {
 
         switch (activeStep) {
             case 0:
+                return <TermsAndConditionsStep handleAcceptTerms={goToNext} />
+            case 1:
                 return (
                     <ProfileGenderInput
                         setValue={setValue}
                         selectedGender={selectedGender}
                     />
                 )
-            case 1:
+            case 2:
                 return (
                     <ProfileBirthdayInput
                         register={register}
@@ -131,11 +137,11 @@ const CreateProfile = () => {
                         setIsUnderage={setIsUnderage}
                     />
                 )
-            case 2:
-                return <ProfileImage images={[]} />
             case 3:
-                return <ProfileLocationInput setValue={setValue} />
+                return <ProfileImage images={[]} />
             case 4:
+                return <ProfileLocationInput setValue={setValue} />
+            case 5:
                 return <ProfileLanguageForm setValue={setValue} />
             default:
                 return null

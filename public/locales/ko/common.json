@@ -38,7 +38,9 @@
         "intermediate": "중급",
         "beginner": "초보자",
         "delete": "삭제",
-        "addLanguage": "언어 추가"
+        "addLanguage": "언어 추가",
+        "cookiesUsed": "이 사이트는 사용자 경험을 향상시키기 위해 쿠키를 사용합니다",
+        "AcceptClose": "수락하고 닫기"
     },
     "months": {
         "january": "common:1월",
@@ -189,5 +191,11 @@
     "form": {
         "messageError": "오류가 발생했습니다. 나중에 다시 시도해주세요.",
         "messagePasswordChange": "비밀번호가 성공적으로 변경되었습니다!"
+    },
+    "contact": {
+        "title": "문의하기",
+        "content": "질문이나 피드백이 있으면 언제든지 연락하십시오.",
+        "email": "이메일",
+        "follow_us": "팔로우하기"
     }
 }

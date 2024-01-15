@@ -38,7 +38,9 @@
         "intermediate": "متوسط",
         "beginner": "مبتدئ",
         "delete": "حذف",
-        "addLanguage": "إضافة لغة"
+        "addLanguage": "إضافة لغة",
+        "cookiesUsed": "يستخدم هذا الموقع ملفات تعريف الارتباط لتحسين تجربة المستخدم",
+        "AcceptClose": "قبول وإغلاق"
     },
     "months": {
         "january": "common:كانون الثاني",
@@ -189,5 +191,11 @@
     "form": {
         "messageError": "发生错误，请稍后重试。",
         "messagePasswordChange": "您的密码已成功更改！"
+    },
+    "contact": {
+        "title": "اتصل بنا",
+        "content": "لا تتردد في الاتصال بنا بخصوص أي استفسار أو تعليق.",
+        "email": "البريد الإلكتروني",
+        "follow_us": "تابعنا"
     }
 }

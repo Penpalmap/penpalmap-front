@@ -38,7 +38,9 @@
         "intermediate": "Intermediate",
         "beginner": "Beginner",
         "delete": "Delete",
-        "addLanguage": "Add a language"
+        "addLanguage": "Add a language",
+        "cookiesUsed": "This site uses cookies to enhance the user experience",
+        "AcceptClose": "Accept and close"
     },
     "months": {
         "january": "common:January",
@@ -191,5 +193,11 @@
         "messageError": "An error occurred, please try again later.",
         "messagePasswordChange": "Your password has been changed.",
         "save": "Save"
+    },
+    "contact": {
+        "title": "Contact Us",
+        "content": "Feel free to reach out to us for any inquiries or feedback.",
+        "email": "Email",
+        "follow_us": "Follow Us"
     }
 }

@@ -24,6 +24,7 @@ import Input from '../Elements/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
+import RGPDNotice from '../Elements/rgpdNotice'
 
 interface LoginFormData {
     email: string
@@ -72,6 +73,7 @@ const SignIn = () => {
     }
     return (
         <>
+            <RGPDNotice />
             <Box
                 position="relative"
                 height={'calc(100vh - 3.5rem)'}

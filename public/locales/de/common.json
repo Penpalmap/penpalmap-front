@@ -38,7 +38,9 @@
         "intermediate": "Mittelstufe",
         "beginner": "Anfänger",
         "delete": "Löschen",
-        "addLanguage": "Sprache hinzufügen"
+        "addLanguage": "Sprache hinzufügen",
+        "cookiesUsed": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern",
+        "AcceptClose": "Akzeptieren und schließen"
     },
     "months": {
         "january": "common:Januar",
@@ -189,5 +191,11 @@
     "form": {
         "messageError": "Ein Fehler ist aufgetreten, bitte versuchen Sie es später erneut.",
         "messagePasswordChange": "Ihr Passwort wurde erfolgreich geändert!"
+    },
+    "contact": {
+        "title": "Kontaktiere uns",
+        "content": "Fühlen Sie sich frei, uns für Anfragen oder Feedback zu kontaktieren.",
+        "email": "E-Mail",
+        "follow_us": "Folge uns"
     }
 }

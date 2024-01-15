@@ -26,6 +26,7 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
+import RGPDNotice from '../Elements/rgpdNotice'
 
 const Register = () => {
     const [error, setError] = useState<string | null>(null)
@@ -66,6 +67,7 @@ const Register = () => {
     }
     return (
         <>
+            <RGPDNotice />
             <Box
                 position="relative"
                 height={'calc(100vh - 3.5rem)'}

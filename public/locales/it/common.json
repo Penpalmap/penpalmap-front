@@ -38,7 +38,9 @@
         "intermediate": "Intermedio",
         "beginner": "Principiante",
         "delete": "Elimina",
-        "addLanguage": "Aggiungi una lingua"
+        "addLanguage": "Aggiungi una lingua",
+        "cookiesUsed": "Questo sito utilizza i cookie per migliorare l'esperienza dell'utente",
+        "AcceptClose": "Accetta e chiudi"
     },
     "months": {
         "january": "common:Gennaio",
@@ -189,5 +191,11 @@
     "form": {
         "messageError": "Si è verificato un errore, riprova più tardi.",
         "messagePasswordChange": "La tua password è stata cambiata con successo!"
+    },
+    "contact": {
+        "title": "Contattaci",
+        "content": "Sentiti libero di contattarci per qualsiasi domanda o commento.",
+        "email": "E-mail",
+        "follow_us": "Seguici"
     }
 }
