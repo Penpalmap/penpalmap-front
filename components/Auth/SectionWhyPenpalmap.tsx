@@ -1,7 +1,8 @@
 // SectionImageText.js
 import React from 'react'
-import { Box, Text, Image, Button, Flex } from '@chakra-ui/react'
+import { Box, Text, Image, Button, Flex, Link } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
+import NextLink from 'next/link'
 
 const SectionWhyPenpalmap = () => {
     const { t } = useTranslation('common')
@@ -48,7 +49,9 @@ const SectionWhyPenpalmap = () => {
                         width={'fit-content'}
                         marginTop={2}
                     >
-                        {t('presentation.seeDetails')}
+                        <NextLink href="/about" passHref>
+                            <Link>{t('presentation.seeDetails')}</Link>
+                        </NextLink>
                     </Button>
                 </Box>
             </Box>

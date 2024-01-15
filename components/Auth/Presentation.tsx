@@ -48,7 +48,6 @@ const Presentation = () => {
                 alignItems={'center'}
                 flexDir={['column', 'row-reverse']}
             ></Flex>
-            <SectionMapChatSecurity />
             <SectionWhyPenpalmap />
         </Box>
     )

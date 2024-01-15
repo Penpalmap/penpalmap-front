@@ -115,7 +115,8 @@ export const SessionProvider = ({ children }) => {
                         router.pathname === '/auth/signin' ||
                         router.pathname === '/auth/signup' ||
                         router.pathname === '/auth/forgot-password' ||
-                        router.pathname === '/auth/reset-password'
+                        router.pathname === '/auth/reset-password' ||
+                        router.pathname === '/about'
                     ) {
                         return
                     } else {
@@ -128,7 +129,8 @@ export const SessionProvider = ({ children }) => {
                 router.pathname === '/auth/signin' ||
                 router.pathname === '/auth/signup' ||
                 router.pathname === '/auth/forgot-password' ||
-                router.pathname === '/auth/reset-password'
+                router.pathname === '/auth/reset-password' ||
+                router.pathname === '/about'
             ) {
                 return
             } else {
