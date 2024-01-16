@@ -95,7 +95,7 @@ const LayoutCreationProfile = ({
                             {t('connect.previous')}
                         </Button>
                     )}
-                    {activeStep !== 4 ? (
+                    {activeStep !== 5 ? (
                         <Button
                             w={'50%'}
                             onClick={handleNextStep}
