@@ -177,7 +177,8 @@ const ChatMessages = ({
             }
         })
 
-        const handleIsTyping = () => {
+        const handleIsTyping = (message) => {
+            if (message.senderId !== appData.userChat?.id) return
             clearTimeout(typingTimeout as NodeJS.Timeout)
             setOtherUserIsTyping(true)
 
@@ -194,7 +195,7 @@ const ChatMessages = ({
             appData.socket.off(SocketEvents.IsTyping)
             appData.socket.off(SocketEvents.StopIsTyping)
         }
-    }, [appData.socket, typingTimeout])
+    }, [appData.socket, appData.userChat?.id, typingTimeout])
 
     const clickOnArrowNewMessage = () => {
         setArrowDisplay(false)

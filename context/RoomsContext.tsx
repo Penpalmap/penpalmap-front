@@ -109,65 +109,66 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         })
     }, [])
 
-    useEffect(() => {
-        if (!appData.socket) return
-        onNewMessage(appData.socket, (message) => {
-            updateLastMessageInRoom(message)
-        })
+    // useEffect(() => {
+    //     if (!appData.socket) return
+    //     onNewMessage(appData.socket, (message) => {
+    //         updateLastMessageInRoom(message)
+    //     })
 
-        onSeenMessage(appData.socket, (message) => {
-            if (message.senderId !== user?.id) {
-                resetCountUnreadMessagesOfRoom(message.roomId)
-            }
-        })
+    //     onSeenMessage(appData.socket, (message) => {
+    //         if (message.senderId !== user?.id) {
+    //             resetCountUnreadMessagesOfRoom(message.roomId)
+    //         }
+    //     })
 
-        // Met à jour le statut en ligne
-        onUsersOnline(appData.socket, (usersOnline) => {
-            setRooms((prevRooms) => {
-                return prevRooms.map((room) => {
-                    const newRoom: Room = {
-                        ...room,
-                        members: room.members.map((member) => {
-                            if (usersOnline.includes(member.id)) {
-                                return {
-                                    ...member,
-                                    isOnline: true,
-                                }
-                            } else {
-                                return {
-                                    ...member,
-                                    isOnline: false,
-                                }
-                            }
-                        }),
-                    }
+    //     // Met à jour le statut en ligne
+    //     onUsersOnline(appData.socket, (usersOnline) => {
+    //         setRooms((prevRooms) => {
+    //             return prevRooms.map((room) => {
+    //                 const newRoom: Room = {
+    //                     ...room,
+    //                     members: room.members.map((member) => {
+    //                         if (usersOnline.includes(member.id)) {
+    //                             return {
+    //                                 ...member,
+    //                                 isOnline: true,
+    //                             }
+    //                         } else {
+    //                             return {
+    //                                 ...member,
+    //                                 isOnline: false,
+    //                             }
+    //                         }
+    //                     }),
+    //                 }
 
-                    return {
-                        ...newRoom,
-                    }
-                })
-            })
+    //                 return {
+    //                     ...newRoom,
+    //                 }
+    //             })
+    //         })
 
-            if (appData.userChat) {
-                const userChat = appData.userChat
-                const userIsOnline = usersOnline.includes(userChat.id)
-                setAppData({
-                    ...appData,
-                    userChat: {
-                        ...userChat,
-                        isOnline: userIsOnline,
-                    },
-                })
-            }
-        })
-    }, [
-        appData,
-        appData.socket,
-        resetCountUnreadMessagesOfRoom,
-        user,
-        setAppData,
-        updateLastMessageInRoom,
-    ])
+    //         if (appData.userChat) {
+    //             const userChat = appData.userChat
+    //             const userIsOnline = usersOnline.includes(userChat.id)
+    //             debugger
+    //             setAppData({
+    //                 ...appData,
+    //                 userChat: {
+    //                     ...userChat,
+    //                     isOnline: userIsOnline,
+    //                 },
+    //             })
+    //         }
+    //     })
+    // }, [
+    //     appData,
+    //     appData.socket,
+    //     resetCountUnreadMessagesOfRoom,
+    //     user,
+    //     setAppData,
+    //     updateLastMessageInRoom,
+    // ])
 
     return (
         <RoomContext.Provider

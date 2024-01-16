@@ -83,11 +83,16 @@ const useChat = () => {
 
     const addMessageToRoom = useCallback(
         async (message: Message) => {
-            setMessages((prevMessages) => [...prevMessages, message])
+            if (
+                message.senderId === appData.userChat.id ||
+                message.senderId === user?.id
+            ) {
+                setMessages((prevMessages) => [...prevMessages, message])
+            }
 
             updateLastMessageInRoom(message)
         },
-        [updateLastMessageInRoom]
+        [appData.userChat?.id, updateLastMessageInRoom, user?.id]
     )
 
     const sendMessage = useCallback(
