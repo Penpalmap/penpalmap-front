@@ -1,11 +1,12 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Text, Image, keyframes } from '@chakra-ui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faArrowLeft,
     faArrowRight,
     faCheck,
 } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
+import { useEffect, useState } from 'react'
 
 type LayoutCreationProfileProps = {
     activeStep: number
@@ -25,42 +26,74 @@ const LayoutCreationProfile = ({
     const { t } = useTranslation('common')
 
     const steps = [
-        {
-            title: 'terms',
-            titlePage: t('connect.validateTerms'),
-        },
-        {
-            title: 'Gender',
-            titlePage: t('connect.selectGender'),
-        },
-        {
-            title: 'Birthday',
-            titlePage: t('connect.selectBirthdate'),
-        },
-        {
-            title: 'Photos',
-            titlePage: t('connect.selectPhoto'),
-        },
-        {
-            title: 'Map',
-            titlePage: t('connect.pickLocation'),
-        },
-        {
-            title: 'Language',
-            titlePage: t('connect.selectLanguage'),
-        },
+        { title: 'terms', titlePage: t('connect.validateTerms') },
+        { title: 'Gender', titlePage: t('connect.selectGender') },
+        { title: 'Birthday', titlePage: t('connect.selectBirthdate') },
+        { title: 'Photos', titlePage: t('connect.selectPhoto') },
+        { title: 'Map', titlePage: t('connect.pickLocation') },
+        { title: 'Language', titlePage: t('connect.selectLanguage') },
     ]
 
     const hasBackButton = activeStep !== 0
+
+    // Add images for the first step background animation
+    const images = [
+        '/images/LandingMap_light.png',
+        '/images/LandingMap_light.png',
+        '/images/LandingMap_light.png',
+    ]
+
+    const scrollLeftToRight = keyframes`
+        0% { transform: translateX(-${100 / images.length}vw); }
+        100% { transform: translateX(0); }
+    `
 
     return (
         <Flex
             justifyContent={'center'}
             alignItems={'center'}
-            h={'calc(100vh - 60px)'}
-            background={'#3EB6A020'}
+            height={'calc(100vh - 3.5rem)'}
+            overflow="hidden"
+            background={
+                activeStep === 0
+                    ? `linear-gradient(to right, transparent, transparent 20%, white 20%, white 80%, transparent 80%, transparent)`
+                    : '#3EB6A020' // Default background color
+            }
+            position="relative" // Added position relative
         >
-            <Box background={'white'} padding={'20px'} borderRadius={'10px'}>
+            {activeStep === 0 && (
+                <Box
+                    id="background-animation"
+                    height={'100%'}
+                    display="flex"
+                    animation={`${scrollLeftToRight} 60s linear infinite`}
+                    marginLeft={`-${100 / images.length}%`}
+                    position="absolute"
+                    width={`${100 * images.length}%`}
+                >
+                    {images.map((image, index) => (
+                        <Box key={index} flex="0 0 auto">
+                            <Image
+                                src="/images/LandingMap_light.png"
+                                alt="PenpalMap"
+                                height="100%"
+                                width="auto"
+                                aspectRatio={'auto'}
+                                display="inline-block"
+                            />
+                        </Box>
+                    ))}
+                </Box>
+            )}
+            <Box
+                backgroundColor={'white'}
+                boxShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
+                padding={'20px'}
+                borderRadius={'10px'}
+                maxWidth={'60%'}
+                position="relative"
+                overflow="hidden"
+            >
                 <Box mb={8}>
                     <Box mb={8}>
                         <Text
@@ -105,7 +138,7 @@ const LayoutCreationProfile = ({
                             isDisabled={disabled}
                         >
                             {activeStep === 0
-                                ? t('connect.validateConnections') // Change text for the first step
+                                ? t('connect.validateConnections')
                                 : t('connect.next')}
                         </Button>
                     ) : (

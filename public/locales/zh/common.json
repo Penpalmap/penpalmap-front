@@ -40,7 +40,13 @@
         "delete": "删除",
         "addLanguage": "添加一种语言",
         "cookiesUsed": "此网站使用 cookie 来提升用户体验",
-        "AcceptClose": "接受并关闭"
+        "AcceptClose": "接受并关闭",
+        "validateTerms": "使用条款",
+        "seeTerms": "查看使用条款",
+        "conditionsPart1": "Penpalmap收集您的数据，以提供其服务和支持，确保应用程序的正常运行，向您发送自身和合作伙伴的推广内容，并进行研究和统计。",
+        "conditionsPart2": "这些信息是为Penpalmap及其在欧盟内外的合作伙伴而收集的。您有权访问、更正和删除有关您的信息，必要时有权反对、要求数据携带、限制处理，最后有权制定有关死后数据分类的指导方针。未经您的同意，无法创建帐户。",
+        "conditionsPart3": "点击“我接受条款”即表示您同意使用cookie来优化用户体验、改善网站和网络应用。",
+        "validateConnections": "我接受条款"
     },
     "months": {
         "january": "common:一月",

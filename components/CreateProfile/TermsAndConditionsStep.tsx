@@ -14,7 +14,13 @@ const TermsAndConditionsStep: React.FC = () => {
             <br />
             <Text>{t('connect.conditionsPart3')}</Text>
             <br />
-            <Link href="/terms" textDecoration="underline" color={'gray.500'}>
+            <Link
+                href="/terms"
+                textDecoration="underline"
+                color={'gray.500'}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 {t('connect.seeTerns')}
             </Link>
         </Box>

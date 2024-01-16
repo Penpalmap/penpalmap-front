@@ -40,7 +40,13 @@
         "delete": "Sil",
         "addLanguage": "Dil ekleyin",
         "cookiesUsed": "Bu site, kullanıcı deneyimini artırmak için çerezleri kullanır",
-        "AcceptClose": "Kabul et ve kapat"
+        "AcceptClose": "Kabul et ve kapat",
+        "validateTerms": "Kullanım Koşulları",
+        "seeTerms": "Kullanım Koşullarını Görüntüle",
+        "conditionsPart1": "Penpalmap, hizmetlerini ve destek sağlamak, uygulamanın düzgün çalışmasını sağlamak, kendi ve ortaklarından gelen promosyon içeriğini size göndermek ve çalışmalar ve istatistikler yapmak amacıyla verilerinizi toplar.",
+        "conditionsPart2": "Bu bilgiler, Penpalmap ve AB içinde ve dışında bulunan işbirlikçilerine yöneliktir. Size ait bilgilere erişme, düzeltme ve silme hakkınız var ve gerektiğinde itiraz etme, verilerinizin taşınabilirliği, işleme sınırlama ve nihayetinde ölümünüzden sonraki verilerinizin sınıflandırılması konusunda yönergeler belirleme hakkına sahipsiniz. Onayınız olmadan hesap oluşturulamaz.",
+        "conditionsPart3": "'Koşulları Kabul Ediyorum' düğmesine tıkladığınızda, kullanıcı deneyimini optimize etmek, web sitesi ve web uygulamasını geliştirmek için çerez kullanımına izin vermiş olursunuz.",
+        "validateConnections": "Koşulları Kabul Ediyorum"
     },
     "months": {
         "january": "common:Ocak",
