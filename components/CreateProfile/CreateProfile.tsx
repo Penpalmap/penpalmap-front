@@ -11,7 +11,6 @@ import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 import TermsAndConditionsStep from './TermsAndConditionsStep'
 
 const CreateProfile = () => {
@@ -121,7 +120,7 @@ const CreateProfile = () => {
 
         switch (activeStep) {
             case 0:
-                return <TermsAndConditionsStep handleAcceptTerms={goToNext} />
+                return <TermsAndConditionsStep />
             case 1:
                 return (
                     <ProfileGenderInput
@@ -146,7 +145,7 @@ const CreateProfile = () => {
             default:
                 return null
         }
-    }, [toast, activeStep, setValue, selectedGender, register])
+    }, [toast, activeStep, goToNext, setValue, selectedGender, register])
 
     return (
         <form
