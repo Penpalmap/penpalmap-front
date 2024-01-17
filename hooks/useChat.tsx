@@ -33,7 +33,7 @@ const useChat = () => {
 
     useEffect(() => {
         const fetchRoom = async () => {
-            if (user?.id) {
+            if (user?.id && appData?.userChat?.id) {
                 const room = await getRoomOfTwoUsers(
                     user.id,
                     appData.userChat.id
@@ -83,22 +83,19 @@ const useChat = () => {
 
     const addMessageToRoom = useCallback(
         async (message: Message) => {
-            if (
-                message.senderId === appData.userChat.id ||
-                message.senderId === user?.id
-            ) {
+            if (room?.id === message.roomId) {
                 setMessages((prevMessages) => [...prevMessages, message])
             }
 
             updateLastMessageInRoom(message)
         },
-        [appData.userChat?.id, updateLastMessageInRoom, user?.id]
+        [room?.id, updateLastMessageInRoom]
     )
 
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
-
+            console.log('newMessage', newMessage)
             if (newMessage.isNewRoom) {
                 createRoom(appData.socket, {
                     roomId: newMessage.roomId,
@@ -124,7 +121,7 @@ const useChat = () => {
             if (message.senderId !== user?.id && room) {
                 addMessageToRoom(message)
 
-                if (appData.chatOpen) {
+                if (appData.chatOpen && message.roomId === room.id) {
                     await updateMessageIsReadByRoom(room.id, message.senderId)
                     sendMessageSeen(appData.socket, message)
                 }

@@ -37,7 +37,6 @@ const Map = () => {
                     userMap={data.userTarget}
                     closeOverlay={closeOverlay}
                     onOpenChat={() => {
-                        debugger
                         setData({
                             ...data,
                             chatOpen: true,

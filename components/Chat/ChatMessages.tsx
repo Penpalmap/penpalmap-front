@@ -33,6 +33,14 @@ const ChatMessages = ({
         null as unknown as NodeJS.Timeout
     )
 
+    const sortByDate = (a: Message, b: Message) => {
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    }
+
+    const sortedMessages = useMemo(() => {
+        return messages?.sort(sortByDate)
+    }, [messages])
+
     const { t } = useTranslation('common')
 
     const chatContainerRef = useRef<HTMLDivElement>(null)
@@ -63,12 +71,16 @@ const ChatMessages = ({
     }
 
     useEffect(() => {
-        if (chatContainerRef.current && messages && messages?.length === 20) {
+        if (
+            chatContainerRef.current &&
+            sortedMessages &&
+            sortedMessages?.length === 20
+        ) {
             chatContainerRef.current.scrollTop =
                 chatContainerRef.current.scrollHeight
             setBottomScrollIsDone(true)
         }
-    }, [appData.userChat, messages])
+    }, [appData.userChat, sortedMessages])
 
     useEffect(() => {
         const currentChatContainer = chatContainerRef.current
@@ -107,11 +119,11 @@ const ChatMessages = ({
                 )
             }
         }
-    }, [messages])
+    }, [sortedMessages])
 
     const renderMessages = useMemo(() => {
-        return messages?.map((message, index) => {
-            const isLastMessage = index === messages.length - 1
+        return sortedMessages?.map((message, index) => {
+            const isLastMessage = index === sortedMessages.length - 1
             const isOwnMessage = user?.id === message.senderId
             const seenText = message.isSeen ? t('chat.seen') : t('chat.send')
 
@@ -158,7 +170,7 @@ const ChatMessages = ({
         appData.userChat?.avatarNumber,
         appData.userChat?.image,
         genderFolder,
-        messages,
+        sortedMessages,
         user?.id,
         t,
     ])

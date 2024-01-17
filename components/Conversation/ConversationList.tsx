@@ -26,7 +26,6 @@ const ConversationList = () => {
                     room.members.includes(userMember)
                 )
                 if (roomIncludeUser) {
-                    debugger
                     setAppData({
                         ...appData,
                         userChat: userMember,

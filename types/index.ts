@@ -1,3 +1,5 @@
+import { Socket } from 'socket.io-client'
+
 export type RegisterUserInput = {
     email: string
     name: string
@@ -40,6 +42,7 @@ export type ContextStateData = {
     rooms: Array<Room> | null
     chatOpen: boolean
     userChat: User | null
+    socket: Socket | null
 }
 
 export type UserRoom = {

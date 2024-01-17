@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import ChatHeader from './ChatHeader'
 import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
@@ -8,7 +8,7 @@ import useChat from '../../hooks/useChat'
 import { useContext, useEffect, useRef } from 'react'
 import { Message } from '../../types'
 import { Socket, io } from 'socket.io-client'
-import { SocketEvents } from '../../constants/socketEnum'
+import useGenderFolder from '../../hooks/useGenderFolder'
 
 const Chat = ({ visible }) => {
     const { user } = useSession()
@@ -16,28 +16,22 @@ const Chat = ({ visible }) => {
     const { room, sendMessage, messages, offset, setOffset, isLoading } =
         useChat()
 
-    const genderFolder =
-        appData?.userChat?.gender === 'man' ||
-        appData?.userChat?.gender === 'woman'
-            ? appData?.userChat?.gender
-            : 'other'
+    console.log('chat render')
 
     const socket = useRef<Socket>()
+
+    const { genderFolder } = useGenderFolder(appData?.userChat?.gender || '')
 
     useEffect(() => {
         if (user?.id) {
             socket.current = io(process.env.NEXT_PUBLIC_API_URL as string)
-            socket.current.emit(SocketEvents.AddUser, user.id)
+            // socket.current.emit(SocketEvents.AddUser, user.id)
             setAppData((prevData) => ({
                 ...prevData,
                 socket: socket.current,
             }))
         }
     }, [user?.id, setAppData])
-
-    const sortByDate = (a: Message, b: Message) => {
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-    }
 
     return (
         <Box
@@ -52,6 +46,12 @@ const Chat = ({ visible }) => {
             borderTopRadius={'8'}
             zIndex={10000}
         >
+            <Text color={'red.500'} fontWeight={'bold'} px={4} py={2}>
+                socket id : {appData?.socket?.id}
+            </Text>
+            <Text color={'green.500'} fontWeight={'bold'} px={4} py={2}>
+                room id : {room?.id}
+            </Text>
             <ChatHeader
                 name={appData?.userChat?.name}
                 photoUrl={
@@ -63,7 +63,7 @@ const Chat = ({ visible }) => {
             />
 
             <ChatMessages
-                messages={messages.sort(sortByDate)}
+                messages={messages}
                 isNewChat={!room}
                 offset={offset}
                 setOffset={setOffset}

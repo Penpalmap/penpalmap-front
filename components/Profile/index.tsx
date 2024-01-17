@@ -287,7 +287,6 @@ const Profile = ({ profileId }: Props) => {
                         variant="solid"
                         rightIcon={<FontAwesomeIcon icon={faPaperPlane} />}
                         onClick={() => {
-                            debugger
                             setAppData({
                                 ...appData,
                                 chatOpen: true,
