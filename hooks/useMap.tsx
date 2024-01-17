@@ -208,7 +208,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         const allUsersLayer = new VectorLayer({
             source: new Cluster({
-                distance: 55,
+                distance: 65,
                 source: allUsersSource,
             }),
             style: clusterStyle,
