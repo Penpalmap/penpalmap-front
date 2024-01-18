@@ -192,7 +192,8 @@
         "photos": "Фотографии",
         "addPhotos": "Добавить фото",
         "description": "Описание",
-        "SeeTheProfile": "Посмотреть профиль"
+        "SeeTheProfile": "Посмотреть профиль",
+        "loggedIn": "Подключен"
     },
     "form": {
         "messageError": "Произошла ошибка, попробуйте еще раз позже.",

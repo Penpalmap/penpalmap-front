@@ -192,7 +192,8 @@
         "photos": "Foto",
         "addPhotos": "Aggiungi foto",
         "description": "Descrizione",
-        "SeeTheProfile": "Vedi il profilo"
+        "SeeTheProfile": "Vedi il profilo",
+        "loggedIn": "Connesso da"
     },
     "form": {
         "messageError": "Si è verificato un errore, riprova più tardi.",

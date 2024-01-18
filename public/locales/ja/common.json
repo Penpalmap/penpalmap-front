@@ -192,7 +192,8 @@
         "photos": "写真",
         "addPhotos": "写真を追加",
         "description": "説明",
-        "SeeTheProfile": "プロフィールを見る"
+        "SeeTheProfile": "プロフィールを見る",
+        "loggedIn": "ログインしてから"
     },
     "form": {
         "messageError": "エラーが発生しました、後でもう一度お試しください。",
