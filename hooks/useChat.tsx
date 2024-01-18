@@ -21,7 +21,7 @@ import {
 import { useRoom } from '../context/RoomsContext'
 
 const useChat = () => {
-    const [room, setRoom] = useState<Room | null>(null)
+    const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
     const { user } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const [messages, setMessages] = useState<Message[]>([])
@@ -39,7 +39,7 @@ const useChat = () => {
                     appData.userChat.id
                 )
 
-                setRoom(room)
+                setCurrentRoom(room)
                 setIsLoading(false) // Mettre fin au chargement lorsque les informations sont disponibles.
             }
         }
@@ -54,26 +54,34 @@ const useChat = () => {
     }, [appData.userChat, user])
 
     const initialFetchMessages = useCallback(async () => {
-        if (room) {
-            const messagesData = await getMessagesByRoomId(room.id, 20, 0)
+        if (currentRoom) {
+            const messagesData = await getMessagesByRoomId(
+                currentRoom.id,
+                20,
+                0
+            )
             setMessages(messagesData)
             setIsLoading(false)
             setRoomIsLoading(false)
         }
-    }, [room])
+    }, [currentRoom])
 
     useEffect(() => {
         initialFetchMessages()
-    }, [initialFetchMessages, room])
+    }, [initialFetchMessages, currentRoom])
 
     const additonalFetchMessages = useCallback(async () => {
-        if (appData?.userChat && room && !roomIsLoading) {
-            const messagesData = await getMessagesByRoomId(room.id, 20, offset)
+        if (appData?.userChat && currentRoom && !roomIsLoading) {
+            const messagesData = await getMessagesByRoomId(
+                currentRoom.id,
+                20,
+                offset
+            )
 
             setMessages((prevMessages) => [...messagesData, ...prevMessages])
             setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
         }
-    }, [appData?.userChat, room, roomIsLoading, offset])
+    }, [appData?.userChat, currentRoom, roomIsLoading, offset])
 
     useEffect(() => {
         if (offset > 0) {
@@ -81,21 +89,21 @@ const useChat = () => {
         }
     }, [additonalFetchMessages, offset])
 
-    const addMessageToRoom = useCallback(
-        async (message: Message) => {
-            if (room?.id === message.roomId) {
-                setMessages((prevMessages) => [...prevMessages, message])
-            }
+    // const addMessageToRoom = useCallback(
+    //     async (message: Message) => {
+    //         if (currentRoom?.id === message.roomId) {
+    //             setMessages((prevMessages) => [...prevMessages, message])
+    //         }
 
-            updateLastMessageInRoom(message)
-        },
-        [room?.id, updateLastMessageInRoom]
-    )
+    //         updateLastMessageInRoom(message)
+    //     },
+    //     [currentRoom?.id, updateLastMessageInRoom]
+    // )
 
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
-            console.log('newMessage', newMessage)
+
             if (newMessage.isNewRoom) {
                 createRoom(appData.socket, {
                     roomId: newMessage.roomId,
@@ -104,32 +112,37 @@ const useChat = () => {
                 })
 
                 const room = await getRoomById(newMessage.roomId)
+                room.countUnreadMessages = '0'
+                setCurrentRoom(room)
                 setRooms((prevRooms) => [...prevRooms, room])
             }
 
             newMessage.receiverId = message.receiverId
 
-            sendMessageSocket(appData.socket, newMessage)
-            addMessageToRoom(newMessage)
+            setMessages((prevMessages) => [...prevMessages, newMessage])
+
+            // sendMessageSocket(appData.socket, newMessage)
+            // addMessageToRoom(newMessage)
         },
-        [addMessageToRoom, appData.socket, setRooms]
+        [appData.socket, setRooms]
     )
 
     useEffect(() => {
         if (!appData.socket) return
-        onNewMessage(appData.socket, async (message) => {
-            if (message.senderId !== user?.id && room) {
-                addMessageToRoom(message)
+        // onNewMessage(appData.socket, async (message) => {
+        //     debugger
+        //     if (message.senderId !== user?.id && currentRoom) {
+        //         addMessageToRoom(message)
 
-                if (appData.chatOpen && message.roomId === room.id) {
-                    await updateMessageIsReadByRoom(room.id, message.senderId)
-                    sendMessageSeen(appData.socket, message)
-                }
-            }
-        })
+        //         if (appData.chatOpen && message.roomId === currentRoom.id) {
+        //             await updateMessageIsReadByRoom(room.id, message.senderId)
+        //             sendMessageSeen(appData.socket, message)
+        //         }
+        //     }
+        // })
 
         onSeenMessage(appData.socket, async (message) => {
-            if (message.senderId === user?.id && room) {
+            if (message.senderId === user?.id && currentRoom) {
                 setMessages((prevMessages) => {
                     return prevMessages.map((msg) => {
                         if (msg.id === message.id) {
@@ -167,28 +180,19 @@ const useChat = () => {
 
         onNewRoom(appData.socket, async (roomId) => {
             const newRoom = await getRoomById(roomId)
-            // addRoomToRooms(newRoom)
             setRooms((prevRooms) => [...prevRooms, newRoom])
         })
 
         return () => {
-            appData.socket.off(SocketEvents.NewMessage)
+            appData?.socket?.off(SocketEvents.NewMessage)
+            appData?.socket?.off(SocketEvents.NewRoom)
         }
-    }, [
-        addMessageToRoom,
-        appData.socket,
-        room,
-        user,
-        setAppData,
-        appData,
-        setRooms,
-    ])
+    }, [appData.socket, currentRoom, user, setAppData, appData, setRooms])
 
     return {
         messages: messages,
         sendMessage,
-        room,
-        addMessageToRoom,
+        room: currentRoom,
         offset,
         setOffset,
         isLoading,

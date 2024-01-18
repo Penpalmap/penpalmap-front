@@ -5,34 +5,16 @@ import ChatInput from './ChatInput'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import useChat from '../../hooks/useChat'
-import { useContext, useEffect, useRef } from 'react'
-import { Message } from '../../types'
-import { Socket, io } from 'socket.io-client'
+import { useContext } from 'react'
 import useGenderFolder from '../../hooks/useGenderFolder'
 
 const Chat = ({ visible }) => {
     const { user } = useSession()
-    const [appData, setAppData] = useContext(AppContext)
+    const [appData] = useContext(AppContext)
     const { room, sendMessage, messages, offset, setOffset, isLoading } =
         useChat()
 
-    console.log('chat render')
-
-    const socket = useRef<Socket>()
-
     const { genderFolder } = useGenderFolder(appData?.userChat?.gender || '')
-
-    useEffect(() => {
-        if (user?.id) {
-            socket.current = io(process.env.NEXT_PUBLIC_API_URL as string)
-            // socket.current.emit(SocketEvents.AddUser, user.id)
-            setAppData((prevData) => ({
-                ...prevData,
-                socket: socket.current,
-            }))
-        }
-    }, [user?.id, setAppData])
-
     return (
         <Box
             position={{ base: 'initial', md: 'absolute' }}

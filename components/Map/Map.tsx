@@ -5,6 +5,7 @@ import OverlayProfileMap from './OverlayProfileMap'
 import { useCallback, useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import SearchAndZoom from './SearchAndZoom'
+import { useRoom } from '../../context/RoomsContext'
 
 const Map = () => {
     const { mapContainerRef, mapObj, overlayRef } = useMap({

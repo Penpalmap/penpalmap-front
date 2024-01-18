@@ -39,8 +39,6 @@ export function useRoom() {
 
 export const RoomProvider = ({ children }: RoomProviderProps) => {
     const [rooms, setRooms] = useState<Room[]>([])
-    const [appData, setAppData] = useContext(AppContext)
-
     const { user } = useSession()
 
     useEffect(() => {
