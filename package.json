@@ -50,6 +50,7 @@
         "react-easy-crop": "^4.7.4",
         "react-hook-form": "^7.47.0",
         "react-modal": "^3.16.1",
+        "react-responsive-carousel": "^3.2.23",
         "sequelize": "^6.32.0",
         "socket.io-client": "^4.6.1"
     },
