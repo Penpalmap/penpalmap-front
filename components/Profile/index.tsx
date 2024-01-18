@@ -50,8 +50,6 @@ const Profile = ({ profileId }: Props) => {
         fetchUser()
     }, [profileId])
 
-    console.log(user)
-
     useEffect(() => {
         if (user) {
             const profileContent: ContentArray = []

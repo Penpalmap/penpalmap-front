@@ -21,6 +21,8 @@ import Link from 'next/link'
 import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useTranslation } from 'next-i18next'
+import { getAgeByDate } from '../../utils/date'
+import { formatDistanceToNow } from 'date-fns'
 
 type OverlayProfileMapProps = {
     userMap: User | null
@@ -34,6 +36,7 @@ const OverlayProfileMap = ({
     onOpenChat,
 }: OverlayProfileMapProps) => {
     const { user } = useSession()
+    console.log(userMap?.userImages)
     const { country } = useLocation(
         userMap?.geomR?.coordinates?.[1],
         userMap?.geomR?.coordinates?.[0]
@@ -82,7 +85,14 @@ const OverlayProfileMap = ({
                         <Text fontWeight={'bold'} textTransform={'capitalize'}>
                             {userMap?.name}
                         </Text>
-                        <Text>, 21</Text>
+                        <Text>
+                            ,{' '}
+                            {userMap?.birthday &&
+                                getAgeByDate(userMap.birthday)}
+                        </Text>
+                        <Text ml={'2'} fontSize={'sm'}>
+                            {userMap?.birthday && `(${userMap.birthday})`}
+                        </Text>
                     </Flex>
                     <Flex
                         alignItems={'center'}
