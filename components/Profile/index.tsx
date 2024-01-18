@@ -19,6 +19,7 @@ import { useTranslation } from 'next-i18next'
 import MapProfile from './Map'
 import { useMobileView } from '../../context/MobileViewContext'
 import { AppContext } from '../../context/AppContext'
+import LoggedInDate from '../Profile/loggedInDate'
 
 type Props = {
     profileId: string
@@ -262,7 +263,12 @@ const Profile = ({ profileId }: Props) => {
                             {user?.isOnline ? 'Online' : 'Offline'}
                         </Badge>
                     </HStack>
-
+                    {!user?.isOnline && (
+                        <Flex>
+                            <Text>{user?.gender === 'man' ? '👨🏻‍💻' : '👩‍💻'}</Text>
+                            <LoggedInDate updatedAt={user?.updatedAt} />
+                        </Flex>
+                    )}
                     <Flex gap={2}>
                         <Text>{user?.gender === 'man' ? '👨' : '👩'}</Text>
                         <Text>{user?.gender}</Text>
