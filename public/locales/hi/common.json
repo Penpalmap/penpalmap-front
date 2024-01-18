@@ -192,7 +192,8 @@
         "photos": "तस्वीरें",
         "addPhotos": "तस्वीरें जोड़ें",
         "description": "विवरण",
-        "SeeTheProfile": "प्रोफ़ाइल देखें"
+        "SeeTheProfile": "प्रोफ़ाइल देखें",
+        "loggedIn": "लॉग इन किया गया"
     },
     "form": {
         "messageError": "कुछ गलती हुई, कृपया बाद में पुनः प्रयास करें।",

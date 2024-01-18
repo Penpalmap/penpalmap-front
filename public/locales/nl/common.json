@@ -192,7 +192,8 @@
         "photos": "Foto's",
         "addPhotos": "Foto's toevoegen",
         "description": "Beschrijving",
-        "SeeTheProfile": "Bekijk het profiel"
+        "SeeTheProfile": "Bekijk het profiel",
+        "loggedIn": "Aangemeld sinds"
     },
     "form": {
         "messageError": "Er is een fout opgetreden, probeer het later opnieuw.",

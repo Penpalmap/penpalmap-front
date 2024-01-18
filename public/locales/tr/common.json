@@ -192,7 +192,8 @@
         "photos": "Fotoğraflar",
         "addPhotos": "Fotoğraf Ekle",
         "description": "Açıklama",
-        "SeeTheProfile": "Profili Gör"
+        "SeeTheProfile": "Profili Gör",
+        "loggedIn": "Oturum açıldı"
     },
     "form": {
         "messageError": "Bir hata oluştu, lütfen daha sonra tekrar deneyin.",

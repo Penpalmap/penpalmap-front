@@ -186,7 +186,8 @@
         "photos": "照片",
         "addPhotos": "添加照片",
         "description": "描述",
-        "SeeTheProfile": "رؤية الملف الشخصي"
+        "SeeTheProfile": "رؤية الملف الشخصي",
+        "loggedIn": "تم تسجيل الدخول منذ"
     },
     "form": {
         "messageError": "发生错误，请稍后重试。",

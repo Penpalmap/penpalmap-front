@@ -193,7 +193,8 @@
         "addPhotos": "Add photos",
         "description": "Description",
         "SeeTheProfile": "See the profile",
-        "EnterDescription": "Enter a description"
+        "EnterDescription": "Enter a description",
+        "loggedIn": "Logged in"
     },
     "form": {
         "messageError": "An error occurred, please try again later.",

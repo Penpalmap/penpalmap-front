@@ -192,7 +192,8 @@
         "photos": "Fotos",
         "addPhotos": "Agregar fotos",
         "description": "Descripción",
-        "SeeTheProfile": "Ver el perfil"
+        "SeeTheProfile": "Ver el perfil",
+        "loggedIn": "Conectado hace"
     },
     "form": {
         "messageError": "Se ha producido un error, inténtelo de nuevo más tarde.",
