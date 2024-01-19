@@ -1,0 +1,25 @@
+name: Check pull request
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
+      - id: repository-to-lowercase
+        uses: ASzc/change-string-case-action@v5
+        with:
+          string: ${{ github.repository }}
+      - id: docker-build-push
+        name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          tags: |
+            ${{ steps.repository-to-lowercase.outputs.lowercase }}:build-test
