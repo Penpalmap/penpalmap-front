@@ -23,7 +23,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 import { useTranslation } from 'next-i18next'
 import { getAgeByDate } from '../../utils/date'
 import {
-    en,
+    enUS as en,
     fr,
     es,
     de,
@@ -31,7 +31,7 @@ import {
     it,
     ru,
     ja,
-    zh,
+    zhCN as zh,
     ar,
     hi,
     tr,

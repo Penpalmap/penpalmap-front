@@ -66,6 +66,7 @@ export type User = {
     languageUsed: string
     avatarNumber: number
     userLanguages: Array<UserLanguage>
+    updatedAt?: string
 }
 
 export type Geom = {

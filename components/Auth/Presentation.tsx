@@ -1,6 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
-import SectionMapChatSecurity from './SectionMapChatSecurity'
 import SectionWhyPenpalmap from './SectionWhyPenpalmap'
 
 const Presentation = () => {

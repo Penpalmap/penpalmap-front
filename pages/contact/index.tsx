@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Heading, Text, Link, Flex } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
-import SectionMapChatSecurity from '../../components/Auth/SectionMapChatSecurity'
 
 const Contact = () => {
     const { t } = useTranslation('common')

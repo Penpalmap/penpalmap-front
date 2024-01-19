@@ -1,6 +1,6 @@
 // SectionImageText.js
 import React from 'react'
-import { Box, Text, Image, Button, Flex, Link, Stack } from '@chakra-ui/react'
+import { Box, Text, Image, Button, Flex, Link } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
 const SectionWhyPenpalmap = () => {
