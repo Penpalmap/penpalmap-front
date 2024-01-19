@@ -67,7 +67,7 @@ const OverlayProfileMap = ({
             >
                 <Flex>
                     {userMap?.userImages && userMap.userImages.length > 0 ? (
-                        <Carousel showThumbs={false}>
+                        <Carousel showStatus={false}>
                             {userMap.userImages.map((img) => (
                                 <div key={img.id}>
                                     <Image
