@@ -6,7 +6,6 @@ import {
     faCheck,
 } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
 
 type LayoutCreationProfileProps = {
     activeStep: number
@@ -71,7 +70,7 @@ const LayoutCreationProfile = ({
                     position="absolute"
                     width={`${100 * images.length}%`}
                 >
-                    {images.map((image, index) => (
+                    {images.map((_, index) => (
                         <Box key={index} flex="0 0 auto">
                             <Image
                                 src="/images/LandingMap_light.png"
