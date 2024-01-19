@@ -67,7 +67,7 @@ const OverlayProfileMap = ({
             >
                 <Flex>
                     {userMap?.userImages && userMap.userImages.length > 0 ? (
-                        <Carousel showStatus={false}>
+                        <Carousel showThumbs={false}>
                             {userMap.userImages.map((img) => (
                                 <div key={img.id}>
                                     <Image
@@ -150,9 +150,9 @@ const OverlayProfileMap = ({
                                 </Text>
                             )}
                         </Flex>
-                        <Text display={['none', 'block']} fontSize={'sm'}>
+                        {/* <Text display={['none', 'block']} fontSize={'sm'}>
                             {userMap?.bio}
-                        </Text>
+                        </Text> */}
                     </Box>
                     <Flex justifyContent={'space-between'} gap={'12px'}>
                         {isMobile ? (
