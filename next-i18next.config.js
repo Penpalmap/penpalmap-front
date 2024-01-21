@@ -17,6 +17,7 @@ module.exports = {
             'ko',
             'pl',
             'nl',
+            'id',
         ],
         // the default locale to be used when visiting
         // a non-localized route (e.g. `/about`)

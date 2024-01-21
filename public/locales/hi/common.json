@@ -169,7 +169,8 @@
         "tr": "तुर्की",
         "ko": "कोरियाई",
         "pl": "पोलिश",
-        "nl": "डच"
+        "nl": "डच",
+        "id": "इंडोनेशियाई"
     },
     "languagesOrigin": {
         "en": "English",
@@ -186,7 +187,8 @@
         "tr": "Türkçe",
         "ko": "한국어",
         "pl": "Polski",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Bahasa Indonesia"
     },
     "profil": {
         "photos": "तस्वीरें",

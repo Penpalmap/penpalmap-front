@@ -83,6 +83,10 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
             label: t('languages.nl'),
             value: 'nl',
         },
+        {
+            label: t('languages.id'),
+            value: 'id',
+        },
     ]
 
     const addLanguage = () => {

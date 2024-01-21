@@ -169,7 +169,8 @@
         "tr": "Türkçe",
         "ko": "Korece",
         "pl": "Lehçe",
-        "nl": "Flemenkçe"
+        "nl": "Flemenkçe",
+        "id": "Endonezya dili"
     },
     "languagesOrigin": {
         "en": "English",
@@ -186,7 +187,8 @@
         "tr": "Türkçe",
         "ko": "한국어",
         "pl": "Polski",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Bahasa Indonesia"
     },
     "profil": {
         "photos": "Fotoğraflar",

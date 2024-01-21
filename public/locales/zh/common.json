@@ -169,7 +169,8 @@
         "tr": "土耳其语",
         "ko": "韩语",
         "pl": "波兰语",
-        "nl": "荷兰语"
+        "nl": "荷兰语",
+        "id": "印度尼西亚语"
     },
     "languagesOrigin": {
         "en": "English",
@@ -186,7 +187,8 @@
         "tr": "Türkçe",
         "ko": "한국어",
         "pl": "Polski",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Bahasa Indonesia"
     },
     "profil": {
         "photos": "照片",

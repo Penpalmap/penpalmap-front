@@ -216,6 +216,9 @@ const Header = () => {
                             <option value="nl">
                                 {t('languagesOrigin.nl')}
                             </option>
+                            <option value="id">
+                                {t('languagesOrigin.id')}
+                            </option>
                         </Select>
                     </Flex>
                 )}
