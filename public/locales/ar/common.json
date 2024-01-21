@@ -163,7 +163,8 @@
         "tr": "التركية",
         "ko": "الكورية",
         "pl": "البولندية",
-        "nl": "الهولندية"
+        "nl": "الهولندية",
+        "id": "الأندونيسية"
     },
     "languagesOrigin": {
         "en": "English",
@@ -180,7 +181,8 @@
         "tr": "Türkçe",
         "ko": "한국어",
         "pl": "Polski",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Bahasa Indonesia"
     },
     "profil": {
         "photos": "照片",

@@ -43,6 +43,7 @@ const LanguageSettings = () => {
                 <option value="tr">{t('languages.tr')}</option>
                 <option value="pl">{t('languages.pl')}</option>
                 <option value="nl">{t('languages.nl')}</option>
+                <option value="id">{t('languages.id')}</option>
             </Select>
         </Box>
     )
