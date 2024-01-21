@@ -196,12 +196,12 @@ const Profile = ({ profileId }: Props) => {
                 .map((contentType, index) => {
                     switch (contentType) {
                         case 'image':
+                            const imageUrl = user?.userImages[imageIndex]?.src
                             imageIndex++
                             return (
                                 <Flex flex={1} key={index}>
                                     {renderImage(
-                                        user?.userImages[imageIndex]?.src ??
-                                            'default-image-url'
+                                        imageUrl ?? 'default-image-url'
                                     )}
                                 </Flex>
                             )
@@ -276,7 +276,9 @@ const Profile = ({ profileId }: Props) => {
                     {!user?.isOnline && (
                         <Flex>
                             <Text>{user?.gender === 'man' ? '👨🏻‍💻' : '👩‍💻'}</Text>
-                            <LoggedInDate updatedAt={user?.updatedAt} />
+                            {user?.updatedAt && (
+                                <LoggedInDate updatedAt={user.updatedAt} />
+                            )}
                         </Flex>
                     )}
                     <Flex gap={2}>
