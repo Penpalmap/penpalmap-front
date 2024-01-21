@@ -25,24 +25,6 @@ import LoggedInDate from '../Profile/loggedInDate'
 import { getAgeByDate } from '../../utils/date'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import {
-    enUS as en,
-    fr,
-    es,
-    de,
-    pt,
-    it,
-    ru,
-    ja,
-    zhCN as zh,
-    ar,
-    hi,
-    tr,
-    ko,
-    pl,
-    nl,
-} from 'date-fns/locale'
-import { formatDistanceToNow } from 'date-fns'
 
 type OverlayProfileMapProps = {
     userMap: UserElement | null
