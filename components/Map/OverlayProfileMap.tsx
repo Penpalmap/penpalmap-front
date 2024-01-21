@@ -54,172 +54,160 @@ const OverlayProfileMap = ({
     const { t } = useTranslation('common')
 
     return (
-        console.log(userMap?.userImages),
-        (
+        <Flex
+            justifyContent={'right'}
+            id="overlay-profile"
+            position={'relative'}
+            bg="white"
+            boxShadow="md"
+            w={['340px', '400px']}
+            h={['200px', '205.94px']}
+            borderRadius={'10px'}
+        >
+            <Flex>
+                {userMap?.userImages && userMap.userImages.length > 0 ? (
+                    <Carousel showThumbs={false}>
+                        {userMap.userImages.map((img) => (
+                            <div key={img.id}>
+                                <Image
+                                    src={img.src}
+                                    alt={userMap?.name}
+                                    borderLeftRadius={'10px'}
+                                />
+                            </div>
+                        ))}
+                    </Carousel>
+                ) : (
+                    <Image
+                        src={
+                            userMap?.userImages.find(
+                                (img) => img.position === 0
+                            )?.src ??
+                            `/images/avatar/${genderFolder}/${userMap?.avatarNumber}.png`
+                        }
+                        w={'100%'}
+                        alt={userMap?.name}
+                        borderLeftRadius={'10px'}
+                    />
+                )}
+            </Flex>
             <Flex
-                id="overlay-profile"
-                position={'relative'}
-                bg="white"
-                boxShadow="md"
-                w={['340px', '400px']}
-                h={['200px', '205.94px']}
-                borderRadius={'10px'}
+                flex={'1'}
+                m={'12px'}
+                direction={'column'}
+                justifyContent={'space-between'}
             >
-                <Flex>
-                    {userMap?.userImages && userMap.userImages.length > 0 ? (
-                        <Carousel showThumbs={false}>
-                            {userMap.userImages.map((img) => (
-                                <div key={img.id}>
-                                    <Image
-                                        src={img.src}
-                                        alt={userMap?.name}
-                                        borderLeftRadius={'10px'}
-                                    />
-                                </div>
-                            ))}
-                        </Carousel>
-                    ) : (
-                        <Image
-                            src={
-                                userMap?.userImages.find(
-                                    (img) => img.position === 0
-                                )?.src ??
-                                `/images/avatar/${genderFolder}/${userMap?.avatarNumber}.png`
-                            }
-                            w={'100%'}
-                            alt={userMap?.name}
-                            borderLeftRadius={'10px'}
-                        />
-                    )}
-                </Flex>
-                <Flex
-                    flex={'1'}
-                    m={'12px'}
-                    direction={'column'}
-                    justifyContent={'space-between'}
-                >
-                    <Box>
-                        <Flex alignItems={'center'} fontSize={['18px']}>
-                            <Text
-                                fontWeight={'bold'}
-                                textTransform={'capitalize'}
-                            >
-                                {userMap?.name}
-                            </Text>
-                            <Text>
-                                ,{' '}
-                                {userMap?.birthday &&
-                                    getAgeByDate(userMap.birthday)}
-                            </Text>
-                        </Flex>
-                        <Flex
-                            alignItems={'center'}
-                            justifyContent={'space-between'}
-                            mb={'3'}
-                        >
-                            {country && (
-                                <Flex alignItems={'center'} mt={'1'}>
-                                    <FontAwesomeIcon
-                                        icon={faLocationDot}
-                                        color="#595959"
-                                    />
-                                    <Text
-                                        fontSize={'sm'}
-                                        ml={2}
-                                        color={'#595959'}
-                                    >
-                                        {country}
-                                    </Text>
-                                </Flex>
-                            )}
-
-                            {userMap?.isOnline && (
-                                <Badge colorScheme="green">En ligne</Badge>
-                            )}
-                        </Flex>
-                        <Flex
-                            alignItems={'center'}
-                            justifyContent={'space-between'}
-                            mb={'3'}
-                        >
-                            {userMap?.updatedAt && (
-                                <Text fontSize={'sm'} color={'#595959'}>
-                                    <LoggedInDate
-                                        updatedAt={userMap.updatedAt}
-                                    />
+                <Box>
+                    <Flex alignItems={'center'} fontSize={['18px']}>
+                        <Text fontWeight={'bold'} textTransform={'capitalize'}>
+                            {userMap?.name}
+                        </Text>
+                        <Text>
+                            ,{' '}
+                            {userMap?.birthday &&
+                                getAgeByDate(userMap.birthday)}
+                        </Text>
+                    </Flex>
+                    <Flex
+                        alignItems={'center'}
+                        justifyContent={'space-between'}
+                        mb={'3'}
+                    >
+                        {country && (
+                            <Flex alignItems={'center'} mt={'1'}>
+                                <FontAwesomeIcon
+                                    icon={faLocationDot}
+                                    color="#595959"
+                                />
+                                <Text fontSize={'sm'} ml={2} color={'#595959'}>
+                                    {country}
                                 </Text>
-                            )}
-                        </Flex>
-                        {/* <Text display={['none', 'block']} fontSize={'sm'}>
+                            </Flex>
+                        )}
+
+                        {userMap?.isOnline && (
+                            <Badge colorScheme="green">En ligne</Badge>
+                        )}
+                    </Flex>
+                    <Flex
+                        alignItems={'center'}
+                        justifyContent={'space-between'}
+                        mb={'3'}
+                    >
+                        {userMap?.updatedAt && (
+                            <Text fontSize={'sm'} color={'#595959'}>
+                                <LoggedInDate updatedAt={userMap.updatedAt} />
+                            </Text>
+                        )}
+                    </Flex>
+                    {/* <Text display={['none', 'block']} fontSize={'sm'}>
                             {userMap?.bio}
                         </Text> */}
-                    </Box>
-                    <Flex justifyContent={'space-between'} gap={'12px'}>
-                        {isMobile ? (
-                            <IconButton
-                                display={['block', 'none']}
+                </Box>
+                <Flex justifyContent={'space-between'} gap={'12px'}>
+                    {isMobile ? (
+                        <IconButton
+                            display={['block', 'none']}
+                            flex={1}
+                            icon={<FontAwesomeIcon icon={faUser} />}
+                            colorScheme="teal"
+                            variant="solid"
+                            fontSize={'12px'}
+                            aria-label={t('profil.SeeTheProfile')}
+                            isDisabled={user?.id === userMap?.id}
+                            onClick={() => {
+                                setMobileView('profile')
+                            }}
+                        />
+                    ) : (
+                        <Link
+                            href={`/?profileId=${userMap?.id}`}
+                            as={`/profile/${userMap?.id}`}
+                        >
+                            <Button
+                                display={['none', 'block']}
                                 flex={1}
-                                icon={<FontAwesomeIcon icon={faUser} />}
+                                leftIcon={<FontAwesomeIcon icon={faUser} />}
                                 colorScheme="teal"
                                 variant="solid"
                                 fontSize={'12px'}
-                                aria-label={t('profil.SeeTheProfile')}
                                 isDisabled={user?.id === userMap?.id}
-                                onClick={() => {
-                                    setMobileView('profile')
-                                }}
-                            />
-                        ) : (
-                            <Link
-                                href={`/?profileId=${userMap?.id}`}
-                                as={`/profile/${userMap?.id}`}
                             >
-                                <Button
-                                    display={['none', 'block']}
-                                    flex={1}
-                                    leftIcon={<FontAwesomeIcon icon={faUser} />}
-                                    colorScheme="teal"
-                                    variant="solid"
-                                    fontSize={'12px'}
-                                    isDisabled={user?.id === userMap?.id}
-                                >
-                                    {t('profil.SeeTheProfile')}
-                                </Button>
-                            </Link>
-                        )}
+                                {t('profil.SeeTheProfile')}
+                            </Button>
+                        </Link>
+                    )}
 
-                        <IconButton
-                            flex={'1'}
-                            colorScheme="teal"
-                            aria-label="Chat"
-                            variant={'outline'}
-                            // padding={'5px'}
-                            borderRadius={'4px'}
-                            _hover={{ color: '#2b2b2b' }}
-                            icon={<FontAwesomeIcon icon={faMessage} />}
-                            onClick={() => {
-                                userMap && onOpenChat(userMap)
-                                setMobileView('chat')
-                            }}
-                            isDisabled={user?.id === userMap?.id}
-                        />
-                    </Flex>
+                    <IconButton
+                        flex={'1'}
+                        colorScheme="teal"
+                        aria-label="Chat"
+                        variant={'outline'}
+                        // padding={'5px'}
+                        borderRadius={'4px'}
+                        _hover={{ color: '#2b2b2b' }}
+                        icon={<FontAwesomeIcon icon={faMessage} />}
+                        onClick={() => {
+                            userMap && onOpenChat(userMap)
+                            setMobileView('chat')
+                        }}
+                        isDisabled={user?.id === userMap?.id}
+                    />
                 </Flex>
-
-                <CloseButton
-                    // bg={'#3F3F3F50'}
-                    zIndex={2}
-                    color={'gray.800'}
-                    padding={'5px'}
-                    position={'absolute'}
-                    top={'5px'}
-                    right={'5apx'}
-                    fontSize={'12px'}
-                    borderRadius={'4px'}
-                    onClick={closeOverlay}
-                />
             </Flex>
-        )
+
+            <CloseButton
+                // bg={'#3F3F3F50'}
+                zIndex={2}
+                color={'gray.800'}
+                padding={'5px'}
+                position={'absolute'}
+                right={'5apx'}
+                fontSize={'12px'}
+                borderRadius={'4px'}
+                onClick={closeOverlay}
+            />
+        </Flex>
     )
 }
 
