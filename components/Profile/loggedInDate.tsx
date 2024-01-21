@@ -21,7 +21,6 @@ import {
 } from 'date-fns/locale'
 type LoggedInDateProps = {
     updatedAt: string // Assurez-vous de spécifier le bon type pour updatedAt
-    userLanguage: string // Assurez-vous de spécifier le bon type pour userLanguage
 }
 
 const locales = {

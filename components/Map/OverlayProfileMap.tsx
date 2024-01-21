@@ -9,7 +9,7 @@ import {
     Text,
     useBreakpointValue,
 } from '@chakra-ui/react'
-import { User } from '../../types'
+import { User, UserElement } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faLocationDot,
@@ -27,7 +27,7 @@ import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 type OverlayProfileMapProps = {
-    userMap: User | null
+    userMap: UserElement | null
     closeOverlay: () => void
     onOpenChat: (user: User) => void
 }

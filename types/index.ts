@@ -36,7 +36,7 @@ export type MessageInput = {
 }
 
 export type ContextStateData = {
-    userTarget: User | null
+    userTarget: UserElement | null
     rooms: Array<Room> | null
     chatOpen: boolean
     userChat: User | null
@@ -66,6 +66,7 @@ export type User = {
     languageUsed: string
     avatarNumber: number
     userLanguages: Array<UserLanguage>
+    updatedAt: string
 }
 
 export type Geom = {
