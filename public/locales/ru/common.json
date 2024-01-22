@@ -169,7 +169,8 @@
         "tr": "Турецкий",
         "ko": "Корейский",
         "pl": "Польский",
-        "nl": "Голландский"
+        "nl": "Голландский",
+        "id": "Индонезийский"
     },
     "languagesOrigin": {
         "en": "English",
@@ -186,13 +187,15 @@
         "tr": "Türkçe",
         "ko": "한국어",
         "pl": "Polski",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Bahasa Indonesia"
     },
     "profil": {
         "photos": "Фотографии",
         "addPhotos": "Добавить фото",
         "description": "Описание",
-        "SeeTheProfile": "Посмотреть профиль"
+        "SeeTheProfile": "Посмотреть профиль",
+        "loggedIn": "Подключен"
     },
     "form": {
         "messageError": "Произошла ошибка, попробуйте еще раз позже.",

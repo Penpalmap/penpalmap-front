@@ -178,7 +178,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                     currentUser?.geom?.coordinates?.[1] || 0,
                 ]),
                 zoom: 5.5,
-                minZoom: 4.5,
+                minZoom: 2,
                 maxZoom: 9,
                 extent: transformExtent(
                     [-999.453125, -58.813742, 999.453125, 70.004962],
@@ -208,7 +208,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         const allUsersLayer = new VectorLayer({
             source: new Cluster({
-                distance: 55,
+                distance: 65,
                 source: allUsersSource,
             }),
             style: clusterStyle,

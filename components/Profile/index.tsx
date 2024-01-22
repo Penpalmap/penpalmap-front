@@ -8,7 +8,14 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react'
-import { useEffect, useState, useMemo, Suspense, useContext } from 'react'
+import {
+    useEffect,
+    useState,
+    useMemo,
+    Suspense,
+    useContext,
+    useCallback,
+} from 'react'
 import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
@@ -19,6 +26,7 @@ import { useTranslation } from 'next-i18next'
 import MapProfile from './Map'
 import { useMobileView } from '../../context/MobileViewContext'
 import { AppContext } from '../../context/AppContext'
+import LoggedInDate from '../Profile/loggedInDate'
 
 type Props = {
     profileId: string
@@ -50,14 +58,12 @@ const Profile = ({ profileId }: Props) => {
         fetchUser()
     }, [profileId])
 
-    console.log(user)
-
     useEffect(() => {
         if (user) {
             const profileContent: ContentArray = []
 
             // Ajouter Image2 s'il existe
-            if (user.userImages && user.userImages[1]) {
+            if (user.userImages[1]) {
                 profileContent.push('image')
             }
 
@@ -77,12 +83,12 @@ const Profile = ({ profileId }: Props) => {
             // Ajouter Map
 
             // Ajouter Image3 s'il existe
-            if (user.userImages && user.userImages[2]) {
+            if (user.userImages[2]) {
                 profileContent.push('image')
             }
 
             // Ajouter Image4 s'il existe
-            if (user.userImages && user.userImages[3]) {
+            if (user.userImages[3]) {
                 profileContent.push('image')
             }
 
@@ -144,17 +150,19 @@ const Profile = ({ profileId }: Props) => {
         )
     }, [t, user])
 
-    const renderImage = (imageUrl) => {
-        return (
+    const renderImage = useCallback(
+        (imageUrl: string) => (
             <Image
                 w={'100%'}
                 h={'100%'} // Définir la hauteur à 100% pour remplir le conteneur
                 maxW={'100%'}
                 objectFit="cover" // Ajouté pour maintenir les proportions de l'image tout en la remplissant
                 src={imageUrl}
+                alt={`${user?.name ?? 'user'} profile image`}
             />
-        )
-    }
+        ),
+        [user?.name]
+    )
 
     const renderBio = useMemo(() => {
         return (
@@ -188,13 +196,13 @@ const Profile = ({ profileId }: Props) => {
                 .map((contentType, index) => {
                     switch (contentType) {
                         case 'image':
-                            const imageUrl =
-                                user?.userImages[imageIndex]?.src ||
-                                'default-image-url'
+                            const imageUrl = user?.userImages[imageIndex]?.src
                             imageIndex++
                             return (
                                 <Flex flex={1} key={index}>
-                                    {renderImage(imageUrl)}
+                                    {renderImage(
+                                        imageUrl ?? 'default-image-url'
+                                    )}
                                 </Flex>
                             )
                         case 'bio':
@@ -243,9 +251,10 @@ const Profile = ({ profileId }: Props) => {
                         h={'36'} // Hauteur de l'image
                         objectFit="cover" // Assure que l'image remplit le cadre tout en conservant ses proportions
                         src={
-                            user?.image ||
+                            user?.image ??
                             `/images/avatar/${user?.gender}/${user?.avatarNumber}.png`
                         }
+                        alt={user?.name ?? 'user profile image'}
                     ></Image>
                 </Box>
                 <VStack alignItems={'flex-start'}>
@@ -264,16 +273,25 @@ const Profile = ({ profileId }: Props) => {
                             {user?.isOnline ? 'Online' : 'Offline'}
                         </Badge>
                     </HStack>
-
+                    {!user?.isOnline && (
+                        <Flex>
+                            <Text>{user?.gender === 'man' ? '👨🏻‍💻' : '👩‍💻'}</Text>
+                            {user?.updatedAt && (
+                                <LoggedInDate updatedAt={user.updatedAt} />
+                            )}
+                        </Flex>
+                    )}
                     <Flex gap={2}>
                         <Text>{user?.gender === 'man' ? '👨' : '👩'}</Text>
                         <Text>{user?.gender}</Text>
                     </Flex>
                     <Flex gap={2}>
-                        <Text>{flag && <Image src={flag} w={6} />}</Text>
+                        <Text>
+                            {flag && <Image src={flag} w={6} alt={flag} />}
+                        </Text>
                         <Text>
                             {city && city + ','}
-                            {'  '} {country && country}
+                            {'  '} {country}
                         </Text>
                     </Flex>
                 </VStack>

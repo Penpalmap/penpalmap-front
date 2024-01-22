@@ -169,7 +169,8 @@
         "tr": "Turks",
         "ko": "Koreaans",
         "pl": "Pools",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Indonesisch"
     },
     "languagesOrigin": {
         "en": "English",
@@ -186,13 +187,15 @@
         "tr": "Türkçe",
         "ko": "한국어",
         "pl": "Polski",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Bahasa Indonesia"
     },
     "profil": {
         "photos": "Foto's",
         "addPhotos": "Foto's toevoegen",
         "description": "Beschrijving",
-        "SeeTheProfile": "Bekijk het profiel"
+        "SeeTheProfile": "Bekijk het profiel",
+        "loggedIn": "Aangemeld sinds"
     },
     "form": {
         "messageError": "Er is een fout opgetreden, probeer het later opnieuw.",

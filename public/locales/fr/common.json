@@ -169,7 +169,8 @@
         "tr": "Turc",
         "ko": "Coréen",
         "pl": "Polonais",
-        "nl": "Néerlandais"
+        "nl": "Néerlandais",
+        "id": "Indonésien"
     },
     "languagesOrigin": {
         "en": "English",
@@ -186,13 +187,15 @@
         "tr": "Türkçe",
         "ko": "한국어",
         "pl": "Polski",
-        "nl": "Nederlands"
+        "nl": "Nederlands",
+        "id": "Bahasa Indonesia"
     },
     "profil": {
         "photos": "Photos",
         "addPhotos": "Ajouter des photos",
         "description": "Description",
-        "SeeTheProfile": "Voir le profil"
+        "SeeTheProfile": "Voir le profil",
+        "loggedIn": "Connecté"
     },
     "form": {
         "messageError": "Une erreur est survenue, veuillez réessayer plus tard.",

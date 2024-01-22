@@ -7,7 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
 
 type Props = {
-    setValue: any
+    setValue: (name: 'userLanguages', value: UserLanguage[]) => void
 }
 
 const ProfileLanguageForm = ({ setValue }: Props) => {
@@ -83,10 +83,14 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
             label: t('languages.nl'),
             value: 'nl',
         },
+        {
+            label: t('languages.id'),
+            value: 'id',
+        },
     ]
 
     const addLanguage = () => {
-        if (!user || !user.id) return
+        if (!user?.id) return
 
         const newLanguage: UserLanguage = {
             language: '',
