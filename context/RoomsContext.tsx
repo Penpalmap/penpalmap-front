@@ -9,12 +9,6 @@ import {
 import { Message, Room } from '../types'
 import { getRooms } from '../api/conversationApi'
 import { useSession } from '../hooks/useSession'
-import {
-    onNewMessage,
-    onSeenMessage,
-    onUsersOnline,
-} from '../sockets/socketManager'
-import { AppContext } from './AppContext'
 
 interface RoomContextType {
     rooms: Room[]
@@ -64,10 +58,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
                         if (message.senderId === user.id) {
                             countUnreadMessages = '0'
                         } else {
-                            if (
-                                room.countUnreadMessages === undefined ||
-                                room.countUnreadMessages === null
-                            ) {
+                            if (!room.countUnreadMessages) {
                                 countUnreadMessages = '1'
                             } else {
                                 countUnreadMessages = (

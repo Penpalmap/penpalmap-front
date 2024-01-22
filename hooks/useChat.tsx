@@ -89,17 +89,6 @@ const useChat = () => {
         }
     }, [additonalFetchMessages, offset])
 
-    // const addMessageToRoom = useCallback(
-    //     async (message: Message) => {
-    //         if (currentRoom?.id === message.roomId) {
-    //             setMessages((prevMessages) => [...prevMessages, message])
-    //         }
-
-    //         updateLastMessageInRoom(message)
-    //     },
-    //     [currentRoom?.id, updateLastMessageInRoom]
-    // )
-
     const sendMessage = useCallback(
         async (message: MessageInput) => {
             const newMessage: Message = await createMessage(message)
@@ -120,29 +109,28 @@ const useChat = () => {
             newMessage.receiverId = message.receiverId
 
             setMessages((prevMessages) => [...prevMessages, newMessage])
+            updateLastMessageInRoom(newMessage)
 
-            // sendMessageSocket(appData.socket, newMessage)
-            // addMessageToRoom(newMessage)
+            sendMessageSocket(appData.socket, newMessage)
         },
-        [appData.socket, setRooms]
+        [appData.socket, setRooms, updateLastMessageInRoom]
     )
 
     useEffect(() => {
         if (!appData.socket) return
-        // onNewMessage(appData.socket, async (message) => {
-        //     debugger
-        //     if (message.senderId !== user?.id && currentRoom) {
-        //         addMessageToRoom(message)
 
-        //         if (appData.chatOpen && message.roomId === currentRoom.id) {
-        //             await updateMessageIsReadByRoom(room.id, message.senderId)
-        //             sendMessageSeen(appData.socket, message)
-        //         }
-        //     }
-        // })
+        onNewMessage(appData.socket, async (message) => {
+            if (message.senderId !== user?.id) {
+                if (currentRoom?.id === message.roomId) {
+                    setMessages((prevMessages) => [...prevMessages, message])
+                }
+            }
+
+            updateLastMessageInRoom(message)
+        })
 
         onSeenMessage(appData.socket, async (message) => {
-            if (message.senderId === user?.id && currentRoom) {
+            if (message.senderId === user?.id) {
                 setMessages((prevMessages) => {
                     return prevMessages.map((msg) => {
                         if (msg.id === message.id) {
@@ -155,26 +143,26 @@ const useChat = () => {
                     })
                 })
 
-                setAppData({
-                    ...appData,
-                    rooms: appData.rooms.map((room) => {
-                        if (room?.UserRoom?.roomId === message.roomId) {
-                            return {
-                                ...room,
-                                messages: room.messages.map((msg) => {
-                                    if (msg.id === message.id) {
-                                        return {
-                                            ...msg,
-                                            isSeen: true,
-                                        }
-                                    }
-                                    return msg
-                                }),
-                            }
-                        }
-                        return room
-                    }),
-                })
+                // setAppData({
+                //     ...appData,
+                //     rooms: appData.rooms.map((room) => {
+                //         if (room?.UserRoom?.roomId === message.roomId) {
+                //             return {
+                //                 ...room,
+                //                 messages: room.messages.map((msg) => {
+                //                     if (msg.id === message.id) {
+                //                         return {
+                //                             ...msg,
+                //                             isSeen: true,
+                //                         }
+                //                     }
+                //                     return msg
+                //                 }),
+                //             }
+                //         }
+                //         return room
+                //     }),
+                // })
             }
         })
 
