@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { Message, User } from '../../types'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
+import useGenderFolder from '../../hooks/useGenderFolder'
 
 type ConversationItemProps = {
     clickOnRoom: (members: User[]) => void
@@ -25,10 +26,8 @@ const ConversationItem = ({
         user?.geom?.coordinates?.[0]
     )
     const { t } = useTranslation('common')
-    const genderFolder =
-        user?.gender === 'man' || user?.gender === 'woman'
-            ? user?.gender
-            : 'other'
+    const { genderFolder } = useGenderFolder(user?.gender || ' ')
+
     return (
         <Flex
             p={2}

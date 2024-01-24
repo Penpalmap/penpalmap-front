@@ -27,6 +27,7 @@ import MapProfile from './Map'
 import { useMobileView } from '../../context/MobileViewContext'
 import { AppContext } from '../../context/AppContext'
 import LoggedInDate from '../Profile/loggedInDate'
+import { LanguagesKeys } from '../../types/translations'
 
 type Props = {
     profileId: string
@@ -140,7 +141,11 @@ const Profile = ({ profileId }: Props) => {
                             <Flex>
                                 {' '}
                                 <Text>
-                                    {t(`languages.${language.language}`)}
+                                    {t(
+                                        `languages.${
+                                            language.language as LanguagesKeys
+                                        }`
+                                    )}
                                 </Text>
                             </Flex>
                         </Badge>

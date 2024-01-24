@@ -25,6 +25,7 @@ import LoggedInDate from '../Profile/loggedInDate'
 import { getAgeByDate } from '../../utils/date'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { useRoom } from '../../context/RoomsContext'
 
 type OverlayProfileMapProps = {
     userMap: UserElement | null
@@ -52,6 +53,16 @@ const OverlayProfileMap = ({
     const isMobile = useBreakpointValue({ base: true, md: false })
 
     const { t } = useTranslation('common')
+
+    const { resetCountUnreadMessagesOfRoom } = useRoom()
+
+    const handleClickButtonChat = () => {
+        if (userMap) {
+            onOpenChat(userMap)
+            resetCountUnreadMessagesOfRoom(userMap.room.id)
+        }
+        setMobileView('chat')
+    }
 
     return (
         <Flex
@@ -187,10 +198,7 @@ const OverlayProfileMap = ({
                         borderRadius={'4px'}
                         _hover={{ color: '#2b2b2b' }}
                         icon={<FontAwesomeIcon icon={faMessage} />}
-                        onClick={() => {
-                            userMap && onOpenChat(userMap)
-                            setMobileView('chat')
-                        }}
+                        onClick={handleClickButtonChat}
                         isDisabled={user?.id === userMap?.id}
                     />
                 </Flex>

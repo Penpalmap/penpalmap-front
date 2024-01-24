@@ -63,7 +63,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
                 <Box mb={4}>
                     <FormLabel>{t('profil.description')}</FormLabel>
                     <Input
-                        placeholder={t('profil.enterDescription')}
+                        placeholder={t('profil.EnterDescription')}
                         defaultValue={user?.bio}
                         onChange={(e) => setBio(e.target.value)}
                     />

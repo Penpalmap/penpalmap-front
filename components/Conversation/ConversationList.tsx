@@ -18,6 +18,8 @@ const ConversationList = () => {
 
     const { setMobileView } = useMobileView()
 
+    console.log('ConversationList', rooms)
+
     const clickOnConversation = useCallback(
         async (members) => {
             const userMember = members?.find((member) => member.id !== user?.id)
@@ -42,7 +44,11 @@ const ConversationList = () => {
                             roomIncludeUser.messages.length - 1
                         ]
 
-                    if (lastMessage && lastMessage.isSeen === false) {
+                    if (
+                        lastMessage &&
+                        lastMessage.isSeen === false &&
+                        appData?.socket
+                    ) {
                         sendMessageSeen(appData.socket, lastMessage)
                     }
 

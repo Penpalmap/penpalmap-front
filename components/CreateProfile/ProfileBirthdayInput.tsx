@@ -12,6 +12,7 @@ import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 import { ProfileFormData } from '../../types'
 import { useTranslation } from 'next-i18next'
+import { MonthsKeys } from '../../types/translations'
 
 type Props = {
     register: UseFormRegister<ProfileFormData>
@@ -32,6 +33,7 @@ const MONTHS = [
     'November',
     'December',
 ]
+
 const ProfileBirthdayInput: React.FC<Props> = ({
     register,
     setValue,
@@ -40,7 +42,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     const [day, setDay] = useState<number | null>(null)
     const [month, setMonth] = useState<number | null>(null)
     const [year, setYear] = useState<number | null>(null)
-    const { t } = useTranslation(['common', 'months'])
+    const { t } = useTranslation('common')
     const calculateAge = (birthdate: string): number => {
         const now = dayjs()
         const dob = dayjs(birthdate)
@@ -129,7 +131,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
                 >
                     {MONTHS.map((month, index) => (
                         <option key={month} value={index + 1}>
-                            {t(`months:${month}`)}
+                            {t(`months.${month.toLowerCase() as MonthsKeys}`)}
                         </option>
                     ))}
                 </Select>

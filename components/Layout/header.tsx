@@ -46,6 +46,7 @@ const Header = () => {
             userChat: null,
             rooms: [],
             chatOpen: false,
+            socket: null,
         })
         logout()
         localStorage.removeItem('token')

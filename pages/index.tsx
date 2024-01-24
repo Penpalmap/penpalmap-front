@@ -9,11 +9,30 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Modal } from '../components/Elements/Modal'
 import Profile from '../components/Profile'
+import { io } from 'socket.io-client'
+import { useContext, useEffect } from 'react'
+import { AppContext } from '../context/AppContext'
+import { SocketEvents } from '../constants/socketEnum'
 
 export default function Home() {
     const { status, user } = useSession()
     const isMobile = useBreakpointValue({ base: true, md: false })
     const router = useRouter()
+
+    const [, setAppData] = useContext(AppContext)
+
+    useEffect(() => {
+        if (user?.id && status === 'authenticated') {
+            const newSocket = io(process.env.NEXT_PUBLIC_API_URL as string)
+            newSocket.emit(SocketEvents.AddUser, user.id)
+
+            setAppData((prevData) => ({
+                ...prevData,
+                socket: newSocket || null,
+            }))
+        }
+    }, [user?.id, setAppData, status])
+
     return (
         <>
             <Head>

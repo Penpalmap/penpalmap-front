@@ -21,7 +21,7 @@ import {
 import { useRoom } from '../context/RoomsContext'
 
 const useChat = () => {
-    const [room, setRoom] = useState<Room | null>(null)
+    const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
     const { user } = useSession()
     const [appData, setAppData] = useContext(AppContext)
     const [messages, setMessages] = useState<Message[]>([])
@@ -29,17 +29,21 @@ const useChat = () => {
 
     const [isLoading, setIsLoading] = useState(true)
     const [roomIsLoading, setRoomIsLoading] = useState(true)
-    const { updateLastMessageInRoom, setRooms } = useRoom()
+    const {
+        updateLastMessageInRoom,
+        setRooms,
+        resetCountUnreadMessagesOfRoom,
+    } = useRoom()
 
     useEffect(() => {
         const fetchRoom = async () => {
-            if (user?.id) {
+            if (user?.id && appData?.userChat?.id) {
                 const room = await getRoomOfTwoUsers(
                     user.id,
                     appData.userChat.id
                 )
 
-                setRoom(room)
+                setCurrentRoom(room)
                 setIsLoading(false) // Mettre fin au chargement lorsque les informations sont disponibles.
             }
         }
@@ -54,41 +58,40 @@ const useChat = () => {
     }, [appData.userChat, user])
 
     const initialFetchMessages = useCallback(async () => {
-        if (room) {
-            const messagesData = await getMessagesByRoomId(room.id, 20, 0)
+        if (currentRoom) {
+            const messagesData = await getMessagesByRoomId(
+                currentRoom.id,
+                20,
+                0
+            )
             setMessages(messagesData)
             setIsLoading(false)
             setRoomIsLoading(false)
         }
-    }, [room])
+    }, [currentRoom])
 
     useEffect(() => {
         initialFetchMessages()
-    }, [initialFetchMessages, room])
+    }, [initialFetchMessages, currentRoom])
 
     const additonalFetchMessages = useCallback(async () => {
-        if (appData?.userChat && room && !roomIsLoading) {
-            const messagesData = await getMessagesByRoomId(room.id, 20, offset)
+        if (appData?.userChat && currentRoom && !roomIsLoading) {
+            const messagesData = await getMessagesByRoomId(
+                currentRoom.id,
+                20,
+                offset
+            )
 
             setMessages((prevMessages) => [...messagesData, ...prevMessages])
             setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
         }
-    }, [appData?.userChat, room, roomIsLoading, offset])
+    }, [appData?.userChat, currentRoom, roomIsLoading, offset])
 
     useEffect(() => {
         if (offset > 0) {
             additonalFetchMessages()
         }
     }, [additonalFetchMessages, offset])
-
-    const addMessageToRoom = useCallback(
-        async (message: Message) => {
-            setMessages((prevMessages) => [...prevMessages, message])
-
-            updateLastMessageInRoom(message)
-        },
-        [updateLastMessageInRoom]
-    )
 
     const sendMessage = useCallback(
         async (message: MessageInput) => {
@@ -102,32 +105,55 @@ const useChat = () => {
                 })
 
                 const room = await getRoomById(newMessage.roomId)
+                room.countUnreadMessages = '0'
+                setCurrentRoom(room)
                 setRooms((prevRooms) => [...prevRooms, room])
             }
 
             newMessage.receiverId = message.receiverId
 
+            setMessages((prevMessages) => [...prevMessages, newMessage])
+            updateLastMessageInRoom(newMessage)
+
             sendMessageSocket(appData.socket, newMessage)
-            addMessageToRoom(newMessage)
         },
-        [addMessageToRoom, appData.socket, setRooms]
+        [appData.socket, setRooms, updateLastMessageInRoom]
     )
 
     useEffect(() => {
         if (!appData.socket) return
-        onNewMessage(appData.socket, async (message) => {
-            if (message.senderId !== user?.id && room) {
-                addMessageToRoom(message)
 
-                if (appData.chatOpen) {
-                    await updateMessageIsReadByRoom(room.id, message.senderId)
-                    sendMessageSeen(appData.socket, message)
+        onNewMessage(appData.socket, async (message) => {
+            if (!appData.socket) return
+
+            const roomIsSameAsComingMessage = currentRoom?.id === message.roomId
+            const senderUserIsCurrentUser = message.senderId === user?.id
+
+            updateLastMessageInRoom(message)
+
+            if (appData.chatOpen && user?.id) {
+                if (!senderUserIsCurrentUser) {
+                    if (roomIsSameAsComingMessage) {
+                        setMessages((prevMessages) => [
+                            ...prevMessages,
+                            message,
+                        ])
+
+                        sendMessageSeen(appData?.socket, message)
+                        resetCountUnreadMessagesOfRoom(message.roomId)
+                        await updateMessageIsReadByRoom(
+                            message.roomId,
+                            message.senderId
+                        )
+                    }
                 }
             }
         })
 
         onSeenMessage(appData.socket, async (message) => {
-            if (message.senderId === user?.id && room) {
+            const readerIsOtherUser = message.senderId === user?.id
+
+            if (readerIsOtherUser) {
                 setMessages((prevMessages) => {
                     return prevMessages.map((msg) => {
                         if (msg.id === message.id) {
@@ -139,54 +165,33 @@ const useChat = () => {
                         return msg
                     })
                 })
-
-                setAppData({
-                    ...appData,
-                    rooms: appData.rooms.map((room) => {
-                        if (room?.UserRoom?.roomId === message.roomId) {
-                            return {
-                                ...room,
-                                messages: room.messages.map((msg) => {
-                                    if (msg.id === message.id) {
-                                        return {
-                                            ...msg,
-                                            isSeen: true,
-                                        }
-                                    }
-                                    return msg
-                                }),
-                            }
-                        }
-                        return room
-                    }),
-                })
             }
         })
 
         onNewRoom(appData.socket, async (roomId) => {
             const newRoom = await getRoomById(roomId)
-            // addRoomToRooms(newRoom)
             setRooms((prevRooms) => [...prevRooms, newRoom])
         })
 
         return () => {
-            appData.socket.off(SocketEvents.NewMessage)
+            appData?.socket?.off(SocketEvents.NewMessage)
+            appData?.socket?.off(SocketEvents.NewRoom)
         }
     }, [
-        addMessageToRoom,
         appData.socket,
-        room,
+        currentRoom,
         user,
         setAppData,
         appData,
         setRooms,
+        updateLastMessageInRoom,
+        resetCountUnreadMessagesOfRoom,
     ])
 
     return {
         messages: messages,
         sendMessage,
-        room,
-        addMessageToRoom,
+        room: currentRoom,
         offset,
         setOffset,
         isLoading,
