@@ -27,9 +27,11 @@ const LayoutMobile = () => {
                 <Box flex={1}>
                     {mobileView === 'home' && <Map />}
                     {mobileView === 'conversations' && <ConversationList />}
-                    {mobileView === 'profile' && user && (
-                        <Profile profileId={appData.userTarget.id} />
-                    )}
+                    {mobileView === 'profile' &&
+                        user &&
+                        appData?.userTarget?.id && (
+                            <Profile profileId={appData.userTarget.id} />
+                        )}
                     {mobileView === 'settings' && <Settings />}
                     <Chat visible={mobileView === 'chat'} />
                 </Box>

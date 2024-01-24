@@ -23,6 +23,8 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     const { t } = useTranslation('common')
 
     useEffect(() => {
+        if (!appData?.userChat?.id) return
+
         setValue('roomId', room?.id)
         setValue('senderId', senderId)
         setValue('receiverId', appData?.userChat?.id)
@@ -38,11 +40,11 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     const [lastTypingTime, setLastTypingTime] = useState<number | null>(null)
 
     useEffect(() => {
-        if (content) {
+        if (content && appData?.socket && appData?.userChat?.id) {
             const currentTime = Date.now()
             if (!lastTypingTime || currentTime - lastTypingTime >= 3000) {
                 isTyping(appData.socket, {
-                    receiverId: appData?.userChat?.id,
+                    receiverId: appData.userChat.id,
                     senderId: senderId,
                     roomId: room?.id,
                     content: content,

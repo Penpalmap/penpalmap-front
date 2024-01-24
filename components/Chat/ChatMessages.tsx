@@ -10,7 +10,6 @@ import EmptyChatMessages from './EmptyChatMessages'
 import { useTranslation } from 'next-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
-import { useRoom } from '../../context/RoomsContext'
 
 type Props = {
     messages: Array<Message> | undefined
