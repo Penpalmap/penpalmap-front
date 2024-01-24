@@ -31,7 +31,7 @@ const ProfileLocationInput = (props: Props) => {
     const markerRef = useRef<HTMLDivElement>(null)
     const [, setShowMarker] = useState(false)
     const toast = useToast()
-    const { t } = useTranslation(['common', 'months'])
+    const { t } = useTranslation('common')
 
     useEffect(() => {
         if (ref.current && !mapRef.current) {

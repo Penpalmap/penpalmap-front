@@ -120,7 +120,7 @@
     "chat": {
         "IsTyping": "est en train d'écrire...",
         "you": "Vous: ",
-        "send": "Envoyer",
+        "send": "Envoyé",
         "seen": "Vu",
         "engageWith": "Engagez la discussion avec",
         "typeMessage": "Tape ton message...",

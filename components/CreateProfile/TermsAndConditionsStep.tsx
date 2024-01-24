@@ -21,7 +21,7 @@ const TermsAndConditionsStep: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                {t('connect.seeTerns')}
+                {t('connect.seeTerms')}
             </Link>
         </Box>
     )

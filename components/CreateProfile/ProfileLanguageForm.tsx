@@ -166,7 +166,7 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
                     </Select>
 
                     <IconButton
-                        aria-label={t('languages.delete')}
+                        aria-label={t('connect.delete')}
                         icon={<FontAwesomeIcon icon={faTrash} />}
                         onClick={() => {
                             const updatedLanguages = [...languages]

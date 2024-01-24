@@ -34,6 +34,7 @@ export function useRoom() {
 export const RoomProvider = ({ children }: RoomProviderProps) => {
     const [rooms, setRooms] = useState<Room[]>([])
     const { user } = useSession()
+    console.log('RoomProvider', rooms)
 
     useEffect(() => {
         const fetchUserRooms = async () => {
@@ -88,27 +89,19 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         setRooms((prevRooms) => {
             return prevRooms.map((room) => {
                 if (room.id === roomId) {
-                    return {
+                    const newRoom: Room = {
                         ...room,
                         countUnreadMessages: '0',
+                    }
+
+                    return {
+                        ...newRoom,
                     }
                 }
                 return room
             })
         })
     }, [])
-
-    // useEffect(() => {
-    //     if (!appData.socket) return
-    //     onNewMessage(appData.socket, (message) => {
-    //         updateLastMessageInRoom(message)
-    //     })
-
-    //     onSeenMessage(appData.socket, (message) => {
-    //         if (message.senderId !== user?.id) {
-    //             resetCountUnreadMessagesOfRoom(message.roomId)
-    //         }
-    //     })
 
     //     // Met à jour le statut en ligne
     //     onUsersOnline(appData.socket, (usersOnline) => {

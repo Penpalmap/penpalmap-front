@@ -16,10 +16,10 @@ import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
 
 type Props = {
-    name: string
+    name: string | undefined
     photoUrl: string
-    userId: string
-    isOnline: boolean
+    userId: string | undefined
+    isOnline: boolean | undefined
 }
 
 const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
