@@ -34,7 +34,6 @@ export function useRoom() {
 export const RoomProvider = ({ children }: RoomProviderProps) => {
     const [rooms, setRooms] = useState<Room[]>([])
     const { user } = useSession()
-    console.log('RoomProvider', rooms)
 
     useEffect(() => {
         const fetchUserRooms = async () => {

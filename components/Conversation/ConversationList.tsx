@@ -18,8 +18,6 @@ const ConversationList = () => {
 
     const { setMobileView } = useMobileView()
 
-    console.log('ConversationList', rooms)
-
     const clickOnConversation = useCallback(
         async (members) => {
             const userMember = members?.find((member) => member.id !== user?.id)

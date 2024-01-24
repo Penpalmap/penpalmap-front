@@ -105,7 +105,7 @@ export type Room = {
 }
 
 export type UserElement = User & {
-    room: Room
+    room: Room | undefined
     strokeColor: string
 }
 

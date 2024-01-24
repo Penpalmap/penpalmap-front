@@ -59,7 +59,9 @@ const OverlayProfileMap = ({
     const handleClickButtonChat = () => {
         if (userMap) {
             onOpenChat(userMap)
-            resetCountUnreadMessagesOfRoom(userMap.room.id)
+            if (userMap?.room) {
+                resetCountUnreadMessagesOfRoom(userMap.room.id)
+            }
         }
         setMobileView('chat')
     }

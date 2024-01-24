@@ -28,12 +28,6 @@ const Chat = ({ visible }) => {
             borderTopRadius={'8'}
             zIndex={10000}
         >
-            <Text color={'red.500'} fontWeight={'bold'} px={4} py={2}>
-                socket id : {appData?.socket?.id}
-            </Text>
-            <Text color={'green.500'} fontWeight={'bold'} px={4} py={2}>
-                room id : {room?.id}
-            </Text>
             <ChatHeader
                 name={appData?.userChat?.name}
                 photoUrl={
