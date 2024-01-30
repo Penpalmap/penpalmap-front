@@ -39,8 +39,8 @@ const Map = () => {
                     onOpenChat={() => {
                         setData({
                             ...data,
-                            chatOpen: true,
                             userChat: data.userTarget,
+                            chatOpen: true,
                         })
                     }}
                 />
