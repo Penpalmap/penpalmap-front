@@ -47,8 +47,8 @@ const SearchAndZoom: React.FC<SearchAndZoomProps> = ({ mapObj }) => {
     return (
         <Box
             position="absolute"
-            top="4"
-            left="4"
+            top="2"
+            left="10"
             width={{ base: '80%', md: '400px' }}
             maxWidth="100%"
             zIndex="1"
