@@ -144,8 +144,7 @@ const CreateProfile = () => {
             case 4:
                 return <ProfileLocationInput setValue={setValue} />
             case 5:
-                return <ProfileBioForm register={register}
-                setValue={setValue} />
+                return <ProfileBioForm register={register} />
             case 6:
                 return <ProfileLanguageForm setValue={setValue} />
             default:
