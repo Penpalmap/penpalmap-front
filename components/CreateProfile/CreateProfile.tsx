@@ -33,6 +33,7 @@ const CreateProfile = () => {
     const selectedGender = watch('gender')
     const usersLanguages = watch('userLanguages')
     const watchForm = watch()
+    const bio = watch('bio')
 
     const [isUnderage, setIsUnderage] = useState(true)
 
@@ -62,7 +63,7 @@ const CreateProfile = () => {
             case 4:
                 return !watchForm.latitude || !watchForm.longitude
             case 5:
-                return false
+                return bio.length <= 0
             case 6:
                 return !isFormLanguageValid()
             default:
@@ -70,12 +71,13 @@ const CreateProfile = () => {
         }
     }, [
         activeStep,
+        usersLanguages,
         selectedGender,
         watchForm.birthday,
         watchForm.latitude,
         watchForm.longitude,
         isUnderage,
-        usersLanguages,
+        bio.length,
     ])
 
     //check avec getUserById si l'utilisateur a déjà un profil
@@ -165,6 +167,7 @@ const CreateProfile = () => {
                 handleNextStep={goToNext}
                 handlePreviousStep={goToPrevious}
                 disabled={disabledCondition}
+                canBeSkipped={activeStep === 3 || activeStep === 5}
             >
                 {renderActiveStep}
             </LayoutCreationProfile>

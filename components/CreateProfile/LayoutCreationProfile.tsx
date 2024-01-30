@@ -1,9 +1,17 @@
-import { Box, Button, Flex, Text, Image, keyframes } from '@chakra-ui/react'
+import {
+    Box,
+    Button,
+    Flex,
+    Text,
+    Image,
+    keyframes,
+    IconButton,
+} from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faArrowLeft,
     faArrowRight,
     faCheck,
+    faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
 
@@ -13,6 +21,7 @@ type LayoutCreationProfileProps = {
     handlePreviousStep: () => void
     children: React.ReactNode
     disabled?: boolean
+    canBeSkipped?: boolean
 }
 
 const LayoutCreationProfile = ({
@@ -21,6 +30,7 @@ const LayoutCreationProfile = ({
     handleNextStep,
     handlePreviousStep,
     disabled,
+    canBeSkipped,
 }: LayoutCreationProfileProps) => {
     const { t } = useTranslation('common')
 
@@ -95,15 +105,30 @@ const LayoutCreationProfile = ({
                 overflow="hidden"
             >
                 <Box mb={8}>
-                    <Box mb={8}>
-                        <Text
-                            fontSize={'2xl'}
-                            fontWeight={'bold'}
-                            textAlign={'center'}
-                        >
-                            {steps?.[activeStep]?.titlePage}
-                        </Text>
-                    </Box>
+                    <Flex mb={8} alignItems={'center'} gap={4}>
+                        {activeStep !== 0 && (
+                            <IconButton
+                                onClick={handlePreviousStep}
+                                variant={'solid'}
+                                background={'white'}
+                                _hover={{ backgroundColor: 'gray.100' }}
+                                textColor="gray.400"
+                                icon={<FontAwesomeIcon icon={faChevronLeft} />}
+                                aria-label="Previous step"
+                            >
+                                {t('connect.previous')}
+                            </IconButton>
+                        )}
+                        <Box flex={1}>
+                            <Text
+                                fontSize={'xl'}
+                                fontWeight={'bold'}
+                                textAlign={'center'}
+                            >
+                                {steps?.[activeStep]?.titlePage}
+                            </Text>
+                        </Box>
+                    </Flex>
 
                     <Flex
                         alignItems={'center'}
@@ -117,33 +142,37 @@ const LayoutCreationProfile = ({
                 <Flex
                     justifyContent={hasBackButton ? 'space-between' : 'center'}
                 >
-                    {activeStep !== 0 && (
-                        <Button
-                            w={'30%'}
-                            onClick={handlePreviousStep}
-                            colorScheme="white"
-                            textColor="gray.400"
-                            leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-                        >
-                            {t('connect.previous')}
-                        </Button>
-                    )}
                     {activeStep !== 6 ? (
-                        <Button
-                            w={'50%'}
-                            onClick={handleNextStep}
-                            colorScheme="#3EB6A0"
-                            backgroundColor={'#3EB6A0'}
-                            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
-                            isDisabled={disabled}
-                        >
-                            {activeStep === 0
-                                ? t('connect.validateConnections')
-                                : t('connect.next')}
-                        </Button>
+                        <>
+                            {canBeSkipped && (
+                                <Button
+                                    flex={1}
+                                    onClick={handleNextStep}
+                                    variant={'ghost '}
+                                    textColor="gray.800"
+                                >
+                                    {t('connect.skip')}
+                                </Button>
+                            )}
+                            <Button
+                                flex={1}
+                                w={canBeSkipped ? '30%' : '50%'}
+                                onClick={handleNextStep}
+                                colorScheme="#3EB6A0"
+                                backgroundColor={'#3EB6A0'}
+                                rightIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                isDisabled={disabled}
+                            >
+                                {activeStep === 0
+                                    ? t('connect.validateConnections')
+                                    : t('connect.next')}
+                            </Button>
+                        </>
                     ) : (
                         <Button
-                            w={'50%'}
+                            flex={1}
                             colorScheme="green"
                             type="submit"
                             rightIcon={<FontAwesomeIcon icon={faCheck} />}
