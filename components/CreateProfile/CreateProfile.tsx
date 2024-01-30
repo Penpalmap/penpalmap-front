@@ -34,7 +34,6 @@ const CreateProfile = () => {
     const usersLanguages = watch('userLanguages')
     const watchForm = watch()
     const bio = watch('bio')
-
     const [isUnderage, setIsUnderage] = useState(true)
 
     const disabledCondition = useMemo(() => {
@@ -63,7 +62,7 @@ const CreateProfile = () => {
             case 4:
                 return !watchForm.latitude || !watchForm.longitude
             case 5:
-                return bio?.length <= 0
+                return bio && bio.length <= 0
             case 6:
                 return !isFormLanguageValid()
             default:
@@ -77,7 +76,7 @@ const CreateProfile = () => {
         watchForm.latitude,
         watchForm.longitude,
         isUnderage,
-        bio.length,
+        bio,
     ])
 
     //check avec getUserById si l'utilisateur a déjà un profil
