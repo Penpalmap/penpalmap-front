@@ -187,7 +187,9 @@ const Profile = ({ profileId }: Props) => {
                 >
                     A propos
                 </Text>
-                <Text fontWeight={'semibold'}>{user?.bio}</Text>
+                <Text textAlign={'center'} fontWeight={'semibold'}>
+                    {user?.bio}
+                </Text>
             </Flex>
         )
     }, [user?.bio])
