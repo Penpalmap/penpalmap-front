@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import View from 'ol/View'
-import { defaults as defaultControls } from 'ol/control'
+import { ScaleLine, defaults as defaultControls } from 'ol/control'
 import TileLayer from 'ol/layer/Tile'
 import { fromLonLat, transformExtent } from 'ol/proj'
 import { Feature, Map as OLMap, Overlay } from 'ol'
@@ -185,9 +185,12 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
                     'EPSG:4326',
                     'EPSG:3857'
                 ),
+                enableRotation: false,
             }),
 
-            controls: defaultControls({ zoom: false }),
+            controls: defaultControls({ zoom: true }).extend([
+                new ScaleLine(), // Add ScaleLine control
+            ]),
         })
 
         getUsers()
