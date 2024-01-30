@@ -9,7 +9,7 @@ import {
     Link,
     Image,
 } from '@chakra-ui/react'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import NextLink from 'next/link'
 import useLocation from '../../hooks/useLocation'
@@ -28,8 +28,10 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
     const { mobileView, setMobileView } = useMobileView()
 
     const { city, country, flag } = useLocation(
-        appData?.userChat?.geomR?.coordinates?.[1] || appData?.userChat?.geom?.coordinates?.[1],
-        appData?.userChat?.geomR?.coordinates?.[0] || appData?.userChat?.geom?.coordinates?.[0]
+        appData?.userChat?.geomR?.coordinates?.[1] ||
+            appData?.userChat?.geom?.coordinates?.[1],
+        appData?.userChat?.geomR?.coordinates?.[0] ||
+            appData?.userChat?.geom?.coordinates?.[0]
     )
 
     const onCloseChat = () => {
