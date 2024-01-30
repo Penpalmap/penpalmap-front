@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import View from 'ol/View'
-import { Zoom, ZoomSlider, defaults as defaultControls } from 'ol/control'
+import { defaults as defaultControls } from 'ol/control'
 import TileLayer from 'ol/layer/Tile'
 import { fromLonLat, transformExtent } from 'ol/proj'
 import { Feature, Map as OLMap, Overlay } from 'ol'
@@ -28,7 +28,7 @@ interface UseMapResult {
     overlayRef: Overlay | null
 }
 
-const useMap = ({ center, zoom }: UseMapOptions): UseMapResult => {
+const useMap = ({}: UseMapOptions): UseMapResult => {
     const mapContainerRef = useRef<HTMLDivElement>(null)
     const mapObj = useRef<OLMap | null>(null)
     const [users, setUsers] = useState<UserMap[]>([])
@@ -158,12 +158,14 @@ const useMap = ({ center, zoom }: UseMapOptions): UseMapResult => {
     // Initialize the map
     useEffect(() => {
         if (!mapContainerRef.current || !currentUser) return undefined
+
         const map = new OLMap({
             target: mapContainerRef.current,
             layers: [
                 new TileLayer({
                     preload: Infinity,
                     zIndex: 0,
+
                     source: new XYZ({
                         url: 'https://api.mapbox.com/styles/v1/gabnoire/cjpzpqvr03a5h2sqidpht5qhm/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2Fibm9pcmUiLCJhIjoiY2p0ZmhtYTVvMDVqcDQzb2NiYXY1YW4xMyJ9.9AquqYCdPTiPiDNmh7dMhQ',
                         crossOrigin: 'anonymous',
@@ -183,11 +185,10 @@ const useMap = ({ center, zoom }: UseMapOptions): UseMapResult => {
                     'EPSG:4326',
                     'EPSG:3857'
                 ),
+                enableRotation: false,
             }),
 
-            controls: defaultControls().extend([
-                new Zoom(), // Add Zoom control
-            ]),
+            controls: defaultControls({ zoom: true }),
         })
 
         getUsers()
