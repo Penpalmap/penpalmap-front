@@ -12,6 +12,7 @@ import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
 import TermsAndConditionsStep from './TermsAndConditionsStep'
+import { ProfileBioForm } from './ProfileBioForm'
 
 const CreateProfile = () => {
     // const { data: session, status, update: updateSession } = useSession()
@@ -26,13 +27,18 @@ const CreateProfile = () => {
 
     const { activeStep, goToNext, goToPrevious } = useSteps({
         index: 0,
-        count: 5,
+        count: 6,
     })
     const toast = useToast()
     const selectedGender = watch('gender')
     const usersLanguages = watch('userLanguages')
     const watchForm = watch()
+    const bio = watch('bio')
 
+    const bioLength = useMemo(() => {
+        if (bio) return bio.length
+        return 0
+    }, [bio])
     const [isUnderage, setIsUnderage] = useState(true)
 
     const disabledCondition = useMemo(() => {
@@ -61,18 +67,21 @@ const CreateProfile = () => {
             case 4:
                 return !watchForm.latitude || !watchForm.longitude
             case 5:
+                return bioLength <= 0 || bioLength > 200
+            case 6:
                 return !isFormLanguageValid()
             default:
                 return false
         }
     }, [
         activeStep,
+        usersLanguages,
         selectedGender,
         watchForm.birthday,
         watchForm.latitude,
         watchForm.longitude,
         isUnderage,
-        usersLanguages,
+        bioLength,
     ])
 
     //check avec getUserById si l'utilisateur a déjà un profil
@@ -141,6 +150,8 @@ const CreateProfile = () => {
             case 4:
                 return <ProfileLocationInput setValue={setValue} />
             case 5:
+                return <ProfileBioForm register={register} />
+            case 6:
                 return <ProfileLanguageForm setValue={setValue} />
             default:
                 return null
@@ -160,6 +171,7 @@ const CreateProfile = () => {
                 handleNextStep={goToNext}
                 handlePreviousStep={goToPrevious}
                 disabled={disabledCondition}
+                canBeSkipped={activeStep === 3 || activeStep === 5}
             >
                 {renderActiveStep}
             </LayoutCreationProfile>

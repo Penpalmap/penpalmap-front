@@ -78,6 +78,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
                         ref(e)
                         inputRef.current = e
                     }}
+                    autoComplete="off"
                 />
                 <IconButton
                     borderRadius={'full'}

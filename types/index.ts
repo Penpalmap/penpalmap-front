@@ -14,6 +14,7 @@ export type ProfileFormData = {
     isNewUser: boolean
     latitude: number
     longitude: number
+    bio: string
 }
 
 export type Message = {
