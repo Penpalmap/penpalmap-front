@@ -30,6 +30,7 @@ const LayoutCreationProfile = ({
         { title: 'Birthday', titlePage: t('connect.selectBirthdate') },
         { title: 'Photos', titlePage: t('connect.selectPhoto') },
         { title: 'Map', titlePage: t('connect.pickLocation') },
+        { title: 'Bio', titlePage: t('profil.EnterDescription') },
         { title: 'Language', titlePage: t('connect.selectLanguage') },
     ]
 
@@ -127,7 +128,7 @@ const LayoutCreationProfile = ({
                             {t('connect.previous')}
                         </Button>
                     )}
-                    {activeStep !== 5 ? (
+                    {activeStep !== 6 ? (
                         <Button
                             w={'50%'}
                             onClick={handleNextStep}

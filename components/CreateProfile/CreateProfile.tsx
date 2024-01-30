@@ -12,6 +12,7 @@ import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
 import TermsAndConditionsStep from './TermsAndConditionsStep'
+import { ProfileBioForm } from './ProfileBioForm'
 
 const CreateProfile = () => {
     // const { data: session, status, update: updateSession } = useSession()
@@ -26,7 +27,7 @@ const CreateProfile = () => {
 
     const { activeStep, goToNext, goToPrevious } = useSteps({
         index: 0,
-        count: 5,
+        count: 6,
     })
     const toast = useToast()
     const selectedGender = watch('gender')
@@ -61,6 +62,8 @@ const CreateProfile = () => {
             case 4:
                 return !watchForm.latitude || !watchForm.longitude
             case 5:
+                return false
+            case 6:
                 return !isFormLanguageValid()
             default:
                 return false
@@ -141,6 +144,9 @@ const CreateProfile = () => {
             case 4:
                 return <ProfileLocationInput setValue={setValue} />
             case 5:
+                return <ProfileBioForm register={register}
+                setValue={setValue} />
+            case 6:
                 return <ProfileLanguageForm setValue={setValue} />
             default:
                 return null
