@@ -1,5 +1,5 @@
-import { Box, FormControl, Input, Textarea } from '@chakra-ui/react'
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { Box, FormControl, Textarea } from '@chakra-ui/react'
+import { UseFormRegister } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 import { useTranslation } from 'next-i18next'
 
