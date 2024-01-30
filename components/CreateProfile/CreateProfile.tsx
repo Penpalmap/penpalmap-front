@@ -63,7 +63,7 @@ const CreateProfile = () => {
             case 4:
                 return !watchForm.latitude || !watchForm.longitude
             case 5:
-                return bio.length <= 0
+                return bio?.length <= 0
             case 6:
                 return !isFormLanguageValid()
             default:
