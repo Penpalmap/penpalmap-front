@@ -49,18 +49,18 @@
     "validateConnections": "Ich akzeptiere die Bedingungen"
   },
   "months": {
-    "january": "common:Januar",
-    "february": "common:Februar",
-    "march": "common:März",
-    "april": "common:April",
-    "may": "common:Mai",
-    "june": "common:Juni",
-    "july": "common:Juli",
-    "august": "common:August",
-    "september": "common:September",
-    "october": "common:Oktober",
-    "november": "common:November",
-    "december": "common:Dezember"
+    "january": "Januar",
+    "february": "Februar",
+    "march": "März",
+    "april": "April",
+    "may": "Mai",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "August",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Dezember"
   },
   "profileGenderInput": {
     "woman": "Frau",

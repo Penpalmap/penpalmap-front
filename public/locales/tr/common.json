@@ -49,18 +49,18 @@
     "validateConnections": "Koşulları Kabul Ediyorum"
   },
   "months": {
-    "january": "common:Ocak",
-    "february": "common:Şubat",
-    "march": "common:Mart",
-    "april": "common:Nisan",
-    "may": "common:Mayıs",
-    "june": "common:Haziran",
-    "july": "common:Temmuz",
-    "august": "common:Ağustos",
-    "september": "common:Eylül",
-    "october": "common:Ekim",
-    "november": "common:Kasım",
-    "december": "common:Aralık"
+    "january": "Ocak",
+    "february": "Şubat",
+    "march": "Mart",
+    "april": "Nisan",
+    "may": "Mayıs",
+    "june": "Haziran",
+    "july": "Temmuz",
+    "august": "Ağustos",
+    "september": "Eylül",
+    "october": "Ekim",
+    "november": "Kasım",
+    "december": "Aralık"
   },
   "profileGenderInput": {
     "woman": "Kadın",

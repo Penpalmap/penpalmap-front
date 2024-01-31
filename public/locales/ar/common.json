@@ -43,18 +43,18 @@
     "AcceptClose": "قبول وإغلاق"
   },
   "months": {
-    "january": "common:كانون الثاني",
-    "february": "common:شباط",
-    "march": "common:آذار",
-    "april": "common:نيسان",
-    "may": "common:أيار",
-    "june": "common:حزيران",
-    "july": "common:تموز",
-    "august": "common:آب",
-    "september": "common:أيلول",
-    "october": "common:تشرين الأول",
-    "november": "common:تشرين الثاني",
-    "december": "common:كانون الأول"
+    "january": "كانون الثاني",
+    "february": "شباط",
+    "march": "آذار",
+    "april": "نيسان",
+    "may": "أيار",
+    "june": "حزيران",
+    "july": "تموز",
+    "august": "آب",
+    "september": "أيلول",
+    "october": "تشرين الأول",
+    "november": "تشرين الثاني",
+    "december": "كانون الأول"
   },
   "profileGenderInput": {
     "woman": "امرأة",

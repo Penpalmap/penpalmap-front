@@ -49,18 +49,18 @@
     "validateConnections": "我接受条款"
   },
   "months": {
-    "january": "common:一月",
-    "february": "common:二月",
-    "march": "common:三月",
-    "april": "common:四月",
-    "may": "common:五月",
-    "june": "common:六月",
-    "july": "common:七月",
-    "august": "common:八月",
-    "september": "common:九月",
-    "october": "common:十月",
-    "november": "common:十一月",
-    "december": "common:十二月"
+    "january": "一月",
+    "february": "二月",
+    "march": "三月",
+    "april": "四月",
+    "may": "五月",
+    "june": "六月",
+    "july": "七月",
+    "august": "八月",
+    "september": "九月",
+    "october": "十月",
+    "november": "十一月",
+    "december": "十二月"
   },
   "profileGenderInput": {
     "woman": "女性",

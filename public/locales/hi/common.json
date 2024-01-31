@@ -49,18 +49,18 @@
     "validateConnections": "मैं शर्तें स्वीकार करता हूँ"
   },
   "months": {
-    "january": "common:जनवरी",
-    "february": "common:फरवरी",
-    "march": "common:मार्च",
-    "april": "common:अप्रैल",
-    "may": "common:मई",
-    "june": "common:जून",
-    "july": "common:जुलाई",
-    "august": "common:अगस्त",
-    "september": "common:सितंबर",
-    "october": "common:अक्टूबर",
-    "november": "common:नवंबर",
-    "december": "common:दिसंबर"
+    "january": "जनवरी",
+    "february": "फरवरी",
+    "march": "मार्च",
+    "april": "अप्रैल",
+    "may": "मई",
+    "june": "जून",
+    "july": "जुलाई",
+    "august": "अगस्त",
+    "september": "सितंबर",
+    "october": "अक्टूबर",
+    "november": "नवंबर",
+    "december": "दिसंबर"
   },
   "profileGenderInput": {
     "woman": "महिला",

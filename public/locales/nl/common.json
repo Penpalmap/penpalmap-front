@@ -49,18 +49,18 @@
     "validateConnections": "Ik accepteer de voorwaarden"
   },
   "months": {
-    "january": "common:Januari",
-    "february": "common:Februari",
-    "march": "common:Maart",
-    "april": "common:April",
-    "may": "common:Mei",
-    "june": "common:Juni",
-    "july": "common:Juli",
-    "august": "common:Augustus",
-    "september": "common:September",
-    "october": "common:Oktober",
-    "november": "common:November",
-    "december": "common:December"
+    "january": "Januari",
+    "february": "Februari",
+    "march": "Maart",
+    "april": "April",
+    "may": "Mei",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "Augustus",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "December"
   },
   "profileGenderInput": {
     "woman": "Vrouw",

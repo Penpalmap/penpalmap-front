@@ -49,18 +49,18 @@
     "validateConnections": "Я принимаю условия"
   },
   "months": {
-    "january": "common:Январь",
-    "february": "common:Февраль",
-    "march": "common:Март",
-    "april": "common:Апрель",
-    "may": "common:Май",
-    "june": "common:Июнь",
-    "july": "common:Июль",
-    "august": "common:Август",
-    "september": "common:Сентябрь",
-    "october": "common:Октябрь",
-    "november": "common:Ноябрь",
-    "december": "common:Декабрь"
+    "january": "Январь",
+    "february": "Февраль",
+    "march": "Март",
+    "april": "Апрель",
+    "may": "Май",
+    "june": "Июнь",
+    "july": "Июль",
+    "august": "Август",
+    "september": "Сентябрь",
+    "october": "Октябрь",
+    "november": "Ноябрь",
+    "december": "Декабрь"
   },
   "profileGenderInput": {
     "woman": "Женщина",

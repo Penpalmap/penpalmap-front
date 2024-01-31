@@ -49,18 +49,18 @@
     "validateConnections": "Saya terima syarat"
   },
   "months": {
-    "january": "common:Januari",
-    "february": "common:Februari",
-    "march": "common:Maret",
-    "april": "common:April",
-    "may": "common:Mei",
-    "june": "common:Juni",
-    "july": "common:Juli",
-    "august": "common:Agustus",
-    "september": "common:September",
-    "october": "common:Oktober",
-    "november": "common:November",
-    "december": "common:Desember"
+    "january": "Januari",
+    "february": "Februari",
+    "march": "Maret",
+    "april": "April",
+    "may": "Mei",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "Agustus",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Desember"
   },
   "profileGenderInput": {
     "woman": "Wanita",
