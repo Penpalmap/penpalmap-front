@@ -22,7 +22,6 @@ type Props = {
 }
 
 const formatDate = (dateString: string) => {
-    console.log(dateString)
     const date = new Date(dateString)
     const currentDate = new Date()
 
