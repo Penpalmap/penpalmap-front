@@ -10,6 +10,7 @@ import EmptyChatMessages from './EmptyChatMessages'
 import { useTranslation } from 'next-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { format } from 'date-fns'
 import React from 'react'
 
 type Props = {
@@ -18,6 +19,16 @@ type Props = {
   offset: number
   setOffset: (offset: number) => void
   isLoading: boolean
+}
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  const currentDate = new Date()
+
+  const sameYear = date.getFullYear() === currentDate.getFullYear()
+  const formatString = sameYear ? 'MMMM d' : 'MMMM d, yyyy'
+
+  return format(date, formatString)
 }
 
 const ChatMessages = ({
@@ -118,6 +129,8 @@ const ChatMessages = ({
   }, [sortedMessages])
 
   const renderMessages = useMemo(() => {
+    let currentDate = ''
+
     return sortedMessages?.map((message, index) => {
       const isLastMessage = index === sortedMessages.length - 1
       const isOwnMessage = user?.id === message.senderId
@@ -125,14 +138,27 @@ const ChatMessages = ({
 
       const isSameSender = lastSenderId.current === message.senderId
 
-      lastSenderId.current = message.senderId
+      // Ajout de cette vérification pour éviter l'erreur de TypeScript
+      const previousMessage = index > 0 ? sortedMessages[index - 1] : null
+      const hasPreviousSameSender =
+        (previousMessage && previousMessage.senderId === message.senderId) ??
+        false
 
       const image =
         appData?.userChat?.image ??
         `/images/avatar/${genderFolder}/${appData.userChat?.avatarNumber}.png`
 
+      const messageDate = formatDate(message.createdAt)
+
+      const showDate =
+        !isLastMessage &&
+        index > 0 &&
+        previousMessage &&
+        messageDate !== formatDate(previousMessage.createdAt)
+
       // if top message, put a ref to scroll to it
       if (index === 0) {
+        currentDate = messageDate
         return (
           <Box
             key={message.id}
@@ -140,6 +166,9 @@ const ChatMessages = ({
             display={'flex'}
             flexDirection={'column'}
           >
+            <Text textAlign="center" mt={2} mb={2} fontSize="small">
+              {currentDate}
+            </Text>
             <MessageItem
               key={message.id}
               content={message.content}
@@ -151,15 +180,28 @@ const ChatMessages = ({
           </Box>
         )
       }
+
+      if (showDate) {
+        currentDate = messageDate
+      }
+
       return (
-        <MessageItem
-          key={message.id}
-          content={message.content}
-          isLastMessage={isLastMessage}
-          isOwnMessage={isOwnMessage}
-          seenText={seenText}
-          image={(!isSameSender && image) || ''}
-        />
+        <React.Fragment key={message.id}>
+          {showDate && (
+            <Text textAlign="center" mt={2} mb={2} fontSize="small">
+              {currentDate}
+            </Text>
+          )}
+          <MessageItem
+            key={message.id}
+            content={message.content}
+            isLastMessage={isLastMessage}
+            isOwnMessage={isOwnMessage}
+            seenText={seenText}
+            image={(!isSameSender && image) || ''}
+            hasPreviousSameSender={hasPreviousSameSender}
+          />
+        </React.Fragment>
       )
     })
   }, [

@@ -6,6 +6,7 @@ type MessageItemProps = {
   isOwnMessage: boolean
   seenText: string
   image: string
+  hasPreviousSameSender?: boolean
 }
 
 const MessageItem = ({
@@ -14,6 +15,7 @@ const MessageItem = ({
   isOwnMessage,
   seenText,
   image,
+  hasPreviousSameSender,
 }: MessageItemProps) => {
   return (
     <Flex
@@ -34,14 +36,26 @@ const MessageItem = ({
 
       <Box display={'flex'} flexDirection={'column'}>
         <Box
-          mb={1}
-          bg={isOwnMessage ? 'blue.500' : 'gray.200'}
+          mb={0.5}
+          bg={isOwnMessage ? 'teal' : 'gray.200'}
           px={3}
           py={'6px'}
           borderRadius={'2xl'}
+          borderBottomRightRadius={isOwnMessage ? 'md' : '2xl'}
+          borderBottomLeftRadius={isOwnMessage ? '2xl' : 'md'}
+          borderTopRightRadius={
+            hasPreviousSameSender && isOwnMessage ? 'md' : '2xl'
+          }
+          borderTopLeftRadius={
+            hasPreviousSameSender && !isOwnMessage ? 'md' : '2xl'
+          }
           ml={!isOwnMessage && !image ? 10 : 0}
         >
-          <Text fontSize={'.8em'} color={isOwnMessage ? 'white' : 'black'}>
+          <Text
+            fontSize={isOwnMessage ? '.9em' : '.9em'} // Adjust font size here
+            color={isOwnMessage ? 'white' : 'black'}
+            fontWeight={'normal'}
+          >
             {content}
           </Text>
         </Box>
