@@ -5,57 +5,54 @@ import { Box } from '@chakra-ui/react'
 import { Map } from 'ol'
 
 interface SearchAndZoomProps {
-    mapObj: RefObject<Map>
+  mapObj: RefObject<Map>
 }
 
 const SearchAndZoom: React.FC<SearchAndZoomProps> = ({ mapObj }) => {
-    const handleLocationSelected = (lon: string, lat: string) => {
-        if (!mapObj.current) return
+  const handleLocationSelected = (lon: string, lat: string) => {
+    if (!mapObj.current) return
 
-        const numericLat = parseFloat(lat)
-        const numericLon = parseFloat(lon)
-        const destination = fromLonLat([numericLon, numericLat]) as [
-            number,
-            number
-        ]
+    const numericLat = parseFloat(lat)
+    const numericLon = parseFloat(lon)
+    const destination = fromLonLat([numericLon, numericLat]) as [number, number]
 
-        const view = mapObj.current.getView()
-        const currentCenter = view.getCenter() as [number, number] | undefined
-        const currentZoom = view.getZoom()
+    const view = mapObj.current.getView()
+    const currentCenter = view.getCenter() as [number, number] | undefined
+    const currentZoom = view.getZoom()
 
-        if (!currentCenter || currentZoom === undefined) return
+    if (!currentCenter || currentZoom === undefined) return
 
-        const distance = Math.sqrt(
-            Math.pow(currentCenter[0] - destination[0], 2) +
-                Math.pow(currentCenter[1] - destination[1], 2)
-        )
-
-        const intermediateZoom =
-            distance < 1000000
-                ? currentZoom
-                : distance < 6000000
-                ? currentZoom - 1
-                : currentZoom - 4
-
-        view.animate(
-            { zoom: intermediateZoom, duration: 700 },
-            { center: destination, duration: 1000 },
-            { zoom: 10, duration: 700 }
-        )
-    }
-
-    return (
-        <Box
-            position="absolute"
-            top="2"
-            left="10"
-            width={{ base: '80%', md: '400px' }}
-            maxWidth="100%"
-            zIndex="1"
-        >
-            <CitySearchInput onLocationSelected={handleLocationSelected} />
-        </Box>
+    const distance = Math.sqrt(
+      Math.pow(currentCenter[0] - destination[0], 2) +
+        Math.pow(currentCenter[1] - destination[1], 2)
     )
+
+    const intermediateZoom =
+      distance < 1000000
+        ? currentZoom
+        : distance < 6000000
+        ? currentZoom - 1
+        : currentZoom - 4
+
+    view.animate(
+      { zoom: intermediateZoom, duration: 700 },
+      { center: destination, duration: 1000 },
+      { zoom: 10, duration: 700 }
+    )
+  }
+
+  return (
+    <Box
+      position="absolute"
+      top="2"
+      left="10"
+      width={{ base: '80%', md: '400px' }}
+      maxWidth="100%"
+      zIndex="1"
+    >
+      <CitySearchInput onLocationSelected={handleLocationSelected} />
+    </Box>
+  )
 }
 
 export default SearchAndZoom

@@ -11,40 +11,40 @@ import { Geometry } from 'ol/geom'
 import VectorSource from 'ol/source/Vector'
 
 export function pulse(
-    feature: Feature,
-    userLayer: VectorLayer<VectorSource<Geometry>>,
-    mapObj: OLMap | null,
-    duration = 3500
+  feature: Feature,
+  userLayer: VectorLayer<VectorSource<Geometry>>,
+  mapObj: OLMap | null,
+  duration = 3500
 ) {
-    const animate = (event) => {
-        const frameState = event.frameState
-        const elapsed = frameState.time - start
-        if (elapsed >= duration) {
-            unByKey(listenerKey)
-            return
-        }
-        const vectorContext = getVectorContext(event)
-        const elapsedRatio = elapsed / duration
-        const radius = easeOut(elapsedRatio) * 42 + 5
-        const opacity = easeOut(1 - elapsedRatio)
-
-        const style = new Style({
-            image: new CircleStyle({
-                radius: radius,
-                fill: new Fill({
-                    color: 'rgba(62, 182, 160,' + opacity + ')',
-                }),
-                displacement: [-2, 2],
-            }),
-        })
-
-        vectorContext.setStyle(style)
-        vectorContext.drawGeometry(flashGeom as Geometry)
-        // tell OpenLayers to continue postrender animation
-        mapObj?.render() // Utilisation sécurisée de mapObj
+  const animate = (event) => {
+    const frameState = event.frameState
+    const elapsed = frameState.time - start
+    if (elapsed >= duration) {
+      unByKey(listenerKey)
+      return
     }
+    const vectorContext = getVectorContext(event)
+    const elapsedRatio = elapsed / duration
+    const radius = easeOut(elapsedRatio) * 42 + 5
+    const opacity = easeOut(1 - elapsedRatio)
 
-    const start = Date.now()
-    const flashGeom = feature?.getGeometry()?.clone()
-    const listenerKey = userLayer.on('prerender', animate)
+    const style = new Style({
+      image: new CircleStyle({
+        radius: radius,
+        fill: new Fill({
+          color: 'rgba(62, 182, 160,' + opacity + ')',
+        }),
+        displacement: [-2, 2],
+      }),
+    })
+
+    vectorContext.setStyle(style)
+    vectorContext.drawGeometry(flashGeom as Geometry)
+    // tell OpenLayers to continue postrender animation
+    mapObj?.render() // Utilisation sécurisée de mapObj
+  }
+
+  const start = Date.now()
+  const flashGeom = feature?.getGeometry()?.clone()
+  const listenerKey = userLayer.on('prerender', animate)
 }

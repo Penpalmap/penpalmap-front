@@ -1,63 +1,86 @@
 # Penpalmap-front
-L'app front de Penpalmap
 
-## Installation
-1. Cloner le dépôt localement 
-```
-git clone https://github.com/Penpalmap/penpalmap-front.git
-```
+## About penpalmap-front
 
-2. Installer les dépendances
-```
-npm install
-```
+UI for Penpalmap project. Based on Next.js and Chakra UI.
 
-3. Démarrer l'application en développement
-```
-npm run dev
-```  
+## Prerequisites
 
-Le serveur de développement démarrera sur http://localhost:3000.  
+To run `penpalmap-front`, ensure your system has the following:
 
-## Configuration
-1. Renommez le .env.example en .env
-2. Les variables du .env correspondent à :  
-- NEXT_PUBLIC_API_URL: L'URL de l'API  
-- ENVIRONMENT: Environnement sur lequel on se trouve
-- NEXT_PUBLIC_GOOGLE_CLIENT_ID: client ID Google
-- NEXT_PUBLIC_GOOGLE_SECRET_ID: Secret ID Google
-- NEXT_PUBLIC_JWT_SECRET: Mot de passe secret pour JWT
+- Node.js version 20 or higher.
+- Docker with Docker Compose plugin.
 
+## Installation and Configuration
 
-## Structure du projet
-  
-- pages/: Chaque fichier et dossier represente une route de l'application
-- components/: Tous les composants de l'application
-- styles/: Styles liés à Openlayer et custom theme pour Chakra UI
-- public : Répertoire contenant les fichiers statiques (images, polices, etc.) accessibles publiquement.
-- utils/ : Répertoire contenant les utilitaires et les fonctions réutilisables.
-- api/: Répertoire contenant les fichiers avec des fonctions d'appel à l'API
-- context/: Répertoire contenant les fichiers de contexte (pour avoir des variables accessibles sur toute l'app)
-- hooks/ : Répertoire contenant les hooks personnalisés utilisés dans l'application.
-- types/: Répertoire contenant les fichiers avec les types (TS)
+1. **Installing Dependencies**: Install the required dependencies using:
 
-## Outils principaux
-- **Next.js**
-- **Chakra UI** pour le stylage de l'application
-- **React Hook Form** pour la gestion des formulaires
-- **React** 18.2.0  
-- **Next Auth** pour l'authentification
-- **Openlayer** pour la gestion de la Map
-- **Socket.IO** pour le chat
-- **Typescript** est utilisé pour le typage
-- **ESLint** pour trouver et fixer les erreurs
-- **Prettier** pour le formatage du code
-- **FontAwesome** pour les icons
+   ```bash
+   npm install
+   ```
 
-## Contribuer
-Si vous souhaitez contribuer directement au code, nous vous encourageons à soumettre une pull request sur GitHub. Assurez-vous de suivre ces étapes pour faciliter l'examen et l'acceptation de votre contribution :  
+2. **Setting Up environment variables**: Copy `.env.example` to `.env` and update the values as required.
 
-- Créez une branche distincte pour votre fonctionnalité ou correction de bug.  
-- Effectuez vos modifications sur cette branche.
-- Créer une pull request en fournissant une description de ce que fait votre contribution.
-- Votre pull request sera accepté après relecture du code
+3. **Start required services**: Launch required services (like databases and API) using Docker Compose:
+
+   ```bash
+   docker compose up -d
+   ```
+
+   > **NOTE 1**: Docker images of Penpalmap API are stored in Github Container Registry (GHCR).
+   > To pull the images, you need to create a `personal access token (classic)` with at least `read:packages` scope (See [Login to GHCR](https://docs.github.com/packages/working-with-a-github-packages-registry/working-with-the-container-registry)). Then, login to GHCR using the following command:
+   >
+   > ```bash
+   > docker login ghcr.io -u <github-username> -p <access-token>
+   > ```
+
+   > **NOTE 2**: To pull new Penpalmap API versions, run `docker compose pull` before `docker compose up -d`.
+
+4. **Starting the app**: To start the server in development mode, run:
+   ```bash
+   npm run dev
+   ```
+
+## Deployment in Production
+
+1. **Building the Docker Image**: Build a Docker image for the application using:
+
+   ```bash
+   docker build -t penpalmap-front:latest .
+   ```
+
+2. **Running the app**: To run Penpalmap front in production mode, use:
+
+   ```bash
+   docker run --env-file /path/to/env/file -p 3000:3000 penpalmap-front:latest
+   ```
+
+   Ensure to replace `/path/to/env/file` with the path to your custom environment file.
+
+## Project structure
+
+Here are the main source code folders of the project:
+
+- **pages**: Each file in this directory is associated with a route based on its name.
+- **components**: Reusable React components.
+- **styles**: Openlayer styles and custom theme for Chakra UI.
+- **public**: Static public files (images, polices, etc.).
+- **utils**: Useful functions and tools.
+- **api**: Penpalmap API related files.
+- **context**: Global React context.
+- **hooks**: Custom React hooks.
+- **types**: Typescript type definitions.
+
+## Tech stack
+
+- **Next.js**: React framework.
+- **Chakra UI**: React component library.
+- **React Hook Form**: Form validation.
+- **React**: Javascript library for building user interfaces.
+- **Next Auth**: Authentication library for Next.js.
+- **Openlayer**: Map library.
+- **Socket.IO**: Real-time communication library.
+- **Typescript**: Javascript superset with types.
+- **ESLint**: Linter for Javascript and Typescript.
+- **Prettier**: Code formatter.
+- **FontAwesome**: Icon library.

@@ -4,19 +4,19 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import SectionMapChatSecurity from '../../components/Auth/SectionMapChatSecurity'
 
 const About = () => {
-    return (
-        <Box>
-            <SectionMapChatSecurity />
-        </Box>
-    )
+  return (
+    <Box>
+      <SectionMapChatSecurity />
+    </Box>
+  )
 }
 
 export default About
 
 export async function getStaticProps({ locale }) {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale)),
-        },
-    }
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  }
 }

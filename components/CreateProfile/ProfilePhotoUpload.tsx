@@ -8,70 +8,66 @@ import { deleteProfileImage } from '../../api/profileApi'
 import { UserImage } from '../../types'
 
 const ProfilePhotoUpload = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const [selectedImage, setSelectedImage] = useState<File | null>(null)
-    const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
-    const { user } = useSession()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [selectedImage, setSelectedImage] = useState<File | null>(null)
+  const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
+  const { user } = useSession()
 
-    const { uploadImage } = useUploadUserImage()
+  const { uploadImage } = useUploadUserImage()
 
-    const handleUploadImage = async (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const file = event?.target?.files?.[0]
-        if (!file) return
-        setSelectedImage(file)
-        onOpen()
+  const handleUploadImage = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event?.target?.files?.[0]
+    if (!file) return
+    setSelectedImage(file)
+    onOpen()
+  }
+
+  const handleImageCrop = async (croppedImage: Blob) => {
+    if (!selectedImage) return
+    const croppedImageFile = new File([croppedImage], selectedImage?.name, {
+      type: selectedImage?.type,
+    })
+
+    const position = croppedImages.length
+    if (user?.id) {
+      const userImage = await uploadImage(croppedImageFile, position, user?.id)
+
+      setCroppedImages((prevImages) => [...prevImages, userImage])
+
+      onClose()
     }
+  }
 
-    const handleImageCrop = async (croppedImage: Blob) => {
-        if (!selectedImage) return
-        const croppedImageFile = new File([croppedImage], selectedImage?.name, {
-            type: selectedImage?.type,
-        })
+  const handleDeleteImage = async (index: number) => {
+    if (!user) return
+    setCroppedImages((prevImages) => {
+      const newImages = [...prevImages]
+      newImages.splice(index, 1)
+      return newImages
+    })
 
-        const position = croppedImages.length
-        if (user?.id) {
-            const userImage = await uploadImage(
-                croppedImageFile,
-                position,
-                user?.id
-            )
+    await deleteProfileImage(index, user.id)
+  }
 
-            setCroppedImages((prevImages) => [...prevImages, userImage])
+  return (
+    <Box>
+      <ModalImageCropped
+        isOpen={isOpen}
+        onClose={onClose}
+        originalImg={selectedImage}
+        setImgCrop={handleImageCrop}
+      />
 
-            onClose()
-        }
-    }
-
-    const handleDeleteImage = async (index: number) => {
-        if (!user) return
-        setCroppedImages((prevImages) => {
-            const newImages = [...prevImages]
-            newImages.splice(index, 1)
-            return newImages
-        })
-
-        await deleteProfileImage(index, user.id)
-    }
-
-    return (
-        <Box>
-            <ModalImageCropped
-                isOpen={isOpen}
-                onClose={onClose}
-                originalImg={selectedImage}
-                setImgCrop={handleImageCrop}
-            />
-
-            <ImagesUploadGrid
-                images={croppedImages}
-                setImages={setCroppedImages}
-                handleUploadImage={handleUploadImage}
-                handleDeleteImage={handleDeleteImage}
-            />
-        </Box>
-    )
+      <ImagesUploadGrid
+        images={croppedImages}
+        setImages={setCroppedImages}
+        handleUploadImage={handleUploadImage}
+        handleDeleteImage={handleDeleteImage}
+      />
+    </Box>
+  )
 }
 
 export default ProfilePhotoUpload
