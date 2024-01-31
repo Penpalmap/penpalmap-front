@@ -12,33 +12,31 @@ import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 const LayoutMobile = () => {
-    const { mobileView } = useMobileView()
+  const { mobileView } = useMobileView()
 
-    const { user } = useSession()
+  const { user } = useSession()
 
-    const [appData] = useContext(AppContext)
+  const [appData] = useContext(AppContext)
 
-    return (
-        <>
-            <Head>
-                <title>PenpalMap</title>
-            </Head>
-            <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
-                <Box flex={1}>
-                    {mobileView === 'home' && <Map />}
-                    {mobileView === 'conversations' && <ConversationList />}
-                    {mobileView === 'profile' &&
-                        user &&
-                        appData?.userTarget?.id && (
-                            <Profile profileId={appData.userTarget.id} />
-                        )}
-                    {mobileView === 'settings' && <Settings />}
-                    <Chat visible={mobileView === 'chat'} />
-                </Box>
-                <NavigationBar />
-            </Box>
-        </>
-    )
+  return (
+    <>
+      <Head>
+        <title>PenpalMap</title>
+      </Head>
+      <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
+        <Box flex={1}>
+          {mobileView === 'home' && <Map />}
+          {mobileView === 'conversations' && <ConversationList />}
+          {mobileView === 'profile' && user && appData?.userTarget?.id && (
+            <Profile profileId={appData.userTarget.id} />
+          )}
+          {mobileView === 'settings' && <Settings />}
+          <Chat visible={mobileView === 'chat'} />
+        </Box>
+        <NavigationBar />
+      </Box>
+    </>
+  )
 }
 
 export default LayoutMobile

@@ -1,8 +1,7 @@
 const useGenderFolder = (gender: string) => {
-    const genderFolder =
-        gender === 'man' || gender === 'woman' ? gender : 'other'
+  const genderFolder = gender === 'man' || gender === 'woman' ? gender : 'other'
 
-    return { genderFolder }
+  return { genderFolder }
 }
 
 export default useGenderFolder
