@@ -4,6 +4,7 @@ export type RegisterUserInput = {
   email: string
   name: string
   password: string
+  passwordConfirmation: string
 }
 
 export type ProfileFormData = {

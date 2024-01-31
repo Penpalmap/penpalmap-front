@@ -34,8 +34,22 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<RegisterUserInput>()
+
+  const password = watch('password')
+
+  useEffect(() => {
+    register('passwordConfirmation', {
+      validate: (value) =>
+        value === password || 'Les mots de passe ne correspondent pas',
+      minLength: {
+        value: 8,
+        message: 'Le mot de passe doit faire au moins 8 caractères',
+      },
+    })
+  }, [password, register])
 
   const { login, status } = useSession()
 
@@ -187,7 +201,26 @@ const Register = () => {
                 </Box>
 
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+                {/* Password confirmation */}
               </FormControl>
+              <FormControl isInvalid={!!errors.passwordConfirmation} isRequired>
+                <Box marginTop={4}>
+                  <Input
+                    name="passwordConfirmation"
+                    label="Password confirmation"
+                    type="password"
+                    register={register}
+                    validationSchema={{
+                      required: 'Password confirmation is required',
+                    }}
+                  />
+                </Box>
+
+                <FormErrorMessage>
+                  {errors.passwordConfirmation?.message}
+                </FormErrorMessage>
+              </FormControl>
+
               {error && (
                 <Alert status="error" my={4}>
                   <AlertIcon />
