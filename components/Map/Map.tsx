@@ -7,46 +7,46 @@ import { AppContext } from '../../context/AppContext'
 import SearchAndZoom from './SearchAndZoom'
 
 const Map = () => {
-    const { mapContainerRef, mapObj, overlayRef } = useMap({
-        center: [0, 0],
-        zoom: 2,
-    })
+  const { mapContainerRef, mapObj, overlayRef } = useMap({
+    center: [0, 0],
+    zoom: 2,
+  })
 
-    const [data, setData] = useContext(AppContext)
+  const [data, setData] = useContext(AppContext)
 
-    const closeOverlay = useCallback(() => {
-        if (mapObj.current && overlayRef) {
-            overlayRef.setPosition(undefined)
-        }
-    }, [mapObj, overlayRef])
+  const closeOverlay = useCallback(() => {
+    if (mapObj.current && overlayRef) {
+      overlayRef.setPosition(undefined)
+    }
+  }, [mapObj, overlayRef])
 
-    return (
-        <>
-            <Box position="relative">
-                <SearchAndZoom mapObj={mapObj} />
-                <Box
-                    ref={mapContainerRef}
-                    h="calc(100vh - 56px)"
-                    w="full"
-                    className="map"
-                    bg="#8CBBD4"
-                />
-            </Box>
-            <Box display="none">
-                <OverlayProfileMap
-                    userMap={data.userTarget}
-                    closeOverlay={closeOverlay}
-                    onOpenChat={() => {
-                        setData({
-                            ...data,
-                            userChat: data.userTarget,
-                            chatOpen: true,
-                        })
-                    }}
-                />
-            </Box>
-        </>
-    )
+  return (
+    <>
+      <Box position="relative">
+        <SearchAndZoom mapObj={mapObj} />
+        <Box
+          ref={mapContainerRef}
+          h="calc(100vh - 56px)"
+          w="full"
+          className="map"
+          bg="#8CBBD4"
+        />
+      </Box>
+      <Box display="none">
+        <OverlayProfileMap
+          userMap={data.userTarget}
+          closeOverlay={closeOverlay}
+          onOpenChat={() => {
+            setData({
+              ...data,
+              userChat: data.userTarget,
+              chatOpen: true,
+            })
+          }}
+        />
+      </Box>
+    </>
+  )
 }
 
 export default Map

@@ -15,57 +15,57 @@ import { AppContext } from '../context/AppContext'
 import { SocketEvents } from '../constants/socketEnum'
 
 export default function Home() {
-    const { status, user } = useSession()
-    const isMobile = useBreakpointValue({ base: true, md: false })
-    const router = useRouter()
+  const { status, user } = useSession()
+  const isMobile = useBreakpointValue({ base: true, md: false })
+  const router = useRouter()
 
-    const [, setAppData] = useContext(AppContext)
+  const [, setAppData] = useContext(AppContext)
 
-    useEffect(() => {
-        if (user?.id && status === 'authenticated') {
-            const newSocket = io(process.env.NEXT_PUBLIC_API_URL as string)
-            newSocket.emit(SocketEvents.AddUser, user.id)
+  useEffect(() => {
+    if (user?.id && status === 'authenticated') {
+      const newSocket = io(process.env.NEXT_PUBLIC_API_URL as string)
+      newSocket.emit(SocketEvents.AddUser, user.id)
 
-            setAppData((prevData) => ({
-                ...prevData,
-                socket: newSocket || null,
-            }))
-        }
-    }, [user?.id, setAppData, status])
+      setAppData((prevData) => ({
+        ...prevData,
+        socket: newSocket || null,
+      }))
+    }
+  }, [user?.id, setAppData, status])
 
-    return (
-        <>
-            <Head>
-                <meta
-                    name="description"
-                    content="Connect with friends from all over the world, wherever you are. Make friends, learn languages and discover new cultures whatever your location"
-                ></meta>
-            </Head>
-            {status === 'loading' || user?.isNewUser ? (
-                <Loading />
-            ) : isMobile ? (
-                <LayoutMobile />
-            ) : (
-                <LayoutDesktop />
-            )}
+  return (
+    <>
+      <Head>
+        <meta
+          name="description"
+          content="Connect with friends from all over the world, wherever you are. Make friends, learn languages and discover new cultures whatever your location"
+        ></meta>
+      </Head>
+      {status === 'loading' || user?.isNewUser ? (
+        <Loading />
+      ) : isMobile ? (
+        <LayoutMobile />
+      ) : (
+        <LayoutDesktop />
+      )}
 
-            {router.query.profileId && (
-                <Modal
-                    onClose={() => {
-                        router.push('/')
-                    }}
-                >
-                    <Profile profileId={router.query.profileId as string} />
-                </Modal>
-            )}
-        </>
-    )
+      {router.query.profileId && (
+        <Modal
+          onClose={() => {
+            router.push('/')
+          }}
+        >
+          <Profile profileId={router.query.profileId as string} />
+        </Modal>
+      )}
+    </>
+  )
 }
 
 export async function getStaticProps({ locale }) {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale, ['common'])),
-        },
-    }
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  }
 }

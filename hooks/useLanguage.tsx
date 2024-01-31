@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router'
 
 const useLanguage = () => {
-    const router = useRouter()
-    const locale = router.locale
-    const changeLocale = (locale) => {
-        document.cookie = `NEXT_LOCALE=${locale}`
+  const router = useRouter()
+  const locale = router.locale
+  const changeLocale = (locale) => {
+    document.cookie = `NEXT_LOCALE=${locale}`
 
-        router.push(router.pathname, router.asPath, { locale })
-    }
+    router.push(router.pathname, router.asPath, { locale })
+  }
 
-    return { changeLocale, locale }
+  return { changeLocale, locale }
 }
 export default useLanguage

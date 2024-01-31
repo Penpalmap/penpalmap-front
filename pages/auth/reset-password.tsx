@@ -3,20 +3,20 @@ import Head from 'next/head'
 import ResetPassword from '../../components/Auth/ResetPassword'
 
 export default function resetPassword() {
-    return (
-        <>
-            <Head>
-                <title>PenpalMap - Réinitialisation mot de passe</title>
-            </Head>
-            <ResetPassword />
-        </>
-    )
+  return (
+    <>
+      <Head>
+        <title>PenpalMap - Réinitialisation mot de passe</title>
+      </Head>
+      <ResetPassword />
+    </>
+  )
 }
 
 export async function getStaticProps({ locale }) {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale)),
-        },
-    }
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  }
 }
