@@ -129,6 +129,11 @@ const ChatMessages = ({
 
             const isSameSender = lastSenderId.current === message.senderId
 
+            // Ajoutez la référence hasPreviousSameSender
+            const hasPreviousSameSender =
+                index > 0 &&
+                sortedMessages[index - 1].senderId === message.senderId
+
             lastSenderId.current = message.senderId
 
             const image =
@@ -163,6 +168,7 @@ const ChatMessages = ({
                     isOwnMessage={isOwnMessage}
                     seenText={seenText}
                     image={(!isSameSender && image) || ''}
+                    hasPreviousSameSender={hasPreviousSameSender}
                 />
             )
         })
