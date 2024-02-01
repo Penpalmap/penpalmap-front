@@ -13,7 +13,6 @@ import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ProfileFormData } from '../../types'
 import { useTranslation } from 'next-i18next'
 import { MonthsKeys } from '../../types/translations'
-import { Tenali_Ramakrishna } from '@next/font/google'
 
 type Props = {
   register: UseFormRegister<ProfileFormData>
