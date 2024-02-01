@@ -4,6 +4,7 @@ import {
   faGlobeEurope,
   faInfoCircle,
   faShield,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
@@ -12,6 +13,7 @@ import { useState } from 'react'
 import LanguageSettings from './LanguageSettings'
 import InformationsSettings from './InformationsSettings'
 import SecuritySettings from './SecuritySettings'
+import AccountSettings from './AccountSettings'
 
 const Settings = () => {
   const { t } = useTranslation()
@@ -33,6 +35,11 @@ const Settings = () => {
       name: 'security',
       label: t('settings.security'),
       icon: faShield,
+    },
+    {
+      name: 'account',
+      label: 'Account',
+      icon: faUser,
     },
   ]
 
@@ -83,6 +90,7 @@ const Settings = () => {
           {selectedTab === 'language' && <LanguageSettings />}
           {selectedTab === 'informations' && <InformationsSettings />}
           {selectedTab === 'security' && <SecuritySettings />}
+          {selectedTab === 'account' && <AccountSettings />}
         </Flex>
       </Box>
     </Flex>

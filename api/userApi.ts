@@ -56,6 +56,17 @@ const updateUser = async (user: any, userId: string) => {
   }
 }
 
+const deleteUser = async (userId: string) => {
+  try {
+    const response = await axiosInstance.delete(`/api/users/${userId}`)
+
+    return response.data
+  } catch (error) {
+    console.error('Error while deleting user', error)
+    throw error
+  }
+}
+
 const changePassword = async (
   oldPassword: string,
   newPassword: string,
@@ -94,4 +105,5 @@ export {
   updateUser,
   changePassword,
   updateBio,
+  deleteUser,
 }
