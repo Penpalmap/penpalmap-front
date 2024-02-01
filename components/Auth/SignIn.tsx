@@ -174,9 +174,7 @@ const SignIn = () => {
                   name={'email'}
                   label={'Email'}
                 />
-                <FormErrorMessage>
-                  {errors.email && errors.email.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.password} isRequired top={2}>
                 <Input
@@ -200,11 +198,9 @@ const SignIn = () => {
                                         required: 'Ce champ est requis',
                                     })}
                                 /> */}
-                <FormErrorMessage>
-                  {errors.password && errors.password.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
-              <Link href="/auth/forgot-password">
+              <Link href="/auth/forgot-password" tabIndex={-1}>
                 <Text
                   fontSize={'sm'}
                   textAlign={'end'}
@@ -236,7 +232,6 @@ const SignIn = () => {
           </form>
           <Box mt={4} w={'90%'}>
             <Text fontSize={'medium'} fontWeight={'bold'} textAlign={'center'}>
-              {/* {t('connect.no-account')}{' '} */}
               <Link href="/auth/signup">
                 <Text
                   as="span"

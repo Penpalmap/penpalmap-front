@@ -3,7 +3,7 @@ import { AuthContextType, User } from '../types'
 import axios from 'axios'
 import axiosInstance from '../axiosInstance'
 import { jwtDecode } from 'jwt-decode'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 
 export const SessionContext = createContext<AuthContextType | undefined>(
   undefined
@@ -14,7 +14,6 @@ export const SessionProvider = ({ children }) => {
   const [status, setStatus] = useState<
     'loading' | 'authenticated' | 'unauthenticated'
   >('loading')
-  const router = useRouter()
 
   // Fonction pour se connecter
   const login = async (tokens: {
@@ -105,43 +104,41 @@ export const SessionProvider = ({ children }) => {
     }
   }
 
+  const isAuthRoute = (pathname) => {
+    const paths = [
+      '/auth/signin',
+      '/auth/signup',
+      '/auth/forgot-password',
+      '/auth/reset-password',
+      '/about',
+      '/contact',
+      '/terms',
+      '/legalnotice',
+    ]
+    return paths.includes(pathname)
+  }
+
   useEffect(() => {
-    if (status === 'loading') {
-      refreshTokenFunc().then((success) => {
-        if (!success) {
-          if (
-            router.pathname === '/auth/signin' ||
-            router.pathname === '/auth/signup' ||
-            router.pathname === '/auth/forgot-password' ||
-            router.pathname === '/auth/reset-password' ||
-            router.pathname === '/about' ||
-            router.pathname === '/contact'
-          ) {
-            return
-          } else {
-            Router.push('/auth/signin')
-          }
+    const handleRedirect = async () => {
+      if (status === 'loading') {
+        const success = await refreshTokenFunc()
+        if (!success && !isAuthRoute(Router.pathname)) {
+          Router.push('/auth/signin')
         }
-      })
-    } else if (status === 'unauthenticated') {
-      if (
-        router.pathname === '/auth/signin' ||
-        router.pathname === '/auth/signup' ||
-        router.pathname === '/auth/forgot-password' ||
-        router.pathname === '/auth/reset-password' ||
-        router.pathname === '/about' ||
-        router.pathname === '/contact'
+      } else if (
+        status === 'unauthenticated' &&
+        !isAuthRoute(Router.pathname)
       ) {
-        return
-      } else {
         Router.push('/auth/signin')
+      } else if (status === 'authenticated') {
+        if (user?.isNewUser) {
+          Router.push('/create-profile')
+        } // Pas besoin d'un autre `else` ici si aucune action n'est requise
       }
-    } else if (status === 'authenticated' && user?.isNewUser) {
-      Router.push('/create-profile')
-    } else if (status === 'authenticated' && !user?.isNewUser) {
-      return
     }
-  }, [refreshTokenFunc, router.pathname, status, user?.isNewUser])
+
+    handleRedirect()
+  }, [status, user?.isNewUser, refreshTokenFunc])
 
   return (
     <SessionContext.Provider

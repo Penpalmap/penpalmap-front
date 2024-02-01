@@ -233,20 +233,20 @@ const Profile = ({ profileId }: Props) => {
 
   return (
     <Box overflow={'auto'}>
-      <Flex padding={6}>
-        <Box marginRight={10}>
+      <Flex padding={6} flexDir={['column', 'row']}>
+        <Flex flexDir={'column'} alignItems={'center'} marginRight={[0, 6]}>
           <Image
             borderRadius={'full'}
-            w={'36'} // Largeur de l'image
-            h={'36'} // Hauteur de l'image
-            objectFit="cover" // Assure que l'image remplit le cadre tout en conservant ses proportions
+            w={'36'}
+            h={'36'}
+            objectFit="cover"
             src={
               user?.image ??
               `/images/avatar/${user?.gender}/${user?.avatarNumber}.png`
             }
             alt={user?.name ?? 'user profile image'}
           ></Image>
-        </Box>
+        </Flex>
         <VStack alignItems={'flex-start'}>
           <HStack gap={2}>
             <Text fontWeight={'extrabold'} fontSize={'4xl'}>
@@ -282,6 +282,7 @@ const Profile = ({ profileId }: Props) => {
         </VStack>
         <Flex flex={1} alignItems={'flex-end'} justifyContent={'flex-end'}>
           <Button
+            width={['100%', 'auto']}
             colorScheme="teal"
             variant="solid"
             rightIcon={<FontAwesomeIcon icon={faPaperPlane} />}
