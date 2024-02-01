@@ -3,7 +3,7 @@ import { AuthContextType, User } from '../types'
 import axios from 'axios'
 import axiosInstance from '../axiosInstance'
 import { jwtDecode } from 'jwt-decode'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 
 export const SessionContext = createContext<AuthContextType | undefined>(
   undefined
