@@ -120,6 +120,18 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     setMonth(null)
   }
 
+  const handleMonthChange = (selectedMonth: number) => {
+    setMonth(selectedMonth)
+    // Update days based on the selected month
+    if (day !== null && year !== null) {
+      const daysInMonth = getDaysInMonth(selectedMonth, year)
+      if (day > daysInMonth) {
+        // If the selected day is greater than the number of days in the new month, reset the day
+        setDay(null)
+      }
+    }
+  }
+
   return (
     <FormControl id="birthday">
       <Box display="flex" gap="4">
@@ -136,7 +148,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
 
         <Select
           placeholder={t('connect.month')}
-          onChange={(e) => setMonth(Number(e.target.value))}
+          onChange={(e) => handleMonthChange(Number(e.target.value))}
         >
           {day !== null &&
             MONTHS.map(({ name, days }, index) => {
