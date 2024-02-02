@@ -182,7 +182,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
       </Box>
       {age && (
         <Text mt="2" fontSize="lg" textAlign="center" color={'teal'}>
-          You are {age} yo.
+          {t('connect.ageYouAre')} {age} {t('connect.yearsOld')}
         </Text>
       )}
     </FormControl>

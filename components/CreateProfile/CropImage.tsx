@@ -2,6 +2,7 @@ import { Box, Button } from '@chakra-ui/react'
 import { useCallback, useMemo, useState } from 'react'
 import Cropper from 'react-easy-crop'
 import getCroppedImg from '../../utils/cropImageFunctions'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   imgUrl: string
@@ -13,7 +14,7 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
-
+  const { t } = useTranslation('common')
   const onCropComplete = useCallback(
     (_croppedArea, croppedAreaPixels) => {
       setCroppedAreaPixels(croppedAreaPixels)
@@ -67,10 +68,10 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
         py={'1rem'}
       >
         <Button mr={3} onClick={onClose}>
-          Close
+          {t('connect.close')}
         </Button>
         <Button colorScheme="blue" onClick={updateImageCrop}>
-          Valider
+          {t('connect.confirm')}
         </Button>
       </Box>
     </>
