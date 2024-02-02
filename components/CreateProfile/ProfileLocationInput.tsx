@@ -170,7 +170,7 @@ const ProfileLocationInput = (props: Props) => {
           bgColor="white"
           p="2"
         >
-          You are in:{' '}
+          {t('connect.youAreIn')}{' '}
           <Text as="span" color="#189AB4" fontSize="xl">
             {countryName}
           </Text>

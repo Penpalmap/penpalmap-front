@@ -14,12 +14,14 @@ import {
   AlertTitle,
 } from '@chakra-ui/react'
 import { reinitializePassword } from '../../api/authApi'
+import { useTranslation } from 'next-i18next'
 
 const ForgotPassword = () => {
   const { register, handleSubmit } = useForm()
 
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const { t } = useTranslation('common')
 
   const onSubmit = async (data) => {
     const response = await reinitializePassword(data.email)
@@ -48,14 +50,11 @@ const ForgotPassword = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Heading as="h1" size="lg" mb={6}>
-            Mot de passe oublié
+            {t('connect.forgotPassword')}
           </Heading>
-          <Text mb={6}>
-            Veuillez saisir votre adresse e-mail pour réinitialiser votre mot de
-            passe.
-          </Text>
+          <Text mb={6}>{t('connect.forgotPasswordDescription')}</Text>
           <FormControl>
-            <FormLabel htmlFor="email">Adresse e-mail :</FormLabel>
+            <FormLabel htmlFor="email">{t('connect.emailAdress')} :</FormLabel>
             <Input
               bg={'white'}
               type="email"
@@ -64,10 +63,11 @@ const ForgotPassword = () => {
                 required: 'Ce champ est requis',
               })}
             />
+            *
           </FormControl>
 
           <Button mt={4} colorScheme="blue" type="submit">
-            Envoyer
+            {t('connect.send')}
           </Button>
         </form>
 
