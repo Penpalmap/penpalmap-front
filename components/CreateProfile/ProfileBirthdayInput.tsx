@@ -19,19 +19,20 @@ type Props = {
   setValue: UseFormSetValue<ProfileFormData>
   setIsUnderage: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  { name: 'January', days: 31 },
+  { name: 'February', days: 28 },
+  { name: 'March', days: 31 },
+  { name: 'April', days: 30 },
+  { name: 'May', days: 31 },
+  { name: 'June', days: 30 },
+  { name: 'July', days: 31 },
+  { name: 'August', days: 31 },
+  { name: 'September', days: 30 },
+  { name: 'October', days: 31 },
+  { name: 'November', days: 30 },
+  { name: 'December', days: 31 },
 ]
 
 const ProfileBirthdayInput: React.FC<Props> = ({
@@ -64,7 +65,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
 
   useEffect(() => {
     toast.closeAll()
-    if (day && month && year) {
+    if (day !== null && month !== null && year !== null) {
       const birthday = dayjs(`${year}-${month}-${day}`).format('YYYY-MM-DD')
       setValue('birthday', birthday)
 
@@ -109,12 +110,34 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     }
   }, [day, month, year, setValue, setIsUnderage, toast, t])
 
+  const getDaysInMonth = (month: number, year: number) => {
+    return new Date(year, month, 0).getDate()
+  }
+
+  const handleDayChange = (selectedDay: number) => {
+    setDay(selectedDay)
+    // Reset selected month when day changes
+    setMonth(null)
+  }
+
+  const handleMonthChange = (selectedMonth: number) => {
+    setMonth(selectedMonth)
+    // Update days based on the selected month
+    if (day !== null && year !== null) {
+      const daysInMonth = getDaysInMonth(selectedMonth, year)
+      if (day > daysInMonth) {
+        // If the selected day is greater than the number of days in the new month, reset the day
+        setDay(null)
+      }
+    }
+  }
+
   return (
     <FormControl id="birthday">
       <Box display="flex" gap="4">
         <Select
           placeholder={t('connect.day')}
-          onChange={(e) => setDay(Number(e.target.value))}
+          onChange={(e) => handleDayChange(Number(e.target.value))}
         >
           {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
             <option key={day} value={day}>
@@ -125,13 +148,19 @@ const ProfileBirthdayInput: React.FC<Props> = ({
 
         <Select
           placeholder={t('connect.month')}
-          onChange={(e) => setMonth(Number(e.target.value))}
+          onChange={(e) => handleMonthChange(Number(e.target.value))}
         >
-          {MONTHS.map((month, index) => (
-            <option key={month} value={index + 1}>
-              {t(`months.${month.toLowerCase() as MonthsKeys}`)}
-            </option>
-          ))}
+          {day !== null &&
+            MONTHS.map(({ name, days }, index) => {
+              if (day <= days) {
+                return (
+                  <option key={name} value={index + 1}>
+                    {t(`months.${name.toLowerCase() as MonthsKeys}`)}
+                  </option>
+                )
+              }
+              return null
+            })}
         </Select>
 
         <Select
@@ -152,7 +181,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
         <input type="date" {...register('birthday')} hidden />
       </Box>
       {age && (
-        <Text mt="2" fontSize="lg" textAlign="center">
+        <Text mt="2" fontSize="lg" textAlign="center" color={'teal'}>
           You are {age} yo.
         </Text>
       )}
