@@ -16,7 +16,7 @@ import { UserImage } from '../../types'
 import ProfileImage from '../Profile/ProfileImages'
 import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
-import { updateBio, updateUser } from '../../api/userApi'
+import { updateUser } from '../../api/userApi'
 import MapInput from '../Elements/form/mapInput'
 
 type Props = {
