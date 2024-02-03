@@ -116,6 +116,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
                 setValue('content', newValue)
               }}
               previewPosition="none"
+              onClickOutside={onToggle}
             />
           </Box>
         )}
