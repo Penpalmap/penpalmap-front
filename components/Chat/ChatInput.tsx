@@ -1,12 +1,19 @@
-import { FormControl, IconButton, Input } from '@chakra-ui/react'
+import {
+  Box,
+  FormControl,
+  IconButton,
+  Input,
+  useDisclosure,
+} from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { MessageInput, Room } from '../../types'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faFaceSmile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { isTyping } from '../../sockets/socketManager'
 import { useTranslation } from 'next-i18next'
+import EmojiPicker from '@emoji-mart/react'
 
 type Props = {
   room: Room | null
@@ -21,6 +28,8 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   const { ref } = register('content')
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { t } = useTranslation('common')
+  const { isOpen, onToggle } = useDisclosure()
+  const btnRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
     if (!appData?.userChat?.id) return
@@ -80,6 +89,37 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
           }}
           autoComplete="off"
         />
+
+        <IconButton
+          ref={btnRef}
+          borderRadius={'full'}
+          colorScheme="gray"
+          color={'gray.300'}
+          size={'sm'}
+          variant={'outline'}
+          aria-label="Open emoji picker"
+          icon={<FontAwesomeIcon icon={faFaceSmile} />}
+          onClick={onToggle}
+          marginRight={2}
+        />
+
+        {isOpen && (
+          <Box
+            position="absolute"
+            zIndex="popover"
+            bottom="60px"
+            right={'10px'}
+          >
+            <EmojiPicker
+              onEmojiSelect={(emoji) => {
+                const newValue = content + emoji.native
+                setValue('content', newValue)
+              }}
+              previewPosition="none"
+            />
+          </Box>
+        )}
+
         <IconButton
           borderRadius={'full'}
           colorScheme="blue"
