@@ -28,7 +28,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   const { ref } = register('content')
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { t } = useTranslation('common')
-  const { isOpen, onToggle } = useDisclosure()
+  const { isOpen, onClose, onToggle } = useDisclosure()
   const btnRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
@@ -99,7 +99,10 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
           variant={'outline'}
           aria-label="Open emoji picker"
           icon={<FontAwesomeIcon icon={faFaceSmile} />}
-          onClick={onToggle}
+          onClick={(e) => {
+            e.stopPropagation()
+            onToggle()
+          }}
           marginRight={2}
         />
 
@@ -111,12 +114,12 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
             right={'10px'}
           >
             <EmojiPicker
+              onClickOutside={onToggle}
               onEmojiSelect={(emoji) => {
                 const newValue = content + emoji.native
                 setValue('content', newValue)
               }}
               previewPosition="none"
-              onClickOutside={onToggle}
             />
           </Box>
         )}
