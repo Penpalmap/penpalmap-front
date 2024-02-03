@@ -16,7 +16,8 @@ import { UserImage } from '../../types'
 import ProfileImage from '../Profile/ProfileImages'
 import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
-import { updateBio } from '../../api/userApi'
+import { updateBio, updateUser } from '../../api/userApi'
+import MapInput from '../Elements/form/mapInput'
 
 type Props = {
   isOpen: boolean
@@ -30,6 +31,8 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
 
   const [images, setImages] = useState<UserImage[]>([])
 
+  const [coordinates, setCoordinates] = useState<[number, number] | null>(null)
+
   const { t } = useTranslation('common')
 
   useEffect(() => {
@@ -40,8 +43,15 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
 
   const renderProfile = useMemo(() => {
     const save = async () => {
-      if (bio && bio !== user?.bio && user?.id) {
-        await updateBio(bio, user?.id)
+      if (user?.id) {
+        await updateUser(
+          {
+            latitude: coordinates?.[1],
+            longitude: coordinates?.[0],
+            bio,
+          },
+          user?.id
+        )
       }
 
       fetchUser()
@@ -69,6 +79,22 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
           />
         </Box>
 
+        <Box flex={1} mb={4} height={['250px', 'md']}>
+          <FormLabel>Change your position</FormLabel>
+
+          <MapInput
+            onCoordinatesChange={(coordinates) => {
+              setCoordinates(coordinates)
+            }}
+            defaultPositionMarker={
+              [user?.geom.coordinates[0], user?.geom.coordinates[1]] as [
+                number,
+                number
+              ]
+            }
+          />
+        </Box>
+
         <Box flex={1} mb={4}>
           <Button width={'100%'} colorScheme="blue" onClick={save}>
             {t('form.save')}
@@ -76,7 +102,17 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
         </Box>
       </>
     )
-  }, [bio, fetchUser, images, onClose, t, user?.bio, user?.id])
+  }, [
+    bio,
+    coordinates,
+    fetchUser,
+    images,
+    onClose,
+    t,
+    user?.bio,
+    user?.geom.coordinates,
+    user?.id,
+  ])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
