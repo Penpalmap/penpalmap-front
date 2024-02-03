@@ -173,7 +173,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
           currentUser?.geom?.coordinates?.[1] || 0,
         ]),
         zoom: 5.5,
-        minZoom: 2,
+        minZoom: 3,
         maxZoom: 9,
         extent: transformExtent(
           [-999.453125, -58.813742, 999.453125, 70.004962],
@@ -184,7 +184,10 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
       }),
 
       controls: defaultControls({ zoom: true }).extend([
-        new ScaleLine(), // Add ScaleLine control
+        new ScaleLine({
+          units: 'metric',
+          bar: false,
+        }),
       ]),
     })
 
