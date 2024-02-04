@@ -99,7 +99,10 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
           variant={'outline'}
           aria-label="Open emoji picker"
           icon={<FontAwesomeIcon icon={faFaceSmile} />}
-          onClick={onToggle}
+          onClick={(e) => {
+            e.stopPropagation()
+            onToggle()
+          }}
           marginRight={2}
         />
 
@@ -111,12 +114,12 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
             right={'10px'}
           >
             <EmojiPicker
+              onClickOutside={onToggle}
               onEmojiSelect={(emoji) => {
                 const newValue = content + emoji.native
                 setValue('content', newValue)
               }}
               previewPosition="none"
-              onClickOutside={onToggle}
             />
           </Box>
         )}
