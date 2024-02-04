@@ -28,7 +28,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   const { ref } = register('content')
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { t } = useTranslation('common')
-  const { isOpen, onClose, onToggle } = useDisclosure()
+  const { isOpen, onToggle } = useDisclosure()
   const btnRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
