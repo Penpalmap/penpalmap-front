@@ -123,7 +123,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
       />
       <ModalContent
         w={500}
-        h={'container.sm'}
+        h={'70vh'}
         overflow={'hidden'}
         alignSelf={'center'}
         borderRadius={'2xl'}
@@ -135,9 +135,16 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
 
         <ModalBody
           overflowY="scroll"
-          css={{
+          sx={{
             '&::-webkit-scrollbar': {
-              display: 'none',
+              width: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: 'gray.500',
+              borderRadius: '24px',
             },
           }}
           mb={4}
