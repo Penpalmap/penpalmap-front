@@ -7,12 +7,21 @@ import {
   FormLabel,
   Heading,
   Input,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+  Modal,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
-import { changePassword } from '../../api/userApi'
-import { useState } from 'react'
+import { changePassword, getUserBlocked } from '../../api/userApi'
+import { useCallback, useEffect, useState } from 'react'
 import { useSession } from '../../hooks/useSession'
+import { User } from '../../types'
+import BlockedAccountList from './BlockedAccountList'
 
 type FormData = {
   oldPassword: string
@@ -22,6 +31,9 @@ type FormData = {
 
 const SecuritySettings = () => {
   const { t } = useTranslation()
+
+  const { isOpen: isOpenBlockUser, onToggle: onToggleBlockUser } =
+    useDisclosure()
 
   const {
     register,
@@ -35,6 +47,19 @@ const SecuritySettings = () => {
   const [message, setMessage] = useState('')
 
   const { user } = useSession()
+
+  const [blockedUsers, setBlockedUsers] = useState<User[]>([])
+
+  const fetchBlockedUsers = useCallback(async () => {
+    if (user?.id) {
+      const users = await getUserBlocked(user.id)
+      setBlockedUsers(users)
+    }
+  }, [user])
+
+  useEffect(() => {
+    fetchBlockedUsers()
+  }, [user, fetchBlockedUsers])
 
   const onSubmit = async (data: FormData) => {
     if (!user?.id) return
@@ -133,6 +158,32 @@ const SecuritySettings = () => {
           {t('settings.changePasswordButton')}
         </Button>
       </form>
+
+      <Heading as="h2" size="sm" mt={8} mb={2}>
+        Comptes bloqués
+      </Heading>
+      <Button
+        colorScheme="teal"
+        variant={'link'}
+        size="sm"
+        onClick={onToggleBlockUser}
+      >
+        Voir la liste des comptes bloqués
+      </Button>
+
+      <Modal isOpen={isOpenBlockUser} onClose={onToggleBlockUser}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Comptes bloqués</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <BlockedAccountList
+              blockedUsers={blockedUsers}
+              mutate={fetchBlockedUsers}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   )
 }

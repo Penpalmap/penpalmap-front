@@ -34,9 +34,9 @@ const getUserById = async (id: string): Promise<User> => {
   }
 }
 
-const getUsersInMap = async (): Promise<UserMap[]> => {
+const getUsersInMap = async (userId: string): Promise<UserMap[]> => {
   try {
-    const users = await axiosInstance.get(`/api/map/users`)
+    const users = await axiosInstance.get(`/api/map/users/${userId}`)
 
     return users.data
   } catch (error) {
@@ -85,6 +85,43 @@ const changePassword = async (
   }
 }
 
+const blockUser = async (userBlockerId: string, userBlockedId: string) => {
+  try {
+    const response = await axiosInstance.post(
+      `/api/users/${userBlockerId}/block/${userBlockedId}`
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Error while blocking user', error)
+    throw error
+  }
+}
+
+const unblockUser = async (userBlockerId: string, userBlockedId: string) => {
+  try {
+    const response = await axiosInstance.post(
+      `/api/users/${userBlockerId}/unblock/${userBlockedId}`
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Error while unblocking user', error)
+    throw error
+  }
+}
+
+const getUserBlocked = async (userId: string) => {
+  try {
+    const response = await axiosInstance.get(`/api/users/${userId}/blocked`)
+
+    return response.data
+  } catch (error) {
+    console.error('Error while getting blocked users', error)
+    throw error
+  }
+}
+
 export {
   getUserByEmail,
   getUserById,
@@ -93,4 +130,7 @@ export {
   updateUser,
   changePassword,
   deleteUser,
+  blockUser,
+  unblockUser,
+  getUserBlocked,
 }

@@ -39,7 +39,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
   const overlayRef = useRef<Overlay | null>(null)
 
   const getUsers = async () => {
-    const users = await getUsersInMap()
+    if (!currentUser) return
+    const users = await getUsersInMap(currentUser?.id)
     setUsers(users)
   }
 
@@ -222,7 +223,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     mapObj.current.addLayer(allUsersLayer)
     mapObj.current.addLayer(currentUserLayer)
-
     const filteredWithGeom = users.filter((user) => user.id !== currentUser?.id)
     const filteredCurrentUser = users.find(
       (user) => user.id === currentUser?.id
