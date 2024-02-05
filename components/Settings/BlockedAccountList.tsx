@@ -5,13 +5,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-  Box,
   Button,
   Divider,
   Flex,
   Image,
   List,
-  ListIcon,
   ListItem,
   Text,
   useDisclosure,
@@ -31,7 +29,7 @@ const BlockedAccountList = ({ blockedUsers, mutate }: Props) => {
     useDisclosure()
   const { user } = useSession()
 
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLButtonElement>(null)
 
   const handleUnblockUser = async (blockedUserId: string) => {
     if (user?.id) {
@@ -89,7 +87,7 @@ const BlockedAccountList = ({ blockedUsers, mutate }: Props) => {
                 </AlertDialogHeader>
 
                 <AlertDialogBody>
-                  Are you sure? You can't undo this action afterwards.
+                  Are you sure? You cant undo this action afterwards.
                 </AlertDialogBody>
 
                 <AlertDialogFooter>

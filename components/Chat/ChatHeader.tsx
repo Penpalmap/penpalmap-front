@@ -51,7 +51,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
 
   const { mobileView, setMobileView } = useMobileView()
 
-  const dialogRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLButtonElement>(null)
 
   const { city, country, flag } = useLocation(
     appData?.userChat?.geomR?.coordinates?.[1] ||
