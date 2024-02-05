@@ -63,7 +63,6 @@ const Profile = ({ profileId }: Props) => {
     if (user) {
       const profileContent: ContentArray = []
 
-      // Ajouter Image2 s'il existe
       if (user.userImages[1]) {
         profileContent.push('image')
       }
