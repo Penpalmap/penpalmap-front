@@ -38,7 +38,7 @@ const Settings = () => {
     },
     {
       name: 'account',
-      label: 'Account',
+      label: t('settings.account'),
       icon: faUser,
     },
   ]

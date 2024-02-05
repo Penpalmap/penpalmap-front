@@ -124,7 +124,12 @@
     "lastPassword": "Последний пароль",
     "newPassword": "Новый пароль",
     "confirmNewPassword": "Подтвердите новый пароль",
-    "changePasswordButton": "Изменить пароль"
+    "changePasswordButton": "Изменить пароль",
+    "account": "Аккаунт",
+    "deleteMyAccount": "Удалить мой аккаунт",
+    "confirmDelete": "Вы уверены, что хотите удалить свой аккаунт?",
+    "deleteButton": "Удалить аккаунт",
+    "cancelDeleteAccount": "Отмена"
   },
   "chat": {
     "IsTyping": "печатает...",

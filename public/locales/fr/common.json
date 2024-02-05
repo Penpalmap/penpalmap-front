@@ -123,7 +123,12 @@
     "lastPassword": "Ancien mot de passe",
     "newPassword": "Nouveau mot de passe",
     "confirmNewPassword": "Confirmer le nouveau mot de passe",
-    "changePasswordButton": "Changer le mot de passe"
+    "changePasswordButton": "Changer le mot de passe",
+    "account": "Compte",
+    "deleteMyAccount": "Supprimer mon compte",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+    "deleteButton": "Supprimer le compte",
+    "cancelDeleteAccount": "Annuler"
   },
   "chat": {
     "IsTyping": "est en train d'écrire...",

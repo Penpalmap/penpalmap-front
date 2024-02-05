@@ -124,7 +124,12 @@
     "lastPassword": "前回のパスワード",
     "newPassword": "新しいパスワード",
     "confirmNewPassword": "新しいパスワードを確認",
-    "changePasswordButton": "パスワードを変更"
+    "changePasswordButton": "パスワードを変更",
+    "account": "アカウント",
+    "deleteMyAccount": "アカウントを削除",
+    "confirmDelete": "アカウントを削除してもよろしいですか？",
+    "deleteButton": "アカウントを削除",
+    "cancelDeleteAccount": "キャンセル"
   },
   "chat": {
     "IsTyping": "が入力中...",

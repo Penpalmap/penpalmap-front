@@ -13,14 +13,15 @@ import {
 import { useRef, useState } from 'react'
 import { deleteUser } from '../../api/userApi'
 import { useSession } from '../../hooks/useSession'
+import { useTranslation } from 'next-i18next'
 
 const AccountSettings = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef<HTMLButtonElement>(null)
   //   const { t } = useTranslation()
   const { user, logout } = useSession()
-
   const [loading, setLoading] = useState<boolean>(false)
+  const { t } = useTranslation()
 
   const onDeleteAccount = async () => {
     if (!user) return
@@ -35,11 +36,11 @@ const AccountSettings = () => {
   return (
     <Box>
       <Heading as="h2" size="md" mb={2}>
-        account
+        {t('settings.account')}
       </Heading>
 
       <Button colorScheme="red" onClick={onOpen}>
-        deleteMyAccount
+        {t('settings.deleteMyAccount')}
       </Button>
 
       <AlertDialog
@@ -51,16 +52,14 @@ const AccountSettings = () => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              deleteMyAccount
+              {t('settings.deleteMyAccount')}
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              Vous voulez vraiment supprimer votre compte ?
-            </AlertDialogBody>
+            <AlertDialogBody>{t('settings.confirmDelete')}</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                accountCancelDeletion
+                {t('settings.cancelDeleteAccount')}
               </Button>
               <Button
                 colorScheme="red"
@@ -68,7 +67,7 @@ const AccountSettings = () => {
                 ml={3}
                 isLoading={loading}
               >
-                accountDelete
+                {t('settings.deleteButton')}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

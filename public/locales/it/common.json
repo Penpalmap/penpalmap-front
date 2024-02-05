@@ -124,7 +124,12 @@
     "lastPassword": "Ultima password",
     "newPassword": "Nuova password",
     "confirmNewPassword": "Conferma nuova password",
-    "changePasswordButton": "Cambia password"
+    "changePasswordButton": "Cambia password",
+    "account": "Account",
+    "deleteMyAccount": "Elimina il mio account",
+    "confirmDelete": "Sei sicuro di voler eliminare il tuo account?",
+    "deleteButton": "Elimina account",
+    "cancelDeleteAccount": "Annulla"
   },
   "chat": {
     "IsTyping": "sta scrivendo...",
