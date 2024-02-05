@@ -124,7 +124,12 @@
     "lastPassword": "पिछला पासवर्ड",
     "newPassword": "नया पासवर्ड",
     "confirmNewPassword": "नए पासवर्ड की पुष्टि करें",
-    "changePasswordButton": "पासवर्ड बदलें"
+    "changePasswordButton": "पासवर्ड बदलें",
+    "account": "खाता",
+    "deleteMyAccount": "मेरा खाता हटाएं",
+    "confirmDelete": "क्या आप वाकई अपना खाता हटाना चाहते हैं?",
+    "deleteButton": "खाता हटाएं",
+    "cancelDeleteAccount": "रद्द करें"
   },
   "chat": {
     "IsTyping": "लिख रहा है...",

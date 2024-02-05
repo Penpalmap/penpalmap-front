@@ -124,7 +124,12 @@
     "lastPassword": "Laatste wachtwoord",
     "newPassword": "Nieuw wachtwoord",
     "confirmNewPassword": "Bevestig nieuw wachtwoord",
-    "changePasswordButton": "Wachtwoord wijzigen"
+    "changePasswordButton": "Wachtwoord wijzigen",
+    "account": "Account",
+    "deleteMyAccount": "Mijn account verwijderen",
+    "confirmDelete": "Weet je zeker dat je je account wilt verwijderen?",
+    "deleteButton": "Verwijder account",
+    "cancelDeleteAccount": "Annuleren"
   },
   "chat": {
     "IsTyping": "is aan het typen...",

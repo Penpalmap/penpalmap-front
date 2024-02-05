@@ -124,7 +124,12 @@
     "lastPassword": "Son şifre",
     "newPassword": "Yeni şifre",
     "confirmNewPassword": "Yeni şifreyi onayla",
-    "changePasswordButton": "Şifre değiştir"
+    "changePasswordButton": "Şifre değiştir",
+    "account": "Hesap",
+    "deleteMyAccount": "Hesabımı sil",
+    "confirmDelete": "Hesabınızı silmek istediğinizden emin misiniz?",
+    "deleteButton": "Hesabı Sil",
+    "cancelDeleteAccount": "İptal"
   },
   "chat": {
     "IsTyping": "yazıyor...",

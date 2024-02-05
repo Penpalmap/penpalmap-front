@@ -124,7 +124,12 @@
     "lastPassword": "Kata sandi terakhir",
     "newPassword": "Kata sandi baru",
     "confirmNewPassword": "Konfirmasi kata sandi baru",
-    "changePasswordButton": "Ubah kata sandi"
+    "changePasswordButton": "Ubah kata sandi",
+    "account": "Akun",
+    "deleteMyAccount": "Hapus akun saya",
+    "confirmDelete": "Apakah Anda yakin ingin menghapus akun Anda?",
+    "deleteButton": "Hapus akun",
+    "cancelDeleteAccount": "Batal"
   },
   "chat": {
     "IsTyping": "sedang mengetik...",

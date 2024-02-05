@@ -118,7 +118,12 @@
     "lastPassword": "آخر كلمة مرور",
     "newPassword": "كلمة مرور جديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
-    "changePasswordButton": "تغيير كلمة المرور"
+    "changePasswordButton": "تغيير كلمة المرور",
+    "account": "الحساب",
+    "deleteMyAccount": "حذف حسابي",
+    "confirmDelete": "هل أنت متأكد من أنك تريد حذف حسابك؟",
+    "deleteButton": "حذف الحساب",
+    "cancelDeleteAccount": "إلغاء"
   },
   "chat": {
     "IsTyping": "يكتب...",

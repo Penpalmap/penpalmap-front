@@ -124,7 +124,12 @@
     "lastPassword": "上次密码",
     "newPassword": "新密码",
     "confirmNewPassword": "确认新密码",
-    "changePasswordButton": "更改密码"
+    "changePasswordButton": "更改密码",
+    "account": "帐号",
+    "deleteMyAccount": "删除我的帐号",
+    "confirmDelete": "您确定要删除您的帐号吗？",
+    "deleteButton": "删除帐号",
+    "cancelDeleteAccount": "取消"
   },
   "chat": {
     "IsTyping": "正在输入...",
