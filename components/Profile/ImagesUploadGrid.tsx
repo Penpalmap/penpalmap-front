@@ -26,7 +26,6 @@ const ImagesUploadGrid = ({
 }: Props) => {
   const refInputFile = useRef<HTMLInputElement>(null)
   const { user } = useSession()
-  // const { data: session, update: updateSession } = useSession()
 
   const items = useMemo(() => {
     return images.map((image) => image.src)
@@ -81,11 +80,11 @@ const ImagesUploadGrid = ({
   const renderBlockInput = useMemo(() => {
     const numberEmptyImages = 4 - images.length
 
-    const blockInput: JSX.Element[] = [] // Explicitly type the array as an array of JSX.Element elements
+    const blockInput: JSX.Element[] = []
     for (let i = 0; i < numberEmptyImages; i++) {
       blockInput.push(
         <Flex
-          key={i} // Add a unique key prop to each element
+          key={i}
           w={'200px'}
           h={'200px'}
           bg={'gray.100'}

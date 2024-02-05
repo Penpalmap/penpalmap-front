@@ -36,7 +36,15 @@ const MessageItem = ({
 
       <Box display={'flex'} flexDirection={'column'}>
         <Box
-          mb={0.5}
+          mt={
+            isOwnMessage
+              ? hasPreviousSameSender
+                ? 0.5 // Mettez mt à 0.5 si c'est votre propre message avec le même expéditeur précédent
+                : 2 // Mettez mt à 2 si c'est votre propre message sans le même expéditeur précédent
+              : hasPreviousSameSender
+              ? 0.5
+              : 2
+          }
           bg={isOwnMessage ? 'teal' : 'gray.200'}
           px={3}
           py={'6px'}

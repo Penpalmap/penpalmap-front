@@ -21,7 +21,6 @@ import { disconnectFromSocketServer } from '../../sockets/socketManager'
 import { AppContext } from '../../context/AppContext'
 import { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { useTranslation } from 'next-i18next'
 import { faGlobeEurope } from '@fortawesome/free-solid-svg-icons'
 import useLanguage from '../../hooks/useLanguage'
 import { useTranslation } from 'next-i18next'
@@ -64,10 +63,10 @@ const Header = () => {
         px={4}
         justifyContent={'space-between'}
         boxShadow={'md'}
-        zIndex={10} // une valeur élevée pour s'assurer que le header se superpose à d'autres éléments
-        position={'sticky'} // fixe la position
-        top={0} // positionne le header en haut de la page
-        width={'100%'} // s'assure qu'il prend toute la largeur de la fenêtre
+        zIndex={10}
+        position={'sticky'}
+        top={0}
+        width={'100%'}
         height={'3.5rem'}
         backgroundColor={'white'}
       >
@@ -78,9 +77,9 @@ const Header = () => {
               padding={'0.4rem'}
               _hover={{
                 textDecoration: 'none',
-                borderRadius: 'md', // Border radius
-                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)', // Box shadow when hovering
-                transition: 'all 0.3s ease-in-out', // Transition effect
+                borderRadius: 'md',
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
+                transition: 'all 0.3s ease-in-out',
               }}
             >
               <Image src={'/images/logo.png'} alt={'logo'} w={'8'} h={'8'} />
@@ -105,7 +104,6 @@ const Header = () => {
                   ? user?.image
                   : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
               }
-              // Ajoutez boxShadow ici
               boxShadow="0px 4px 6px rgba(0, 0, 0, 0.3)"
               p={'1px'}
             />
