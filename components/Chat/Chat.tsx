@@ -26,7 +26,7 @@ const Chat = ({ visible }) => {
       w={{ base: 'full', md: 'xl' }}
       display={appData.chatOpen && visible ? 'flex' : 'none'}
       borderTopRadius={'8'}
-      zIndex={10000}
+      zIndex={1000}
     >
       <ChatHeader
         name={appData?.userChat?.name}
