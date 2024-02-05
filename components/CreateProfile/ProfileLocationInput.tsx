@@ -27,7 +27,6 @@ const ProfileLocationInput = (props: Props) => {
 
   const ref = useRef<HTMLDivElement>(null)
   const markerRef = useRef<HTMLDivElement>(null)
-  const [, setShowMarker] = useState(false)
   const toast = useToast()
   const { t } = useTranslation('common')
 
@@ -95,8 +94,6 @@ const ProfileLocationInput = (props: Props) => {
         } catch (error) {
           console.error('Error fetching country name:', error)
         }
-
-        setShowMarker(true)
       }
 
       mapRef.current.on('click', handleClicked)
