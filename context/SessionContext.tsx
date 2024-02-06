@@ -122,7 +122,6 @@ export const SessionProvider = ({ children }) => {
 
   useEffect(() => {
     const handleRedirect = async () => {
-      debugger
       if (status === 'loading') {
         const success = await refreshTokenFunc()
         if (!success && !isAuthRoute(router.pathname)) {
