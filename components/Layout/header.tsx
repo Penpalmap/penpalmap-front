@@ -75,12 +75,12 @@ const Header = () => {
             <Flex
               alignItems={'center'}
               padding={'0.4rem'}
-              _hover={{
-                textDecoration: 'none',
-                borderRadius: 'md',
-                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
-                transition: 'all 0.3s ease-in-out',
-              }}
+              // _hover={{
+              //   textDecoration: 'none',
+              //   borderRadius: 'md',
+              //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
+              //   transition: 'all 0.3s ease-in-out',
+              // }}
             >
               <Image src={'/images/logo.png'} alt={'logo'} w={'8'} h={'8'} />
               <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
