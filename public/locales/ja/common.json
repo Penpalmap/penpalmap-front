@@ -4,6 +4,7 @@
     "login-google": "Googleでログイン",
     "mail": "メールアドレス",
     "password": "パスワード",
+    "password-confirmation": "パスワードの確認",
     "connect": "ログイン",
     "no-account": "まだアカウントがありませんか？",
     "create-account": "アカウントを作成",

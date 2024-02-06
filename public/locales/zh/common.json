@@ -4,6 +4,7 @@
     "login-google": "使用Google登录",
     "mail": "电子邮件",
     "password": "密码",
+    "password-confirmation": "确认密码",
     "connect": "连接",
     "no-account": "还没有账号？",
     "create-account": "创建账号",

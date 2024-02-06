@@ -4,6 +4,7 @@
     "login-google": "Inloggen met Google",
     "mail": "E-mailadres",
     "password": "Wachtwoord",
+    "password-confirmation": "Bevestig wachtwoord",
     "connect": "Inloggen",
     "no-account": "Nog geen account?",
     "create-account": "Account aanmaken",

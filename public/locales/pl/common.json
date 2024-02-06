@@ -4,6 +4,7 @@
     "login-google": "Zaloguj się przez Google",
     "mail": "Adres e-mail",
     "password": "Hasło",
+    "password-confirmation": "Potwierdź hasło",
     "connect": "Zaloguj się",
     "no-account": "Nie masz jeszcze konta?",
     "create-account": "Utwórz konto",
