@@ -14,6 +14,7 @@ import {
   ModalOverlay,
   useDisclosure,
   Modal,
+  Text,
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
@@ -162,6 +163,7 @@ const SecuritySettings = () => {
       <Heading as="h2" size="sm" mt={8} mb={2}>
         Comptes bloqués
       </Heading>
+
       <Button
         colorScheme="teal"
         variant={'link'}
@@ -175,6 +177,11 @@ const SecuritySettings = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Comptes bloqués</ModalHeader>
+          <Text color="gray.500" fontSize="smaller" px={4} mb={4}>
+            By unblocking a user, you will regain access to all messages sent
+            during the period of blocking. If you need any assistance, feel free
+            to reach out to the PenPalMap team at team@penpalmap.com.
+          </Text>
           <ModalCloseButton />
           <ModalBody>
             <BlockedAccountList
