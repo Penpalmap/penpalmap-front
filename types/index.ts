@@ -59,8 +59,8 @@ export type User = {
   email: string
   image: string
   name: string
-  geom: Geom
-  geomR: Geom
+  geom: Geom | null
+  geomR: Geom | null
   points: number
   gender: string
   birthday: string

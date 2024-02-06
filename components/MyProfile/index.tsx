@@ -87,7 +87,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
               setCoordinates(coordinates)
             }}
             defaultPositionMarker={
-              [user?.geom.coordinates[0], user?.geom.coordinates[1]] as [
+              [user?.geom?.coordinates[0], user?.geom?.coordinates[1]] as [
                 number,
                 number
               ]
@@ -110,7 +110,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
     onClose,
     t,
     user?.bio,
-    user?.geom.coordinates,
+    user?.geom?.coordinates,
     user?.id,
   ])
 

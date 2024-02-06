@@ -1,4 +1,4 @@
-import { Box, Spinner } from '@chakra-ui/react'
+import { Box, Image, Text } from '@chakra-ui/react'
 
 const Loading = () => {
   return (
@@ -6,16 +6,19 @@ const Loading = () => {
       display={'flex'}
       justifyContent={'center'}
       alignItems={'center'}
-      h="100vh"
-      backgroundColor={'#8CBBD4'}
+      height={'calc(100vh - 60px)'}
+      backgroundColor={'#3EB6A020'}
     >
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
+      <Box>
+        <Image
+          src="/images/AnimatedLogo.gif"
+          alt="PenpalMap Logo"
+          boxSize="28"
+        />
+        <Text fontSize="lg" textAlign="center">
+          Loading...
+        </Text>
+      </Box>
     </Box>
   )
 }
