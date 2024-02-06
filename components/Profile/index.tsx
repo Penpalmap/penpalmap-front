@@ -2,6 +2,7 @@ import {
   Badge,
   Box,
   Button,
+  CloseButton,
   Flex,
   HStack,
   Image,
@@ -28,6 +29,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 import { AppContext } from '../../context/AppContext'
 import LoggedInDate from '../Profile/loggedInDate'
 import { LanguagesKeys } from '../../types/translations'
+import { useRouter } from 'next/router'
 
 type Props = {
   profileId: string
@@ -42,6 +44,8 @@ const Profile = ({ profileId }: Props) => {
     user?.geom?.coordinates[1],
     user?.geom?.coordinates[0]
   )
+
+  const router = useRouter()
 
   const [appData, setAppData] = useContext(AppContext)
   const { setMobileView } = useMobileView()
@@ -279,7 +283,20 @@ const Profile = ({ profileId }: Props) => {
             </Text>
           </Flex>
         </VStack>
-        <Flex flex={1} alignItems={'flex-end'} justifyContent={'flex-end'}>
+        <Flex
+          flex={1}
+          flexDir={'column'}
+          alignItems={'flex-end'}
+          justifyContent={'space-between'}
+          alignContent={'flex-end'}
+        >
+          <CloseButton
+            onClick={() => {
+              router.push('/')
+              setMobileView('home')
+            }}
+          />
+
           <Button
             width={['100%', 'auto']}
             colorScheme="teal"
