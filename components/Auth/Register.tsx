@@ -166,7 +166,7 @@ const Register = () => {
               <FormControl isInvalid={!!errors.email} isRequired marginTop={4}>
                 <Input
                   type="email"
-                  label="Email"
+                  label={t('connect.mail')}
                   name="email"
                   register={register}
                   validationSchema={{
@@ -178,7 +178,7 @@ const Register = () => {
               <FormControl isInvalid={!!errors.name} isRequired top={2}>
                 <Input
                   type="text"
-                  label="Name"
+                  label={t('connect.nom')}
                   name="name"
                   register={register}
                   validationSchema={{
@@ -191,7 +191,7 @@ const Register = () => {
                 <Box marginTop={4}>
                   <Input
                     name="password"
-                    label="Password"
+                    label={t('connect.password')}
                     type="password"
                     register={register}
                     validationSchema={{
@@ -207,7 +207,7 @@ const Register = () => {
                 <Box marginTop={2}>
                   <Input
                     name="passwordConfirmation"
-                    label="Password confirmation"
+                    label={t('connect.password-confirmation')}
                     type="password"
                     register={register}
                     validationSchema={{

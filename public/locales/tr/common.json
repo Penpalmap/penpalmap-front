@@ -4,6 +4,7 @@
     "login-google": "Google ile Giriş Yap",
     "mail": "E-posta adresi",
     "password": "Parola",
+    "password-confirmation": "Parola onayı",
     "connect": "Bağlan",
     "no-account": "Henüz bir hesabınız yok mu?",
     "create-account": "Hesap oluştur",

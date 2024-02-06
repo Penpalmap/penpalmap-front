@@ -4,6 +4,7 @@
     "login-google": "Google से लॉगिन करें",
     "mail": "ईमेल पता",
     "password": "पासवर्ड",
+    "password-confirmation": "पासवर्ड की पुष्टि करें",
     "connect": "कनेक्ट करें",
     "no-account": "अब तक कोई खाता नहीं है?",
     "create-account": "खाता बनाएं",
