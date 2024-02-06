@@ -4,6 +4,7 @@
     "login-google": "تسجيل الدخول بواسطة Google",
     "mail": "البريد الإلكتروني",
     "password": "كلمة المرور",
+    "password-confirmation": "تأكيد كلمة المرور",
     "connect": "تسجيل الدخول",
     "no-account": "لا يوجد حساب بعد؟",
     "create-account": "إنشاء حساب",

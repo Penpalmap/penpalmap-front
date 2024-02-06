@@ -4,6 +4,7 @@
     "login-google": "Mit Google anmelden",
     "mail": "E-Mail-Adresse",
     "password": "Passwort",
+    "password-confirmation": "Passwort bestätigen",
     "connect": "Anmelden",
     "no-account": "Noch kein Konto?",
     "create-account": "Konto erstellen",

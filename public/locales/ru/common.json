@@ -4,6 +4,7 @@
     "login-google": "Войти с помощью Google",
     "mail": "Электронная почта",
     "password": "Пароль",
+    "password-confirmation": "Подтверждение пароля",
     "connect": "Подключиться",
     "no-account": "Еще нет аккаунта?",
     "create-account": "Создать аккаунт",
