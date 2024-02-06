@@ -3,7 +3,7 @@ import { AuthContextType, User } from '../types'
 import axios from 'axios'
 import axiosInstance from '../axiosInstance'
 import { jwtDecode } from 'jwt-decode'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 export const SessionContext = createContext<AuthContextType | undefined>(
   undefined
@@ -14,6 +14,8 @@ export const SessionProvider = ({ children }) => {
   const [status, setStatus] = useState<
     'loading' | 'authenticated' | 'unauthenticated'
   >('loading')
+
+  const router = useRouter()
 
   // Fonction pour se connecter
   const login = async (tokens: {
@@ -120,9 +122,10 @@ export const SessionProvider = ({ children }) => {
 
   useEffect(() => {
     const handleRedirect = async () => {
+      debugger
       if (status === 'loading') {
         const success = await refreshTokenFunc()
-        if (!success && !isAuthRoute(Router.pathname)) {
+        if (!success && !isAuthRoute(router.pathname)) {
           Router.push('/auth/signin')
         }
       } else if (
@@ -133,12 +136,12 @@ export const SessionProvider = ({ children }) => {
       } else if (status === 'authenticated') {
         if (user?.isNewUser) {
           Router.push('/create-profile')
-        } // Pas besoin d'un autre `else` ici si aucune action n'est requise
+        }
       }
     }
 
     handleRedirect()
-  }, [status, user?.isNewUser, refreshTokenFunc])
+  }, [status, user?.isNewUser, refreshTokenFunc, router.pathname])
 
   return (
     <SessionContext.Provider
