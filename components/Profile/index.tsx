@@ -39,8 +39,8 @@ type ContentArray = ContentType[]
 const Profile = ({ profileId }: Props) => {
   const [user, setUser] = useState<User | null>(null)
   const { country, flag, city } = useLocation(
-    user?.geom.coordinates[1],
-    user?.geom.coordinates[0]
+    user?.geom?.coordinates[1],
+    user?.geom?.coordinates[0]
   )
 
   const [appData, setAppData] = useContext(AppContext)
