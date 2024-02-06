@@ -32,7 +32,8 @@ const MapProfile = ({ user, country }: MapProfileProps) => {
   const mapRef = useRef<OLMap | null>(null)
 
   useEffect(() => {
-    if (!user || !mapRefContainer.current) return undefined
+    if (!user || !mapRefContainer.current || !user?.geom?.coordinates)
+      return undefined
 
     const map = new OLMap({
       target: mapRefContainer.current,
@@ -49,7 +50,7 @@ const MapProfile = ({ user, country }: MapProfileProps) => {
       ],
 
       view: new View({
-        center: fromLonLat(user.geom.coordinates),
+        center: fromLonLat(user?.geom?.coordinates),
         zoom: 7,
         extent: transformExtent(
           [-999.453125, -58.813742, 999.453125, 70.004962],
