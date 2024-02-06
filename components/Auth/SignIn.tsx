@@ -172,7 +172,7 @@ const SignIn = () => {
                   register={register}
                   validationSchema={{}}
                   name={'email'}
-                  label={'Email'}
+                  label={t('connect.mail')}
                 />
                 <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
               </FormControl>
@@ -180,7 +180,7 @@ const SignIn = () => {
                 <Input
                   bg={'white'}
                   type="password"
-                  label="Password"
+                  label={t('connect.password')}
                   name="password"
                   register={register}
                   validationSchema={{
