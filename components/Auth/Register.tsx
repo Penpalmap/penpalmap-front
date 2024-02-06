@@ -204,7 +204,7 @@ const Register = () => {
                 {/* Password confirmation */}
               </FormControl>
               <FormControl isInvalid={!!errors.passwordConfirmation} isRequired>
-                <Box marginTop={4}>
+                <Box marginTop={2}>
                   <Input
                     name="passwordConfirmation"
                     label="Password confirmation"
