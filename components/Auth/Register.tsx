@@ -114,6 +114,7 @@ const Register = () => {
           transform={'translate(-50%, -50%)'}
           w={'400px'}
           p={6}
+          pt={1}
           bg="whiteAlpha.700"
           backdropFilter="blur(6px)"
           rounded={'lg'}
@@ -122,10 +123,9 @@ const Register = () => {
           alignItems={'center'}
         >
           <Image
-            src="/images/logo.png"
+            src="/images/AnimatedLogo.gif"
             alt="PenpalMap Logo"
-            boxSize="14"
-            marginBottom={2}
+            boxSize="28"
           />
           <Heading as="h1" size="lg" mb={6}>
             {t('connect.sign-up')}
@@ -204,7 +204,7 @@ const Register = () => {
                 {/* Password confirmation */}
               </FormControl>
               <FormControl isInvalid={!!errors.passwordConfirmation} isRequired>
-                <Box marginTop={4}>
+                <Box marginTop={2}>
                   <Input
                     name="passwordConfirmation"
                     label="Password confirmation"
