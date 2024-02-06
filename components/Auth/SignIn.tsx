@@ -106,6 +106,7 @@ const SignIn = () => {
           transform={'translate(-50%, -50%)'}
           w={'400px'}
           p={6}
+          pt={1}
           bg="whiteAlpha.700"
           backdropFilter="blur(6px)"
           rounded={'lg'}
@@ -115,10 +116,9 @@ const SignIn = () => {
           boxShadow={'lg'}
         >
           <Image
-            src="/images/logo.png"
+            src="/images/AnimatedLogo.gif"
             alt="PenpalMap Logo"
-            boxSize="14"
-            marginBottom={2}
+            boxSize="28"
           />
           <Heading as="h1" size="lg" mb={6} textAlign={'center'}>
             <Text>{t('connect.connection')}</Text>
