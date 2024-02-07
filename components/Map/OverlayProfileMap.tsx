@@ -12,6 +12,8 @@ import {
 import { User, UserElement } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faChevronLeft,
+  faChevronRight,
   faLocationDot,
   faMessage,
   faUser,
@@ -26,6 +28,7 @@ import { getAgeByDate } from '../../utils/date'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { useRoom } from '../../context/RoomsContext'
+import { useEffect, useState } from 'react'
 
 type OverlayProfileMapProps = {
   userMap: UserElement | null
@@ -59,12 +62,32 @@ const OverlayProfileMap = ({
   const handleClickButtonChat = () => {
     if (userMap) {
       onOpenChat(userMap)
-      if (userMap?.room) {
+      if (userMap.room) {
         resetCountUnreadMessagesOfRoom(userMap.room.id)
       }
     }
     setMobileView('chat')
   }
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const nextImage = () => {
+    if (userMap && userMap.userImages && userMap.userImages.length > 0) {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === userMap.userImages.length - 1 ? 0 : prevIndex + 1
+      )
+    }
+  }
+
+  const prevImage = () => {
+    if (userMap && userMap.userImages && userMap.userImages.length > 0) {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === 0 ? userMap.userImages.length - 1 : prevIndex - 1
+      )
+    }
+  }
+  useEffect(() => {
+    setCurrentImageIndex(0) // Réinitialiser l'index de l'image actuelle à zéro lorsque le composant est monté avec un nouvel utilisateur
+  }, [userMap]) // Surveiller les changements de l'utilisateur pour déclencher la réinitialisation
 
   return (
     <Flex
@@ -77,19 +100,37 @@ const OverlayProfileMap = ({
       h={['200px', '205.94px']}
       borderRadius={'10px'}
     >
-      <Flex>
-        {userMap?.userImages && userMap.userImages.length > 0 ? (
-          <Carousel showThumbs={false}>
-            {userMap.userImages.map((img) => (
-              <div key={img.id}>
-                <Image
-                  src={img.src}
-                  alt={userMap?.name}
-                  borderLeftRadius={'10px'}
-                />
-              </div>
-            ))}
-          </Carousel>
+      <Flex position="relative" alignItems="center" h="100%">
+        {userMap?.userImages && userMap.userImages.length > 1 ? (
+          <>
+            <IconButton
+              onClick={prevImage}
+              aria-label="Previous"
+              icon={<FontAwesomeIcon icon={faChevronLeft} />}
+              colorScheme="teal"
+              variant="outline"
+              fontSize="20px"
+              position="absolute"
+              left="0"
+            />
+            <Image
+              src={userMap?.userImages[currentImageIndex]?.src}
+              h={'100%'}
+              alt={userMap?.name}
+              borderLeftRadius={'10px'}
+              className="image-slide" // Ajoutez la classe image-slide ici
+            />
+            <IconButton
+              onClick={nextImage}
+              aria-label="Next"
+              icon={<FontAwesomeIcon icon={faChevronRight} />}
+              colorScheme="teal"
+              variant="outline"
+              fontSize="20px"
+              position="absolute"
+              right="0"
+            />
+          </>
         ) : (
           <Image
             src={
@@ -97,6 +138,7 @@ const OverlayProfileMap = ({
               `/images/avatar/${genderFolder}/${userMap?.avatarNumber}.png`
             }
             w={'100%'}
+            h={'100%'}
             alt={userMap?.name}
             borderLeftRadius={'10px'}
           />
