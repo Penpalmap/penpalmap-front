@@ -137,6 +137,22 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
               <MenuItem onClick={() => onToggleBlockUser()}>
                 🛡️ Block user
               </MenuItem>
+              <NextLink href={`/?profileId=${userId}`} passHref>
+                <MenuItem as="a">
+                  {' '}
+                  <Avatar
+                    name={name}
+                    src={photoUrl}
+                    width={6}
+                    height={6}
+                    mr={2}
+                  >
+                    <AvatarBadge borderWidth={2} />
+                  </Avatar>
+                  {'  '}
+                  View profile
+                </MenuItem>
+              </NextLink>
             </MenuList>
           </Menu>
         </Flex>
