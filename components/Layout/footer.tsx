@@ -15,16 +15,25 @@ const Footer = () => {
   return (
     <footer>
       <Box bg="gray.200" py="4" px="6" h={'auto'}>
-        <Flex justifyContent="space-between" alignItems="center">
-          <VStack spacing="2" align="center">
+        <Flex
+          justifyContent="space-between"
+          alignItems="center"
+          flexWrap="wrap"
+        >
+          <VStack spacing="2" align="center" mb={{ base: '4', md: '0' }}>
             <HStack>
               <Image src="/images/logo.png" alt="pen" width={30} />
               <Text>PenpalMap</Text>
             </HStack>
           </VStack>
-          <Flex alignItems={'flex-start'} gap={'10'}>
-            {/* Column 1: Company Info */}
-            <VStack spacing="2" align="flex-start">
+
+          <HStack
+            spacing={{ base: '4', md: '8' }}
+            flexWrap="wrap"
+            display={'flex'}
+            justifyContent={'center'}
+          >
+            <VStack spacing="2" align="flex-start" m={'10%'}>
               <Text fontWeight="bold">Company Info</Text>
               <Link
                 href="/about"
@@ -54,8 +63,7 @@ const Footer = () => {
               </Link>
             </VStack>
 
-            {/* Column 2: Social Media Links */}
-            <VStack spacing="2" align="flex-start">
+            <VStack spacing="2" align="flex-start" m={'10%'}>
               <Text fontWeight="bold">Social Media</Text>
               <Link
                 href="https://www.instagram.com/penpalmap"
@@ -86,8 +94,7 @@ const Footer = () => {
               </Link>
             </VStack>
 
-            {/* Column 3: Legal Links */}
-            <VStack spacing="2" align="flex-start">
+            <VStack spacing="2" align="flex-start" m={'10%'} flex={1}>
               <Text fontWeight="bold">Legal Links</Text>
               <Link
                 href="/terms"
@@ -116,7 +123,7 @@ const Footer = () => {
                 {t('footer.legal')}
               </Link>
             </VStack>
-          </Flex>
+          </HStack>
         </Flex>
       </Box>
     </footer>
