@@ -25,8 +25,6 @@ import { useMobileView } from '../../context/MobileViewContext'
 import { useTranslation } from 'next-i18next'
 import LoggedInDate from '../Profile/loggedInDate'
 import { getAgeByDate } from '../../utils/date'
-import { Carousel } from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { useRoom } from '../../context/RoomsContext'
 import { useEffect, useState } from 'react'
 
