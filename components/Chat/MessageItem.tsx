@@ -78,7 +78,7 @@ const MessageItem = ({
                 ? 0.5
                 : 2
             }
-            bg={isOwnMessage ? 'teal' : 'gray.200'}
+            bg={isOwnMessage ? 'teal.500' : 'gray.200'}
             px={3}
             py={'6px'}
             borderRadius={'2xl'}
