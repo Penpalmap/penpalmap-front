@@ -181,6 +181,7 @@ const ChatMessages = ({
               isOwnMessage={isOwnMessage}
               seenText={seenText}
               image={(!isSameSender && image) || ''}
+              timestamp={''}
             />
           </Box>
         )
@@ -206,6 +207,7 @@ const ChatMessages = ({
             image={(!isSameSender && image) || ''}
             hasPreviousSameSender={hasPreviousSameSender}
             hasNextSameSender={hasNextSameSender}
+            timestamp={message.createdAt}
           />
         </React.Fragment>
       )
