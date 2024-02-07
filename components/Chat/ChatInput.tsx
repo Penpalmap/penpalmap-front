@@ -1,8 +1,10 @@
 import {
   Box,
+  Flex,
   FormControl,
   IconButton,
   Input,
+  Textarea,
   useDisclosure,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
@@ -14,6 +16,7 @@ import { faFaceSmile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { isTyping } from '../../sockets/socketManager'
 import { useTranslation } from 'next-i18next'
 import EmojiPicker from '@emoji-mart/react'
+import { none } from 'ol/centerconstraint'
 
 type Props = {
   room: Room | null
@@ -26,7 +29,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   const [appData] = useContext(AppContext)
   const content = watch('content')
   const { ref } = register('content')
-  const inputRef = useRef<HTMLInputElement | null>(null)
+  const inputRef = useRef<HTMLTextAreaElement | null>(null)
   const { t } = useTranslation('common')
   const { isOpen, onToggle } = useDisclosure()
   const btnRef = useRef<HTMLButtonElement | null>(null)
@@ -44,6 +47,9 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   const onSubmitHandler = async (data: MessageInput) => {
     sendMessage(data)
     setValue('content', '')
+    if (inputRef.current) {
+      inputRef.current.style.minHeight = '10px'
+    }
   }
 
   const [lastTypingTime, setLastTypingTime] = useState<number | null>(null)
@@ -72,61 +78,89 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <FormControl display={'flex'} alignItems={'center'} p={2}>
-        <Input
-          background={'gray.100'}
+      <FormControl display={'flex'} alignItems={'end'} m={'2'}>
+        <Flex
+          backgroundColor={'gray.100'}
+          flex={1}
+          borderRadius={'3xl'}
+          alignItems={'end'}
+        >
+          <Textarea
+            className="auto-resizable"
+            background={'gray.100'}
+            minHeight={'10px'}
+            borderRadius={'full'}
+            variant="Unstyled"
+            backgroundColor={'gray.100'}
+            fontSize={'.9em'}
+            placeholder={t('chat.typeMessage')}
+            {...register('content', {
+              required: 'Message is empty',
+            })}
+            ref={(e) => {
+              ref(e)
+              inputRef.current = e
+            }}
+            autoComplete="off"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                handleSubmit(onSubmitHandler)()
+              }
+            }}
+            style={{ resize: 'none' }}
+            onInput={(e) => {
+              const target = e.target as HTMLTextAreaElement
+              const minRows = 1
+              const lineHeight = 2
+              const scrollHeight = target.scrollHeight
+
+              if (scrollHeight > lineHeight) {
+                target.style.height = 'auto'
+                target.style.height = `${scrollHeight}px`
+              } else {
+                target.style.height = `${minRows * lineHeight}px`
+              }
+            }}
+          />
+
+          <IconButton
+            ref={btnRef}
+            color={'teal'}
+            colorScheme="white"
+            size={'lg'}
+            aria-label="Open emoji picker"
+            icon={<FontAwesomeIcon icon={faFaceSmile} />}
+            onClick={(e) => {
+              e.stopPropagation()
+              onToggle()
+            }}
+          />
+
+          {isOpen && (
+            <Box
+              position="absolute"
+              zIndex="popover"
+              bottom="60px"
+              right={'10px'}
+            >
+              <EmojiPicker
+                onClickOutside={onToggle}
+                onEmojiSelect={(emoji) => {
+                  const newValue = content + emoji.native
+                  setValue('content', newValue)
+                }}
+                previewPosition="none"
+              />
+            </Box>
+          )}
+        </Flex>
+        <IconButton
           borderRadius={'full'}
+          color={'teal'}
+          colorScheme="white"
+          size={'lg'}
           mr={2}
-          type="text"
-          fontSize={'small'}
-          placeholder={t('chat.typeMessage')}
-          {...register('content', {
-            required: 'Message is empty',
-          })}
-          ref={(e) => {
-            ref(e)
-            inputRef.current = e
-          }}
-          autoComplete="off"
-        />
-
-        <IconButton
-          ref={btnRef}
-          borderRadius={'full'}
-          colorScheme="gray"
-          color={'gray.300'}
-          size={'sm'}
-          variant={'outline'}
-          aria-label="Open emoji picker"
-          icon={<FontAwesomeIcon icon={faFaceSmile} />}
-          onClick={(e) => {
-            e.stopPropagation()
-            onToggle()
-          }}
-          marginRight={2}
-        />
-
-        {isOpen && (
-          <Box
-            position="absolute"
-            zIndex="popover"
-            bottom="60px"
-            right={'10px'}
-          >
-            <EmojiPicker
-              onClickOutside={onToggle}
-              onEmojiSelect={(emoji) => {
-                const newValue = content + emoji.native
-                setValue('content', newValue)
-              }}
-              previewPosition="none"
-            />
-          </Box>
-        )}
-
-        <IconButton
-          borderRadius={'full'}
-          colorScheme="blue"
           type="submit"
           aria-label="Search database"
           icon={<FontAwesomeIcon icon={faPaperPlane} />}

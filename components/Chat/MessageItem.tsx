@@ -71,8 +71,8 @@ const MessageItem = ({
             mt={
               isOwnMessage
                 ? hasPreviousSameSender
-                  ? 0.5 // Mettez mt à 0.5 si c'est votre propre message avec le même expéditeur précédent
-                  : 2 // Mettez mt à 2 si c'est votre propre message sans le même expéditeur précédent
+                  ? 0.5
+                  : 2
                 : hasPreviousSameSender
                 ? 0.5
                 : 2
@@ -96,9 +96,10 @@ const MessageItem = ({
               hasNextSameSender && isOwnMessage ? 'md' : '2xl'
             }
             ml={!isOwnMessage && !image ? 10 : 0}
+            style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
           >
             <Text
-              fontSize={isOwnMessage ? '.9em' : '.9em'} // Adjust font size here
+              fontSize={isOwnMessage ? '.9em' : '.9em'}
               color={isOwnMessage ? 'white' : 'black'}
               fontWeight={'normal'}
             >
