@@ -68,7 +68,7 @@ const MessageItem = ({
           openDelay={500}
         >
           <Box
-            maxWidth={'400px'}
+            maxWidth={'350px'}
             mt={
               isOwnMessage
                 ? hasPreviousSameSender
@@ -97,7 +97,7 @@ const MessageItem = ({
               hasNextSameSender && isOwnMessage ? 'md' : '2xl'
             }
             ml={!isOwnMessage && !image ? 10 : 0}
-            style={{ wordWrap: 'normal', overflowWrap: 'break-word' }}
+            style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
           >
             <Text
               fontSize={isOwnMessage ? '.9em' : '.9em'}
