@@ -9,6 +9,8 @@ import {
 import { Message, Room } from '../types'
 import { getRooms } from '../api/conversationApi'
 import { useSession } from '../hooks/useSession'
+import { onUsersOnline } from '../sockets/socketManager'
+import { AppContext } from './AppContext'
 
 interface RoomContextType {
   rooms: Room[]
@@ -34,6 +36,7 @@ export function useRoom() {
 export const RoomProvider = ({ children }: RoomProviderProps) => {
   const [rooms, setRooms] = useState<Room[]>([])
   const { user } = useSession()
+  const [appData, setAppData] = useContext(AppContext)
 
   useEffect(() => {
     const fetchUserRooms = async () => {
@@ -101,6 +104,47 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
       })
     })
   }, [])
+
+  useEffect(() => {
+    if (!appData.socket) return
+    onUsersOnline(appData.socket, (usersOnline) => {
+      setRooms((prevRooms) => {
+        return prevRooms.map((room) => {
+          const newRoom: Room = {
+            ...room,
+            members: room.members.map((member) => {
+              if (usersOnline.includes(member.id)) {
+                return {
+                  ...member,
+                  isOnline: true,
+                }
+              } else {
+                return {
+                  ...member,
+                  isOnline: false,
+                }
+              }
+            }),
+          }
+
+          return {
+            ...newRoom,
+          }
+        })
+      })
+      if (appData.userChat) {
+        const userChat = appData.userChat
+        const userIsOnline = usersOnline.includes(userChat.id)
+        setAppData({
+          ...appData,
+          userChat: {
+            ...userChat,
+            isOnline: userIsOnline,
+          },
+        })
+      }
+    })
+  }, [appData, appData.socket, setAppData])
 
   //     // Met à jour le statut en ligne
   //     onUsersOnline(appData.socket, (usersOnline) => {
