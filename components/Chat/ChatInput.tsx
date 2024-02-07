@@ -3,7 +3,6 @@ import {
   Flex,
   FormControl,
   IconButton,
-  Input,
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -16,7 +15,6 @@ import { faFaceSmile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { isTyping } from '../../sockets/socketManager'
 import { useTranslation } from 'next-i18next'
 import EmojiPicker from '@emoji-mart/react'
-import { none } from 'ol/centerconstraint'
 
 type Props = {
   room: Room | null
