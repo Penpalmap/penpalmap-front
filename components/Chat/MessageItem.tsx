@@ -7,6 +7,7 @@ type MessageItemProps = {
   seenText: string
   image: string
   hasPreviousSameSender?: boolean
+  hasNextSameSender?: boolean
 }
 
 const MessageItem = ({
@@ -16,6 +17,7 @@ const MessageItem = ({
   seenText,
   image,
   hasPreviousSameSender,
+  hasNextSameSender,
 }: MessageItemProps) => {
   return (
     <Flex
@@ -56,6 +58,12 @@ const MessageItem = ({
           }
           borderTopLeftRadius={
             hasPreviousSameSender && !isOwnMessage ? 'md' : '2xl'
+          }
+          borderBottomStartRadius={
+            hasNextSameSender && !isOwnMessage ? 'md' : '2xl'
+          }
+          borderBottomEndRadius={
+            hasNextSameSender && isOwnMessage ? 'md' : '2xl'
           }
           ml={!isOwnMessage && !image ? 10 : 0}
         >

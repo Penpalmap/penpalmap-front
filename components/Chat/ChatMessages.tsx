@@ -140,8 +140,13 @@ const ChatMessages = ({
 
       // Ajout de cette vérification pour éviter l'erreur de TypeScript
       const previousMessage = index > 0 ? sortedMessages[index - 1] : null
+      const posteriorMessage =
+        index < sortedMessages.length - 1 ? sortedMessages[index + 1] : null
       const hasPreviousSameSender =
         (previousMessage && previousMessage.senderId === message.senderId) ??
+        false
+      const hasNextSameSender =
+        (posteriorMessage && posteriorMessage.senderId === message.senderId) ??
         false
 
       const image =
@@ -200,6 +205,7 @@ const ChatMessages = ({
             seenText={seenText}
             image={(!isSameSender && image) || ''}
             hasPreviousSameSender={hasPreviousSameSender}
+            hasNextSameSender={hasNextSameSender}
           />
         </React.Fragment>
       )
