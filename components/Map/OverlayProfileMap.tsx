@@ -69,7 +69,7 @@ const OverlayProfileMap = ({
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const nextImage = () => {
-    if (userMap && userMap.userImages && userMap.userImages.length > 0) {
+    if (userMap && userMap.userImages && userMap.userImages.length > 1) {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === userMap.userImages.length - 1 ? 0 : prevIndex + 1
       )
@@ -77,15 +77,15 @@ const OverlayProfileMap = ({
   }
 
   const prevImage = () => {
-    if (userMap && userMap.userImages && userMap.userImages.length > 0) {
+    if (userMap && userMap.userImages && userMap.userImages.length > 1) {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === 0 ? userMap.userImages.length - 1 : prevIndex - 1
       )
     }
   }
   useEffect(() => {
-    setCurrentImageIndex(0) // Réinitialiser l'index de l'image actuelle à zéro lorsque le composant est monté avec un nouvel utilisateur
-  }, [userMap]) // Surveiller les changements de l'utilisateur pour déclencher la réinitialisation
+    setCurrentImageIndex(0)
+  }, [userMap])
 
   return (
     <Flex
@@ -105,9 +105,8 @@ const OverlayProfileMap = ({
               onClick={prevImage}
               aria-label="Previous"
               icon={<FontAwesomeIcon icon={faChevronLeft} />}
-              colorScheme="teal"
-              variant="outline"
-              fontSize="20px"
+              colorScheme="white"
+              fontSize="10px"
               position="absolute"
               left="0"
             />
@@ -116,15 +115,34 @@ const OverlayProfileMap = ({
               h={'100%'}
               alt={userMap?.name}
               borderLeftRadius={'10px'}
-              className="image-slide" // Ajoutez la classe image-slide ici
             />
+            <Flex
+              justifyContent="center"
+              mt="2"
+              position={'absolute'}
+              bottom={'5%'}
+              left="50%"
+              transform="translateX(-50%)"
+            >
+              {userMap?.userImages.map((_image, index) => (
+                <Box
+                  key={index}
+                  w="6px"
+                  h="6px"
+                  bg={index === currentImageIndex ? 'teal' : 'gray.200'} // Mettez en surbrillance l'indicateur actif
+                  borderRadius="full"
+                  mx="1"
+                  cursor="pointer"
+                  onClick={() => setCurrentImageIndex(index)}
+                />
+              ))}
+            </Flex>
             <IconButton
               onClick={nextImage}
               aria-label="Next"
               icon={<FontAwesomeIcon icon={faChevronRight} />}
-              colorScheme="teal"
-              variant="outline"
-              fontSize="20px"
+              colorScheme="wihte"
+              fontSize="10px"
               position="absolute"
               right="0"
             />
