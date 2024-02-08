@@ -156,7 +156,7 @@ const ProfileLocationInput = (props: Props) => {
       <Box
         position="relative"
         ref={ref}
-        minHeight={'85%'}
+        minHeight={'90%'}
         width={['100%', '3xl']}
       >
         <CitySearchInput
