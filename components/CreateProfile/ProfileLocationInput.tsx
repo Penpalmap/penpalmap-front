@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useToast } from '@chakra-ui/react'
+import { Box, Text, useToast } from '@chakra-ui/react'
 import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { useEffect, useRef, useState } from 'react'
