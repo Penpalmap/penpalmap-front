@@ -1,9 +1,9 @@
-import { Box, Text, useToast } from '@chakra-ui/react'
+import { Box, Flex, Text, useToast } from '@chakra-ui/react'
 import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { useEffect, useRef, useState } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
-import OSM from 'ol/source/OSM'
+import XYZ from 'ol/source/XYZ'
 import View from 'ol/View'
 import { ProfileFormData } from '../../types'
 import { transform, transformExtent } from 'ol/proj'
@@ -36,7 +36,9 @@ const ProfileLocationInput = (props: Props) => {
         target: ref.current,
         layers: [
           new TileLayer({
-            source: new OSM(),
+            source: new XYZ({
+              url: 'http://{1-4}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png',
+            }),
           }),
         ],
         view: new View({
@@ -150,29 +152,36 @@ const ProfileLocationInput = (props: Props) => {
     }
   }
   return (
-    <Box
-      position="relative"
-      ref={ref}
-      height={['200px', 'sm']}
-      width={['100%', '3xl']}
-    >
-      <CitySearchInput
-        onLocationSelected={(lat, lon, displayName) =>
-          handleLocationSelected(lat, lon, displayName)
-        }
-      />
-      <Box display={'none'}>
-        <Box ref={markerRef}>
-          <FontAwesomeIcon icon={faLocationDot} size="lg" />
+    <Box height={'60vh'} display={'flex'} flexDirection={'column'}>
+      <Box
+        position="relative"
+        ref={ref}
+        minHeight={'85%'}
+        width={['100%', '3xl']}
+      >
+        <CitySearchInput
+          onLocationSelected={(lat, lon, displayName) =>
+            handleLocationSelected(lat, lon, displayName)
+          }
+        />
+        <Box display={'none'}>
+          {' '}
+          <Box ref={markerRef}>
+            <FontAwesomeIcon icon={faLocationDot} size="lg" />{' '}
+          </Box>{' '}
         </Box>
-      </Box>
+      </Box>{' '}
       {countryName && (
         <Box
-          mt="3" // Marging pour créer un espace entre la carte et le texte
+          pt={'10'}
           bgColor="white"
-          p="2"
+          minHeight={'10%'}
+          display={'Flex'}
+          justifyContent={'center'}
         >
-          {t('connect.youAreIn')}{' '}
+          <Text fontSize={'xl'} mr={2}>
+            {t('connect.youAreIn')}
+          </Text>
           <Text as="span" color="#189AB4" fontSize="xl">
             {countryName}
           </Text>
