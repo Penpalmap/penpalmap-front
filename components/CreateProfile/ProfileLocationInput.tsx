@@ -6,7 +6,7 @@ import { UseFormSetValue } from 'react-hook-form'
 import OSM from 'ol/source/OSM'
 import View from 'ol/View'
 import { ProfileFormData } from '../../types'
-import { transform } from 'ol/proj'
+import { transform, transformExtent } from 'ol/proj'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'ol/ol.css'
 import { useTranslation } from 'next-i18next'
@@ -42,6 +42,11 @@ const ProfileLocationInput = (props: Props) => {
         view: new View({
           center: [0, 0],
           zoom: 2,
+          extent: transformExtent(
+            [-180, -58.813742, 180, 70.004962],
+            'EPSG:4326',
+            'EPSG:3857'
+          ),
         }),
       })
 
