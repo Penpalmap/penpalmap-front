@@ -3,10 +3,10 @@ import { Map, Overlay } from 'ol'
 import TileLayer from 'ol/layer/Tile'
 import { useEffect, useRef, useState } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
-import OSM from 'ol/source/OSM'
+import XYZ from 'ol/source/XYZ'
 import View from 'ol/View'
 import { ProfileFormData } from '../../types'
-import { transform } from 'ol/proj'
+import { transform, transformExtent } from 'ol/proj'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'ol/ol.css'
 import { useTranslation } from 'next-i18next'
@@ -36,12 +36,19 @@ const ProfileLocationInput = (props: Props) => {
         target: ref.current,
         layers: [
           new TileLayer({
-            source: new OSM(),
+            source: new XYZ({
+              url: 'http://{1-4}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png',
+            }),
           }),
         ],
         view: new View({
           center: [0, 0],
           zoom: 2,
+          extent: transformExtent(
+            [-180, -58.813742, 180, 70.004962],
+            'EPSG:4326',
+            'EPSG:3857'
+          ),
         }),
       })
 
@@ -145,29 +152,36 @@ const ProfileLocationInput = (props: Props) => {
     }
   }
   return (
-    <Box
-      position="relative"
-      ref={ref}
-      height={['200px', 'sm']}
-      width={['100%', '3xl']}
-    >
-      <CitySearchInput
-        onLocationSelected={(lat, lon, displayName) =>
-          handleLocationSelected(lat, lon, displayName)
-        }
-      />
-      <Box display={'none'}>
-        <Box ref={markerRef}>
-          <FontAwesomeIcon icon={faLocationDot} size="lg" />
+    <Box height={'60vh'} display={'flex'} flexDirection={'column'}>
+      <Box
+        position="relative"
+        ref={ref}
+        minHeight={'90%'}
+        width={['100%', '3xl']}
+      >
+        <CitySearchInput
+          onLocationSelected={(lat, lon, displayName) =>
+            handleLocationSelected(lat, lon, displayName)
+          }
+        />
+        <Box display={'none'}>
+          {' '}
+          <Box ref={markerRef}>
+            <FontAwesomeIcon icon={faLocationDot} size="lg" />{' '}
+          </Box>{' '}
         </Box>
-      </Box>
+      </Box>{' '}
       {countryName && (
         <Box
-          mt="3" // Marging pour créer un espace entre la carte et le texte
+          pt={'10'}
           bgColor="white"
-          p="2"
+          minHeight={'10%'}
+          display={'Flex'}
+          justifyContent={'center'}
         >
-          {t('connect.youAreIn')}{' '}
+          <Text fontSize={'xl'} mr={2}>
+            {t('connect.youAreIn')}
+          </Text>
           <Text as="span" color="#189AB4" fontSize="xl">
             {countryName}
           </Text>

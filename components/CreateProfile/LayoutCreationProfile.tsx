@@ -67,9 +67,9 @@ const LayoutCreationProfile = ({
       background={
         activeStep === 0
           ? `linear-gradient(to right, transparent, transparent 20%, white 20%, white 80%, transparent 80%, transparent)`
-          : '#3EB6A020' // Default background color
+          : '#3EB6A020'
       }
-      position="relative" // Added position relative
+      position="relative"
     >
       {activeStep === 0 && (
         <Box
@@ -100,7 +100,7 @@ const LayoutCreationProfile = ({
         boxShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
         padding={'20px'}
         borderRadius={'10px'}
-        maxWidth={'60%'}
+        maxWidth={'80vh'}
         position="relative"
         overflow="hidden"
       >
