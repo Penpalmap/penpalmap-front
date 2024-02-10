@@ -13,7 +13,7 @@ const ProfilePhotoUpload = () => {
   const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
   const { user } = useSession()
 
-  const { uploadImage } = useUploadUserImage()
+  const { uploadImage, isLoading } = useUploadUserImage()
 
   const handleUploadImage = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -29,7 +29,6 @@ const ProfilePhotoUpload = () => {
     const croppedImageFile = new File([croppedImage], selectedImage?.name, {
       type: selectedImage?.type,
     })
-
     const position = croppedImages.length
     if (user?.id) {
       const userImage = await uploadImage(croppedImageFile, position, user?.id)
@@ -58,6 +57,7 @@ const ProfilePhotoUpload = () => {
         onClose={onClose}
         originalImg={selectedImage}
         setImgCrop={handleImageCrop}
+        isLoading={isLoading}
       />
 
       <ImagesUploadGrid
