@@ -25,6 +25,7 @@ const useChat = () => {
   const { user } = useSession()
   const [appData, setAppData] = useContext(AppContext)
   const [messages, setMessages] = useState<Message[]>([])
+
   const [offset, setOffset] = useState(0)
 
   const [isLoading, setIsLoading] = useState(true)
@@ -65,13 +66,13 @@ const useChat = () => {
   }, [initialFetchMessages, currentRoom])
 
   const additonalFetchMessages = useCallback(async () => {
-    if (appData?.userChat && currentRoom && !roomIsLoading) {
+    if (currentRoom && !roomIsLoading) {
       const messagesData = await getMessagesByRoomId(currentRoom.id, 20, offset)
 
       setMessages((prevMessages) => [...messagesData, ...prevMessages])
       setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
     }
-  }, [appData?.userChat, currentRoom, roomIsLoading, offset])
+  }, [currentRoom, roomIsLoading, offset])
 
   useEffect(() => {
     if (offset > 0) {

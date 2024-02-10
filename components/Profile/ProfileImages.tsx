@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import ImagesUploadGrid from './ImagesUploadGrid'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
-import { useDisclosure } from '@chakra-ui/react'
+import { Text, useDisclosure } from '@chakra-ui/react'
 import { deleteProfileImage } from '../../api/profileApi'
 
 type Props = {
@@ -17,7 +17,7 @@ const ProfileImage = ({ images }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useSession()
 
-  const { uploadImage } = useUploadUserImage()
+  const { uploadImage, isLoading } = useUploadUserImage()
   useEffect(() => {
     images.sort((a, b) => a.position - b.position)
     setCroppedImages(images)
@@ -57,8 +57,8 @@ const ProfileImage = ({ images }: Props) => {
 
     const position = croppedImages.length
     if (user) {
+      debugger
       const userImage = await uploadImage(croppedImageFile, position, user.id)
-
       setCroppedImages((prevImages) => [...prevImages, userImage])
 
       // updateSession()
@@ -81,6 +81,10 @@ const ProfileImage = ({ images }: Props) => {
         images={croppedImages}
         handleDeleteImage={handleDeleteImage}
       />
+
+      <Text fontSize={'small'} mt={2}>
+        {isLoading && 'Uploading...'}
+      </Text>
     </>
   )
 }
