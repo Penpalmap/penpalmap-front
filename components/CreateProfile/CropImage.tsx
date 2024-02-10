@@ -8,9 +8,10 @@ type Props = {
   imgUrl: string
   setImgCrop: (imgCrop: Blob) => void
   onClose: () => void
+  isLoading?: boolean
 }
 
-const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
+const CropImage = ({ imgUrl, setImgCrop, onClose, isLoading }: Props) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
@@ -30,12 +31,10 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
       )) as File
 
       setImgCrop(croppedImage)
-
-      onClose()
     } catch (e) {
       console.error(e)
     }
-  }, [croppedAreaPixels, imgUrl, onClose, setImgCrop])
+  }, [croppedAreaPixels, imgUrl, setImgCrop])
 
   const renderCrop = useMemo(
     () => (
@@ -70,7 +69,11 @@ const CropImage = ({ imgUrl, setImgCrop, onClose }: Props) => {
         <Button mr={3} onClick={onClose}>
           {t('connect.close')}
         </Button>
-        <Button colorScheme="blue" onClick={updateImageCrop}>
+        <Button
+          colorScheme="blue"
+          onClick={updateImageCrop}
+          isLoading={isLoading}
+        >
           {t('connect.confirm')}
         </Button>
       </Box>

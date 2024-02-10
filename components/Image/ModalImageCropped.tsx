@@ -10,7 +10,21 @@ import {
 import CropImage from '../CreateProfile/CropImage'
 import { useTranslation } from 'next-i18next'
 
-const ModalImageCropped = ({ isOpen, onClose, originalImg, setImgCrop }) => {
+type ModalImageCroppedProps = {
+  isOpen: boolean
+  onClose: () => void
+  originalImg: File | null
+  setImgCrop: (croppedImage: Blob) => void
+  isLoading?: boolean
+}
+
+const ModalImageCropped = ({
+  isOpen,
+  onClose,
+  originalImg,
+  setImgCrop,
+  isLoading,
+}: ModalImageCroppedProps) => {
   const { t } = useTranslation('common')
 
   return (
@@ -26,6 +40,7 @@ const ModalImageCropped = ({ isOpen, onClose, originalImg, setImgCrop }) => {
                 imgUrl={URL.createObjectURL(originalImg)}
                 setImgCrop={setImgCrop}
                 onClose={onClose}
+                isLoading={isLoading}
               />
             )}
           </Box>
