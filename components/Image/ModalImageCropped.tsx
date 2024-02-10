@@ -6,7 +6,6 @@ import {
   ModalCloseButton,
   ModalBody,
   Box,
-  Spinner,
 } from '@chakra-ui/react'
 import CropImage from '../CreateProfile/CropImage'
 import { useTranslation } from 'next-i18next'
