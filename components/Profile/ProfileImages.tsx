@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import ImagesUploadGrid from './ImagesUploadGrid'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
-import { useDisclosure } from '@chakra-ui/react'
+import { Alert, Text, VStack, useDisclosure } from '@chakra-ui/react'
 import { deleteProfileImage } from '../../api/profileApi'
 
 type Props = {
@@ -17,7 +17,7 @@ const ProfileImage = ({ images }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useSession()
 
-  const { uploadImage, isLoading } = useUploadUserImage()
+  const { uploadImage, isLoading, error } = useUploadUserImage()
   useEffect(() => {
     images.sort((a, b) => a.position - b.position)
     setCroppedImages(images)
@@ -56,14 +56,16 @@ const ProfileImage = ({ images }: Props) => {
     const position = croppedImages.length
     if (user) {
       const userImage = await uploadImage(croppedImageFile, position, user.id)
-      setCroppedImages((prevImages) => [...prevImages, userImage])
 
+      if (userImage) {
+        setCroppedImages((prevImages) => [...prevImages, userImage])
+      }
       onClose()
     }
   }
 
   return (
-    <>
+    <VStack>
       <ModalImageCropped
         isOpen={isOpen}
         onClose={onClose}
@@ -77,7 +79,13 @@ const ProfileImage = ({ images }: Props) => {
         images={croppedImages}
         handleDeleteImage={handleDeleteImage}
       />
-    </>
+
+      {error && (
+        <Alert status="error" mt={4}>
+          <Text fontSize="sm">{error}</Text>
+        </Alert>
+      )}
+    </VStack>
   )
 }
 
