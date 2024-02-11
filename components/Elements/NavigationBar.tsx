@@ -2,9 +2,11 @@ import { Flex, Text } from '@chakra-ui/react'
 import { useMobileView } from '../../context/MobileViewContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faMessage } from '@fortawesome/free-solid-svg-icons'
+import { useRoom } from '../../context/RoomsContext'
 
 const NavigationBar = () => {
   const { mobileView, setMobileView } = useMobileView()
+  const { totalUnreadMessagesNumber } = useRoom()
 
   return (
     <Flex
@@ -31,6 +33,7 @@ const NavigationBar = () => {
         direction={'column'}
         onClick={() => setMobileView('conversations')}
         gap={2}
+        position={'relative'}
       >
         <FontAwesomeIcon
           color={mobileView === 'conversations' ? '#3EB6A0' : '#A6A6A6'}
@@ -40,6 +43,23 @@ const NavigationBar = () => {
         <Text fontSize="xs" fontWeight="light">
           Chat
         </Text>
+        {totalUnreadMessagesNumber > 0 && (
+          <Flex
+            position={'absolute'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            background={'red.400'}
+            borderRadius={'full'}
+            w={4}
+            h={4}
+            top={2}
+            left={4}
+            color={'white'}
+            fontSize={'xs'}
+          >
+            {totalUnreadMessagesNumber}
+          </Flex>
+        )}
       </Flex>
     </Flex>
   )

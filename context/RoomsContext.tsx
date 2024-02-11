@@ -17,6 +17,7 @@ interface RoomContextType {
   resetCountUnreadMessagesOfRoom: (roomId: string) => void
   updateLastMessageInRoom: (message: Message) => void
   setRooms: React.Dispatch<React.SetStateAction<Room[]>>
+  totalUnreadMessagesNumber: number
 }
 
 interface RoomProviderProps {
@@ -35,6 +36,9 @@ export function useRoom() {
 
 export const RoomProvider = ({ children }: RoomProviderProps) => {
   const [rooms, setRooms] = useState<Room[]>([])
+  const [totalUnreadMessagesNumber, setTotalUnreadMessagesNumber] =
+    useState<number>(0)
+
   const { user } = useSession()
   const [appData, setAppData] = useContext(AppContext)
 
@@ -44,6 +48,15 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
       const response = await getRooms(user.id)
       if (response) {
         setRooms(response.rooms)
+
+        let totalUnread = 0
+        response.rooms.forEach((room) => {
+          if (room.countUnreadMessages) {
+            totalUnread += parseInt(room.countUnreadMessages)
+          }
+        })
+
+        setTotalUnreadMessagesNumber(totalUnread)
       }
     }
 
@@ -60,10 +73,14 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
 
             if (message.senderId === user.id) {
               countUnreadMessages = '0'
+              setTotalUnreadMessagesNumber(
+                (prev) => prev - parseInt(room.countUnreadMessages)
+              )
             } else {
               if (!room.countUnreadMessages) {
                 countUnreadMessages = '1'
               } else {
+                setTotalUnreadMessagesNumber((prev) => prev + 1)
                 countUnreadMessages = (
                   parseInt(room.countUnreadMessages) + 1
                 ).toString()
@@ -95,6 +112,10 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
             ...room,
             countUnreadMessages: '0',
           }
+
+          setTotalUnreadMessagesNumber((prev) =>
+            prev === 0 ? 0 : prev - parseInt(room.countUnreadMessages)
+          )
 
           return {
             ...newRoom,
@@ -146,55 +167,6 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     })
   }, [appData, appData.socket, setAppData])
 
-  //     // Met à jour le statut en ligne
-  //     onUsersOnline(appData.socket, (usersOnline) => {
-  //         setRooms((prevRooms) => {
-  //             return prevRooms.map((room) => {
-  //                 const newRoom: Room = {
-  //                     ...room,
-  //                     members: room.members.map((member) => {
-  //                         if (usersOnline.includes(member.id)) {
-  //                             return {
-  //                                 ...member,
-  //                                 isOnline: true,
-  //                             }
-  //                         } else {
-  //                             return {
-  //                                 ...member,
-  //                                 isOnline: false,
-  //                             }
-  //                         }
-  //                     }),
-  //                 }
-
-  //                 return {
-  //                     ...newRoom,
-  //                 }
-  //             })
-  //         })
-
-  //         if (appData.userChat) {
-  //             const userChat = appData.userChat
-  //             const userIsOnline = usersOnline.includes(userChat.id)
-  //             debugger
-  //             setAppData({
-  //                 ...appData,
-  //                 userChat: {
-  //                     ...userChat,
-  //                     isOnline: userIsOnline,
-  //                 },
-  //             })
-  //         }
-  //     })
-  // }, [
-  //     appData,
-  //     appData.socket,
-  //     resetCountUnreadMessagesOfRoom,
-  //     user,
-  //     setAppData,
-  //     updateLastMessageInRoom,
-  // ])
-
   return (
     <RoomContext.Provider
       value={{
@@ -202,6 +174,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         resetCountUnreadMessagesOfRoom,
         updateLastMessageInRoom,
         setRooms,
+        totalUnreadMessagesNumber,
       }}
     >
       {children}
