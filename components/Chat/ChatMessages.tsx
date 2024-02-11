@@ -65,6 +65,7 @@ const ChatMessages = ({
     appData?.userChat?.gender === 'man' || appData?.userChat?.gender === 'woman'
       ? appData?.userChat?.gender
       : 'other'
+
   const [arrowDisplay, setArrowDisplay] = useState<boolean>(false)
 
   useEffect(() => {
@@ -105,6 +106,14 @@ const ChatMessages = ({
               chatContainerRef.current.scrollHeight
           }
         }, 100)
+      } else if (
+        sortedMessages &&
+        sortedMessages[sortedMessages.length - 1]?.senderId === user?.id
+      ) {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop =
+            chatContainerRef.current.scrollHeight
+        }
       }
     }
 
@@ -126,7 +135,7 @@ const ChatMessages = ({
         currentChatContainer.removeEventListener('scroll', checkScrollBottom)
       }
     }
-  }, [sortedMessages])
+  }, [sortedMessages, user?.id])
 
   const renderMessages = useMemo(() => {
     let currentDate = ''
