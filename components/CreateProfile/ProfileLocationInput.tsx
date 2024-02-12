@@ -12,6 +12,8 @@ import 'ol/ol.css'
 import { useTranslation } from 'next-i18next'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import CitySearchInput from './CitySearchInput'
+import MapInput from '../Elements/form/mapInput'
+import { Coordinate } from 'ol/coordinate'
 
 type Props = {
   onNextStep?: () => void
@@ -52,60 +54,111 @@ const ProfileLocationInput = (props: Props) => {
         }),
       })
 
-      const handleClicked = async (e) => {
-        const coordinates = mapRef?.current?.getCoordinateFromPixel(e.pixel)
+      // const handleClicked = async (e) => {
+      //   const coordinates = mapRef?.current?.getCoordinateFromPixel(e.pixel)
 
-        if (!coordinates) return
-        const transformedCoordinates = transform(
-          coordinates,
-          'EPSG:3857',
-          'EPSG:4326'
-        )
+      //   console.log('coordinates', coordinates)
+      //   if (!coordinates) return
+      //   const transformedCoordinates = transform(
+      //     coordinates,
+      //     'EPSG:3857',
+      //     'EPSG:4326'
+      //   )
+      //   console.log('transformedCoordinates', transformedCoordinates)
 
-        if (markerRef.current) {
-          const marker = new Overlay({
-            position: coordinates,
-            element: markerRef.current,
-            positioning: 'bottom-center',
-            stopEvent: false,
-          })
-          mapRef?.current?.addOverlay(marker)
-        }
+      //   if (markerRef.current) {
+      //     const marker = new Overlay({
+      //       position: coordinates,
+      //       element: markerRef.current,
+      //       positioning: 'bottom-center',
+      //       stopEvent: false,
+      //     })
+      //     mapRef?.current?.addOverlay(marker)
+      //   }
 
-        if (
-          setValue &&
-          transformedCoordinates[0] &&
-          transformedCoordinates[1]
-        ) {
-          setValue('latitude', transformedCoordinates[1])
-          setValue('longitude', transformedCoordinates[0])
-        }
+      //   if (
+      //     setValue &&
+      //     transformedCoordinates[0] &&
+      //     transformedCoordinates[1]
+      //   ) {
+      //     setValue('latitude', transformedCoordinates[1])
+      //     setValue('longitude', transformedCoordinates[0])
+      //   }
 
-        // Fetch country name
-        try {
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${transformedCoordinates[1]}&lon=${transformedCoordinates[0]}`
-          )
-          const data = await response.json()
-          if (data && data.address && data.address.country) {
-            setCountryName(data.address.country)
-          } else {
-            toast({
-              title: 'Hey, explorer! 🚸',
-              description: t('connect.toastLocationOut'),
-              status: 'warning',
-              duration: 5000,
-              isClosable: true,
-            })
-          }
-        } catch (error) {
-          console.error('Error fetching country name:', error)
-        }
-      }
+      //   // Fetch country name
+      //   try {
+      //     const response = await fetch(
+      //       `https://nominatim.openstreetmap.org/reverse?format=json&lat=${transformedCoordinates[1]}&lon=${transformedCoordinates[0]}`
+      //     )
+      //     const data = await response.json()
+      //     if (data && data.address && data.address.country) {
+      //       setCountryName(data.address.country)
+      //     } else {
+      //       toast({
+      //         title: 'Hey, explorer! 🚸',
+      //         description: t('connect.toastLocationOut'),
+      //         status: 'warning',
+      //         duration: 5000,
+      //         isClosable: true,
+      //       })
+      //     }
+      //   } catch (error) {
+      //     console.error('Error fetching country name:', error)
+      //   }
+      // }
 
-      mapRef.current.on('click', handleClicked)
+      // mapRef.current.on('click', handleClicked)
     }
   }, [ref, mapRef, setValue, toast, t])
+
+  const handleClicked = async (coordinates: Coordinate) => {
+    // const coordinates = mapRef?.current?.getCoordinateFromPixel(e.pixel)
+
+    console.log('coordinates', coordinates)
+    // if (!coordinates) return
+    // const transformedCoordinates = transform(
+    //   coordinates,
+    //   'EPSG:3857',
+    //   'EPSG:4326'
+    // )
+    console.log('transformedCoordinates', coordinates)
+
+    if (markerRef.current) {
+      const marker = new Overlay({
+        position: coordinates,
+        element: markerRef.current,
+        positioning: 'bottom-center',
+        stopEvent: false,
+      })
+      mapRef?.current?.addOverlay(marker)
+    }
+
+    if (setValue && coordinates[0] && coordinates[1]) {
+      setValue('latitude', coordinates[1])
+      setValue('longitude', coordinates[0])
+    }
+
+    // Fetch country name
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${transformedCoordinates[1]}&lon=${transformedCoordinates[0]}`
+      )
+      const data = await response.json()
+      if (data && data.address && data.address.country) {
+        setCountryName(data.address.country)
+      } else {
+        toast({
+          title: 'Hey, explorer! 🚸',
+          description: t('connect.toastLocationOut'),
+          status: 'warning',
+          duration: 5000,
+          isClosable: true,
+        })
+      }
+    } catch (error) {
+      console.error('Error fetching country name:', error)
+    }
+  }
 
   const extractCountry = (displayName: string): string => {
     const components = displayName.split(', ')
@@ -152,8 +205,8 @@ const ProfileLocationInput = (props: Props) => {
     }
   }
   return (
-    <Box height={'60vh'} display={'flex'} flexDirection={'column'}>
-      <Box
+    <Box w={'xl'} height={'60vh'} display={'flex'} flexDirection={'column'}>
+      {/* <Box
         position="relative"
         ref={ref}
         minHeight={'90%'}
@@ -170,7 +223,14 @@ const ProfileLocationInput = (props: Props) => {
             <FontAwesomeIcon icon={faLocationDot} size="lg" />{' '}
           </Box>{' '}
         </Box>
-      </Box>{' '}
+      </Box>{' '} */}
+
+      <MapInput
+        onCoordinatesChange={(coordinates) => {
+          handleClicked(coordinates)
+        }}
+      />
+
       {countryName && (
         <Box
           pt={'10'}
