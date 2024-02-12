@@ -39,7 +39,6 @@ export const SessionProvider = ({ children }) => {
 
   // Fonction pour se déconnecter
   const logout = () => {
-    router.push('/auth/signin')
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     setUser(null)
