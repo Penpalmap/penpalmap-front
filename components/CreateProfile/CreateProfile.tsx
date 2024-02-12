@@ -15,8 +15,6 @@ import TermsAndConditionsStep from './TermsAndConditionsStep'
 import { ProfileBioForm } from './ProfileBioForm'
 
 const CreateProfile = () => {
-  // const { data: session, status, update: updateSession } = useSession()
-
   const { status, user, fetchUser } = useSession()
   const router = useRouter()
 
@@ -33,6 +31,8 @@ const CreateProfile = () => {
   const usersLanguages = watch('userLanguages')
   const watchForm = watch()
   const bio = watch('bio')
+  const birthday = watch('birthday')
+  console.log(birthday)
 
   const bioLength = useMemo(() => {
     if (bio) return bio.length
@@ -43,9 +43,6 @@ const CreateProfile = () => {
   const disabledCondition = useMemo(() => {
     const isFormLanguageValid = () => {
       if (usersLanguages) {
-        // if (usersLanguages.length === 1 && usersLanguages[0]) {
-        //     return usersLanguages[0].language !== '' && usersLanguages[0].level !== '';
-        // }
         return usersLanguages.every(
           (language) => language.language !== '' && language.level !== ''
         )
@@ -61,7 +58,7 @@ const CreateProfile = () => {
       case 2:
         return !watchForm.birthday || isUnderage
       case 3:
-        return false
+        return
       case 4:
         return !watchForm.latitude || !watchForm.longitude
       case 5:
@@ -178,11 +175,3 @@ const CreateProfile = () => {
 }
 
 export default CreateProfile
-
-// export async function getStaticProps({ locale }) {
-//     return {
-//         props: {
-//             ...(await serverSideTranslations(locale)),
-//         },
-//     }
-// }

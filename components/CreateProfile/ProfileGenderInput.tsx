@@ -18,10 +18,11 @@ import {
   faVenusDouble,
   faMarsDouble,
 } from '@fortawesome/free-solid-svg-icons'
+import { Gender } from '../../constants/genderEnum'
 
 type Props = {
   setValue: UseFormSetValue<ProfileFormData>
-  selectedGender?: string
+  selectedGender?: Gender
 }
 
 type PropsInputBox = {
@@ -41,8 +42,8 @@ export const ProfileGenderInputBox = ({
     onClick={onClick}
     cursor={'pointer'}
     boxShadow={'lg'}
-    w={['28', '36']}
-    h={['28', '36']}
+    w={['20', '32']}
+    h={['20', '32']}
     borderRadius={'lg'}
     direction={'column'}
     align={'center'}
@@ -56,145 +57,58 @@ export const ProfileGenderInputBox = ({
 
 const ProfileGenderInput = (props: Props) => {
   const { setValue, selectedGender } = props
-  const [showOtherGenders, setShowOtherGenders] = useState(false)
+  // const [showOtherGenders, setShowOtherGenders] = useState(false)
   const { t } = useTranslation('common')
 
   const handleClick = useCallback(
-    (gender: string) => {
+    (gender: Gender) => {
       setValue('gender', gender)
-      if (gender === 'man' || gender === 'woman') {
-        setShowOtherGenders(false)
-      }
+      // if (gender === Gender.Male || gender === Gender.Female) {
+      //   setShowOtherGenders(false)
+      // }
     },
     [setValue]
   )
 
+  const GenderOptions = [
+    {
+      gender: Gender.Female,
+      icon: faMars,
+      text: t('profileGenderInput.woman'),
+    },
+    { gender: Gender.Male, icon: faVenus, text: t('profileGenderInput.man') },
+    {
+      gender: Gender.Transgender,
+      icon: faTransgender,
+      text: t('profileGenderInput.transgender'),
+    },
+    { gender: Gender.Genderless, icon: faGenderless, text: 'Genderless' },
+    { gender: Gender.Bigender, icon: faMarsAndVenus, text: 'Bigender' },
+    { gender: Gender.Androgyne, icon: faMarsStrokeUp, text: 'Androgyne' },
+    { gender: Gender.Neuter, icon: faNeuter, text: 'Neuter' },
+    { gender: Gender.NonBinary, icon: faMercury, text: 'Non-Binary' },
+    { gender: Gender.Genderqueer, icon: faMarsAndVenus, text: 'Genderqueer' },
+    { gender: Gender.Genderfluid, icon: faTransgender, text: 'Genderfluid' },
+    { gender: Gender.TwoSpirit, icon: faMarsDouble, text: 'Two-Spirit' },
+    { gender: Gender.Agender, icon: faGenderless, text: 'Agender' },
+    { gender: Gender.Pangender, icon: faVenusDouble, text: 'Pangender' },
+    { gender: Gender.ThirdGender, icon: faVenusMars, text: 'Third Gender' },
+    { gender: Gender.OtherGender, icon: faQuestionCircle, text: 'Other' },
+  ]
+
   return (
     <VStack spacing={4} overflowX="hidden" maxWidth="100%">
       <Wrap spacing={4}>
-        <ProfileGenderInputBox
-          isSelected={selectedGender === 'woman'}
-          icon={<FontAwesomeIcon icon={faVenus} size="2x" />}
-          onClick={() => handleClick('woman')}
-          text={t('profileGenderInput.woman')}
-        />
-        <ProfileGenderInputBox
-          isSelected={selectedGender === 'man'}
-          icon={<FontAwesomeIcon icon={faMars} size="2x" />}
-          onClick={() => handleClick('man')}
-          text={t('profileGenderInput.man')}
-        />
-        <ProfileGenderInputBox
-          isSelected={selectedGender === 'other' && showOtherGenders}
-          icon={<FontAwesomeIcon icon={faVenusMars} size="2x" />}
-          onClick={() => setShowOtherGenders(!showOtherGenders)}
-          text={t('profileGenderInput.other')}
-        />
+        {GenderOptions.map(({ gender, icon, text }) => (
+          <ProfileGenderInputBox
+            key={gender}
+            isSelected={selectedGender === gender}
+            icon={<FontAwesomeIcon icon={icon} size="2x" />}
+            onClick={() => handleClick(gender)}
+            text={text}
+          />
+        ))}
       </Wrap>
-      {showOtherGenders && (
-        <Box
-          maxHeight="200px"
-          overflowY="auto"
-          width="100%"
-          sx={{
-            '&::-webkit-scrollbar': {
-              width: '5px',
-            },
-            '&::-webkit-scrollbar-track': {
-              boxShadow: 'inset 0 0 5px grey',
-              borderRadius: '4px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: 'darkgrey',
-              borderRadius: '4px',
-            },
-            '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: 'grey',
-            },
-          }}
-        >
-          <Wrap spacing={4} justify={'center'} pb={4} maxWidth="600px">
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'transgender'}
-              icon={<FontAwesomeIcon icon={faTransgender} size="2x" />}
-              onClick={() => handleClick('transgender')}
-              text={t('profileGenderInput.transgender')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'genderless'}
-              icon={<FontAwesomeIcon icon={faGenderless} size="2x" />}
-              onClick={() => handleClick('genderless')}
-              text={t('profileGenderInput.genderless')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'bigender'}
-              icon={<FontAwesomeIcon icon={faMarsAndVenus} size="2x" />}
-              onClick={() => handleClick('bigender')}
-              text={t('profileGenderInput.bigender')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'androgyne'}
-              icon={<FontAwesomeIcon icon={faMarsStrokeUp} size="2x" />}
-              onClick={() => handleClick('androgyne')}
-              text={t('profileGenderInput.androgyne')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'neuter'}
-              icon={<FontAwesomeIcon icon={faNeuter} size="2x" />}
-              onClick={() => handleClick('neuter')}
-              text={t('profileGenderInput.neuter')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'non-binary'}
-              icon={<FontAwesomeIcon icon={faMercury} size="2x" />}
-              onClick={() => handleClick('non-binary')}
-              text={t('profileGenderInput.non-binary')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'genderqueer'}
-              icon={<FontAwesomeIcon icon={faMarsAndVenus} size="2x" />}
-              onClick={() => handleClick('genderqueer')}
-              text={t('profileGenderInput.genderqueer')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'genderfluid'}
-              icon={<FontAwesomeIcon icon={faTransgender} size="2x" />}
-              onClick={() => handleClick('genderfluid')}
-              text={t('profileGenderInput.genderfluid')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'two-spirit'}
-              icon={<FontAwesomeIcon icon={faMarsDouble} size="2x" />}
-              onClick={() => handleClick('two-spirit')}
-              text={t('profileGenderInput.two-spirit')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'agender'}
-              icon={<FontAwesomeIcon icon={faGenderless} size="2x" />}
-              onClick={() => handleClick('agender')}
-              text={t('profileGenderInput.agender')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'pangender'}
-              icon={<FontAwesomeIcon icon={faVenusDouble} size="2x" />}
-              onClick={() => handleClick('pangender')}
-              text={t('profileGenderInput.pangender')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'third-gender'}
-              icon={<FontAwesomeIcon icon={faVenusMars} size="2x" />}
-              onClick={() => handleClick('third-gender')}
-              text={t('profileGenderInput.third-gender')}
-            />
-            <ProfileGenderInputBox
-              isSelected={selectedGender === 'othergender'}
-              icon={<FontAwesomeIcon icon={faQuestionCircle} size="2x" />}
-              onClick={() => handleClick('othergender')}
-              text={t('profileGenderInput.othergender')}
-            />
-          </Wrap>
-        </Box>
-      )}
     </VStack>
   )
 }
