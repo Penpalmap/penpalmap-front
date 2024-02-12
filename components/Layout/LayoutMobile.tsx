@@ -22,6 +22,10 @@ const LayoutMobile = () => {
     <>
       <Head>
         <title>PenpalMap</title>
+        <meta
+          name="viewport"
+          content="width=device-width, user-scalable=no"
+        ></meta>
       </Head>
       <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
         <Box flex={1}>
