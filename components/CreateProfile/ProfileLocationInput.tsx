@@ -48,8 +48,10 @@ const ProfileLocationInput = (props: Props) => {
   }
 
   return (
-    <Box w={'xl'} height={'60vh'} display={'flex'} flexDirection={'column'}>
-      <MapInput onCoordinatesChange={handleClicked} />
+    <Box w={'xl'} display={'flex'} flexDirection={'column'}>
+      <Box h={['250px', 'md']} w={'100%'} mb={4}>
+        <MapInput onCoordinatesChange={handleClicked} />
+      </Box>
       {countryName && (
         <Box
           pt={'10'}

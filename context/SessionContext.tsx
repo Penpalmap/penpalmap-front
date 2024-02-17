@@ -118,20 +118,21 @@ export const SessionProvider = ({ children }) => {
       '/terms',
       '/legalnotice',
     ]
-    return paths.includes(pathname)
+    return !paths.includes(pathname)
   }
 
   useEffect(() => {
     const handleRedirect = async () => {
+      if (!isAuthRoute(router.pathname)) {
+        return
+      }
+
       if (status === 'loading') {
         const success = await refreshTokenFunc()
-        if (!success && !isAuthRoute(router.pathname)) {
+        if (!success && isAuthRoute(router.pathname)) {
           Router.push('/auth/signin')
         }
-      } else if (
-        status === 'unauthenticated' &&
-        !isAuthRoute(Router.pathname)
-      ) {
+      } else if (status === 'unauthenticated' && isAuthRoute(Router.pathname)) {
         Router.push('/auth/signin')
       } else if (status === 'authenticated') {
         if (user?.isNewUser) {

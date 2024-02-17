@@ -13,10 +13,13 @@ import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
 import TermsAndConditionsStep from './TermsAndConditionsStep'
 import { ProfileBioForm } from './ProfileBioForm'
+import Loading from '../Layout/loading'
 
 const CreateProfile = () => {
   const { status, user, fetchUser } = useSession()
   const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     mode: 'onSubmit',
@@ -99,7 +102,9 @@ const CreateProfile = () => {
   }, [router, user, status])
 
   const onSubmit = async (data: ProfileFormData) => {
-    if (!user || !user.id) return
+    if (!user?.id) return
+
+    setLoading(true)
 
     if (router.locale) data.languageUsed = router.locale
 
@@ -113,7 +118,7 @@ const CreateProfile = () => {
     }
 
     const response = await updateUser(data, user.id)
-    fetchUser()
+    await fetchUser()
     if (response) {
       router.push('/')
     }
@@ -161,15 +166,19 @@ const CreateProfile = () => {
         overflowX: 'hidden',
       }}
     >
-      <LayoutCreationProfile
-        activeStep={activeStep}
-        handleNextStep={goToNext}
-        handlePreviousStep={goToPrevious}
-        disabled={disabledCondition}
-        canBeSkipped={activeStep === 3 || activeStep === 5}
-      >
-        {renderActiveStep}
-      </LayoutCreationProfile>
+      {loading ? (
+        <Loading />
+      ) : (
+        <LayoutCreationProfile
+          activeStep={activeStep}
+          handleNextStep={goToNext}
+          handlePreviousStep={goToPrevious}
+          disabled={disabledCondition}
+          canBeSkipped={activeStep === 3 || activeStep === 5}
+        >
+          {renderActiveStep}
+        </LayoutCreationProfile>
+      )}
     </form>
   )
 }
