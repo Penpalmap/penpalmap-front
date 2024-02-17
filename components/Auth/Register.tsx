@@ -276,7 +276,7 @@ const Register = () => {
           }}
         />
       </Box>
-      <Presentation />
+      {/* <Presentation /> */}
     </>
   )
 }
