@@ -4,6 +4,14 @@
 // import LayoutMobile from '../components/Layout/LayoutMobile'
 // import LayoutDesktop from '../components/Layout/LayoutDesktop'
 
+import { Box, Text } from '@chakra-ui/react'
+import HeaderLandingPage from '../components/LandingPage/header'
+import HeroBannerCard from '../components/LandingPage/heroBannerCard'
+import InformationsPart from '../components/LandingPage/informationsPart'
+import WhereIsPart from '../components/LandingPage/whereIsPart'
+import MapInfoPart from '../components/LandingPage/mapInfoPart'
+import TestimonialsPart from '../components/LandingPage/testimonialsPart'
+
 // import { useBreakpointValue } from '@chakra-ui/react'
 // import Head from 'next/head'
 // import { useRouter } from 'next/router'
@@ -72,8 +80,17 @@
 
 export default function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <Box mx={[4, 32]}>
+        <HeaderLandingPage />
+        <HeroBannerCard />
+        <InformationsPart />
+        <WhereIsPart />
+        <MapInfoPart />
+      </Box>
+      <Box backgroundImage={'/images/lp/Vector 1.svg'} backgroundSize={'cover'}>
+        <TestimonialsPart />
+      </Box>
+    </>
   )
 }
