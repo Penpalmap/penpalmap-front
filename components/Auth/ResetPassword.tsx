@@ -39,11 +39,11 @@ const ResetPassword = () => {
       try {
         const verifyResult = await verifyResetPasswordToken(token)
         if (!verifyResult.success) {
-          router.push('/')
+          router.push('/home')
         }
       } catch (error) {
         console.error(error)
-        router.push('/')
+        router.push('/home')
       }
     },
     [router]

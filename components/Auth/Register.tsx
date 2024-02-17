@@ -57,7 +57,7 @@ const Register = () => {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      router.push('/')
+      router.push('/home')
     }
   }, [status, router])
 
