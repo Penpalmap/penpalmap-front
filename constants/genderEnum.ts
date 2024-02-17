@@ -1,0 +1,17 @@
+export enum Gender {
+  Male = 'male',
+  Female = 'female',
+  Transgender = 'transgender',
+  Genderless = 'genderless',
+  Bigender = 'bigender',
+  Androgyne = 'androgyne',
+  Neuter = 'neuter',
+  NonBinary = 'non-binary',
+  Genderqueer = 'genderqueer',
+  Genderfluid = 'genderfluid',
+  TwoSpirit = 'two-spirit',
+  Agender = 'agender',
+  Pangender = 'pangender',
+  ThirdGender = 'third-gender',
+  OtherGender = 'othergender',
+}

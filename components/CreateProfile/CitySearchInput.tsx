@@ -90,6 +90,7 @@ const CitySearchInput: React.FC<CitySearchInputProps> = ({
 
   const handleInputKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
+      event.preventDefault()
       if (suggestions.length > 0) {
         const suggestion = suggestions[0]
         if (suggestion) {

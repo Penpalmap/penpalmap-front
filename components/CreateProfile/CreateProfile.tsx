@@ -13,12 +13,13 @@ import ProfileImage from '../Profile/ProfileImages'
 import ProfileLanguageForm from './ProfileLanguageForm'
 import TermsAndConditionsStep from './TermsAndConditionsStep'
 import { ProfileBioForm } from './ProfileBioForm'
+import Loading from '../Layout/loading'
 
 const CreateProfile = () => {
-  // const { data: session, status, update: updateSession } = useSession()
-
   const { status, user, fetchUser } = useSession()
   const router = useRouter()
+
+  const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
     mode: 'onSubmit',
@@ -33,6 +34,8 @@ const CreateProfile = () => {
   const usersLanguages = watch('userLanguages')
   const watchForm = watch()
   const bio = watch('bio')
+  const birthday = watch('birthday')
+  console.log(birthday)
 
   const bioLength = useMemo(() => {
     if (bio) return bio.length
@@ -43,9 +46,6 @@ const CreateProfile = () => {
   const disabledCondition = useMemo(() => {
     const isFormLanguageValid = () => {
       if (usersLanguages) {
-        // if (usersLanguages.length === 1 && usersLanguages[0]) {
-        //     return usersLanguages[0].language !== '' && usersLanguages[0].level !== '';
-        // }
         return usersLanguages.every(
           (language) => language.language !== '' && language.level !== ''
         )
@@ -61,7 +61,7 @@ const CreateProfile = () => {
       case 2:
         return !watchForm.birthday || isUnderage
       case 3:
-        return false
+        return
       case 4:
         return !watchForm.latitude || !watchForm.longitude
       case 5:
@@ -102,7 +102,9 @@ const CreateProfile = () => {
   }, [router, user, status])
 
   const onSubmit = async (data: ProfileFormData) => {
-    if (!user || !user.id) return
+    if (!user?.id) return
+
+    setLoading(true)
 
     if (router.locale) data.languageUsed = router.locale
 
@@ -116,10 +118,11 @@ const CreateProfile = () => {
     }
 
     const response = await updateUser(data, user.id)
-    fetchUser()
+    await fetchUser()
     if (response) {
       router.push('/')
     }
+    setLoading(false)
   }
 
   const renderActiveStep = useMemo(() => {
@@ -164,25 +167,21 @@ const CreateProfile = () => {
         overflowX: 'hidden',
       }}
     >
-      <LayoutCreationProfile
-        activeStep={activeStep}
-        handleNextStep={goToNext}
-        handlePreviousStep={goToPrevious}
-        disabled={disabledCondition}
-        canBeSkipped={activeStep === 3 || activeStep === 5}
-      >
-        {renderActiveStep}
-      </LayoutCreationProfile>
+      {loading ? (
+        <Loading />
+      ) : (
+        <LayoutCreationProfile
+          activeStep={activeStep}
+          handleNextStep={goToNext}
+          handlePreviousStep={goToPrevious}
+          disabled={disabledCondition}
+          canBeSkipped={activeStep === 3 || activeStep === 5}
+        >
+          {renderActiveStep}
+        </LayoutCreationProfile>
+      )}
     </form>
   )
 }
 
 export default CreateProfile
-
-// export async function getStaticProps({ locale }) {
-//     return {
-//         props: {
-//             ...(await serverSideTranslations(locale)),
-//         },
-//     }
-// }
