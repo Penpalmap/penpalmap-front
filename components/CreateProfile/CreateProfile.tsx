@@ -122,6 +122,7 @@ const CreateProfile = () => {
     if (response) {
       router.push('/')
     }
+    setLoading(false)
   }
 
   const renderActiveStep = useMemo(() => {
