@@ -16,15 +16,12 @@ import { useForm } from 'react-hook-form'
 import { RegisterUserInput } from '../../types'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Presentation from './Presentation'
 import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
 import { registerUser } from '../../api/authApi'
 import Input from '../Elements/Input'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
 import RGPDNotice from '../Elements/rgpdNotice'
 
@@ -82,11 +79,15 @@ const Register = () => {
   return (
     <>
       <RGPDNotice />
-      <Box
-        position="relative"
-        height={'calc(100vh - 3.5rem)'}
-        overflow="hidden"
-      >
+      <Box position="relative" height={'100vh'} overflow="hidden">
+        <Box
+          position={'absolute'}
+          zIndex={1}
+          background={'blackAlpha.400'}
+          backdropFilter={'blur(2px)'}
+          w={'full'}
+          h={'full'}
+        ></Box>
         <Box
           id="toto"
           height={'100%'}
@@ -115,12 +116,16 @@ const Register = () => {
           w={'400px'}
           p={6}
           pt={1}
-          bg="whiteAlpha.700"
+          bg={
+            'linear-gradient(300deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%)'
+          }
           backdropFilter="blur(6px)"
           rounded={'lg'}
           display={'flex'}
           flexDirection={'column'}
           alignItems={'center'}
+          zIndex={2}
+          boxShadow={'lg'}
         >
           <Image
             src="/images/AnimatedLogo.gif"
@@ -256,7 +261,7 @@ const Register = () => {
             </Text>
           </Box>
         </Box>
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           icon={faChevronDown}
           size="2x" // Taille de l'icône
           color="white" // Couleur de l'icône
@@ -274,7 +279,7 @@ const Register = () => {
               behavior: 'smooth', // Ajoute un effet de défilement fluide
             })
           }}
-        />
+        /> */}
       </Box>
       {/* <Presentation /> */}
     </>

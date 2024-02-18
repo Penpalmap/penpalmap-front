@@ -1,7 +1,9 @@
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
 const HeaderLandingPage = () => {
+  const { t } = useTranslation('common')
   return (
     <Flex as="header" align="center" justify="space-between" w="100%" py={10}>
       <Link href={`/home`}>
@@ -15,17 +17,18 @@ const HeaderLandingPage = () => {
           </Box>
         </Flex>
       </Link>
-
-      <Button
-        variant={'outline'}
-        colorScheme="blach"
-        borderRadius="full"
-        px={12}
-        size={'lg'}
-        _hover={{ bg: 'teal.400', color: 'white' }}
-      >
-        <Link href={`/auth/signin`}>Sign in</Link>
-      </Button>
+      <Link href={`/auth/signin`}>
+        <Button
+          variant={'outline'}
+          colorScheme="blach"
+          borderRadius="full"
+          px={12}
+          size={'lg'}
+          _hover={{ bg: 'teal.400', color: 'white' }}
+        >
+          {t('connect.connect')}
+        </Button>
+      </Link>
     </Flex>
   )
 }

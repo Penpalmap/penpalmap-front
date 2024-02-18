@@ -1,14 +1,5 @@
 import React from 'react'
-import { Carousel } from 'react-responsive-carousel'
-import {
-  Box,
-  Flex,
-  HStack,
-  Image,
-  ResponsiveValue,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 
 const testimonials = [

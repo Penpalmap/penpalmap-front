@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 
 const InformationBlock = ({ title, description, emoji }) => {
   return (
@@ -30,6 +30,7 @@ const InformationsPart = () => {
       alignItems={'center'}
       gap={[10, 32]}
       mb={20}
+      id="informationsPart"
     >
       <InformationBlock
         title={'Around the world'}

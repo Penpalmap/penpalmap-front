@@ -1,5 +1,4 @@
 import { Box, Flex } from '@chakra-ui/react'
-import Header from './header'
 import Footer from './footer'
 import { useSession } from '../../hooks/useSession'
 

@@ -7,6 +7,7 @@ import {
   Text,
   keyframes,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 
 const HeroBannerCard = () => {
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
@@ -78,15 +79,17 @@ const HeroBannerCard = () => {
         </Box>
 
         <HStack spacing={'16'}>
-          <Button
-            variant={'solid'}
-            borderRadius="full"
-            px={12}
-            size={'lg'}
-            _hover={{ bg: 'teal.400', color: 'white' }}
-          >
-            Sign in
-          </Button>
+          <Link href={`/auth/signup`}>
+            <Button
+              variant={'solid'}
+              borderRadius="full"
+              px={12}
+              size={'lg'}
+              _hover={{ bg: 'teal.400', color: 'white' }}
+            >
+              Sign up
+            </Button>
+          </Link>
 
           <Button
             variant={'outline'}
@@ -97,7 +100,7 @@ const HeroBannerCard = () => {
             size={'lg'}
             _hover={{ bg: 'teal.400', color: 'white' }}
           >
-            Learn more
+            <Link href={`/#informationsPart`}>Learn more</Link>
           </Button>
         </HStack>
       </Flex>

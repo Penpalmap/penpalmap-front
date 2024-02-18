@@ -1,7 +1,9 @@
 import { Box, Button, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Router from 'next/router'
 
 const CallToAction = () => {
+  const { t } = useTranslation()
   return (
     <Box
       display="flex"
@@ -11,7 +13,7 @@ const CallToAction = () => {
       pb={40}
     >
       <Text fontSize="4xl" fontWeight="extrabold" textAlign="center" mb={4}>
-        Let's create a profile and start meeting people
+        Let&apos;s create a profile and start meeting people
       </Text>
       <Text fontSize="xl" textAlign="center" mb={10}>
         Start the journey of Penpalmap 🌍
@@ -24,7 +26,7 @@ const CallToAction = () => {
           Router.push('/auth/signup')
         }}
       >
-        Sign in
+        {t('connect.sign-up')}
       </Button>
     </Box>
   )

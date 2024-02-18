@@ -6,11 +6,13 @@ import WhereIsPart from '../components/LandingPage/whereIsPart'
 import MapInfoPart from '../components/LandingPage/mapInfoPart'
 import TestimonialsPart from '../components/LandingPage/testimonialsPart'
 import CallToAction from '../components/LandingPage/callToAction'
+import Footer from '../components/Layout/footer'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export default function Home() {
   return (
     <>
-      <Box mx={[4, 32]}>
+      <Box mx={{ base: 4, md: 'auto' }} maxW={'1800px'}>
         <HeaderLandingPage />
         <HeroBannerCard />
         <InformationsPart />
@@ -22,11 +24,20 @@ export default function Home() {
         backgroundSize={'cover'}
         pt={44}
       >
-        <Box mx={[4, 32]}>
+        <Box mx={{ base: 4, md: 'auto' }} maxW={'1800px'}>
           <TestimonialsPart />
           <CallToAction />
         </Box>
       </Box>
+      <Footer />
     </>
   )
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  }
 }
