@@ -56,18 +56,21 @@ const HeroBannerCard = () => {
         h={'full'}
       >
         <Box>
-          <Text
+          <Box
+            display={'contents'}
             fontSize={['4xl', '6xl']}
             fontWeight={'bold'}
             color={'white'}
             mb={6}
           >
-            Connect with{' '}
-            <Text display={'inline-block'} color={'#30e3c5'}>
-              friends
-            </Text>{' '}
-            from all over the world, wherever you are.
-          </Text>
+            <Text as="span">Connect with </Text>
+
+            <Text as="span" color={'#30e3c5'}>
+              friends{' '}
+            </Text>
+            <Text as="span">from all over the world, wherever you are.</Text>
+          </Box>
+
           <Text fontSize={'2xl'} color={'white'}>
             Make friends, learn languages and discover new cultures whatever
             your location

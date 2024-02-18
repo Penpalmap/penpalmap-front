@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 
 const HeaderLandingPage = () => {
@@ -7,12 +7,12 @@ const HeaderLandingPage = () => {
       <Link href={`/home`}>
         <Flex alignItems={'center'} padding={'0.4rem'}>
           <Image src={'/images/logo.png'} alt={'logo'} w={'8'} h={'8'} />
-          <Text fontSize={'x-large'} fontWeight={'bold'} ml={2}>
-            Penpal
+          <Box display={'contents'} fontSize={'x-large'} fontWeight={'bold'}>
+            <Text ml={2}>Penpal</Text>
             <Text as={'span'} color={'teal.400'}>
               Map
             </Text>
-          </Text>
+          </Box>
         </Flex>
       </Link>
 
