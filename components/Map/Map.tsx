@@ -26,7 +26,7 @@ const Map = () => {
         <SearchAndZoom mapObj={mapObj} />
         <Box
           ref={mapContainerRef}
-          h="calc(100vh - 56px)"
+          h="calc(100vh - 4rem)"
           w="full"
           className="map"
           bg="#8CBBD4"

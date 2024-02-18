@@ -18,7 +18,7 @@ const HeroBannerCard = () => {
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
-      mb={20}
+      my={20}
     >
       <Box
         background={'blackAlpha.500'}

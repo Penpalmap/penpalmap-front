@@ -1,17 +1,21 @@
 import { Box, Flex } from '@chakra-ui/react'
 import Footer from './footer'
-import { useSession } from '../../hooks/useSession'
+import { useRouter } from 'next/router'
+import Header from './header'
 
 const Layout = ({ children }) => {
-  const { status } = useSession()
+  const router = useRouter()
 
   return (
     <Flex direction={'column'} h={'100vh'}>
-      {/* <Box height={'4rem'}>
-        <Header />
-      </Box> */}
+      <Box h={'4rem'}>
+        {router.pathname !== '/auth/signup' &&
+          router.pathname !== '/auth/signin' && <Header />}
+      </Box>
       <Box style={{ flexGrow: 1 }}>{children}</Box>
-      {status === 'unauthenticated' && <Footer />}
+      {router.pathname !== '/home' &&
+        router.pathname !== '/auth/signup' &&
+        router.pathname !== '/auth/signin' && <Footer />}
     </Flex>
   )
 }
