@@ -292,7 +292,7 @@ const Profile = ({ profileId }: Props) => {
         >
           <CloseButton
             onClick={() => {
-              router.push('/')
+              router.push('/home')
               setMobileView('home')
             }}
           />

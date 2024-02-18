@@ -117,6 +117,7 @@ export const SessionProvider = ({ children }) => {
       '/contact',
       '/terms',
       '/legalnotice',
+      '/',
     ]
     return !paths.includes(pathname)
   }

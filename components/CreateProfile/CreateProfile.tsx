@@ -92,7 +92,7 @@ const CreateProfile = () => {
         const userById = await getUserById(user.id)
         if (userById && userById.isNewUser === false) {
           //rediriger vers la page de profil
-          router.push('/')
+          router.push('/home')
         }
       } else {
         router.push('/auth/signin')
@@ -120,7 +120,7 @@ const CreateProfile = () => {
     const response = await updateUser(data, user.id)
     await fetchUser()
     if (response) {
-      router.push('/')
+      router.push('/home')
     }
     setLoading(false)
   }
