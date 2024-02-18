@@ -8,6 +8,7 @@ const Footer = () => {
   return (
     <Box as="footer">
       <Flex
+        direction={['column', 'column', 'row']}
         justify="space-between"
         align="center"
         bg={'gray.100'}
