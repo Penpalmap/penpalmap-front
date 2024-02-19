@@ -7,10 +7,12 @@ import {
   Text,
   keyframes,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 
 const HeroBannerCard = () => {
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
+  const { t } = useTranslation('common')
 
   return (
     <Box
@@ -86,8 +88,9 @@ const HeroBannerCard = () => {
               px={12}
               size={'lg'}
               _hover={{ bg: 'teal.400', color: 'white' }}
+              textTransform={'capitalize'}
             >
-              Sign up
+              {t('connect.sign-up')}
             </Button>
           </Link>
 
@@ -99,6 +102,7 @@ const HeroBannerCard = () => {
             px={12}
             size={'lg'}
             _hover={{ bg: 'teal.400', color: 'white' }}
+            textTransform={'capitalize'}
           >
             <Link href={`/#informationsPart`}>Learn more</Link>
           </Button>
