@@ -2,7 +2,6 @@ import {
   Avatar,
   AvatarBadge,
   Box,
-  CloseButton,
   Divider,
   Flex,
   Text,
@@ -27,7 +26,7 @@ import { AppContext } from '../../context/AppContext'
 import NextLink from 'next/link'
 import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSession } from '../../hooks/useSession'
 import { blockUser } from '../../api/userApi'
@@ -95,6 +94,11 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
     <>
       <Flex display={'flex'} alignItems={'center'} py={3} px={4}>
         <Flex alignItems={'center'} justifyContent={'space-between'} flex={1}>
+          <IconButton
+            icon={<FontAwesomeIcon icon={faArrowLeft} size="lg" />}
+            aria-label="retour"
+            onClick={onCloseChat}
+          />
           <Flex>
             <Link href={`/?profileId=${userId}`} as={NextLink} passHref>
               <Avatar name={name} src={photoUrl} width={10} height={10}>
@@ -105,6 +109,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
                 />
               </Avatar>
             </Link>
+
             <Link href={`/?profileId=${userId}`} as={NextLink} passHref>
               <Box ml={4}>
                 <Text fontSize={'lg'} fontWeight={'semibold'} lineHeight={'4'}>
@@ -156,7 +161,6 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
             </MenuList>
           </Menu>
         </Flex>
-        <CloseButton ml={'auto'} onClick={onCloseChat} />
       </Flex>
       <Divider borderColor={'gray.300'} boxShadow={'base'} />
       <AlertDialog
