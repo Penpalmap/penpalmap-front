@@ -5,6 +5,7 @@ import {
   CloseButton,
   Flex,
   HStack,
+  IconButton,
   Image,
   Text,
   VStack,
@@ -21,7 +22,7 @@ import { User } from '../../types'
 import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
 import MapProfile from './Map'
@@ -48,7 +49,7 @@ const Profile = ({ profileId }: Props) => {
   const router = useRouter()
 
   const [appData, setAppData] = useContext(AppContext)
-  const { setMobileView } = useMobileView()
+  const { isMobile, setMobileView } = useMobileView()
 
   const [listProfiles, setListProfiles] = useState<ContentArray>([])
 
@@ -238,6 +239,17 @@ const Profile = ({ profileId }: Props) => {
     <Box overflow={'auto'}>
       <Flex padding={6} flexDir={['column', 'row']}>
         <Flex flexDir={'column'} alignItems={'center'} marginRight={[0, 6]}>
+          {isMobile && (
+            <IconButton
+              alignSelf={'flex-start'}
+              aria-label="retour"
+              icon={<FontAwesomeIcon icon={faArrowLeft} size="lg" />}
+              onClick={() => {
+                router.push('/home')
+                setMobileView('home')
+              }}
+            />
+          )}
           <Image
             borderRadius={'full'}
             w={'36'}
