@@ -2,7 +2,6 @@ import {
   Avatar,
   AvatarBadge,
   Box,
-  CloseButton,
   Divider,
   Flex,
   Text,
