@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Flex,
   HStack,
   Image,
@@ -67,8 +68,8 @@ const Header = () => {
         position={'sticky'}
         top={0}
         width={'100%'}
-        height={'3.5rem'}
         backgroundColor={'white'}
+        h={'4rem'}
       >
         <Flex alignItems={'center'}>
           <Link href={`/`} onClick={() => setMobileView('home')}>
@@ -168,6 +169,16 @@ const Header = () => {
               <option value="nl">{t('languagesOrigin.nl')}</option>
               <option value="id">{t('languagesOrigin.id')}</option>
             </Select>
+            <Link href={`/auth/signin`}>
+              <Button
+                variant={'outline'}
+                colorScheme="blach"
+                borderRadius="full"
+                _hover={{ bg: 'teal.400', color: 'white' }}
+              >
+                {t('connect.connect')}
+              </Button>
+            </Link>
           </Flex>
         )}
       </HStack>
