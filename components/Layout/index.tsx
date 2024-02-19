@@ -15,7 +15,8 @@ const Layout = ({ children }) => {
       <Box style={{ flexGrow: 1 }}>{children}</Box>
       {router.pathname !== '/home' &&
         router.pathname !== '/auth/signup' &&
-        router.pathname !== '/auth/signin' && <Footer />}
+        router.pathname !== '/auth/signin' &&
+        router.pathname !== '/create-profile' && <Footer />}
     </Flex>
   )
 }
