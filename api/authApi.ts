@@ -10,7 +10,7 @@ const registerUser = async (user: RegisterUserInput): Promise<any> => {
 
     return response.data
   } catch (error) {
-    return { error: error }
+    return { error: error.response.data }
   }
 }
 

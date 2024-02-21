@@ -35,7 +35,6 @@ const CreateProfile = () => {
   const watchForm = watch()
   const bio = watch('bio')
   const birthday = watch('birthday')
-  console.log(birthday)
 
   const bioLength = useMemo(() => {
     if (bio) return bio.length

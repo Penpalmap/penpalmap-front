@@ -61,8 +61,8 @@ const Register = () => {
   const onSubmit = async (data: RegisterUserInput) => {
     const resultRegisterData = await registerUser(data)
 
-    if (!resultRegisterData.success) {
-      setError("Une erreur s'est produite")
+    if (resultRegisterData.error) {
+      setError(resultRegisterData.error.message)
       return
     }
 

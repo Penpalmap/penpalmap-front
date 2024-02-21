@@ -58,8 +58,7 @@ const SignIn = () => {
 
       login(responseSignin.data)
     } catch (error) {
-      // Display the error message on the form
-      setError('Authentication failed')
+      setError('Authentication failed... Invalid email or password')
     }
   }
 

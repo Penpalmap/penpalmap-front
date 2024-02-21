@@ -47,7 +47,7 @@ const getUsersInMap = async (userId: string): Promise<UserMap[]> => {
 
 const updateUser = async (user: any, userId: string) => {
   try {
-    const response = await axiosInstance.put(`/api/users/${userId}`, user)
+    const response = await axiosInstance.patch(`/api/users/${userId}`, user)
 
     return response.data
   } catch (error) {
