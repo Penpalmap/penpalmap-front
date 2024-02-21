@@ -20,6 +20,7 @@ const clusterStyle = function (feature) {
       userElement?.gender === 'man' || userElement?.gender === 'woman'
         ? userElement?.gender
         : 'other'
+    console.log('featureMaxUser', userElement)
 
     // if (!style) {
     return [
@@ -67,6 +68,7 @@ const clusterStyle = function (feature) {
     }
 
     let style = styleCache[uid]
+    console.log('featureMaxUser', featureMaxUser)
     const genderFolder =
       featureMaxUser?.gender === 'man' || featureMaxUser?.gender === 'woman'
         ? featureMaxUser?.gender

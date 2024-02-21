@@ -36,7 +36,8 @@ const getUserById = async (id: string): Promise<User> => {
 
 const getUsersInMap = async (userId: string): Promise<UserMap[]> => {
   try {
-    const users = await axiosInstance.get(`/api/map/users/${userId}`)
+    // const users = await axiosInstance.get(`/api/map/users/${userId}`)
+    const users = await axiosInstance.get(`/api/map/users`)
 
     return users.data
   } catch (error) {

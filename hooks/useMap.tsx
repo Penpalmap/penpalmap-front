@@ -89,20 +89,20 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
   const showUserOverlay = useCallback((user: User) => {
     if (
       !mapObj.current ||
-      (user.geomR?.coordinates[1] === undefined &&
-        user.geomR?.coordinates[0] === undefined)
+      (user.geom?.coordinates[1] === undefined &&
+        user.geom?.coordinates[0] === undefined)
     )
       return
-    const { geomR } = user
+    const { geom } = user
 
-    if (!geomR) {
+    if (!geom) {
       // Gérer le cas où geom est manquant
       return
     }
 
     const coordinate = fromLonLat([
-      geomR.coordinates[0] as number,
-      geomR.coordinates[1] as number,
+      geom.coordinates[0] as number,
+      geom.coordinates[1] as number,
     ])
 
     overlayRef.current = new Overlay({
@@ -141,8 +141,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         mapObj.current.getView().animate({
           center: fromLonLat([
-            user?.geomR?.coordinates?.[0] || 0,
-            user?.geomR?.coordinates?.[1] || 0,
+            user?.geom?.coordinates?.[0] || 0,
+            user?.geom?.coordinates?.[1] || 0,
           ]),
           duration: 500,
         })
@@ -229,7 +229,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     )
 
     const allUsersFeatures = filteredWithGeom.map((userElement) => {
-      const { geomR } = userElement
+      const { geom } = userElement
 
       // chaque room que l'on a (nous)
       const room = rooms?.find((room) => {
@@ -247,8 +247,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
       return new Feature({
         geometry: new Point(
           fromLonLat([
-            geomR?.coordinates[0] as number,
-            geomR?.coordinates[1] as number,
+            geom?.coordinates[0] as number,
+            geom?.coordinates[1] as number,
           ])
         ),
         element: {
@@ -264,8 +264,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
       ? new Feature({
           geometry: new Point(
             fromLonLat([
-              filteredCurrentUser.geomR.coordinates[0] || 0,
-              filteredCurrentUser.geomR.coordinates[1] || 0,
+              filteredCurrentUser.geom.coordinates[0] || 0,
+              filteredCurrentUser.geom.coordinates[1] || 0,
             ])
           ),
           element: {

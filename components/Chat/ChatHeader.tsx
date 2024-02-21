@@ -53,9 +53,9 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
   const dialogRef = useRef<HTMLButtonElement>(null)
 
   const { city, country, flag } = useLocation(
-    appData?.userChat?.geomR?.coordinates?.[1] ||
+    appData?.userChat?.geom?.coordinates?.[1] ||
       appData?.userChat?.geom?.coordinates?.[1],
-    appData?.userChat?.geomR?.coordinates?.[0] ||
+    appData?.userChat?.geom?.coordinates?.[0] ||
       appData?.userChat?.geom?.coordinates?.[0]
   )
 

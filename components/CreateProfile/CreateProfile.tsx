@@ -102,7 +102,7 @@ const CreateProfile = () => {
 
   const onSubmit = async (data: ProfileFormData) => {
     if (!user?.id) return
-
+    debugger
     setLoading(true)
 
     if (router.locale) data.languageUsed = router.locale
