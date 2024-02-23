@@ -79,7 +79,12 @@ const resetPassword = async (token: string, password: string) => {
   }
 }
 
-const refreshToken = async (accessToken) => {
+const refreshToken = async (
+  accessToken: string
+): Promise<{
+  accessToken: string
+  refreshToken: string
+}> => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,

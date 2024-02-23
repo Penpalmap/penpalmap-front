@@ -27,17 +27,20 @@ import useLanguage from '../../hooks/useLanguage'
 import { useTranslation } from 'next-i18next'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useSession } from '../../hooks/useSession'
+import { useRouter } from 'next/router'
 
 const Header = () => {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
-  const { logout, user } = useSession()
+  const { logout, user, status } = useSession()
   const [appData, setAppData] = useContext(AppContext)
 
   const { setMobileView } = useMobileView()
   const isMobile = useBreakpointValue({ base: true, md: false })
 
   const { changeLocale, locale } = useLanguage()
+
+  const { pathname, push } = useRouter()
 
   // const { i18n } = useTranslation()
   const disconnect = () => {
@@ -94,52 +97,65 @@ const Header = () => {
           </Text>
         </Flex>
         {user ? (
-          <Menu>
-            <MenuButton
-              as={Avatar}
-              size="sm"
-              name={user.name}
-              cursor="pointer"
-              src={
-                user?.image
-                  ? user?.image
-                  : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
-              }
-              boxShadow="0px 4px 6px rgba(0, 0, 0, 0.3)"
-              p={'1px'}
-            />
-            <MenuList>
-              <MenuItem>
-                <Box display="flex" alignItems="center">
-                  <Avatar
-                    size="sm"
-                    name={user?.name}
-                    src={
-                      user?.image
-                        ? user?.image
-                        : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
-                    }
-                    marginRight={2}
-                  />
-                  <Text fontWeight="bold">{user?.name}</Text>
-                </Box>
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem onClick={onOpen}>{t('menu.myProfile')}</MenuItem>
+          <HStack spacing={6}>
+            {pathname !== '/home' && status === 'authenticated' && user && (
+              <Button
+                colorScheme="teal"
+                onClick={() => {
+                  setMobileView('home')
+                  push('/home')
+                }}
+              >
+                Go home
+              </Button>
+            )}
+            <Menu>
+              <MenuButton
+                as={Avatar}
+                size="sm"
+                name={user.name}
+                cursor="pointer"
+                src={
+                  user?.image
+                    ? user?.image
+                    : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
+                }
+                boxShadow="0px 4px 6px rgba(0, 0, 0, 0.3)"
+                p={'1px'}
+              />
+              <MenuList>
+                <MenuItem>
+                  <Box display="flex" alignItems="center">
+                    <Avatar
+                      size="sm"
+                      name={user?.name}
+                      src={
+                        user?.image
+                          ? user?.image
+                          : `/images/avatar/${genderFolder}/${user?.avatarNumber}.png`
+                      }
+                      marginRight={2}
+                    />
+                    <Text fontWeight="bold">{user?.name}</Text>
+                  </Box>
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={onOpen}>{t('menu.myProfile')}</MenuItem>
 
-              {isMobile ? (
-                <Link href={`/`} onClick={() => setMobileView('settings')}>
-                  <MenuItem> {t('menu.parameters')}</MenuItem>
-                </Link>
-              ) : (
-                <Link href={`/settings`}>
-                  <MenuItem> {t('menu.parameters')}</MenuItem>
-                </Link>
-              )}
-              <MenuDivider />
-              <MenuItem onClick={disconnect}>{t('menu.logout')}</MenuItem>
-            </MenuList>
-          </Menu>
+                {isMobile ? (
+                  <Link href={`/`} onClick={() => setMobileView('settings')}>
+                    <MenuItem> {t('menu.parameters')}</MenuItem>
+                  </Link>
+                ) : (
+                  <Link href={`/settings`}>
+                    <MenuItem> {t('menu.parameters')}</MenuItem>
+                  </Link>
+                )}
+                <MenuDivider />
+                <MenuItem onClick={disconnect}>{t('menu.logout')}</MenuItem>
+              </MenuList>
+            </Menu>
+          </HStack>
         ) : (
           <Flex alignItems={'center'} gap={'2'}>
             <FontAwesomeIcon icon={faGlobeEurope} />
@@ -182,6 +198,7 @@ const Header = () => {
           </Flex>
         )}
       </HStack>
+
       {user && <MyProfile onClose={onClose} isOpen={isOpen} />}
     </>
   )

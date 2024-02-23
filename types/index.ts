@@ -124,6 +124,6 @@ export type AuthContextType = {
   status: 'loading' | 'authenticated' | 'unauthenticated'
   login: (tokens: { accessToken: string; refreshToken: string }) => void
   logout: () => void
-  refreshTokenFunc: () => Promise<boolean>
+  // refreshTokenFunc: () => Promise<boolean>
   fetchUser: () => void
 }

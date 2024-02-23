@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { refreshToken } from './api/authApi'
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 })
@@ -25,24 +25,19 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
 
-      try {
-        const refreshToken = localStorage.getItem('refreshToken')
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
-          {
-            refreshToken,
-          }
-        )
-        const { accessToken } = response.data
-
-        localStorage.setItem('accessToken', accessToken)
-
-        // Retry the original request with the new token
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`
-        return axios(originalRequest)
-      } catch (error) {
-        // Handle refresh token error or redirect to login
+      const refreshTokenStocked = localStorage.getItem('refreshToken')
+      if (!refreshTokenStocked) {
+        return Promise.reject(error)
       }
+
+      const responseToken = await refreshToken(refreshTokenStocked)
+      const { accessToken } = responseToken
+
+      localStorage.setItem('accessToken', accessToken)
+
+      // Retry the original request with the new token
+      originalRequest.headers.Authorization = `Bearer ${accessToken}`
+      return axios(originalRequest)
     }
 
     return Promise.reject(error)
