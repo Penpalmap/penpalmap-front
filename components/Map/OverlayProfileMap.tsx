@@ -213,7 +213,7 @@ const OverlayProfileMap = ({
             />
           ) : (
             <Link
-              href={`/home/?profileId=${userMap?.id}`}
+              href={`/home?profileId=${userMap?.id}`}
               as={`/home/profile/${userMap?.id}`}
             >
               <Button
