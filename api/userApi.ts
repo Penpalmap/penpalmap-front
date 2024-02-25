@@ -123,6 +123,19 @@ const getUserBlocked = async (userId: string) => {
   }
 }
 
+const uploadProfileImage = async (formData: FormData, userId: string) => {
+  try {
+    const response = await axiosInstance.post(
+      `/api/users/${userId}/images`,
+      formData
+    )
+
+    return response.data
+  } catch (error) {
+    console.error('Error while uploading profile image', error)
+  }
+}
+
 export {
   getUserByEmail,
   getUserById,
@@ -134,4 +147,5 @@ export {
   blockUser,
   unblockUser,
   getUserBlocked,
+  uploadProfileImage,
 }

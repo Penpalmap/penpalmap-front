@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import { Message, Room } from '../types'
-import { getRooms } from '../api/conversationApi'
+import { getRooms } from '../api/rooms/roomApi'
 import { useSession } from '../hooks/useSession'
 import { onUsersOnline } from '../sockets/socketManager'
 import { AppContext } from './AppContext'
@@ -45,12 +45,12 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
   useEffect(() => {
     const fetchUserRooms = async () => {
       if (!user?.id) return
-      const response = await getRooms(user.id)
-      if (response) {
-        setRooms(response.rooms)
+      const roomsData = await getRooms({ userIds: [user.id] })
+      if (roomsData) {
+        setRooms(roomsData)
 
         let totalUnread = 0
-        response.rooms.forEach((room) => {
+        roomsData.forEach((room) => {
           if (room.countUnreadMessages) {
             totalUnread += parseInt(room.countUnreadMessages)
           }
@@ -60,8 +60,10 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
       }
     }
 
-    fetchUserRooms()
-  }, [user?.id])
+    if (user) {
+      fetchUserRooms()
+    }
+  }, [user])
 
   const updateLastMessageInRoom = useCallback(
     (message) => {

@@ -1,19 +1,6 @@
 import { ProfileFormData, UserImage } from '../types'
 import axiosInstance from '../axiosInstance'
 
-const uploadProfileImage = async (formData: FormData, userId: string) => {
-  try {
-    const response = await axiosInstance.post(
-      `/api/users/${userId}/image`,
-      formData
-    )
-
-    return response.data
-  } catch (error) {
-    console.error('Error while uploading profile image', error)
-  }
-}
-
 const reorderProfileImages = async (
   userId: string,
   newImagesOrder: UserImage[]
@@ -81,7 +68,6 @@ const getProfile = async (userId: string) => {
 }
 
 export {
-  uploadProfileImage,
   updateProfile,
   createProfile,
   getProfile,

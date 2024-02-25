@@ -3,7 +3,7 @@ import { SocketEvents } from '../constants/socketEnum'
 import { Message, MessageInput, Room } from '../types'
 import { useSession } from './useSession'
 import {
-  createMessage,
+  // createMessage,
   getMessagesByRoomId,
   getRoomById,
   getRoomOfTwoUsers,
@@ -11,7 +11,7 @@ import {
 } from '../api/chatApi'
 import { AppContext } from '../context/AppContext'
 import {
-  createRoom,
+  // createRoom,
   onNewMessage,
   onNewRoom,
   onSeenMessage,
@@ -19,6 +19,9 @@ import {
   sendMessageSocket,
 } from '../sockets/socketManager'
 import { useRoom } from '../context/RoomsContext'
+import { createRoom } from '../api/rooms/roomApi'
+import { CreateMessageDto } from '../api/messages/messagesDto'
+import { createMessage } from '../api/messages/messagesApi'
 
 const useChat = () => {
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
@@ -82,29 +85,48 @@ const useChat = () => {
 
   const sendMessage = useCallback(
     async (message: MessageInput) => {
-      const newMessage: Message = await createMessage(message)
+      debugger
+      // const newMessage: Message = await createMessage(message)
 
-      if (newMessage.isNewRoom) {
-        createRoom(appData.socket, {
-          roomId: newMessage.roomId,
-          senderId: newMessage.senderId,
-          receiverId: message.receiverId,
+      if (!message.roomId) {
+        const room = await createRoom({
+          memberIds: [message.senderId, message.receiverId],
         })
-
-        const room = await getRoomById(newMessage.roomId)
-        room.countUnreadMessages = '0'
         setCurrentRoom(room)
+
+        const newMessage: CreateMessageDto = {
+          content: message.content,
+          roomId: room.id,
+          senderId: message.senderId,
+        }
+
+        await createMessage(newMessage)
         setRooms((prevRooms) => [...prevRooms, room])
       }
 
-      newMessage.receiverId = message.receiverId
+      // if (newMessage.isNewRoom) {
+      //   createRoom(appData.socket, {
+      //     roomId: newMessage.roomId,
+      //     senderId: newMessage.senderId,
+      //     receiverId: message.receiverId,
+      //   })
 
-      setMessages((prevMessages) => [...prevMessages, newMessage])
-      updateLastMessageInRoom(newMessage)
+      //   const room = await getRoomById(newMessage.roomId)
+      //   room.countUnreadMessages = '0'
+      //   setCurrentRoom(room)
+      //   setRooms((prevRooms) => [...prevRooms, room])
+      // }
 
-      sendMessageSocket(appData.socket, newMessage)
+      // setRooms((prevRooms) => [...prevRooms, room])
+
+      // newMessage.receiverId = message.receiverId
+
+      // setMessages((prevMessages) => [...prevMessages, newMessage])
+      // updateLastMessageInRoom(newMessage)
+
+      // sendMessageSocket(appData.socket, newMessage)
     },
-    [appData.socket, setRooms, updateLastMessageInRoom]
+    [setRooms]
   )
 
   useEffect(() => {

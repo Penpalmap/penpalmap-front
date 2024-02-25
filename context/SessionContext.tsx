@@ -72,9 +72,13 @@ export const SessionProvider = ({ children }) => {
         if (decoded.exp * 1000 < Date.now()) {
           setStatus('unauthenticated')
         } else {
-          const user = await getUserById(decoded.userId)
-          setUser(user)
-          setStatus('authenticated')
+          try {
+            const userData = await getUserById(decoded.userId)
+            setUser(userData)
+            setStatus('authenticated')
+          } catch (err) {
+            logout()
+          }
         }
       } else {
         setStatus('unauthenticated')
@@ -92,7 +96,7 @@ export const SessionProvider = ({ children }) => {
     ) {
       router.push('/create-profile')
     }
-  }, [router, status, user?.isNewUser])
+  }, [logout, router, status, user?.isNewUser])
 
   //
 

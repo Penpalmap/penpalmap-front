@@ -16,6 +16,8 @@ const ConversationList = () => {
   const { rooms, resetCountUnreadMessagesOfRoom } = useRoom()
   const { t } = useTranslation()
 
+  console.log('rooms', rooms)
+
   const { setMobileView } = useMobileView()
 
   const clickOnConversation = useCallback(

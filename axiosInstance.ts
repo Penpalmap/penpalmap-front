@@ -19,25 +19,24 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config
-    console.log('error', error)
-    // If the error status is 401 and there is no originalRequest._retry flag,
-    // it means the token has expired and we need to refresh it
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true
+    if (error.response?.status) {
+      if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true
 
-      const refreshTokenStocked = localStorage.getItem('refreshToken')
-      if (!refreshTokenStocked) {
-        return Promise.reject(error)
+        const refreshTokenStocked = localStorage.getItem('refreshToken')
+        if (!refreshTokenStocked) {
+          return Promise.reject(error)
+        }
+
+        const responseToken = await refreshToken(refreshTokenStocked)
+        const { accessToken } = responseToken
+
+        localStorage.setItem('accessToken', accessToken)
+
+        // Retry the original request with the new token
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`
+        return axios(originalRequest)
       }
-
-      const responseToken = await refreshToken(refreshTokenStocked)
-      const { accessToken } = responseToken
-
-      localStorage.setItem('accessToken', accessToken)
-
-      // Retry the original request with the new token
-      originalRequest.headers.Authorization = `Bearer ${accessToken}`
-      return axios(originalRequest)
     }
 
     return Promise.reject(error)
