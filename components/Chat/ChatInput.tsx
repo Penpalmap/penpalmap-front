@@ -76,7 +76,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <FormControl display={'flex'} alignItems={'end'} m={'2'}>
+      <FormControl display={'flex'} alignItems={'end'} p={2}>
         <Flex
           backgroundColor={'gray.100'}
           flex={1}

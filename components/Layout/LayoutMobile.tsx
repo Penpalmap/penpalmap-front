@@ -37,7 +37,9 @@ const LayoutMobile = () => {
           {mobileView === 'settings' && <Settings />}
           <Chat visible={mobileView === 'chat'} />
         </Box>
-        <NavigationBar />
+        {mobileView !== 'chat' &&
+          mobileView !== 'profile' &&
+          mobileView !== 'settings' && <NavigationBar />}
       </Box>
     </>
   )

@@ -1,3 +1,4 @@
+import { useBreakpointValue } from '@chakra-ui/react'
 import React, { ReactNode, createContext, useContext, useState } from 'react'
 
 type MobileViewContextType = {
@@ -13,6 +14,7 @@ type MobileViewContextType = {
       'home' | 'conversations' | 'profile' | 'chat' | 'settings' | 'profile'
     >
   >
+  isMobile: boolean
 }
 
 interface MobileProviderProps {
@@ -24,6 +26,7 @@ const MobileViewContext = createContext<MobileViewContextType>({
   setMobileView: () => {
     return
   },
+  isMobile: false,
 })
 
 export const useMobileView = () => useContext(MobileViewContext)
@@ -33,8 +36,10 @@ export const MobileViewProvider = ({ children }: MobileProviderProps) => {
     'home' | 'conversations' | 'profile' | 'chat' | 'settings' | 'profile'
   >('home')
 
+  const isMobile = useBreakpointValue({ base: true, md: false }) ?? false
+
   return (
-    <MobileViewContext.Provider value={{ mobileView, setMobileView }}>
+    <MobileViewContext.Provider value={{ mobileView, setMobileView, isMobile }}>
       {children}
     </MobileViewContext.Provider>
   )

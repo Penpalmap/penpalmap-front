@@ -12,7 +12,8 @@ const MapInfoPart = () => {
       <Image
         src={'/images/lp/user_map_info.png'}
         alt={'map'}
-        height={['100%', '800px']}
+        w={['100%', '50%']}
+        h={['auto', 'auto']}
       />
 
       <Box>

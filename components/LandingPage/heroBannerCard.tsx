@@ -9,9 +9,11 @@ import {
   keyframes,
 } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons'
+import { useTranslation } from 'next-i18next'
 
 const HeroBannerCard = () => {
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
+  const { t } = useTranslation('common')
 
   return (
     <Box
@@ -19,7 +21,7 @@ const HeroBannerCard = () => {
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
-      mb={20}
+      my={20}
     >
       <Box
         background={'blackAlpha.500'}
@@ -104,8 +106,9 @@ const HeroBannerCard = () => {
               px={12}
               size={'lg'}
               _hover={{ bg: 'teal.400', color: 'white' }}
+              textTransform={'capitalize'}
             >
-              Sign up
+              {t('connect.sign-up')}
             </Button>
           </Link>
         </HStack>

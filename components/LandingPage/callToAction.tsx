@@ -25,6 +25,7 @@ const CallToAction = () => {
         onClick={() => {
           Router.push('/auth/signup')
         }}
+        textTransform={'capitalize'}
       >
         {t('connect.sign-up')}
       </Button>

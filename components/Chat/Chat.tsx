@@ -21,7 +21,7 @@ const Chat = ({ visible }) => {
       right={'10'}
       bottom={'0'}
       background={'white'}
-      h={{ base: 'calc(100vh - 7.5rem )', md: 'xl' }}
+      h={{ base: '100vh', md: 'xl' }}
       flexDirection={'column'}
       w={{ base: 'full', md: 'xl' }}
       display={appData.chatOpen && visible ? 'flex' : 'none'}
