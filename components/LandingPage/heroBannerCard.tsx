@@ -5,9 +5,10 @@ import {
   HStack,
   Image,
   Text,
+  Link,
   keyframes,
 } from '@chakra-ui/react'
-import Link from 'next/link'
+import { ArrowForwardIcon } from '@chakra-ui/icons'
 
 const HeroBannerCard = () => {
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
@@ -59,10 +60,10 @@ const HeroBannerCard = () => {
         <Box>
           <Box
             display={'contents'}
-            fontSize={['4xl', '6xl']}
+            fontSize={['2em', '4em']}
             fontWeight={'bold'}
             color={'white'}
-            mb={6}
+            mb={3}
           >
             <Text as="span">Connect with </Text>
 
@@ -76,6 +77,23 @@ const HeroBannerCard = () => {
             Make friends, learn languages and discover new cultures whatever
             your location
           </Text>
+
+          <Box
+              py={{ base:6, md:20 }}
+              color={'white'}
+          >
+            <Link
+              href={`/#informationsPart`}
+              color={'white.500'}
+            >
+              <Text
+                fontWeight={'bold'}
+              >
+                Learn more <ArrowForwardIcon />
+              </Text>
+            </Link>
+          </Box>
+
         </Box>
 
         <HStack spacing={'16'}>
@@ -90,18 +108,6 @@ const HeroBannerCard = () => {
               Sign up
             </Button>
           </Link>
-
-          <Button
-            variant={'outline'}
-            border={'2px solid white'}
-            color={'white'}
-            borderRadius="full"
-            px={12}
-            size={'lg'}
-            _hover={{ bg: 'teal.400', color: 'white' }}
-          >
-            <Link href={`/#informationsPart`}>Learn more</Link>
-          </Button>
         </HStack>
       </Flex>
     </Box>
