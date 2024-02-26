@@ -3,3 +3,7 @@ export type CreateMessageDto = {
   senderId: string
   roomId: string
 }
+
+export type UpdateMessageDto = {
+  content: string
+}

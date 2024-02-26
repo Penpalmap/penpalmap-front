@@ -1,5 +1,5 @@
 import axiosInstance from '../../axiosInstance'
-import { CreateRoomDto, QueryRoomDto } from './roomDto'
+import { CreateRoomDto, QueryRoomDto, RoomDto, UpdateRoomDto } from './roomDto'
 
 const getRooms = async ({ userIds }: QueryRoomDto): Promise<any> => {
   try {
@@ -23,4 +23,28 @@ const createRoom = async ({ memberIds }: CreateRoomDto): Promise<any> => {
   }
 }
 
-export { getRooms, createRoom }
+const getRoomById = async (roomId: string): Promise<RoomDto> => {
+  try {
+    const room = await axiosInstance.get(`/api/rooms/${roomId}`)
+    return room.data
+  } catch (error) {
+    console.error('Error while getting users in map', error)
+    throw error
+  }
+}
+
+const updateRoom = async (
+  roomId: string,
+  input: UpdateRoomDto
+): Promise<RoomDto> => {
+  try {
+    const room = await axiosInstance.patch(`/api/rooms/${roomId}`, {
+      input,
+    })
+    return room.data
+  } catch (error) {
+    console.error('Error while getting users in map', error)
+    throw error
+  }
+}
+export { getRooms, createRoom, getRoomById, updateRoom }

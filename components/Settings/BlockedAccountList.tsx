@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { User } from '../../types'
 import { useRef } from 'react'
-import { unblockUser } from '../../api/userApi'
+import { unblockUser } from '../../api/user/userApi'
 import { useSession } from '../../hooks/useSession'
 
 type Props = {

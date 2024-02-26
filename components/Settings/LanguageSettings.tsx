@@ -1,6 +1,6 @@
 import { Box, Heading, Select } from '@chakra-ui/react'
 import useLanguage from '../../hooks/useLanguage'
-import { updateUser } from '../../api/userApi'
+import { updateUser } from '../../api/user/userApi'
 import { useSession } from '../../hooks/useSession'
 import { useTranslation } from 'next-i18next'
 

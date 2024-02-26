@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { AuthContextType, User } from '../types'
 import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'next/router'
-import { getUserById } from '../api/userApi'
+import { getUserById } from '../api/user/userApi'
 
 export const SessionContext = createContext<AuthContextType | undefined>(
   undefined

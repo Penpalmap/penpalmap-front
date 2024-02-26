@@ -29,7 +29,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 import { faArrowLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSession } from '../../hooks/useSession'
-import { blockUser } from '../../api/userApi'
+import { blockUser } from '../../api/user/userApi'
 import { useRoom } from '../../context/RoomsContext'
 
 type Props = {

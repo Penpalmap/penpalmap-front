@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRef, useState } from 'react'
-import { deleteUser } from '../../api/userApi'
+import { deleteUser } from '../../api/user/userApi'
 import { useSession } from '../../hooks/useSession'
 import { useTranslation } from 'next-i18next'
 

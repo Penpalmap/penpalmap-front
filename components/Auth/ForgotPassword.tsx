@@ -13,7 +13,7 @@ import {
   AlertIcon,
   AlertTitle,
 } from '@chakra-ui/react'
-import { reinitializePassword } from '../../api/authApi'
+import { reinitializePassword } from '../../api/auth/authApi'
 import { useTranslation } from 'next-i18next'
 
 const ForgotPassword = () => {

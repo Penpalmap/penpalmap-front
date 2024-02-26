@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { uploadProfileImage } from '../api/userApi'
+import { uploadProfileImage } from '../api/user/userApi'
 
 const useUploadUserImage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)

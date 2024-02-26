@@ -30,7 +30,7 @@ import { AppContext } from '../../context/AppContext'
 import LoggedInDate from '../Profile/loggedInDate'
 import { LanguagesKeys } from '../../types/translations'
 import { useRouter } from 'next/router'
-import { getUserById } from '../../api/userApi'
+import { getUserById } from '../../api/user/userApi'
 
 type Props = {
   userId: string

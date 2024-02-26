@@ -1,13 +1,6 @@
 import { Socket } from 'socket.io-client'
 import { Gender } from '../constants/genderEnum'
 
-export type RegisterUserInput = {
-  email: string
-  name: string
-  password: string
-  passwordConfirmation: string
-}
-
 export type ProfileFormData = {
   birthday: string
   gender: Gender
