@@ -85,7 +85,6 @@ const useChat = () => {
 
   const sendMessage = useCallback(
     async (message: MessageInput) => {
-      debugger
       // const newMessage: Message = await createMessage(message)
 
       if (!message.roomId) {

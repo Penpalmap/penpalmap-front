@@ -6,7 +6,6 @@ import { updateMessageIsReadByRoom } from '../../api/chatApi'
 import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
-import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useTranslation } from 'next-i18next'
 
@@ -15,8 +14,6 @@ const ConversationList = () => {
   const [appData, setAppData] = useContext(AppContext)
   const { rooms, resetCountUnreadMessagesOfRoom } = useRoom()
   const { t } = useTranslation()
-
-  console.log('rooms', rooms)
 
   const { setMobileView } = useMobileView()
 
@@ -59,18 +56,17 @@ const ConversationList = () => {
 
   const conversationsRender = useMemo(
     () =>
-      rooms
-        .sort(sortRoomsByLastMessageDate)
-        .map((room, index) => (
-          <ConversationItem
-            clickOnRoom={clickOnConversation}
-            lastMessage={room.messages[0]}
-            members={room.members}
-            sessionUserId={user?.id}
-            countUnreadMessages={room.countUnreadMessages}
-            key={index}
-          />
-        )),
+      // rooms.sort(sortRoomsByLastMessageDate).map((room, index) => (
+      rooms.map((room, index) => (
+        <ConversationItem
+          clickOnRoom={clickOnConversation}
+          // lastMessage={room.messages[0]}
+          members={room.members}
+          sessionUserId={user?.id}
+          countUnreadMessages={room.countUnreadMessages}
+          key={index}
+        />
+      )),
     [clickOnConversation, rooms, user?.id]
   )
 

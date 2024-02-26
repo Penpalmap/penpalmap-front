@@ -57,22 +57,23 @@ export type UserRoom = {
 
 export type User = {
   id: string
-  email: string
-  image: string
+  blockedUsers?: User[]
   name: string
-  geom: Geom | null
-  geom: Geom | null
+  email: string
+  googleId?: string
+  geom?: Geom
   points: number
-  gender: string
-  birthday: string
-  bio: string
-  userImages: Array<UserImage>
+  image?: string
+  gender?: string
+  birthday?: Date
+  bio?: string
   isNewUser: boolean
+  connections: number
+  languageUsed?: string
+  avatarNumber?: number
+  userImages?: UserImage[]
+  userLanguages?: UserLanguage[]
   isOnline: boolean
-  languageUsed: string
-  avatarNumber: number
-  userLanguages: Array<UserLanguage>
-  updatedAt: string
 }
 
 export type Geom = {
@@ -83,7 +84,6 @@ export type UserMap = {
   id: string
   name: string
   geom: Geom
-  geom: Geom
   image: string
   points: number
   avatarNumber: number
@@ -93,8 +93,6 @@ export type UserImage = {
   id: string
   src: string
   position: number
-  userId: string
-  user: User
 }
 
 export type Room = {
@@ -113,10 +111,9 @@ export type UserElement = User & {
 }
 
 export type UserLanguage = {
-  id?: string
+  id: string
   language: string
   level: string
-  userId: string
 }
 
 export type AuthContextType = {

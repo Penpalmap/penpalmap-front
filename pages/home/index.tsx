@@ -54,7 +54,7 @@ export default function HomePage() {
             router.push('/home')
           }}
         >
-          <Profile profileId={router.query.profileId as string} />
+          <Profile userId={router.query.profileId as string} />
         </Modal>
       )}
     </>

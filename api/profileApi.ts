@@ -1,76 +1,76 @@
-import { ProfileFormData, UserImage } from '../types'
-import axiosInstance from '../axiosInstance'
+// import { ProfileFormData, UserImage } from '../types'
+// import axiosInstance from '../axiosInstance'
 
-const reorderProfileImages = async (
-  userId: string,
-  newImagesOrder: UserImage[]
-) => {
-  try {
-    const response = await axiosInstance.put(
-      `/api/users/${userId}/profile/reorder`,
-      {
-        newImagesOrder,
-      }
-    )
+// const reorderProfileImages = async (
+//   userId: string,
+//   newImagesOrder: UserImage[]
+// ) => {
+//   try {
+//     const response = await axiosInstance.put(
+//       `/api/users/${userId}/profile/reorder`,
+//       {
+//         newImagesOrder,
+//       }
+//     )
 
-    return response.data
-  } catch (error) {
-    console.error('Error while reordering profile images', error)
-  }
-}
+//     return response.data
+//   } catch (error) {
+//     console.error('Error while reordering profile images', error)
+//   }
+// }
 
-const deleteProfileImage = async (position: number, userId: string) => {
-  try {
-    const response = await axiosInstance.delete(
-      `/api/users/${userId}/profile/images/${position}`
-    )
+// const deleteProfileImage = async (position: number, userId: string) => {
+//   try {
+//     const response = await axiosInstance.delete(
+//       `/api/users/${userId}/profile/images/${position}`
+//     )
 
-    return response.data
-  } catch (error) {
-    console.error('Error while deleting profile image', error)
-  }
-}
+//     return response.data
+//   } catch (error) {
+//     console.error('Error while deleting profile image', error)
+//   }
+// }
 
-const createProfile = async (profile: ProfileFormData, userId: string) => {
-  try {
-    const response = await axiosInstance.post(
-      `/api/users/${userId}/details`,
-      profile
-    )
+// const createProfile = async (profile: ProfileFormData, userId: string) => {
+//   try {
+//     const response = await axiosInstance.post(
+//       `/api/users/${userId}/details`,
+//       profile
+//     )
 
-    return response.data
-  } catch (error) {
-    console.error('Error while creating profile', error)
-  }
-}
+//     return response.data
+//   } catch (error) {
+//     console.error('Error while creating profile', error)
+//   }
+// }
 
-const updateProfile = async (profile: ProfileFormData, userId: string) => {
-  try {
-    const response = await axiosInstance.put(
-      `/api/users/${userId}/profile`,
-      profile
-    )
+// const updateProfile = async (profile: ProfileFormData, userId: string) => {
+//   try {
+//     const response = await axiosInstance.put(
+//       `/api/users/${userId}/profile`,
+//       profile
+//     )
 
-    return response.data
-  } catch (error) {
-    console.error('Error while updating profile', error)
-  }
-}
+//     return response.data
+//   } catch (error) {
+//     console.error('Error while updating profile', error)
+//   }
+// }
 
-const getProfile = async (userId: string) => {
-  try {
-    const response = await axiosInstance.get(`/api/users/${userId}/profile`)
+// const getProfile = async (userId: string) => {
+//   try {
+//     const response = await axiosInstance.get(`/api/users/${userId}/profile`)
 
-    return response.data
-  } catch (error) {
-    console.error('Error while getting profile', error)
-  }
-}
+//     return response.data
+//   } catch (error) {
+//     console.error('Error while getting profile', error)
+//   }
+// }
 
-export {
-  updateProfile,
-  createProfile,
-  getProfile,
-  deleteProfileImage,
-  reorderProfileImages,
-}
+// export {
+//   updateProfile,
+//   createProfile,
+//   getProfile,
+//   deleteProfileImage,
+//   reorderProfileImages,
+// }

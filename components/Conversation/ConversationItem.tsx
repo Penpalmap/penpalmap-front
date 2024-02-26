@@ -88,13 +88,13 @@ const ConversationItem = ({
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
           ></Text>
-          <Text
+          {/* <Text
             fontSize={'.8em'}
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
           >
             {lastMessage?.senderId === sessionUserId ? t('chat.you') : ''}{' '}
-          </Text>
+          </Text> */}
           <Text
             fontSize={'.8em'}
             whiteSpace={'nowrap'}

@@ -38,11 +38,10 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
   const overlayRef = useRef<Overlay | null>(null)
 
-  const getUsers = async () => {
-    if (!currentUser) return
-    const users = await getUsersInMap(currentUser?.id)
+  const getUsers = useCallback(async () => {
+    const users = await getUsersInMap()
     setUsers(users)
-  }
+  }, [])
 
   // Pour changer le style du curseur quand il survole un user
   const onPointermove = useCallback((e) => {
@@ -141,8 +140,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         mapObj.current.getView().animate({
           center: fromLonLat([
-            user?.geom?.coordinates?.[0] || 0,
-            user?.geom?.coordinates?.[1] || 0,
+            user.geom?.coordinates[0] || 0,
+            user.geom?.coordinates[1] || 0,
           ]),
           duration: 500,
         })
@@ -153,7 +152,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
   // Initialize the map
   useEffect(() => {
-    if (!mapContainerRef.current || !currentUser) return undefined
+    if (!mapContainerRef.current) return undefined
 
     const map = new OLMap({
       target: mapContainerRef.current,
@@ -191,15 +190,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         }),
       ]),
     })
-
     getUsers()
-
     mapObj.current = map
 
     return () => {
       map.setTarget(undefined)
     }
-  }, [currentUser])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Add users to the map
   useEffect(() => {
