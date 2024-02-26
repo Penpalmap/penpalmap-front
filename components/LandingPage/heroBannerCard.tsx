@@ -5,10 +5,11 @@ import {
   HStack,
   Image,
   Text,
+  Link,
   keyframes,
 } from '@chakra-ui/react'
+import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { useTranslation } from 'next-i18next'
-import Link from 'next/link'
 
 const HeroBannerCard = () => {
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
@@ -20,7 +21,7 @@ const HeroBannerCard = () => {
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
-      my={20}
+      my={[15, 20]}
     >
       <Box
         background={'blackAlpha.500'}
@@ -61,10 +62,10 @@ const HeroBannerCard = () => {
         <Box>
           <Box
             display={'contents'}
-            fontSize={['4xl', '6xl']}
+            fontSize={['2em', '3.5em']}
             fontWeight={'bold'}
             color={'white'}
-            mb={6}
+            mb={3}
           >
             <Text as="span">Connect with </Text>
 
@@ -78,6 +79,14 @@ const HeroBannerCard = () => {
             Make friends, learn languages and discover new cultures whatever
             your location
           </Text>
+
+          <Box py={{ base: 6, md: 20 }} color={'white'}>
+            <Link href={`/#informationsPart`} color={'white.500'}>
+              <Text fontWeight={'bold'}>
+                Learn more <ArrowForwardIcon />
+              </Text>
+            </Link>
+          </Box>
         </Box>
 
         <HStack spacing={'16'}>
@@ -93,19 +102,6 @@ const HeroBannerCard = () => {
               {t('connect.sign-up')}
             </Button>
           </Link>
-
-          <Button
-            variant={'outline'}
-            border={'2px solid white'}
-            color={'white'}
-            borderRadius="full"
-            px={12}
-            size={'lg'}
-            _hover={{ bg: 'teal.400', color: 'white' }}
-            textTransform={'capitalize'}
-          >
-            <Link href={`/#informationsPart`}>Learn more</Link>
-          </Button>
         </HStack>
       </Flex>
     </Box>
