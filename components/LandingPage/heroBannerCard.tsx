@@ -80,22 +80,13 @@ const HeroBannerCard = () => {
             your location
           </Text>
 
-          <Box
-              py={{ base:6, md:20 }}
-              color={'white'}
-          >
-            <Link
-              href={`/#informationsPart`}
-              color={'white.500'}
-            >
-              <Text
-                fontWeight={'bold'}
-              >
+          <Box py={{ base: 6, md: 20 }} color={'white'}>
+            <Link href={`/#informationsPart`} color={'white.500'}>
+              <Text fontWeight={'bold'}>
                 Learn more <ArrowForwardIcon />
               </Text>
             </Link>
           </Box>
-
         </Box>
 
         <HStack spacing={'16'}>
