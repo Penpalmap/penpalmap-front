@@ -1,11 +1,12 @@
 import axiosInstance from '../../axiosInstance'
+import { Message } from '../../types'
 import {
   CreateMessageDto,
   QueryMessagesDto,
   UpdateMessageDto,
 } from './messagesDto'
 
-const createMessage = async (message: CreateMessageDto) => {
+const createMessage = async (message: CreateMessageDto): Promise<Message> => {
   try {
     const response = await axiosInstance.post('/api/messages', message)
     return response.data

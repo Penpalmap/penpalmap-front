@@ -39,7 +39,7 @@ const Map = () => {
           onOpenChat={() => {
             setData({
               ...data,
-              userChat: data.userTarget,
+              roomChatId: data.userTarget?.room?.id ?? null,
               chatOpen: true,
             })
           }}

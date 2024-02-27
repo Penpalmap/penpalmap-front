@@ -33,14 +33,17 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   const btnRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
-    if (!appData?.userChat?.id) return
+    if (!appData?.roomChatId) return
 
     setValue('roomId', room?.id)
     setValue('senderId', senderId)
-    setValue('receiverId', appData?.userChat?.id)
+    setValue(
+      'receiverId',
+      room?.members?.find((member) => member.id !== senderId)?.id || ''
+    )
     setValue('content', '')
     inputRef?.current?.focus()
-  }, [appData?.userChat?.id, room?.id, senderId, setValue])
+  }, [appData?.roomChatId, room?.id, room?.members, senderId, setValue])
 
   const onSubmitHandler = async (data: MessageInput) => {
     sendMessage(data)
@@ -53,11 +56,11 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   const [lastTypingTime, setLastTypingTime] = useState<number | null>(null)
 
   useEffect(() => {
-    if (content && appData?.socket && appData?.userChat?.id) {
+    if (content && appData?.socket && appData?.roomChatId) {
       const currentTime = Date.now()
       if (!lastTypingTime || currentTime - lastTypingTime >= 3000) {
         isTyping(appData.socket, {
-          receiverId: appData.userChat.id,
+          receiverId: appData?.roomChatId,
           senderId: senderId,
           roomId: room?.id,
           content: content,
@@ -67,7 +70,7 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
     }
   }, [
     appData.socket,
-    appData?.userChat?.id,
+    appData?.roomChatId,
     content,
     room?.id,
     senderId,

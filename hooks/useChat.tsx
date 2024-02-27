@@ -17,6 +17,7 @@ import {
   getMessages,
   updateMessage,
 } from '../api/messages/messagesApi'
+import { id } from 'date-fns/locale'
 
 const useChat = () => {
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
@@ -41,7 +42,9 @@ const useChat = () => {
         setCurrentRoom(room as Room)
 
         const otherUser = room?.members?.find((member) => member.id !== user.id)
-        if (otherUser) [setOtherUser(otherUser)]
+        if (otherUser) {
+          setOtherUser(otherUser)
+        }
 
         setIsLoading(false) // Mettre fin au chargement lorsque les informations sont disponibles.
       }
@@ -50,6 +53,7 @@ const useChat = () => {
     if (appData?.roomChatId) {
       setRoomIsLoading(true)
       fetchRoom()
+      console.log('appData.roomChatId', appData.roomChatId)
       setMessages([])
       setOffset(0)
     }
@@ -60,6 +64,8 @@ const useChat = () => {
       const messagesData = await getMessages({
         roomId: currentRoom.id,
       })
+
+      console.log('messagesData', messagesData, 'currentRoom', currentRoom)
       setMessages(messagesData)
       setIsLoading(false)
       setRoomIsLoading(false)
@@ -89,23 +95,32 @@ const useChat = () => {
 
   const sendMessage = useCallback(
     async (message: MessageInput) => {
-      // const newMessage: Message = await createMessage(message)
+      let room = currentRoom ?? null
 
-      if (!message.roomId) {
-        const room = await createRoom({
+      console.log('message', message)
+
+      if (!currentRoom?.id) {
+        const roomData = await createRoom({
           memberIds: [message.senderId, message.receiverId],
         })
-        setCurrentRoom(room)
+        setCurrentRoom(roomData)
 
-        const newMessage: CreateMessageDto = {
-          content: message.content,
-          roomId: room.id,
-          senderId: message.senderId,
-        }
-
-        await createMessage(newMessage)
-        setRooms((prevRooms) => [...prevRooms, room])
+        room = roomData
+        setRooms((prevRooms) => [...prevRooms, roomData])
       }
+
+      if (!room) {
+        return
+      }
+
+      const inputMessage: CreateMessageDto = {
+        content: message.content,
+        roomId: room.id,
+        senderId: message.senderId,
+      }
+
+      const newMessage = await createMessage(inputMessage)
+      setMessages((prevMessages) => [...prevMessages, newMessage])
 
       // if (newMessage.isNewRoom) {
       //   createRoom(appData.socket, {
@@ -129,7 +144,7 @@ const useChat = () => {
 
       // sendMessageSocket(appData.socket, newMessage)
     },
-    [setRooms]
+    [currentRoom, setRooms]
   )
 
   useEffect(() => {
