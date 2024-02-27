@@ -2,7 +2,6 @@ import { useContext, useMemo, useCallback } from 'react'
 import { Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
-import { updateMessageIsReadByRoom } from '../../api/chatApi'
 import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
@@ -18,32 +17,59 @@ const ConversationList = () => {
   const { setMobileView } = useMobileView()
 
   const clickOnConversation = useCallback(
-    async (members) => {
-      const userMember = members?.find((member) => member.id !== user?.id)
-      if (userMember) {
-        const roomIncludeUser = rooms.find((room) =>
-          room.members.includes(userMember)
-        )
-        if (roomIncludeUser) {
-          setAppData({
-            ...appData,
-            userChat: userMember,
-            chatOpen: true,
-          })
-          resetCountUnreadMessagesOfRoom(roomIncludeUser.id)
+    async (roomId: string) => {
+      const room = rooms.find((room) => room.id === roomId)
+      if (room) {
+        setAppData({
+          ...appData,
+          roomChatId: roomId,
+          chatOpen: true,
+        })
+        resetCountUnreadMessagesOfRoom(roomId)
 
-          await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
-          const lastMessage =
-            roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
+        // DO NOT DELETE
+        // UPDATE WHEN API CHanges
 
-          if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
-            sendMessageSeen(appData.socket, lastMessage)
-          }
+        // await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
+        // const lastMessage =
+        //   roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
 
-          setMobileView('chat')
-        }
+        // if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
+        //   sendMessageSeen(appData.socket, lastMessage)
+        // }
+
+        setMobileView('chat')
       }
     },
+    // async (members) => {
+    //   const userMember = members?.find((member) => member.id !== user?.id)
+    //   if (userMember) {
+    //     const roomIncludeUser = rooms.find((room) =>
+    //       room.members.includes(userMember)
+    //     )
+    //     if (roomIncludeUser) {
+    //       setAppData({
+    //         ...appData,
+    //         userChat: userMember,
+    //         chatOpen: true,
+    //       })
+    //       resetCountUnreadMessagesOfRoom(roomIncludeUser.id)
+
+    //       // DO NOT DELETE
+    //       // UPDATE WHEN API CHanges
+
+    //       // await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
+    //       // const lastMessage =
+    //       //   roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
+
+    //       // if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
+    //       //   sendMessageSeen(appData.socket, lastMessage)
+    //       // }
+
+    //       setMobileView('chat')
+    //     }
+    //   }
+    // },
     [
       appData,
       resetCountUnreadMessagesOfRoom,
@@ -61,7 +87,7 @@ const ConversationList = () => {
         <ConversationItem
           clickOnRoom={clickOnConversation}
           // lastMessage={room.messages[0]}
-          members={room.members}
+          room={room}
           sessionUserId={user?.id}
           countUnreadMessages={room.countUnreadMessages}
           key={index}

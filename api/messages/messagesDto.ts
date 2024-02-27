@@ -7,3 +7,7 @@ export type CreateMessageDto = {
 export type UpdateMessageDto = {
   content: string
 }
+
+export type QueryMessagesDto = {
+  roomId?: string
+}

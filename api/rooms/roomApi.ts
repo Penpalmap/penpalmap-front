@@ -3,7 +3,7 @@ import { CreateRoomDto, QueryRoomDto, RoomDto, UpdateRoomDto } from './roomDto'
 
 const getRooms = async ({ userIds }: QueryRoomDto): Promise<any> => {
   try {
-    const userParams = userIds?.join(',')
+    const userParams = userIds?.join('&userIds[]=')
 
     const rooms = await axiosInstance.get(`/api/rooms?userIds[]=${userParams}`)
     return rooms.data

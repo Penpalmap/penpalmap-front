@@ -4,10 +4,10 @@ import { DndContext } from '@dnd-kit/core'
 import SortableItem from './SortableItem'
 import { Box, Button, Center, Flex, Grid, Image, Input } from '@chakra-ui/react'
 import { useSession } from './../../hooks/useSession'
-import { reorderProfileImages } from '../../api/profileApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCrown, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { UserImage } from '../../types'
+import { reorderProfileImages } from '../../api/user/userApi'
 
 type Props = {
   images: UserImage[]

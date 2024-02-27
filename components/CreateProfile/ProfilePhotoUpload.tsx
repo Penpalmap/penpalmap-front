@@ -4,8 +4,8 @@ import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { useSession } from '../../hooks/useSession'
 import ImagesUploadGrid from '../Profile/ImagesUploadGrid'
-import { deleteProfileImage } from '../../api/profileApi'
 import { UserImage } from '../../types'
+import { deleteProfileImage } from '../../api/user/userApi'
 
 const ProfilePhotoUpload = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

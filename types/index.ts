@@ -37,7 +37,7 @@ export type ContextStateData = {
   userTarget: UserElement | null
   rooms: Array<Room> | null
   chatOpen: boolean
-  userChat: User | null
+  roomChatId: string | null
   socket: Socket | null
 }
 

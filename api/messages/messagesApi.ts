@@ -1,5 +1,9 @@
 import axiosInstance from '../../axiosInstance'
-import { CreateMessageDto, UpdateMessageDto } from './messagesDto'
+import {
+  CreateMessageDto,
+  QueryMessagesDto,
+  UpdateMessageDto,
+} from './messagesDto'
 
 const createMessage = async (message: CreateMessageDto) => {
   try {
@@ -31,4 +35,14 @@ const deleteMessage = async (id: string) => {
   }
 }
 
-export { createMessage, deleteMessage, updateMessage }
+const getMessages = async (input: QueryMessagesDto) => {
+  try {
+    const response = await axiosInstance.get('/api/messages', { params: input })
+    return response.data
+  } catch (error) {
+    console.error('Error while creating message', error)
+    throw error
+  }
+}
+
+export { createMessage, deleteMessage, updateMessage, getMessages }

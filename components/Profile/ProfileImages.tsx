@@ -5,7 +5,7 @@ import ImagesUploadGrid from './ImagesUploadGrid'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { Alert, Text, VStack, useDisclosure } from '@chakra-ui/react'
-import { deleteProfileImage } from '../../api/profileApi'
+import { deleteProfileImage } from '../../api/user/userApi'
 
 type Props = {
   images: UserImage[]

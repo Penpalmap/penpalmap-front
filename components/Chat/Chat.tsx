@@ -11,10 +11,17 @@ import useGenderFolder from '../../hooks/useGenderFolder'
 const Chat = ({ visible }) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
-  const { room, sendMessage, messages, offset, setOffset, isLoading } =
-    useChat()
+  const {
+    room,
+    sendMessage,
+    messages,
+    offset,
+    setOffset,
+    isLoading,
+    otherUser,
+  } = useChat()
 
-  const { genderFolder } = useGenderFolder(appData?.userChat?.gender || '')
+  const { genderFolder } = useGenderFolder(otherUser?.gender || '')
   return (
     <Box
       position={{ base: 'initial', md: 'absolute' }}
@@ -29,13 +36,13 @@ const Chat = ({ visible }) => {
       zIndex={1000}
     >
       <ChatHeader
-        name={appData?.userChat?.name}
+        name={otherUser?.name}
         photoUrl={
-          appData?.userChat?.image ||
-          `/images/avatar/${genderFolder}/${appData?.userChat?.avatarNumber}.png`
+          otherUser?.image ||
+          `/images/avatar/${genderFolder}/${otherUser?.avatarNumber}.png`
         }
-        isOnline={appData?.userChat?.isOnline}
-        userId={appData?.userChat?.id}
+        isOnline={otherUser?.isOnline}
+        userId={otherUser?.id}
       />
 
       <ChatMessages
@@ -44,6 +51,7 @@ const Chat = ({ visible }) => {
         offset={offset}
         setOffset={setOffset}
         isLoading={isLoading}
+        otherUser={otherUser}
       />
 
       {user?.id && (

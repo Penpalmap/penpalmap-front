@@ -1,13 +1,13 @@
 import { Flex, Avatar, AvatarBadge, Icon, Box, Text } from '@chakra-ui/react'
 import dayjs from 'dayjs'
-import { Message, User } from '../../types'
+import { Message, Room } from '../../types'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
 import useGenderFolder from '../../hooks/useGenderFolder'
 
 type ConversationItemProps = {
-  clickOnRoom: (members: User[]) => void
-  members: User[]
+  clickOnRoom: (roomId: string) => void
+  room: Room
   lastMessage: Message | undefined
   countUnreadMessages: string
   sessionUserId: string | undefined
@@ -15,12 +15,12 @@ type ConversationItemProps = {
 
 const ConversationItem = ({
   clickOnRoom,
-  members,
+  room,
   lastMessage,
   countUnreadMessages,
   sessionUserId,
 }: ConversationItemProps) => {
-  const user = members?.find((member) => member.id !== sessionUserId)
+  const user = room.members?.find((member) => member.id !== sessionUserId)
   const { flag } = useLocation(
     user?.geom?.coordinates?.[1],
     user?.geom?.coordinates?.[0]
@@ -32,7 +32,7 @@ const ConversationItem = ({
     <Flex
       p={2}
       w={'full'}
-      onClick={() => clickOnRoom(members)}
+      onClick={() => clickOnRoom(room.id)}
       cursor={'pointer'}
       _hover={{
         background: 'gray.200',

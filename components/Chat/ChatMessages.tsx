@@ -1,5 +1,5 @@
 import { Box, Button, Spinner, Text } from '@chakra-ui/react'
-import { Message } from '../../types'
+import { Message, User } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
 import { useSession } from './../../hooks/useSession'
 import MessageItem from './MessageItem'
@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
 import React from 'react'
+import useGenderFolder from '../../hooks/useGenderFolder'
 
 type Props = {
   messages: Array<Message> | undefined
@@ -19,17 +20,18 @@ type Props = {
   offset: number
   setOffset: (offset: number) => void
   isLoading: boolean
+  otherUser: User | null
 }
 
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
-  const currentDate = new Date()
+// const formatDate = (dateString: string) => {
+//   const date = new Date(dateString)
+//   const currentDate = new Date()
 
-  const sameYear = date.getFullYear() === currentDate.getFullYear()
-  const formatString = sameYear ? 'MMMM d' : 'MMMM d, yyyy'
+//   const sameYear = date.getFullYear() === currentDate.getFullYear()
+//   const formatString = sameYear ? 'MMMM d' : 'MMMM d, yyyy'
 
-  return format(date, formatString)
-}
+//   return format(date, formatString)
+// }
 
 const ChatMessages = ({
   messages,
@@ -37,6 +39,7 @@ const ChatMessages = ({
   offset,
   setOffset,
   isLoading,
+  otherUser,
 }: Props) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
@@ -60,17 +63,13 @@ const ChatMessages = ({
 
   const lastSenderId = useRef<string | null>(null)
   const [bottomScrollIsDone, setBottomScrollIsDone] = useState(false)
-
-  const genderFolder =
-    appData?.userChat?.gender === 'man' || appData?.userChat?.gender === 'woman'
-      ? appData?.userChat?.gender
-      : 'other'
+  const { genderFolder } = useGenderFolder(otherUser?.gender || '')
 
   const [arrowDisplay, setArrowDisplay] = useState<boolean>(false)
 
   useEffect(() => {
     setBottomScrollIsDone(false)
-  }, [appData.userChat])
+  }, [])
 
   const checkIfAtBottom = (offsetHeight: number) => {
     if (!chatContainerRef.current) return false
@@ -91,7 +90,7 @@ const ChatMessages = ({
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
       setBottomScrollIsDone(true)
     }
-  }, [appData.userChat, sortedMessages])
+  }, [sortedMessages])
 
   useEffect(() => {
     const currentChatContainer = chatContainerRef.current
@@ -159,54 +158,57 @@ const ChatMessages = ({
         false
 
       const image =
-        appData?.userChat?.image ??
-        `/images/avatar/${genderFolder}/${appData.userChat?.avatarNumber}.png`
+        otherUser?.image ??
+        `/images/avatar/${genderFolder}/${otherUser?.avatarNumber}.png`
 
-      const messageDate = formatDate(message.createdAt)
+      // DO NOT DELETE THIS COMMENTED CODE
+      // UPDATE IT IF API CHANGES AND MESSAGE HAS A DATE
 
-      const showDate =
-        !isLastMessage &&
-        index > 0 &&
-        previousMessage &&
-        messageDate !== formatDate(previousMessage.createdAt)
+      // const messageDate = formatDate(message.createdAt)
 
-      // if top message, put a ref to scroll to it
-      if (index === 0) {
-        currentDate = messageDate
-        return (
-          <Box
-            key={message.id}
-            ref={topMessageRef}
-            display={'flex'}
-            flexDirection={'column'}
-          >
-            <Text textAlign="center" mt={2} mb={2} fontSize="small">
-              {currentDate}
-            </Text>
-            <MessageItem
-              key={message.id}
-              content={message.content}
-              isLastMessage={isLastMessage}
-              isOwnMessage={isOwnMessage}
-              seenText={seenText}
-              image={(!isSameSender && image) || ''}
-              timestamp={''}
-            />
-          </Box>
-        )
-      }
+      // const showDate =
+      //   !isLastMessage &&
+      //   index > 0 &&
+      //   previousMessage &&
+      //   messageDate !== formatDate(previousMessage.createdAt)
 
-      if (showDate) {
-        currentDate = messageDate
-      }
+      // // if top message, put a ref to scroll to it
+      // if (index === 0) {
+      //   currentDate = messageDate
+      //   return (
+      //     <Box
+      //       key={message.id}
+      //       ref={topMessageRef}
+      //       display={'flex'}
+      //       flexDirection={'column'}
+      //     >
+      //       <Text textAlign="center" mt={2} mb={2} fontSize="small">
+      //         {currentDate}
+      //       </Text>
+      //       <MessageItem
+      //         key={message.id}
+      //         content={message.content}
+      //         isLastMessage={isLastMessage}
+      //         isOwnMessage={isOwnMessage}
+      //         seenText={seenText}
+      //         image={(!isSameSender && image) || ''}
+      //         timestamp={''}
+      //       />
+      //     </Box>
+      //   )
+      // }
+
+      // if (showDate) {
+      //   currentDate = messageDate
+      // }
 
       return (
         <React.Fragment key={message.id}>
-          {showDate && (
+          {/* {showDate && (
             <Text textAlign="center" mt={2} mb={2} fontSize="small">
               {currentDate}
             </Text>
-          )}
+          )} */}
           <MessageItem
             key={message.id}
             content={message.content}
@@ -222,8 +224,8 @@ const ChatMessages = ({
       )
     })
   }, [
-    appData.userChat?.avatarNumber,
-    appData.userChat?.image,
+    otherUser?.avatarNumber,
+    otherUser?.image,
     genderFolder,
     sortedMessages,
     user?.id,
@@ -245,7 +247,7 @@ const ChatMessages = ({
     })
 
     const handleIsTyping = (message) => {
-      if (message.senderId !== appData.userChat?.id) return
+      if (message.senderId !== otherUser?.id) return
       clearTimeout(typingTimeout as NodeJS.Timeout)
       setOtherUserIsTyping(true)
 
@@ -262,7 +264,7 @@ const ChatMessages = ({
       appData?.socket?.off(SocketEvents.IsTyping)
       appData?.socket?.off(SocketEvents.StopIsTyping)
     }
-  }, [appData.socket, appData.userChat?.id, typingTimeout])
+  }, [appData.socket, otherUser?.id, typingTimeout])
 
   const clickOnArrowNewMessage = () => {
     setArrowDisplay(false)
@@ -300,16 +302,16 @@ const ChatMessages = ({
       {isNewChat && (
         <EmptyChatMessages
           image={
-            appData?.userChat?.image ||
-            `/images/avatar/${genderFolder}/${appData?.userChat?.avatarNumber}.png`
+            otherUser?.image ||
+            `/images/avatar/${genderFolder}/${otherUser?.avatarNumber}.png`
           }
-          name={appData?.userChat?.name || ''}
+          name={otherUser?.name || ''}
         />
       )}
       {otherUserIsTyping && (
         <Box position={'absolute'} bottom={10} left={0} p={4}>
           <Text fontSize={'small'}>
-            {appData?.userChat?.name} {t('chat.IsTyping')}
+            {otherUser?.name} {t('chat.IsTyping')}
           </Text>
         </Box>
       )}

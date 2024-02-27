@@ -1,33 +1,30 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { SocketEvents } from '../constants/socketEnum'
-import { Message, MessageInput, Room } from '../types'
+import { Message, MessageInput, Room, User } from '../types'
 import { useSession } from './useSession'
-import {
-  // createMessage,
-  getMessagesByRoomId,
-  getRoomById,
-  getRoomOfTwoUsers,
-  updateMessageIsReadByRoom,
-} from '../api/chatApi'
 import { AppContext } from '../context/AppContext'
 import {
-  // createRoom,
   onNewMessage,
   onNewRoom,
   onSeenMessage,
   sendMessageSeen,
-  sendMessageSocket,
 } from '../sockets/socketManager'
 import { useRoom } from '../context/RoomsContext'
-import { createRoom } from '../api/rooms/roomApi'
+import { createRoom, getRoomById, getRooms } from '../api/rooms/roomApi'
 import { CreateMessageDto } from '../api/messages/messagesDto'
-import { createMessage } from '../api/messages/messagesApi'
+import {
+  createMessage,
+  getMessages,
+  updateMessage,
+} from '../api/messages/messagesApi'
 
 const useChat = () => {
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
   const { user } = useSession()
   const [appData, setAppData] = useContext(AppContext)
   const [messages, setMessages] = useState<Message[]>([])
+
+  const [otherUser, setOtherUser] = useState<User | null>(null)
 
   const [offset, setOffset] = useState(0)
 
@@ -38,26 +35,31 @@ const useChat = () => {
 
   useEffect(() => {
     const fetchRoom = async () => {
-      if (user?.id && appData?.userChat?.id) {
-        const room = await getRoomOfTwoUsers(user.id, appData.userChat.id)
+      if (user?.id && appData?.roomChatId) {
+        const room = await getRoomById(appData.roomChatId)
 
-        setCurrentRoom(room)
+        setCurrentRoom(room as Room)
+
+        const otherUser = room?.members?.find((member) => member.id !== user.id)
+        if (otherUser) [setOtherUser(otherUser)]
+
         setIsLoading(false) // Mettre fin au chargement lorsque les informations sont disponibles.
       }
     }
 
-    if (appData?.userChat) {
+    if (appData?.roomChatId) {
       setRoomIsLoading(true)
       fetchRoom()
-
       setMessages([])
       setOffset(0)
     }
-  }, [appData.userChat, user])
+  }, [appData.roomChatId, user])
 
   const initialFetchMessages = useCallback(async () => {
     if (currentRoom) {
-      const messagesData = await getMessagesByRoomId(currentRoom.id, 20, 0)
+      const messagesData = await getMessages({
+        roomId: currentRoom.id,
+      })
       setMessages(messagesData)
       setIsLoading(false)
       setRoomIsLoading(false)
@@ -70,12 +72,14 @@ const useChat = () => {
 
   const additonalFetchMessages = useCallback(async () => {
     if (currentRoom && !roomIsLoading) {
-      const messagesData = await getMessagesByRoomId(currentRoom.id, 20, offset)
+      const messagesData = await getMessages({
+        roomId: currentRoom.id,
+      })
 
       setMessages((prevMessages) => [...messagesData, ...prevMessages])
       setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
     }
-  }, [currentRoom, roomIsLoading, offset])
+  }, [currentRoom, roomIsLoading])
 
   useEffect(() => {
     if (offset > 0) {
@@ -146,7 +150,7 @@ const useChat = () => {
 
             sendMessageSeen(appData?.socket, message)
             resetCountUnreadMessagesOfRoom(message.roomId)
-            await updateMessageIsReadByRoom(message.roomId, message.senderId)
+            // await updateMessage({})
           }
         }
       }
@@ -197,6 +201,7 @@ const useChat = () => {
     offset,
     setOffset,
     isLoading,
+    otherUser,
     additonalFetchMessages,
   }
 }
