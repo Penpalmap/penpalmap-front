@@ -1,6 +1,9 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 const MapInfoPart = () => {
+  const { t } = useTranslation('common')
+
   return (
     <Flex
       flexDirection={['column-reverse', 'row']}
@@ -20,16 +23,7 @@ const MapInfoPart = () => {
         <Text fontSize={['3xl', '5xl']} fontWeight={'bold'} mb={6}>
           Tellement de personnes à rencontrer
         </Text>
-        <Text fontSize={'lg'}>
-          Rencontrez une multitude de personnes aux quatre coins de la planète.
-          Que vous rêviez de discuter avec un surfeur australien, de partager
-          une recette de tacos avec un Mexicain ou simplement de débattre du
-          dernier épisode de votre série préférée avec quelqu'un de l'autre côté
-          de la planète, tout est possible ! Sur PenpalMap, les frontières
-          n'existent pas, seul le plaisir de découvrir de nouvelles cultures et
-          de tisser des liens authentiques compte. Alors, prêt à partir à
-          l'aventure depuis votre écran ?"
-        </Text>
+        <Text fontSize={'lg'}>{t('presentation.meetPeople')}</Text>
       </Box>
     </Flex>
   )
