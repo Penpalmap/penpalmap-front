@@ -61,52 +61,63 @@ const WhereIsPart = () => {
   }
 
   return (
-    <Flex overflow="hidden" mx={-4} py={6} position="relative">
-      <Box
-        id="cityContainer"
-        display="flex"
-        mx={4}
-        overflowX="hidden"
-        flexDirection={'row'} // Alignement horizontal sur mobile, vertical sur desktop
-      >
-        <CityBlock image={'/images/lp/usa.jpg'} cityName={'USA'} />
-        <CityBlock image={'/images/lp/canada.jpg'} cityName={'Canada'} />
-        <CityBlock image={'/images/lp/france.jpg'} cityName={'France'} />
-        <CityBlock
-          image={'/images/lp/united_kingdom.jpg'}
-          cityName={'United Kingdom'}
-        />
-        <CityBlock image={'/images/lp/brasil.jpg'} cityName={'Brasil'} />
-        <CityBlock image={'/images/lp/danemark.jpg'} cityName={'Danemark'} />
-        <CityBlock image={'/images/lp/india.jpg'} cityName={'India'} />
-        <CityBlock image={'/images/lp/australia.jpg'} cityName={'Australia'} />
-        <CityBlock image={'/images/lp/thailand.jpg'} cityName={'Thailand'} />
-        <CityBlock image={'/images/lp/china.jpg'} cityName={'China'} />
-        <CityBlock image={'/images/lp/maroc.jpg'} cityName={'Maroc'} />
-        <CityBlock image={'/images/lp/indonesia.jpg'} cityName={'Indonesia'} />
-      </Box>
-      <Box
-        position="absolute"
-        top="50%"
-        left="0"
-        transform="translateY(-50%)"
-        cursor="pointer"
-        onClick={scrollLeft}
-        zIndex={1}
-      >
-        {'<'}
-      </Box>
-      <Box
-        position="absolute"
-        top="50%"
-        right="0"
-        transform="translateY(-50%)"
-        cursor="pointer"
-        onClick={scrollRight}
-        zIndex={1}
-      >
-        {'>'}
-      </Box>
+    <Flex display={'flex'} flexDirection="column">
+      <Text fontSize={['3xl', '5xl']} fontWeight={'bold'} mb={6}>
+        Penpalmap est partout dans le monde
+      </Text>
+      <Flex overflow="hidden" mx={-4} py={6} position="relative">
+        <Box
+          id="cityContainer"
+          display="flex"
+          mx={4}
+          overflowX="hidden"
+          flexDirection={'row'} // Alignement horizontal sur mobile, vertical sur desktop
+        >
+          <CityBlock image={'/images/lp/usa.jpg'} cityName={'USA'} />
+          <CityBlock image={'/images/lp/canada.jpg'} cityName={'Canada'} />
+          <CityBlock image={'/images/lp/france.jpg'} cityName={'France'} />
+          <CityBlock
+            image={'/images/lp/united_kingdom.jpg'}
+            cityName={'United Kingdom'}
+          />
+          <CityBlock image={'/images/lp/brasil.jpg'} cityName={'Brasil'} />
+          <CityBlock image={'/images/lp/danemark.jpg'} cityName={'Danemark'} />
+          <CityBlock image={'/images/lp/india.jpg'} cityName={'India'} />
+          <CityBlock
+            image={'/images/lp/australia.jpg'}
+            cityName={'Australia'}
+          />
+          <CityBlock image={'/images/lp/thailand.jpg'} cityName={'Thailand'} />
+          <CityBlock image={'/images/lp/china.jpg'} cityName={'China'} />
+          <CityBlock image={'/images/lp/maroc.jpg'} cityName={'Maroc'} />
+          <CityBlock
+            image={'/images/lp/indonesia.jpg'}
+            cityName={'Indonesia'}
+          />
+        </Box>
+        <Box
+          position="absolute"
+          top="50%"
+          left="0"
+          transform="translateY(-50%)"
+          cursor="pointer"
+          onClick={scrollLeft}
+          zIndex={1}
+        >
+          {'<'}
+        </Box>
+        <Box
+          position="absolute"
+          top="50%"
+          right="0"
+          transform="translateY(-50%)"
+          cursor="pointer"
+          onClick={scrollRight}
+          zIndex={1}
+        >
+          {'>'}
+        </Box>
+      </Flex>
     </Flex>
   )
 }

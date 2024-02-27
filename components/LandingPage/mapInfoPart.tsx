@@ -21,11 +21,14 @@ const MapInfoPart = () => {
           Tellement de personnes à rencontrer
         </Text>
         <Text fontSize={'lg'}>
-          Tellement de personnes à rencontrer Autour d’un verre . Telleonnes à
-          rencontrer. Tellement de personnes à ment de pers. Tellement de
-          personnes à rencontrer Tellement de personnes à rencontrer Autour d’un
-          verre . Telleonnes à rencontrer. Tellement de personnes à ment de
-          pers. Tellement de personnes à rencontrer
+          Rencontrez une multitude de personnes aux quatre coins de la planète.
+          Que vous rêviez de discuter avec un surfeur australien, de partager
+          une recette de tacos avec un Mexicain ou simplement de débattre du
+          dernier épisode de votre série préférée avec quelqu'un de l'autre côté
+          de la planète, tout est possible ! Sur PenpalMap, les frontières
+          n'existent pas, seul le plaisir de découvrir de nouvelles cultures et
+          de tisser des liens authentiques compte. Alors, prêt à partir à
+          l'aventure depuis votre écran ?"
         </Text>
       </Box>
     </Flex>

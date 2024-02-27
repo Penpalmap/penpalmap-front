@@ -17,7 +17,7 @@ const HeroBannerCard = () => {
 
   return (
     <Box
-      h={'600px'}
+      h={'700px'}
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
@@ -69,7 +69,7 @@ const HeroBannerCard = () => {
           >
             <Text as="span">Connect with </Text>
 
-            <Text as="span" color={'#30e3c5'}>
+            <Text as="span" color={'teal.300'}>
               friends{' '}
             </Text>
             <Text as="span">from all over the world, wherever you are.</Text>
