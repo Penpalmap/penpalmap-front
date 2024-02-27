@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 
 const CityBlock = ({
   image,
@@ -8,7 +8,7 @@ const CityBlock = ({
   cityName: string
 }) => {
   return (
-    <Box position="relative" flexShrink={0} mr={4}>
+    <Box position="relative" flexShrink={0} mr={4} mb={10}>
       <Box
         position="absolute"
         w="100%"
@@ -17,7 +17,15 @@ const CityBlock = ({
         borderRadius="xl"
         zIndex={-1}
       ></Box>
-      <Image src={image} alt={cityName} w="full" borderRadius="xl" />
+      <Image
+        src={image}
+        alt={cityName}
+        h="full"
+        w={'200'} // Rempli la largeur de son parent
+        borderRadius="xl"
+        maxW="300px" // Limite la largeur maximale à 300px
+        maxH="300px" // Limite la hauteur maximale à 300px
+      />
       <Text
         position={'absolute'}
         left={'50%'}
@@ -27,6 +35,7 @@ const CityBlock = ({
         fontSize={'3xl'}
         fontWeight={'bold'}
         textAlign={'center'}
+        textShadow={'0px 0px 10px black'}
       >
         {cityName}
       </Text>
@@ -35,6 +44,8 @@ const CityBlock = ({
 }
 
 const WhereIsPart = () => {
+  const [isMobile] = useMediaQuery('(max-width: 768px)')
+
   const scrollRight = () => {
     const container = document.getElementById('cityContainer')
     if (container) {
@@ -51,7 +62,13 @@ const WhereIsPart = () => {
 
   return (
     <Flex overflow="hidden" mx={-4} py={6} position="relative">
-      <Box id="cityContainer" display="flex" mx={4} overflowX="auto">
+      <Box
+        id="cityContainer"
+        display="flex"
+        mx={4}
+        overflowX="hidden"
+        flexDirection={'row'} // Alignement horizontal sur mobile, vertical sur desktop
+      >
         <CityBlock image={'/images/lp/usa.jpg'} cityName={'USA'} />
         <CityBlock image={'/images/lp/canada.jpg'} cityName={'Canada'} />
         <CityBlock image={'/images/lp/france.jpg'} cityName={'France'} />
@@ -61,8 +78,12 @@ const WhereIsPart = () => {
         />
         <CityBlock image={'/images/lp/brasil.jpg'} cityName={'Brasil'} />
         <CityBlock image={'/images/lp/danemark.jpg'} cityName={'Danemark'} />
+        <CityBlock image={'/images/lp/india.jpg'} cityName={'India'} />
         <CityBlock image={'/images/lp/australia.jpg'} cityName={'Australia'} />
         <CityBlock image={'/images/lp/thailand.jpg'} cityName={'Thailand'} />
+        <CityBlock image={'/images/lp/china.jpg'} cityName={'China'} />
+        <CityBlock image={'/images/lp/maroc.jpg'} cityName={'Maroc'} />
+        <CityBlock image={'/images/lp/indonesia.jpg'} cityName={'Indonesia'} />
       </Box>
       <Box
         position="absolute"
