@@ -44,7 +44,7 @@ const CityBlock = ({
 }
 
 const WhereIsPart = () => {
-  const [isMobile] = useMediaQuery('(max-width: 768px)')
+  const [] = useMediaQuery('(max-width: 768px)')
 
   const scrollRight = () => {
     const container = document.getElementById('cityContainer')
