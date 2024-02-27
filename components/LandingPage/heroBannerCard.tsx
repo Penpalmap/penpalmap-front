@@ -21,7 +21,7 @@ const HeroBannerCard = () => {
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
-      my={[15, 20]}
+      my={{base: '2rem', lg: 20}}
     >
       <Box
         background={'blackAlpha.500'}
@@ -54,15 +54,14 @@ const HeroBannerCard = () => {
         flexDir={'column'}
         position={'absolute'}
         zIndex={2}
-        p={[10, 20]}
-        w={['full', '70%']}
+        p={{base: '2.5rem', md: '3.5rem', lg: '5rem'}}
         justifyContent={'space-between'}
         h={'full'}
       >
         <Box>
           <Box
             display={'contents'}
-            fontSize={['2em', '3.5em']}
+            fontSize={{base: '2em', md: '2.5em', lg: '3.5em'}}
             fontWeight={'bold'}
             color={'white'}
             mb={3}
