@@ -1,4 +1,10 @@
-import { Box, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons'
 
 const CityBlock = ({
   image,
@@ -8,20 +14,16 @@ const CityBlock = ({
   cityName: string
 }) => {
   return (
-    <Box
-      position="relative"
-      w={['100%', '50%', '25%']}
-      p={'12px 8px'}
-      display={'inline-block'}
-    >
+    <Box position="relative" flexShrink={0} mr={4}>
       <Box
-        position={'absolute'}
-        w={'calc(100% - 16px)'}
-        h={'calc(100% - 24px)'}
-        bg={'blackAlpha.300'}
-        borderRadius={'xl'}
+        position="absolute"
+        w="100%"
+        h="100%"
+        bg="blackAlpha.300"
+        borderRadius="xl"
+        zIndex={-1}
       ></Box>
-      <Image src={image} alt={cityName} w={'full'} />
+      <Image src={image} alt={cityName} w="full" borderRadius="xl" />
       <Text
         position={'absolute'}
         left={'50%'}
@@ -39,20 +41,79 @@ const CityBlock = ({
 }
 
 const WhereIsPart = () => {
+  const cities = [
+    { image: '/images/lp/usa.jpg', cityName: 'USA' },
+    { image: '/images/lp/canada.jpg', cityName: 'Canada' },
+    { image: '/images/lp/france.jpg', cityName: 'France' },
+    { image: '/images/lp/united_kingdom.jpg', cityName: 'United Kingdom' },
+    { image: '/images/lp/brasil.jpg', cityName: 'Brasil' },
+    { image: '/images/lp/danemark.jpg', cityName: 'Danemark' },
+    { image: '/images/lp/australia.jpg', cityName: 'Australia' },
+    { image: '/images/lp/thailand.jpg', cityName: 'Thailand' },
+  ]
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const scrollRight = () => {
+    if (currentIndex < cities.length - 1) {
+      setCurrentIndex(currentIndex + 1)
+    }
+  }
+
+  const scrollLeft = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1)
+    }
+  }
+
   return (
-    <Box mx={'-8px'} w={'calc(100% + 16px)'} boxSizing="border-box" mb={20}>
-      <CityBlock image={'/images/lp/usa.jpg'} cityName={'USA'} />
-      <CityBlock image={'/images/lp/canada.jpg'} cityName={'Canada'} />
-      <CityBlock image={'/images/lp/france.jpg'} cityName={'France'} />
-      <CityBlock
-        image={'/images/lp/united_kingdom.jpg'}
-        cityName={'United Kingdom'}
-      />
-      <CityBlock image={'/images/lp/brasil.jpg'} cityName={'Brasil'} />
-      <CityBlock image={'/images/lp/danemark.jpg'} cityName={'Danemark'} />
-      <CityBlock image={'/images/lp/australia.jpg'} cityName={'Australia'} />
-      <CityBlock image={'/images/lp/thailand.jpg'} cityName={'Thailand'} />
-    </Box>
+    <Flex
+      position="relative"
+      overflow="hidden"
+      mx={-4}
+      py={6}
+      mb={20}
+      alignItems="center"
+    >
+      {currentIndex > 0 && (
+        <Box
+          position="absolute"
+          top="50%"
+          left="0"
+          transform="translateY(-50%)"
+          cursor="pointer"
+          onClick={scrollLeft}
+          zIndex={1}
+          px={2}
+        >
+          <FontAwesomeIcon icon={faChevronLeft} size="2x" color="white" />
+        </Box>
+      )}
+      <Flex
+        id="cityContainer"
+        transform={`translateX(-${currentIndex * 100}%)`}
+        transition="transform 0.5s ease"
+        alignItems="center"
+      >
+        {cities.map((city, index) => (
+          <CityBlock key={index} image={city.image} cityName={city.cityName} />
+        ))}
+      </Flex>
+      {currentIndex < cities.length - 1 && (
+        <Box
+          position="absolute"
+          top="50%"
+          right="0"
+          transform="translateY(-50%)"
+          cursor="pointer"
+          onClick={scrollRight}
+          zIndex={1}
+          px={2}
+        >
+          <FontAwesomeIcon icon={faChevronRight} size="2x" color="white" />
+        </Box>
+      )}
+    </Flex>
   )
 }
 
