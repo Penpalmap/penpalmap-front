@@ -104,7 +104,10 @@
     "seeDetails": "See Details",
     "text1": "Connect with friends from around the world, wherever you are. Make friends, learn languages, and explore new cultures no matter your location.",
     "text2": "PenpalMap is an instant messaging application that allows you to chat with people from around the world. Whether you're traveling, on the go, or at home, you can access PenpalMap anytime, anywhere, securely.",
-    "meetPeople": "Dive into an adventure to discover the world on PenpalMap! Meet people from all corners of the planet without leaving your sofa. Whether you dream of chatting with an Australian surfer, sharing a taco recipe with someone from Mexico, or simply debating the latest episode of your favorite series with someone on the other side of the planet, anything is possible! On PenpalMap, there are no borders, only the pleasure of discovering new cultures and forging authentic bonds. So, are you ready to embark on an adventure from your screen?"
+    "meetPeople": "Dive into an adventure to discover the world on PenpalMap! Meet people from all corners of the planet without leaving your sofa. Whether you dream of chatting with an Australian surfer, sharing a taco recipe with someone from Mexico, or simply debating the latest episode of your favorite series with someone on the other side of the planet, anything is possible! On PenpalMap, there are no borders, only the pleasure of discovering new cultures and forging authentic bonds. So, are you ready to embark on an adventure from your screen?",
+    "taglineBeforeFriends": "Connect with ",
+    "taglineFriends": "friends",
+    "taglineAfterFriends": " from all over the world, wherever you are."
   },
   "footer": {
     "terms": "Terms of use",

@@ -104,7 +104,10 @@
     "seeDetails": "Detayları Gör",
     "text1": "Nerede olursanız olun dünya genelinden arkadaşlarınızla bağlantı kurun. Konumunuza bakılmaksızın arkadaş edinin, diller öğrenin ve yeni kültürler keşfedin.",
     "text2": "PenpalMap, dünya genelinden insanlarla sohbet etmenizi sağlayan anlık mesajlaşma uygulamasıdır. Seyahat ediyor, hareket halinde veya sadece evde olun, her zaman ve her yerde PenpalMap'e güvenli bir şekilde erişebilirsiniz.",
-    "meetPeople": "PenpalMap'te dünyayı keşfetme macerasına dalın! Koltuğunuzdan kalkmadan tüm dünyadan insanlarla tanışın. Avustralya'dan bir sörfçüyle sohbet etmek, Meksika'dan biriyle taco tarifi paylaşmak veya sadece favori dizinizin son bölümünü dünyanın öbür ucundaki biriyle tartışmak mı istiyorsunuz? Her şey mümkün! PenpalMap'te sınırlar yok, sadece yeni kültürler keşfetmenin ve gerçek bağlar kurmanın keyfi var. Peki, ekranınızdan bir maceraya hazır mısınız?"
+    "meetPeople": "PenpalMap'te dünyayı keşfetme macerasına dalın! Koltuğunuzdan kalkmadan tüm dünyadan insanlarla tanışın. Avustralya'dan bir sörfçüyle sohbet etmek, Meksika'dan biriyle taco tarifi paylaşmak veya sadece favori dizinizin son bölümünü dünyanın öbür ucundaki biriyle tartışmak mı istiyorsunuz? Her şey mümkün! PenpalMap'te sınırlar yok, sadece yeni kültürler keşfetmenin ve gerçek bağlar kurmanın keyfi var. Peki, ekranınızdan bir maceraya hazır mısınız?",
+    "taglineBeforeFriends": "Dünyanın dört bir yanındaki ",
+    "taglineFriends": "arkadaşlarla",
+    "taglineAfterFriends": " bağlantı kurun, nerede olursanız olun."
   },
   "footer": {
     "terms": "Kullanım Şartları",

@@ -104,7 +104,10 @@
     "seeDetails": "Ver detalles",
     "text1": "Conéctate con amigos de todo el mundo, estés donde estés. Haz amigos, aprende idiomas y descubre nuevas culturas, sin importar tu ubicación.",
     "text2": "PenpalMap es una aplicación de chat instantáneo que te permite conversar con personas de todo el mundo. Ya sea que estés de viaje, en movimiento o en casa, puedes acceder a PenpalMap en cualquier momento, estés donde estés, de manera segura.",
-    "meetPeople": "¡Embárcate en una aventura para descubrir el mundo en PenpalMap! Conoce a personas de todos los rincones del planeta sin moverte de tu sofá. Ya sea que sueñes con charlar con un surfista australiano, compartir una receta de tacos con alguien de México o simplemente debatir sobre el último episodio de tu serie favorita con alguien al otro lado del planeta, ¡todo es posible! En PenpalMap, no existen fronteras, solo el placer de descubrir nuevas culturas y crear vínculos auténticos. ¿Listo para embarcarte en una aventura desde tu pantalla?"
+    "meetPeople": "¡Embárcate en una aventura para descubrir el mundo en PenpalMap! Conoce a personas de todos los rincones del planeta sin moverte de tu sofá. Ya sea que sueñes con charlar con un surfista australiano, compartir una receta de tacos con alguien de México o simplemente debatir sobre el último episodio de tu serie favorita con alguien al otro lado del planeta, ¡todo es posible! En PenpalMap, no existen fronteras, solo el placer de descubrir nuevas culturas y crear vínculos auténticos. ¿Listo para embarcarte en una aventura desde tu pantalla?",
+    "taglineBeforeFriends": "Conéctate con ",
+    "taglineFriends": "amigos",
+    "taglineAfterFriends": " de todo el mundo, estés donde estés."
   },
   "footer": {
     "terms": "Términos de uso",

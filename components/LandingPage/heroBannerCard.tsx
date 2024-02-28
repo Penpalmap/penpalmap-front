@@ -68,7 +68,7 @@ const HeroBannerCard = () => {
             mb={3}
           >
             <Text as="span" textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}>
-              Connect with{' '}
+              {t('presentation.taglineBeforeFriends')}
             </Text>
 
             <Text
@@ -76,10 +76,10 @@ const HeroBannerCard = () => {
               color={'teal.300'}
               textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
             >
-              friends{' '}
+              {t('presentation.taglineFriends')}
             </Text>
             <Text as="span" textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}>
-              from all over the world, wherever you are.
+              {t('presentation.taglineAfterFriends')}
             </Text>
           </Box>
 
