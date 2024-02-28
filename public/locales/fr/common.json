@@ -128,7 +128,9 @@
     "privacy": "Politique de confidentialité",
     "legal": "Mentions légales",
     "contact": "Contact",
-    "about": "À propos"
+    "about": "À propos",
+    "companyInfo": "Informations",
+    "legalLinks": "Liens légaux"
   },
   "settings": {
     "title": "Settings",

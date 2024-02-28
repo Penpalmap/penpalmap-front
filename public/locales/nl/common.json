@@ -129,7 +129,9 @@
     "privacy": "Privacybeleid",
     "legal": "Juridische vermeldingen",
     "contact": "Neem contact met ons op",
-    "about": "Over ons"
+    "about": "Over ons",
+    "companyInfo": "Bedrijfsinformatie",
+    "legalLinks": "Juridische links"
   },
   "settings": {
     "title": "Instellingen",

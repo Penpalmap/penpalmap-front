@@ -129,7 +129,9 @@
     "privacy": "プライバシーポリシー",
     "legal": "法的事項",
     "contact": "お問い合わせ",
-    "about": "当社について"
+    "about": "当社について",
+    "companyInfo": "会社情報",
+    "legalLinks": "リンク"
   },
   "settings": {
     "title": "設定",

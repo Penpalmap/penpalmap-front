@@ -129,7 +129,9 @@
     "privacy": "Gizlilik Politikası",
     "legal": "Hukuki Bildirimler",
     "contact": "Bizimle iletişime geçin",
-    "about": "Hakkımızda"
+    "about": "Hakkımızda",
+    "companyInfo": "Şirket Bilgisi",
+    "legalLinks": "Hukuki bağlantılar"
   },
   "settings": {
     "title": "Ayarlar",

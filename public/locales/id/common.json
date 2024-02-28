@@ -129,7 +129,9 @@
     "privacy": "Kebijakan Privasi",
     "legal": "Pemberitahuan Hukum",
     "contact": "Hubungi kami",
-    "about": "Tentang kami"
+    "about": "Tentang kami",
+    "companyInfo": "Informasi Perusahaan",
+    "legalLinks": "Tautan Hukum"
   },
   "settings": {
     "title": "Pengaturan",

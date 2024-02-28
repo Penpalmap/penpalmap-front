@@ -129,7 +129,9 @@
     "privacy": "Privacy policy",
     "legal": "Legal mentions",
     "contact": "Contact us",
-    "about": "About us"
+    "about": "About us",
+    "companyInfo": "Company info",
+    "legalLinks": "Legal links"
   },
   "settings": {
     "title": "Settings",
@@ -252,6 +254,26 @@
     "pl": "Polski",
     "nl": "Nederlands",
     "id": "Bahasa Indonesia"
+  },
+  "countriesISO": {
+    "BR": "Brazil",
+    "CA": "Canada",
+    "CN": "China",
+    "DE": "Germany",
+    "ES": "Spain",
+    "FR": "France",
+    "GB": "United Kingdom",
+    "IN": "India",
+    "IT": "Italy",
+    "JP": "Japan",
+    "MX": "Mexico",
+    "RU": "Russia",
+    "US": "United States",
+    "DN": "Denmark",
+    "AU": "Australia",
+    "TH": "Thailand",
+    "MA": "Morocco",
+    "ID": "Indonesia"
   },
   "profil": {
     "photos": "Photos",

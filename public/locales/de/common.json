@@ -129,7 +129,9 @@
     "privacy": "Datenschutzbestimmungen",
     "legal": "Rechtliche Hinweise",
     "contact": "Kontaktiere uns",
-    "about": "Über uns"
+    "about": "Über uns",
+    "companyInfo": "Firmeninformationen",
+    "legalLinks": "Rechtliche Links"
   },
   "settings": {
     "title": "Einstellungen",

@@ -129,7 +129,9 @@
     "privacy": "개인 정보 정책",
     "legal": "법적 통지",
     "contact": "문의하기",
-    "about": "우리에 관해"
+    "about": "우리에 관해",
+    "companyInfo": "회사 정보",
+    "legalLinks": "링크"
   },
   "settings": {
     "title": "설정",
