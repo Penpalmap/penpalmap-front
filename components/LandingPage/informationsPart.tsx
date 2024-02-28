@@ -30,7 +30,7 @@ const InformationsPart = () => {
     <Flex
       direction={['column', 'row']}
       justifyContent={'space-around'}
-      alignItems={'center'}
+      display={'flex'}
       gap={[10, 32]}
       mb={20}
       id="informationsPart"
