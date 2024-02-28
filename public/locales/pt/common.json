@@ -107,7 +107,22 @@
     "meetPeople": "Merja-se numa aventura para descobrir o mundo no PenpalMap! Conheça pessoas de todo o planeta sem sair do sofá. Sonha em conversar com um surfista australiano, partilhar uma receita de taco com alguém do México, ou simplesmente discutir sobre o último episódio da tua série favorita com alguém do outro lado do mundo? Tudo é possível! No PenpalMap, não há limites, apenas a diversão de descobrir novas culturas e formar laços autênticos. Então, está pronto para uma aventura a partir do seu ecrã?",
     "taglineBeforeFriends": "Conecte-se com ",
     "taglineFriends": "amigos",
-    "taglineAfterFriends": " de todo o mundo, onde quer que esteja."
+    "taglineAfterFriends": " de todo o mundo, onde quer que esteja.",
+    "taglineActions": "Conheça amigos, aprenda idiomas e descubra novas culturas, onde quer que você esteja",
+    "learnMore": "Saiba mais",
+    "aroundTheWorld": "Ao redor do mundo",
+    "aroundTheWorldText": "Com o PenPalMap, descubra pessoas de todo o mundo e amplie seus horizontes fazendo conexões internacionais únicas.",
+    "travelAndMeet": "Viaje e conheça",
+    "travelAndMeetText": "Durante suas viagens, o PenPalMap coloca você em contato com pessoas locais, oferecendo uma experiência de viagem enriquecedora e autêntica.",
+    "secureApp": "Aplicativo seguro",
+    "secureAppText": "O PenPalMap garante a segurança de seus dados e comunicações, permitindo que você se conecte com tranquilidade a uma comunidade global diversificada.",
+    "beautifulCommunity": "Comunidade linda",
+    "beautifulCommunityText": "Faça parte de uma comunidade calorosa e solidária no PenPalMap, onde você pode trocar ideias, compartilhar experiências e criar amizades duradouras ao redor do mundo.",
+    "manyPeopleMeet": "Tantas pessoas para conhecer",
+    "isWorldwide": "Penpalmap é mundial",
+    "whatOurOthersSay": "O que nossos usuários dizem",
+    "letsCreateProfile": "Vamos criar um perfil e começar a conhecer pessoas",
+    "startJourney": "Inicie a jornada do Penpalmap"
   },
   "footer": {
     "terms": "Termos de uso",

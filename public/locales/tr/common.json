@@ -107,7 +107,22 @@
     "meetPeople": "PenpalMap'te dünyayı keşfetme macerasına dalın! Koltuğunuzdan kalkmadan tüm dünyadan insanlarla tanışın. Avustralya'dan bir sörfçüyle sohbet etmek, Meksika'dan biriyle taco tarifi paylaşmak veya sadece favori dizinizin son bölümünü dünyanın öbür ucundaki biriyle tartışmak mı istiyorsunuz? Her şey mümkün! PenpalMap'te sınırlar yok, sadece yeni kültürler keşfetmenin ve gerçek bağlar kurmanın keyfi var. Peki, ekranınızdan bir maceraya hazır mısınız?",
     "taglineBeforeFriends": "Dünyanın dört bir yanındaki ",
     "taglineFriends": "arkadaşlarla",
-    "taglineAfterFriends": " bağlantı kurun, nerede olursanız olun."
+    "taglineAfterFriends": " bağlantı kurun, nerede olursanız olun.",
+    "taglineActions": "Arkadaşlarınızla tanışın, dil öğrenin ve nerede olursanız olun yeni kültürler keşfedin",
+    "learnMore": "Daha fazla bilgi edinin",
+    "aroundTheWorld": "Dünya çapında",
+    "aroundTheWorldText": "PenPalMap ile dünyanın dört bir yanından insanları keşfedin ve benzersiz uluslararası bağlantılar kurarak vizyonunuzu genişletin.",
+    "travelAndMeet": "Seyahat edin ve tanışın",
+    "travelAndMeetText": "Seyahatleriniz sırasında PenPalMap yerel insanlarla iletişim kurmanızı sağlayarak zengin ve otantik bir seyahat deneyimi sunar.",
+    "secureApp": "Güvenli uygulama",
+    "secureAppText": "PenPalMap verilerinizin ve iletişimlerinizin güvenliğini garanti eder, böylece farklı bir global topluluğa güvenle bağlanabilirsiniz.",
+    "beautifulCommunity": "Güzel topluluk",
+    "beautifulCommunityText": "PenPalMap'teki sıcak ve ilgili topluluğun bir parçası olun, fikir alışverişinde bulunun, deneyimlerinizi paylaşın ve dünya çapında kalıcı arkadaşlıklar kurun.",
+    "manyPeopleMeet": "Tanışılacak çok sayıda kişi",
+    "isWorldwide": "Penpalmap dünya çapında",
+    "whatOurOthersSay": "Kullanıcılarımız ne diyor",
+    "letsCreateProfile": "Profil oluşturun ve insanlarla tanışmaya başlayın",
+    "startJourney": "Penpalmap yolculuğuna başlayın"
   },
   "footer": {
     "terms": "Kullanım Şartları",

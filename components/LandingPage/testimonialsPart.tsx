@@ -3,6 +3,7 @@ import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'next-i18next'
 
 const testimonials = [
   {
@@ -64,10 +65,11 @@ const Testimonial = ({ name, text, image, country }) => {
 }
 
 const TestimonialsPart = () => {
+  const { t } = useTranslation('common')
   return (
     <Box mb={40}>
       <Text fontSize={'4xl'} textAlign={'center'} fontWeight={'bold'} mb={20}>
-        What our users say
+        {t('presentation.whatOurOthersSay')}
       </Text>
       <Flex flexWrap={'wrap'} justifyContent={'space-between'} gap={4}>
         {testimonials.map((testimonial, index) => (

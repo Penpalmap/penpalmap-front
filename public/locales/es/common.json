@@ -107,7 +107,22 @@
     "meetPeople": "¡Embárcate en una aventura para descubrir el mundo en PenpalMap! Conoce a personas de todos los rincones del planeta sin moverte de tu sofá. Ya sea que sueñes con charlar con un surfista australiano, compartir una receta de tacos con alguien de México o simplemente debatir sobre el último episodio de tu serie favorita con alguien al otro lado del planeta, ¡todo es posible! En PenpalMap, no existen fronteras, solo el placer de descubrir nuevas culturas y crear vínculos auténticos. ¿Listo para embarcarte en una aventura desde tu pantalla?",
     "taglineBeforeFriends": "Conéctate con ",
     "taglineFriends": "amigos",
-    "taglineAfterFriends": " de todo el mundo, estés donde estés."
+    "taglineAfterFriends": " de todo el mundo, estés donde estés.",
+    "taglineActions": "Conéctate con amigos, aprende idiomas y descubre nuevas culturas dondequiera que estés.",
+    "learnMore": "Más información",
+    "aroundTheWorld": "Por todo el mundo",
+    "aroundTheWorldText": "Con PenPalMap, descubre personas de todo el mundo y amplía tus horizontes estableciendo conexiones internacionales únicas.",
+    "travelAndMeet": "Viaja y conoce",
+    "travelAndMeetText": "Durante tus viajes, PenPalMap te pone en contacto con personas locales, ofreciéndote una experiencia de viaje enriquecedora y auténtica.",
+    "secureApp": "Aplicación segura",
+    "secureAppText": "PenPalMap garantiza la seguridad de tus datos y comunicaciones, permitiéndote conectarte con tranquilidad a una comunidad global diversa.",
+    "beautifulCommunity": "Hermosa comunidad",
+    "beautifulCommunityText": "Forma parte de una comunidad cálida y solidaria en PenPalMap, donde puedes intercambiar ideas, compartir experiencias y crear amistades duraderas en todo el mundo.",
+    "manyPeopleMeet": "Tanta gente por conocer",
+    "isWorldwide": "Penpalmap es mundial",
+    "whatOurOthersSay": "Lo que dicen nuestros usuarios",
+    "letsCreateProfile": "Creemos un perfil y comencemos a conocer gente",
+    "startJourney": "Comienza el viaje de Penpalmap"
   },
   "footer": {
     "terms": "Términos de uso",

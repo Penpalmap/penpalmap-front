@@ -107,7 +107,22 @@
     "meetPeople": "PenpalMapで世界を探検する冒険に没頭しましょう！ ソファから出ることなく、地球のすべての角から人々に会いましょう。 オーストラリアのサーファーとチャットする夢を見たり、メキシコの誰かとタコのレシピを共有したり、地球の反対側の誰かとお気に入りのシリーズの最新エピソードについて議論したりしてみてください。 PenpalMapでは、制限はありません。新しい文化を発見し、本物の絆を築く楽しみだけです。 さて、あなたは画面からの冒険に参加する準備ができていますか？",
     "taglineBeforeFriends": "世界中の",
     "taglineFriends": "友達と",
-    "taglineAfterFriends": " どこにいてもつながります。"
+    "taglineAfterFriends": " どこにいてもつながります。",
+    "taglineActions": "世界中の友達とつながり、どこにいても言語を学び、新しい文化を発見します。",
+    "learnMore": "もっと詳しく",
+    "aroundTheWorld": "世界中で",
+    "aroundTheWorldText": "PenPalMapを使って、世界中の人々を見つけ、ユニークな国際的なつながりを作ることで視野を広げます。",
+    "travelAndMeet": "旅行して会う",
+    "travelAndMeetText": "旅行中、PenPalMapは地元の人々と連絡を取り合うことで、豊かで本物の旅行体験を提供します。",
+    "secureApp": "安全なアプリ",
+    "secureAppText": "PenPalMapは、データと通信の安全を保証し、さまざまな世界中のコミュニティに安心して接続できるようにします。",
+    "beautifulCommunity": "美しいコミュニティ",
+    "beautifulCommunityText": "PenPalMapでは、アイデアを交換し、経験を共有し、世界中で持続可能な友情を築くことができる温かく思いやりのあるコミュニティの一部になれます。",
+    "manyPeopleMeet": "出会える人がたくさんいます",
+    "isWorldwide": "Penpalmapは世界的です",
+    "whatOurOthersSay": "他のユーザーの声",
+    "letsCreateProfile": "プロフィールを作成して、人々との出会いを始めましょう",
+    "startJourney": "Penpalmapの旅を始める"
   },
   "footer": {
     "terms": "利用規約",

@@ -88,14 +88,13 @@ const HeroBannerCard = () => {
             color={'white'}
             textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
           >
-            Make friends, learn languages and discover new cultures whatever
-            your location
+            {t('presentation.taglineActions')}
           </Text>
 
           <Box py={{ base: 6, md: 20 }} color={'white'}>
             <Link href={`/#informationsPart`} color={'white.500'}>
               <Text fontWeight={'bold'}>
-                Learn more <ArrowForwardIcon />
+                {t('presentation.learnMore')} <ArrowForwardIcon />
               </Text>
             </Link>
           </Box>

@@ -107,7 +107,22 @@
     "meetPeople": "Telusuri petualangan untuk menemukan dunia di PenpalMap! Temui orang-orang dari segala penjuru planet tanpa meninggalkan sofa Anda. Apakah Anda bermimpi berbincang-bincang dengan peselancar Australia, berbagi resep taco dengan seseorang dari Meksiko, atau hanya berdebat tentang episode terbaru dari seri favorit Anda dengan seseorang di sisi lain planet, segalanya mungkin! Di PenpalMap, tidak ada batasan, hanya kesenangan menemukan budaya baru dan membentuk ikatan yang autentik. Jadi, apakah Anda siap untuk memulai petualangan dari layar Anda?",
     "taglineBeforeFriends": "Terhubung dengan ",
     "taglineFriends": "teman-teman",
-    "taglineAfterFriends": " dari seluruh dunia, di mana pun Anda berada."
+    "taglineAfterFriends": " dari seluruh dunia, di mana pun Anda berada.",
+    "taglineActions": "Terhubung dengan teman, belajar bahasa, dan menemukan budaya baru di mana pun Anda berada.",
+    "learnMore": "Pelajari lebih lanjut",
+    "aroundTheWorld": "Di seluruh dunia",
+    "aroundTheWorldText": "Dengan PenPalMap, temukan orang dari seluruh dunia dan perluas wawasan Anda dengan menjalin hubungan internasional yang unik.",
+    "travelAndMeet": "Wisata dan bertemu",
+    "travelAndMeetText": "Selama perjalanan Anda, PenPalMap menghubungkan Anda dengan orang-orang lokal, menawarkan pengalaman perjalanan yang memperkaya dan autentik.",
+    "secureApp": "Aplikasi yang aman",
+    "secureAppText": "PenPalMap menjamin keamanan data dan komunikasi Anda, memungkinkan Anda terhubung dengan pikiran damai ke komunitas global yang beragam.",
+    "beautifulCommunity": "Komunitas yang indah",
+    "beautifulCommunityText": "Jadilah bagian dari komunitas hangat dan peduli di PenPalMap, di mana Anda dapat bertukar pikiran, berbagi pengalaman, dan menciptakan persahabatan abadi di seluruh dunia.",
+    "manyPeopleMeet": "Banyak orang untuk ditemui",
+    "isWorldwide": "Penpalmap adalah worldwide",
+    "whatOurOthersSay": "Apa yang dikatakan pengguna kami",
+    "letsCreateProfile": "Mari buat profil dan mulai bertemu orang",
+    "startJourney": "Mulai perjalanan Penpalmap"
   },
   "footer": {
     "terms": "Syarat Penggunaan",

@@ -13,10 +13,10 @@ const CallToAction = () => {
       pb={40}
     >
       <Text fontSize="4xl" fontWeight="extrabold" textAlign="center" mb={4}>
-        Let&apos;s create a profile and start meeting people
+        {t('presentation.letsCreateProfile')}
       </Text>
       <Text fontSize="xl" textAlign="center" mb={10}>
-        Start the journey of Penpalmap 🌍
+        {t('presentation.startJourney')} 🌍
       </Text>
       <Button
         background={'white'}

@@ -106,7 +106,22 @@
     "meetPeople": "Rencontrez une multitude de personnes aux quatre coins de la planète. Que vous rêviez de discuter avec un surfeur australien, de partager une recette de tacos avec un Mexicain ou simplement de débattre du dernier épisode de votre série préférée avec quelqu'un de l'autre côté de la planète, tout est possible ! Sur PenpalMap, les frontières n'existent pas, seul le plaisir de découvrir de nouvelles cultures et de tisser des liens authentiques compte. Alors, prêt à partir à l'aventure depuis votre écran ?",
     "taglineBeforeFriends": "Connectez-vous avec ",
     "taglineFriends": "des amis",
-    "taglineAfterFriends": " du monde entier, où que vous soyez."
+    "taglineAfterFriends": " du monde entier, où que vous soyez.",
+    "taglineActions": "Faites-vous des amis, apprenez des langues et découvrez de nouvelles cultures où que vous soyez.",
+    "learnMore": "En savoir plus",
+    "aroundTheWorld": "Dans le monde entier",
+    "aroundTheWorldText": "Avec PenPalMap, découvrez des personnes du monde entier et élargissez vos horizons en établissant des connexions internationales uniques.",
+    "travelAndMeet": "Voyagez et rencontrez",
+    "travelAndMeetText": "Pendant vos voyages, PenPalMap vous met en contact avec des personnes locales, vous offrant une expérience de voyage enrichissante et authentique.",
+    "secureApp": "Application sécurisée",
+    "secureAppText": "PenPalMap garantit la sécurité de vos données et communications, vous permettant de vous connecter en toute tranquillité à une communauté mondiale diversifiée.",
+    "beautifulCommunity": "Communauté chaleureuse",
+    "beautifulCommunityText": "Faites partie d'une communauté chaleureuse et bienveillante sur PenPalMap, où vous pouvez échanger des idées, partager des expériences et créer des amitiés durables à travers le monde.",
+    "manyPeopleMeet": "Tellement de gens à rencontrer",
+    "isWorldwide": "Penpalmap est mondial",
+    "whatOurOthersSay": "Ce que disent nos utilisateurs",
+    "letsCreateProfile": "Créons un profil et commençons à rencontrer des gens",
+    "startJourney": "Commencez le voyage de Penpalmap"
   },
   "footer": {
     "terms": "Conditions d'utilisation",

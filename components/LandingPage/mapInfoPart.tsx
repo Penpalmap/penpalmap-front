@@ -21,7 +21,7 @@ const MapInfoPart = () => {
 
       <Box>
         <Text fontSize={['3xl', '5xl']} fontWeight={'bold'} mb={6}>
-          Tellement de personnes à rencontrer
+          {t('presentation.manyPeopleMeet')}
         </Text>
         <Text fontSize={'lg'}>{t('presentation.meetPeople')}</Text>
       </Box>

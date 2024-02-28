@@ -107,7 +107,22 @@
     "meetPeople": "PenpalMap에서 세계를 탐험하는 모험에 몰입하세요! 소파에서 떠나지 않고도 지구의 모든 코너에서 사람들을 만나보세요. 오스트레일리아 서퍼와 채팅을 나누는 꿈을 꾸거나, 멕시코에서 누군가와 타코 레시피를 공유하거나, 지구 반대편 사람과 최신 인기 시리즈의 에피소드에 대해 토론해 보세요. PenpalMap에서는 제한이 없습니다. 새로운 문화를 발견하고 진정한 유대를 형성하는 즐거움뿐입니다. 그러니 여러분은 화면에서의 모험을 위해 준비되셨나요?",
     "taglineBeforeFriends": "전 세계의 ",
     "taglineFriends": "친구와",
-    "taglineAfterFriends": " 연결하세요. 당신이 어디 있든."
+    "taglineAfterFriends": " 연결하세요. 당신이 어디 있든.",
+    "taglineActions": "친구 만들기, 언어 배우기 및 새로운 문화 발견을 해보세요. 어디서든 가능합니다",
+    "learnMore": "자세히 알아보기",
+    "aroundTheWorld": "전 세계",
+    "aroundTheWorldText": "PenPalMap을 통해 전 세계의 사람들을 만나고 독특한 국제적 연결을 통해 시야를 넓히세요.",
+    "travelAndMeet": "여행하고 만나세요",
+    "travelAndMeetText": "여행 중에 PenPalMap을 사용하여 현지 사람들과 연락하여 풍부하고 진정한 여행 경험을 누리세요.",
+    "secureApp": "안전한 앱",
+    "secureAppText": "PenPalMap은 데이터 및 통신의 안전을 보장하며 다양한 세계적 커뮤니티에 안심하여 연결할 수 있도록 합니다.",
+    "beautifulCommunity": "아름다운 커뮤니티",
+    "beautifulCommunityText": "PenPalMap의 따뜻하고 관대한 커뮤니티의 일원이 되어 아이디어를 교환하고 경험을 공유하며 전 세계적인 지구친구들과 지속적인 우정을 형성하세요.",
+    "manyPeopleMeet": "만날 사람들이 많습니다",
+    "isWorldwide": "펜팔맵은 전 세계적입니다",
+    "whatOurOthersSay": "다른 사용자들이 말하는 것",
+    "letsCreateProfile": "프로필을 작성하고 사람들을 만나 시작합시다",
+    "startJourney": "펜팔맵의 여정을 시작하세요"
   },
   "footer": {
     "terms": "이용 약관",

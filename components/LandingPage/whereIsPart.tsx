@@ -1,4 +1,5 @@
 import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 const CityBlock = ({
   image,
@@ -44,6 +45,7 @@ const CityBlock = ({
 }
 
 const WhereIsPart = () => {
+  const { t } = useTranslation('common')
   const [] = useMediaQuery('(max-width: 768px)')
 
   const scrollRight = () => {
@@ -63,7 +65,7 @@ const WhereIsPart = () => {
   return (
     <Flex display={'flex'} flexDirection="column">
       <Text fontSize={['3xl', '5xl']} fontWeight={'bold'} mb={6}>
-        Penpalmap est partout dans le monde
+        {t('presentation.isWorldwide')}
       </Text>
       <Flex overflow="hidden" mx={-4} py={6} position="relative">
         <Box
