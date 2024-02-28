@@ -75,23 +75,50 @@ const WhereIsPart = () => {
           overflowX="hidden"
           flexDirection={'row'} // Alignement horizontal sur mobile, vertical sur desktop
         >
-          <CityBlock image={'/images/lp/usa.jpg'} cityName={'USA'} />
-          <CityBlock image={'/images/lp/canada.jpg'} cityName={'Canada'} />
-          <CityBlock image={'/images/lp/france.jpg'} cityName={'France'} />
+          <CityBlock
+            image={'/images/lp/usa.jpg'}
+            cityName={t('countriesISO.US')}
+          />
+          <CityBlock
+            image={'/images/lp/canada.jpg'}
+            cityName={t('countriesISO.CA')}
+          />
+          <CityBlock
+            image={'/images/lp/france.jpg'}
+            cityName={t('countriesISO.FR')}
+          />
           <CityBlock
             image={'/images/lp/united_kingdom.jpg'}
-            cityName={'United Kingdom'}
+            cityName={t('countriesISO.GB')}
           />
-          <CityBlock image={'/images/lp/brasil.jpg'} cityName={'Brasil'} />
-          <CityBlock image={'/images/lp/danemark.jpg'} cityName={'Danemark'} />
-          <CityBlock image={'/images/lp/india.jpg'} cityName={'India'} />
+          <CityBlock
+            image={'/images/lp/brasil.jpg'}
+            cityName={t('countriesISO.BR')}
+          />
+          <CityBlock
+            image={'/images/lp/danemark.jpg'}
+            cityName={t('countriesISO.DN')}
+          />
+          <CityBlock
+            image={'/images/lp/india.jpg'}
+            cityName={t('countriesISO.IN')}
+          />
           <CityBlock
             image={'/images/lp/australia.jpg'}
-            cityName={'Australia'}
+            cityName={t('countriesISO.AU')}
           />
-          <CityBlock image={'/images/lp/thailand.jpg'} cityName={'Thailand'} />
-          <CityBlock image={'/images/lp/china.jpg'} cityName={'China'} />
-          <CityBlock image={'/images/lp/maroc.jpg'} cityName={'Maroc'} />
+          <CityBlock
+            image={'/images/lp/thailand.jpg'}
+            cityName={t('countriesISO.TH')}
+          />
+          <CityBlock
+            image={'/images/lp/china.jpg'}
+            cityName={t('countriesISO.CN')}
+          />
+          <CityBlock
+            image={'/images/lp/maroc.jpg'}
+            cityName={t('countriesISO.MA')}
+          />
           <CityBlock
             image={'/images/lp/indonesia.jpg'}
             cityName={'Indonesia'}

@@ -255,6 +255,26 @@
     "nl": "Nederlands",
     "id": "Bahasa Indonesia"
   },
+  "countriesISO": {
+    "BR": "Brazylia",
+    "CA": "Kanada",
+    "CN": "Chiny",
+    "DE": "Niemcy",
+    "ES": "Hiszpania",
+    "FR": "Francja",
+    "GB": "Wielka Brytania",
+    "IN": "Indie",
+    "IT": "Włochy",
+    "JP": "Japonia",
+    "MX": "Meksyk",
+    "RU": "Rosja",
+    "US": "Stany Zjednoczone",
+    "DN": "Dania",
+    "AU": "Australia",
+    "TH": "Tajlandia",
+    "MA": "Maroko",
+    "ID": "Indonezja"
+  },
   "profil": {
     "photos": "Zdjęcia",
     "addPhotos": "Dodaj zdjęcia",
