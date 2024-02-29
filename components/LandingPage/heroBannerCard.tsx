@@ -21,7 +21,8 @@ const HeroBannerCard = () => {
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
-      my={[15, 20]}
+      my={[15, 35]}
+      mx={[0, 35]}
     >
       <Box
         background={'blackAlpha.500'}
@@ -62,8 +63,8 @@ const HeroBannerCard = () => {
         <Box>
           <Box
             display={'contents'}
-            fontSize={['em', '3.5em']}
-            fontWeight={'bold'}
+            fontSize={['1.5em', '3em']}
+            fontWeight={'extrabold'}
             color={'white'}
             mb={3}
           >
@@ -84,7 +85,9 @@ const HeroBannerCard = () => {
           </Box>
 
           <Text
-            fontSize={'3xl'}
+            marginTop={5}
+            fontSize={['1em', '1,5em']}
+            fontWeight={'bold'}
             color={'white'}
             textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
           >
@@ -93,7 +96,7 @@ const HeroBannerCard = () => {
 
           <Box py={{ base: 6, md: 20 }} color={'white'}>
             <Link href={`/#informationsPart`} color={'white.500'}>
-              <Text fontWeight={'bold'}>
+              <Text>
                 {t('presentation.learnMore')} <ArrowForwardIcon />
               </Text>
             </Link>
