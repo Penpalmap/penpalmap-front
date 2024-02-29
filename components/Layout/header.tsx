@@ -75,7 +75,7 @@ const Header = () => {
         <Flex alignItems={'center'}>
           <Link href={`/`} onClick={() => setMobileView('home')}>
             <Flex alignItems={'center'} padding={'0.4rem'}>
-              <Image src={'/images/logo.png'} alt={'logo'} w={'8'} h={'8'} />
+              <Image src={'/images/logo.webp'} alt={'logo'} w={'8'} h={'8'} />
               <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
                 PenpalMap
               </Text>

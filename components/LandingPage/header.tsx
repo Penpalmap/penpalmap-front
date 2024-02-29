@@ -8,7 +8,7 @@ const HeaderLandingPage = () => {
     <Flex as="header" align="center" justify="space-between" w="100%" py={10}>
       <Link href={`/home`}>
         <Flex alignItems={'center'} padding={'0.4rem'}>
-          <Image src={'/images/logo.png'} alt={'logo'} w={'8'} h={'8'} />
+          <Image src={'/images/logo.webp'} alt={'logo'} w={'8'} h={'8'} />
           <Box display={'contents'} fontSize={'x-large'} fontWeight={'bold'}>
             <Text ml={2}>Penpal</Text>
             <Text as={'span'} color={'teal.400'}>

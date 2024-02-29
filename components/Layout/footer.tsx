@@ -18,7 +18,7 @@ const Footer = () => {
       >
         <Box>
           <Flex mb={8}>
-            <Image src="/images/logo.png" alt="pen" h={42} />
+            <Image src="/images/logo.webp" alt="pen" h={42} />
             <Box display={'contents'} fontSize={'x-large'} fontWeight={'bold'}>
               <Text ml={2}>Penpal</Text>
               <Text as={'span'} color={'teal.400'}>
