@@ -26,28 +26,25 @@ import { useTranslation } from 'next-i18next'
 import LoggedInDate from '../Profile/loggedInDate'
 import { getAgeByDate } from '../../utils/date'
 import { useRoom } from '../../context/RoomsContext'
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 type OverlayProfileMapProps = {
-  userMap: UserElement | null
   closeOverlay: () => void
-  onOpenChat: (user: User) => void
 }
 
-const OverlayProfileMap = ({
-  userMap,
-  closeOverlay,
-  onOpenChat,
-}: OverlayProfileMapProps) => {
+const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
+  const [appData, setAppData] = useContext(AppContext)
+
+  const { userTarget } = appData
   const { user } = useSession()
   const { country } = useLocation(
-    userMap?.geom?.coordinates?.[1],
-    userMap?.geom?.coordinates?.[0]
+    userTarget?.geom?.coordinates?.[1],
+    userTarget?.geom?.coordinates?.[0]
   )
   const genderFolder =
-    userMap?.gender === 'man' || userMap?.gender === 'woman'
-      ? userMap?.gender
+    userTarget?.gender === 'man' || userTarget?.gender === 'woman'
+      ? userTarget?.gender
       : 'other'
 
   const { setMobileView } = useMobileView()
@@ -58,41 +55,50 @@ const OverlayProfileMap = ({
 
   const { resetCountUnreadMessagesOfRoom } = useRoom()
 
-  const [appData, setAppData] = useContext(AppContext)
-
-  const handleClickButtonChat = () => {
-    if (userMap) {
-      onOpenChat(userMap)
+  const handleClickButtonChat = useCallback(() => {
+    if (userTarget) {
       setAppData((prev) => ({
         ...prev,
-        chatData: { roomChatId: userMap.room?.id ?? null, userChat: userMap },
+        chatOpen: true,
+        chatData: {
+          roomChatId: userTarget.room?.id ?? null,
+          userChat: userTarget,
+        },
       }))
-      if (userMap.room) {
-        resetCountUnreadMessagesOfRoom(userMap.room.id)
+      if (userTarget.room) {
+        resetCountUnreadMessagesOfRoom(userTarget.room.id)
       }
     }
     setMobileView('chat')
-  }
+  }, [userTarget, setAppData, setMobileView, resetCountUnreadMessagesOfRoom])
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const nextImage = () => {
-    if (userMap && userMap.userImages && userMap.userImages.length > 1) {
+    if (
+      userTarget &&
+      userTarget.userImages &&
+      userTarget.userImages.length > 1
+    ) {
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === userMap.userImages.length - 1 ? 0 : prevIndex + 1
+        prevIndex === userTarget.userImages.length - 1 ? 0 : prevIndex + 1
       )
     }
   }
 
   const prevImage = () => {
-    if (userMap && userMap.userImages && userMap.userImages.length > 1) {
+    if (
+      userTarget &&
+      userTarget.userImages &&
+      userTarget.userImages.length > 1
+    ) {
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === 0 ? userMap.userImages.length - 1 : prevIndex - 1
+        prevIndex === 0 ? userTarget.userImages.length - 1 : prevIndex - 1
       )
     }
   }
   useEffect(() => {
     setCurrentImageIndex(0)
-  }, [userMap])
+  }, [userTarget])
 
   return (
     <Flex
@@ -106,7 +112,7 @@ const OverlayProfileMap = ({
       borderRadius={'10px'}
     >
       <Flex position="relative" alignItems="center" h="100%">
-        {userMap?.userImages && userMap.userImages.length > 1 ? (
+        {userTarget?.userImages && userTarget.userImages.length > 1 ? (
           <>
             <IconButton
               onClick={prevImage}
@@ -118,9 +124,9 @@ const OverlayProfileMap = ({
               left="0"
             />
             <Image
-              src={userMap?.userImages[currentImageIndex]?.src}
+              src={userTarget?.userImages[currentImageIndex]?.src}
               h={'100%'}
-              alt={userMap?.name}
+              alt={userTarget?.name}
               borderLeftRadius={'10px'}
             />
             <Flex
@@ -131,7 +137,7 @@ const OverlayProfileMap = ({
               left="50%"
               transform="translateX(-50%)"
             >
-              {userMap?.userImages.map((_image, index) => (
+              {userTarget?.userImages.map((_image, index) => (
                 <Box
                   key={index}
                   w="6px"
@@ -157,12 +163,12 @@ const OverlayProfileMap = ({
         ) : (
           <Image
             src={
-              userMap?.userImages.find((img) => img.position === 0)?.src ??
-              `/images/avatar/${genderFolder}/${userMap?.avatarNumber}.png`
+              userTarget?.userImages.find((img) => img.position === 0)?.src ??
+              `/images/avatar/${genderFolder}/${userTarget?.avatarNumber}.png`
             }
             w={'100%'}
             h={'100%'}
-            alt={userMap?.name}
+            alt={userTarget?.name}
             borderLeftRadius={'10px'}
           />
         )}
@@ -176,9 +182,11 @@ const OverlayProfileMap = ({
         <Box>
           <Flex alignItems={'center'} fontSize={['18px']}>
             <Text fontWeight={'bold'} textTransform={'capitalize'}>
-              {userMap?.name}
+              {userTarget?.name}
             </Text>
-            <Text>, {userMap?.birthday && getAgeByDate(userMap.birthday)}</Text>
+            <Text>
+              , {userTarget?.birthday && getAgeByDate(userTarget.birthday)}
+            </Text>
           </Flex>
           <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
             {country && (
@@ -190,17 +198,19 @@ const OverlayProfileMap = ({
               </Flex>
             )}
 
-            {userMap?.isOnline && <Badge colorScheme="green">En ligne</Badge>}
+            {userTarget?.isOnline && (
+              <Badge colorScheme="green">En ligne</Badge>
+            )}
           </Flex>
           <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
-            {userMap?.updatedAt && (
+            {userTarget?.updatedAt && (
               <Text fontSize={'sm'} color={'#595959'}>
-                <LoggedInDate updatedAt={userMap.updatedAt} />
+                <LoggedInDate updatedAt={userTarget.updatedAt} />
               </Text>
             )}
           </Flex>
           {/* <Text display={['none', 'block']} fontSize={'sm'}>
-                            {userMap?.bio}
+                            {userTarget?.bio}
                         </Text> */}
         </Box>
         <Flex justifyContent={'space-between'} gap={'12px'}>
@@ -213,15 +223,15 @@ const OverlayProfileMap = ({
               variant="solid"
               fontSize={'12px'}
               aria-label={t('profil.SeeTheProfile')}
-              isDisabled={user?.id === userMap?.id}
+              isDisabled={user?.id === userTarget?.id}
               onClick={() => {
                 setMobileView('profile')
               }}
             />
           ) : (
             <Link
-              href={`/home/?profileId=${userMap?.id}`}
-              as={`/home/profile/${userMap?.id}`}
+              href={`/home/?profileId=${userTarget?.id}`}
+              as={`/home/profile/${userTarget?.id}`}
             >
               <Button
                 display={['none', 'block']}
@@ -230,7 +240,7 @@ const OverlayProfileMap = ({
                 colorScheme="teal"
                 variant="solid"
                 fontSize={'12px'}
-                isDisabled={user?.id === userMap?.id}
+                isDisabled={user?.id === userTarget?.id}
               >
                 {t('profil.SeeTheProfile')}
               </Button>
@@ -247,7 +257,7 @@ const OverlayProfileMap = ({
             _hover={{ color: '#2b2b2b' }}
             icon={<FontAwesomeIcon icon={faMessage} />}
             onClick={handleClickButtonChat}
-            isDisabled={user?.id === userMap?.id}
+            isDisabled={user?.id === userTarget?.id}
           />
         </Flex>
       </Flex>
