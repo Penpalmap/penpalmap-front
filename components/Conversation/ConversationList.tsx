@@ -22,7 +22,11 @@ const ConversationList = () => {
       if (room) {
         setAppData({
           ...appData,
-          roomChatId: roomId,
+          chatData: {
+            roomChatId: room.id,
+            userChat:
+              room.members.find((member) => member.id !== user?.id) || null,
+          },
           chatOpen: true,
         })
         resetCountUnreadMessagesOfRoom(roomId)

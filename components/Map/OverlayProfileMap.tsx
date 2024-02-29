@@ -26,7 +26,8 @@ import { useTranslation } from 'next-i18next'
 import LoggedInDate from '../Profile/loggedInDate'
 import { getAgeByDate } from '../../utils/date'
 import { useRoom } from '../../context/RoomsContext'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { AppContext } from '../../context/AppContext'
 
 type OverlayProfileMapProps = {
   userMap: UserElement | null
@@ -57,9 +58,15 @@ const OverlayProfileMap = ({
 
   const { resetCountUnreadMessagesOfRoom } = useRoom()
 
+  const [appData, setAppData] = useContext(AppContext)
+
   const handleClickButtonChat = () => {
     if (userMap) {
       onOpenChat(userMap)
+      setAppData((prev) => ({
+        ...prev,
+        chatData: { roomChatId: userMap.room?.id ?? null, userChat: userMap },
+      }))
       if (userMap.room) {
         resetCountUnreadMessagesOfRoom(userMap.room.id)
       }

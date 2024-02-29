@@ -46,11 +46,12 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     const fetchUserRooms = async () => {
       if (!user?.id) return
       const roomsData = await getRooms({ userIds: [user.id] })
+
       if (roomsData) {
-        setRooms(roomsData)
+        setRooms(roomsData.data)
 
         let totalUnread = 0
-        roomsData.forEach((room) => {
+        roomsData.data.forEach((room) => {
           if (room.countUnreadMessages) {
             totalUnread += parseInt(room.countUnreadMessages)
           }
@@ -155,14 +156,17 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
           }
         })
       })
-      if (appData.userChat) {
-        const userChat = appData.userChat
+      if (appData.chatData.userChat) {
+        const userChat = appData.chatData.userChat
         const userIsOnline = usersOnline.includes(userChat.id)
         setAppData({
           ...appData,
-          userChat: {
-            ...userChat,
-            isOnline: userIsOnline,
+          chatData: {
+            ...appData.chatData,
+            userChat: {
+              ...userChat,
+              isOnline: userIsOnline,
+            },
           },
         })
       }

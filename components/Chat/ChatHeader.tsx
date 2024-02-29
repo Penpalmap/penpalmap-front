@@ -53,10 +53,10 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
   const dialogRef = useRef<HTMLButtonElement>(null)
 
   const { city, country, flag } = useLocation(
-    appData?.userChat?.geom?.coordinates?.[1] ||
-      appData?.userChat?.geom?.coordinates?.[1],
-    appData?.userChat?.geom?.coordinates?.[0] ||
-      appData?.userChat?.geom?.coordinates?.[0]
+    appData?.chatData?.userChat?.geom?.coordinates?.[1] ||
+      appData?.chatData?.userChat?.geom?.coordinates?.[1],
+    appData?.chatData?.userChat?.geom?.coordinates?.[0] ||
+      appData?.chatData?.userChat?.geom?.coordinates?.[0]
   )
 
   const onCloseChat = () => {
@@ -66,7 +66,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
 
     setAppData({
       ...appData,
-      userChat: null,
+      chatData: { roomChatId: null, userChat: null },
       chatOpen: false,
     })
   }
@@ -82,7 +82,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
 
       setAppData({
         ...appData,
-        userChat: null,
+        chatData: { roomChatId: null, userChat: null },
         chatOpen: false,
       })
     }

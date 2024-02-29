@@ -6,7 +6,7 @@ export const AppContext = createContext<
 >([
   {
     userTarget: null,
-    roomChatId: null,
+    chatData: { roomChatId: null, userChat: null },
     rooms: [],
     chatOpen: false,
     socket: null,
@@ -23,7 +23,7 @@ type AppProviderProps = {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [data, setData] = useState<ContextStateData>({
     userTarget: null,
-    roomChatId: null,
+    chatData: { roomChatId: null, userChat: null },
     rooms: [],
     chatOpen: false,
     socket: null,

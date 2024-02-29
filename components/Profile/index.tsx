@@ -318,7 +318,7 @@ const Profile = ({ userId }: Props) => {
               setAppData({
                 ...appData,
                 chatOpen: true,
-                userChat: appData.userTarget,
+                chatData: { roomChatId: null, userChat: appData.userTarget },
               })
               setMobileView('chat')
             }}

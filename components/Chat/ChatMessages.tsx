@@ -20,7 +20,6 @@ type Props = {
   offset: number
   setOffset: (offset: number) => void
   isLoading: boolean
-  otherUser: User | null
 }
 
 // const formatDate = (dateString: string) => {
@@ -39,7 +38,6 @@ const ChatMessages = ({
   offset,
   setOffset,
   isLoading,
-  otherUser,
 }: Props) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
@@ -63,7 +61,9 @@ const ChatMessages = ({
 
   const lastSenderId = useRef<string | null>(null)
   const [bottomScrollIsDone, setBottomScrollIsDone] = useState(false)
-  const { genderFolder } = useGenderFolder(otherUser?.gender || '')
+  const { genderFolder } = useGenderFolder(
+    appData?.chatData?.userChat?.gender || ''
+  )
 
   const [arrowDisplay, setArrowDisplay] = useState<boolean>(false)
 
@@ -158,8 +158,8 @@ const ChatMessages = ({
         false
 
       const image =
-        otherUser?.image ??
-        `/images/avatar/${genderFolder}/${otherUser?.avatarNumber}.png`
+        appData?.chatData?.userChat?.image ??
+        `/images/avatar/${genderFolder}/${appData?.chatData?.userChat?.avatarNumber}.png`
 
       // DO NOT DELETE THIS COMMENTED CODE
       // UPDATE IT IF API CHANGES AND MESSAGE HAS A DATE
@@ -224,8 +224,8 @@ const ChatMessages = ({
       )
     })
   }, [
-    otherUser?.avatarNumber,
-    otherUser?.image,
+    appData?.chatData?.userChat?.avatarNumber,
+    appData?.chatData?.userChat?.image,
     genderFolder,
     sortedMessages,
     user?.id,
@@ -247,7 +247,7 @@ const ChatMessages = ({
     })
 
     const handleIsTyping = (message) => {
-      if (message.senderId !== otherUser?.id) return
+      if (message.senderId !== appData?.chatData?.userChat?.id) return
       clearTimeout(typingTimeout as NodeJS.Timeout)
       setOtherUserIsTyping(true)
 
@@ -264,7 +264,7 @@ const ChatMessages = ({
       appData?.socket?.off(SocketEvents.IsTyping)
       appData?.socket?.off(SocketEvents.StopIsTyping)
     }
-  }, [appData.socket, otherUser?.id, typingTimeout])
+  }, [appData.socket, appData?.chatData?.userChat?.id, typingTimeout])
 
   const clickOnArrowNewMessage = () => {
     setArrowDisplay(false)
@@ -302,16 +302,16 @@ const ChatMessages = ({
       {isNewChat && (
         <EmptyChatMessages
           image={
-            otherUser?.image ||
-            `/images/avatar/${genderFolder}/${otherUser?.avatarNumber}.png`
+            appData?.chatData?.userChat?.image ||
+            `/images/avatar/${genderFolder}/${appData?.chatData?.userChat?.avatarNumber}.png`
           }
-          name={otherUser?.name || ''}
+          name={appData?.chatData?.userChat?.name || ''}
         />
       )}
       {otherUserIsTyping && (
         <Box position={'absolute'} bottom={10} left={0} p={4}>
           <Text fontSize={'small'}>
-            {otherUser?.name} {t('chat.IsTyping')}
+            {appData?.chatData?.userChat?.name} {t('chat.IsTyping')}
           </Text>
         </Box>
       )}

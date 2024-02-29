@@ -10,22 +10,15 @@ import {
   sendMessageSeen,
 } from '../sockets/socketManager'
 import { useRoom } from '../context/RoomsContext'
-import { createRoom, getRoomById, getRooms } from '../api/rooms/roomApi'
+import { createRoom, getRoomById } from '../api/rooms/roomApi'
 import { CreateMessageDto } from '../api/messages/messagesDto'
-import {
-  createMessage,
-  getMessages,
-  updateMessage,
-} from '../api/messages/messagesApi'
-import { id } from 'date-fns/locale'
+import { createMessage, getMessages } from '../api/messages/messagesApi'
 
 const useChat = () => {
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
   const { user } = useSession()
   const [appData, setAppData] = useContext(AppContext)
   const [messages, setMessages] = useState<Message[]>([])
-
-  const [otherUser, setOtherUser] = useState<User | null>(null)
 
   const [offset, setOffset] = useState(0)
 
@@ -36,62 +29,101 @@ const useChat = () => {
 
   useEffect(() => {
     const fetchRoom = async () => {
-      if (user?.id && appData?.roomChatId) {
-        const room = await getRoomById(appData.roomChatId)
+      if (appData?.chatData.roomChatId) {
+        const room = await getRoomById(appData.chatData.roomChatId)
 
         setCurrentRoom(room as Room)
 
-        const otherUser = room?.members?.find((member) => member.id !== user.id)
-        if (otherUser) {
-          setOtherUser(otherUser)
-        }
+        const messagesData = await getMessages({
+          roomId: room.id,
+          limit: 10,
+          page: 1,
+          orderBy: 'createdAt',
+          order: 'ASC',
+        })
 
-        setIsLoading(false) // Mettre fin au chargement lorsque les informations sont disponibles.
+        setMessages(messagesData.data)
+
+        setIsLoading(false)
       }
     }
 
-    if (appData?.roomChatId) {
-      setRoomIsLoading(true)
+    setMessages([])
+    if (appData?.chatData.roomChatId) {
       fetchRoom()
-      console.log('appData.roomChatId', appData.roomChatId)
-      setMessages([])
-      setOffset(0)
+    } else {
+      setCurrentRoom(null)
     }
-  }, [appData.roomChatId, user])
+  }, [appData.chatData.roomChatId, setAppData])
 
-  const initialFetchMessages = useCallback(async () => {
-    if (currentRoom) {
-      const messagesData = await getMessages({
-        roomId: currentRoom.id,
-      })
+  // const initialFetchMessages = useCallback(async () => {
+  //   if (currentRoom) {
+  //     const messagesData = await getMessages({
+  //       roomId: currentRoom.id,
+  //     })
+  //     setMessages(messagesData)
+  //     setIsLoading(false)
+  //     setRoomIsLoading(false)
+  //   }
+  // }, [currentRoom])
 
-      console.log('messagesData', messagesData, 'currentRoom', currentRoom)
-      setMessages(messagesData)
-      setIsLoading(false)
-      setRoomIsLoading(false)
-    }
-  }, [currentRoom])
+  // useEffect(() => {
+  //   initialFetchMessages()
+  // }, [currentRoom, initialFetchMessages])
 
-  useEffect(() => {
-    initialFetchMessages()
-  }, [initialFetchMessages, currentRoom])
+  // useEffect(() => {
+  //   setMessages([])
+  //   setOffset(0)
+  //   setRoomIsLoading(true)
+  // }, [appData?.userChat, appData?.chatData?.userChat])
 
-  const additonalFetchMessages = useCallback(async () => {
-    if (currentRoom && !roomIsLoading) {
-      const messagesData = await getMessages({
-        roomId: currentRoom.id,
-      })
+  // useEffect(() => {
+  //   if (!appData?.roomChatId) {
+  //     setMessages([])
+  //     setOffset(0)
+  //     setRoomIsLoading(true)
 
-      setMessages((prevMessages) => [...messagesData, ...prevMessages])
-      setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
-    }
-  }, [currentRoom, roomIsLoading])
+  //     setCurrentRoom(null)
+  //     setAppData((prev) => ({
+  //       ...prev,
+  //       roomChatId: null,
+  //     }))
+  //   }
+  // }, [appData?.roomChatId, setAppData, appData?.userChat])
 
-  useEffect(() => {
-    if (offset > 0) {
-      additonalFetchMessages()
-    }
-  }, [additonalFetchMessages, offset])
+  // useEffect(() => {
+  //   if (currentRoom) {
+  //     const appData?.chatData?.userChat = currentRoom.members.find((u) => u.id !== user?.id)
+  //     if (!appData?.chatData?.userChat) return
+  //     setappData?.chatData?.userChat(appData?.chatData?.userChat)
+
+  //     initialFetchMessages()
+  //   } else {
+  //     setappData?.chatData?.userChat(appData.userChat)
+  //   }
+  // }, [appData.userChat, currentRoom, initialFetchMessages, user])
+
+  // // useEffect(() => {
+  // //   initialFetchMessages()
+  // // }, [initialFetchMessages, currentRoom])
+
+  // const additonalFetchMessages = useCallback(async () => {
+  //   if (currentRoom && !roomIsLoading) {
+  //     const messagesData = await getMessages({
+  //       roomId: currentRoom.id,
+  //     })
+
+  //     console.log('additonalFetchMessages')
+  //     setMessages((prevMessages) => [...messagesData, ...prevMessages])
+  //     setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
+  //   }
+  // }, [currentRoom, roomIsLoading])
+
+  // useEffect(() => {
+  //   if (offset > 0) {
+  //     additonalFetchMessages()
+  //   }
+  // }, [additonalFetchMessages, offset])
 
   const sendMessage = useCallback(
     async (message: MessageInput) => {
@@ -216,8 +248,7 @@ const useChat = () => {
     offset,
     setOffset,
     isLoading,
-    otherUser,
-    additonalFetchMessages,
+    // additonalFetchMessages,
   }
 }
 
