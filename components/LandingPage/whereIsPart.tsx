@@ -76,51 +76,51 @@ const WhereIsPart = () => {
           flexDirection={'row'} // Alignement horizontal sur mobile, vertical sur desktop
         >
           <CityBlock
-            image={'/images/lp/usa.jpg'}
+            image={'/images/lp/usa_PENPALMAP.webp'}
             cityName={t('countriesISO.US')}
           />
           <CityBlock
-            image={'/images/lp/canada.jpg'}
+            image={'/images/lp/canada_PENPALMAP.webp'}
             cityName={t('countriesISO.CA')}
           />
           <CityBlock
-            image={'/images/lp/france.jpg'}
+            image={'/images/lp/france_PENPALMAP.webp'}
             cityName={t('countriesISO.FR')}
           />
           <CityBlock
-            image={'/images/lp/united_kingdom.jpg'}
+            image={'/images/lp/united_kingdom_PENPALMAP.webp'}
             cityName={t('countriesISO.GB')}
           />
           <CityBlock
-            image={'/images/lp/brasil.jpg'}
+            image={'/images/lp/brasil_PENPALMAP.webp'}
             cityName={t('countriesISO.BR')}
           />
           <CityBlock
-            image={'/images/lp/danemark.jpg'}
+            image={'/images/lp/danemark_PENPALMAP.webp'}
             cityName={t('countriesISO.DN')}
           />
           <CityBlock
-            image={'/images/lp/india.jpg'}
+            image={'/images/lp/india_PENPALMAP.webp'}
             cityName={t('countriesISO.IN')}
           />
           <CityBlock
-            image={'/images/lp/australia.jpg'}
+            image={'/images/lp/australia_PENPALMAP.webp'}
             cityName={t('countriesISO.AU')}
           />
           <CityBlock
-            image={'/images/lp/thailand.jpg'}
+            image={'/images/lp/thailand_PENPALMAP.webp'}
             cityName={t('countriesISO.TH')}
           />
           <CityBlock
-            image={'/images/lp/china.jpg'}
+            image={'/images/lp/china_PENPALMAP.webp'}
             cityName={t('countriesISO.CN')}
           />
           <CityBlock
-            image={'/images/lp/maroc.jpg'}
+            image={'/images/lp/maroc_PENPALMAP.webp'}
             cityName={t('countriesISO.MA')}
           />
           <CityBlock
-            image={'/images/lp/indonesia.jpg'}
+            image={'/images/lp/indonesia_PENPALMAP.webp'}
             cityName={'Indonesia'}
           />
         </Box>

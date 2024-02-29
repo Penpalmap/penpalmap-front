@@ -13,7 +13,7 @@ const MapInfoPart = () => {
       mb={20}
     >
       <Image
-        src={'/images/lp/user_map_info.png'}
+        src={'/images/lp/user_map_info.webp'}
         alt={'map'}
         w={['100%', '50%']}
         h={['auto', 'auto']}

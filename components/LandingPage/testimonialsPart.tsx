@@ -9,19 +9,19 @@ const testimonials = [
     name: 'Amélie, 24',
     country: 'France',
     text: 'I was afraid to travel alone, but with Penpalmap, I was able to meet locals before arriving and truly feel at home. Thank you Penpalmap!',
-    image: '/images/lp/testimonial1.jpg',
+    image: '/images/lp/user1_PENPALMAP.webp',
   },
   {
     name: 'Paolo, 38',
     country: 'USA',
     text: "Thanks to PenpalMap, I was able to establish incredible connections even before embarking on my journey. It's like having local friends all over the world. I learned Japanese phrases and tips for my trip to Tokyo!",
-    image: '/images/lp/testimonial2.jpg',
+    image: '/images/lp/user2_PENPALMAP.webp',
   },
   {
     name: 'Elena, 21',
     country: 'Japan',
     text: "PenpalMap has changed my way of seeing travel. Meeting locals before arriving helps me plan my trip and avoid tourist traps. It's an essential tool for any traveler.",
-    image: '/images/lp/testimonial3.jpg',
+    image: '/images/lp/user3_PENPALMAP.webp',
   },
 ]
 

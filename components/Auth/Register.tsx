@@ -98,7 +98,7 @@ const Register = () => {
           {[...Array(6)].map((_, index) => (
             <Box key={index} flex="0 0 auto">
               <Image
-                src="/images/LandingMap.webp"
+                src="/images/LandingMapLight.webp"
                 alt="PenpalMap"
                 height="100%"
                 width="auto"
