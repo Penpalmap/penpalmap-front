@@ -36,10 +36,10 @@ const Header = () => {
 
   const { setMobileView } = useMobileView()
   const isMobile = useBreakpointValue({ base: true, md: false })
+  const isTablet = useBreakpointValue({ base: false, md: true })
 
   const { changeLocale, locale } = useLanguage()
 
-  // const { i18n } = useTranslation()
   const disconnect = () => {
     setAppData({
       userTarget: null,
@@ -53,6 +53,7 @@ const Header = () => {
 
     disconnectFromSocketServer(appData.socket)
   }
+
   const genderFolder =
     user?.gender === 'man' || user?.gender === 'woman' ? user?.gender : 'other'
   const { t } = useTranslation('common')
@@ -73,25 +74,23 @@ const Header = () => {
       >
         <Flex alignItems={'center'}>
           <Link href={`/`} onClick={() => setMobileView('home')}>
-            <Flex
-              alignItems={'center'}
-              padding={'0.4rem'}
-              // _hover={{
-              //   textDecoration: 'none',
-              //   borderRadius: 'md',
-              //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
-              //   transition: 'all 0.3s ease-in-out',
-              // }}
-            >
-              <Image src={'/images/logo.png'} alt={'logo'} w={'8'} h={'8'} />
+            <Flex alignItems={'center'} padding={'0.4rem'}>
+              <Image src={'/images/logo.webp'} alt={'logo'} w={'8'} h={'8'} />
               <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
                 PenpalMap
               </Text>
             </Flex>
           </Link>
-          <Text fontSize={'sm'} ml={'4'} color={'gray.900'} fontStyle="italic">
-            {packageJson.version}
-          </Text>
+          {!isMobile && (
+            <Text
+              fontSize={'sm'}
+              ml={'4'}
+              color={'gray.900'}
+              fontStyle="italic"
+            >
+              {packageJson.version}
+            </Text>
+          )}
         </Flex>
         {user ? (
           <Menu>
@@ -127,48 +126,48 @@ const Header = () => {
               <MenuDivider />
               <MenuItem onClick={onOpen}>{t('menu.myProfile')}</MenuItem>
 
-              {isMobile ? (
-                <Link href={`/`} onClick={() => setMobileView('settings')}>
-                  <MenuItem> {t('menu.parameters')}</MenuItem>
-                </Link>
-              ) : (
-                <Link href={`/settings`}>
-                  <MenuItem> {t('menu.parameters')}</MenuItem>
-                </Link>
+              {isTablet && (
+                <>
+                  <Link href={`/settings`}>
+                    <MenuItem> {t('menu.parameters')}</MenuItem>
+                  </Link>
+                  <MenuDivider />
+                </>
               )}
-              <MenuDivider />
               <MenuItem onClick={disconnect}>{t('menu.logout')}</MenuItem>
             </MenuList>
           </Menu>
         ) : (
           <Flex alignItems={'center'} gap={'2'}>
-            <FontAwesomeIcon icon={faGlobeEurope} />
-            <Select
-              variant={'flushed'}
-              size="sm"
-              w="fit-content"
-              value={locale}
-              onChange={(e) => {
-                changeLocale(e.target.value)
-              }}
-            >
-              <option value="en">{t('languagesOrigin.en')}</option>
-              <option value="fr">{t('languagesOrigin.fr')}</option>
-              <option value="de">{t('languagesOrigin.de')}</option>
-              <option value="es">{t('languagesOrigin.es')}</option>
-              <option value="it">{t('languagesOrigin.it')}</option>
-              <option value="pt">{t('languagesOrigin.pt')}</option>
-              <option value="ru">{t('languagesOrigin.ru')}</option>
-              <option value="zh">{t('languagesOrigin.zh')}</option>
-              <option value="ja">{t('languagesOrigin.ja')}</option>
-              <option value="ar">{t('languagesOrigin.ar')}</option>
-              <option value="hi">{t('languagesOrigin.hi')}</option>
-              <option value="ko">{t('languagesOrigin.ko')}</option>
-              <option value="tr">{t('languagesOrigin.tr')}</option>
-              <option value="pl">{t('languagesOrigin.pl')}</option>
-              <option value="nl">{t('languagesOrigin.nl')}</option>
-              <option value="id">{t('languagesOrigin.id')}</option>
-            </Select>
+            {!isMobile && <FontAwesomeIcon icon={faGlobeEurope} />}
+            {!isMobile && (
+              <Select
+                variant={'flushed'}
+                size="sm"
+                w="fit-content"
+                value={locale}
+                onChange={(e) => {
+                  changeLocale(e.target.value)
+                }}
+              >
+                <option value="en">{t('languagesOrigin.en')}</option>
+                <option value="fr">{t('languagesOrigin.fr')}</option>
+                <option value="de">{t('languagesOrigin.de')}</option>
+                <option value="es">{t('languagesOrigin.es')}</option>
+                <option value="it">{t('languagesOrigin.it')}</option>
+                <option value="pt">{t('languagesOrigin.pt')}</option>
+                <option value="ru">{t('languagesOrigin.ru')}</option>
+                <option value="zh">{t('languagesOrigin.zh')}</option>
+                <option value="ja">{t('languagesOrigin.ja')}</option>
+                <option value="ar">{t('languagesOrigin.ar')}</option>
+                <option value="hi">{t('languagesOrigin.hi')}</option>
+                <option value="ko">{t('languagesOrigin.ko')}</option>
+                <option value="tr">{t('languagesOrigin.tr')}</option>
+                <option value="pl">{t('languagesOrigin.pl')}</option>
+                <option value="nl">{t('languagesOrigin.nl')}</option>
+                <option value="id">{t('languagesOrigin.id')}</option>
+              </Select>
+            )}
             <Link href={`/auth/signin`}>
               <Button
                 variant={'outline'}

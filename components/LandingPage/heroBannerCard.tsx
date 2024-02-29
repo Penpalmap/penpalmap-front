@@ -17,11 +17,12 @@ const HeroBannerCard = () => {
 
   return (
     <Box
-      h={'600px'}
+      h={['calc(95vh - 3.5rem)', '700px']}
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
-      my={[15, 20]}
+      my={[15, 35]}
+      mx={[0, 35]}
     >
       <Box
         background={'blackAlpha.500'}
@@ -40,7 +41,7 @@ const HeroBannerCard = () => {
         {[...Array(6)].map((_, index) => (
           <Box key={index} flex="0 0 auto">
             <Image
-              src="/images/LandingMap.webp"
+              src="/images/LandingMapLight.webp"
               alt="PenpalMap"
               height="100%"
               width="auto"
@@ -62,28 +63,41 @@ const HeroBannerCard = () => {
         <Box>
           <Box
             display={'contents'}
-            fontSize={['2em', '3.5em']}
-            fontWeight={'bold'}
+            fontSize={['1.5em', '3em']}
+            fontWeight={'extrabold'}
             color={'white'}
             mb={3}
           >
-            <Text as="span">Connect with </Text>
-
-            <Text as="span" color={'#30e3c5'}>
-              friends{' '}
+            <Text as="span" textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}>
+              {t('presentation.taglineBeforeFriends')}
             </Text>
-            <Text as="span">from all over the world, wherever you are.</Text>
+
+            <Text
+              as="span"
+              color={'teal.300'}
+              textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
+            >
+              {t('presentation.taglineFriends')}
+            </Text>
+            <Text as="span" textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}>
+              {t('presentation.taglineAfterFriends')}
+            </Text>
           </Box>
 
-          <Text fontSize={'2xl'} color={'white'}>
-            Make friends, learn languages and discover new cultures whatever
-            your location
+          <Text
+            marginTop={5}
+            fontSize={['1em', '1,5em']}
+            fontWeight={'bold'}
+            color={'white'}
+            textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
+          >
+            {t('presentation.taglineActions')}
           </Text>
 
           <Box py={{ base: 6, md: 20 }} color={'white'}>
             <Link href={`/#informationsPart`} color={'white.500'}>
-              <Text fontWeight={'bold'}>
-                Learn more <ArrowForwardIcon />
+              <Text>
+                {t('presentation.learnMore')} <ArrowForwardIcon />
               </Text>
             </Link>
           </Box>
