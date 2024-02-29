@@ -37,9 +37,8 @@ const useChat = () => {
         const messagesData = await getMessages({
           roomId: room.id,
           limit: 10,
-          page: 1,
+          offset: 0,
           orderBy: 'createdAt',
-          order: 'ASC',
         })
 
         setMessages(messagesData.data)
@@ -49,12 +48,14 @@ const useChat = () => {
     }
 
     setMessages([])
+    setOffset(0)
+    setRoomIsLoading(true)
     if (appData?.chatData.roomChatId) {
       fetchRoom()
     } else {
       setCurrentRoom(null)
     }
-  }, [appData.chatData.roomChatId, setAppData])
+  }, [appData.chatData?.roomChatId, setAppData])
 
   // const initialFetchMessages = useCallback(async () => {
   //   if (currentRoom) {
@@ -128,12 +129,13 @@ const useChat = () => {
   const sendMessage = useCallback(
     async (message: MessageInput) => {
       let room = currentRoom ?? null
-
-      console.log('message', message)
-
+      debugger
       if (!currentRoom?.id) {
+        const senderId = user?.id
+        const otherUserId = appData?.chatData?.userChat?.id
+        if (!senderId || !otherUserId) return
         const roomData = await createRoom({
-          memberIds: [message.senderId, message.receiverId],
+          memberIds: [senderId, otherUserId],
         })
         setCurrentRoom(roomData)
 

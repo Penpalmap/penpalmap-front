@@ -1,7 +1,9 @@
+import { off } from 'process'
+
 interface PaginatedQueryDto {
   // Supposons que PaginatedQueryDto définisse ces propriétés, ajustez selon vos besoins
-  page: number
-  limit: number
+  limit?: number
+  offset?: number
 }
 
 type Order = 'ASC' | 'DESC'
@@ -11,8 +13,8 @@ type Order = 'ASC' | 'DESC'
 type OrderableMessageFields = 'createdAt' | 'updatedAt'
 
 interface OrderDto<T> {
-  orderBy: T
-  order: Order
+  orderBy?: T
+  order?: Order
 }
 
 // Conversion de la classe en type TypeScript
