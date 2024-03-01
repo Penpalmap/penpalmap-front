@@ -9,7 +9,6 @@ import {
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { User, UserElement } from '../../types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
@@ -55,7 +54,7 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
 
   const { resetCountUnreadMessagesOfRoom } = useRoom()
 
-  const handleClickButtonChat = useCallback(() => {
+  const handleClickButtonChat = () => {
     if (userTarget) {
       setAppData((prev) => ({
         ...prev,
@@ -70,7 +69,7 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
       }
     }
     setMobileView('chat')
-  }, [userTarget, setAppData, setMobileView, resetCountUnreadMessagesOfRoom])
+  }
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const nextImage = () => {

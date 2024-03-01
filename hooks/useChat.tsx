@@ -36,9 +36,10 @@ const useChat = () => {
 
         const messagesData = await getMessages({
           roomId: room.id,
-          limit: 10,
+          limit: 20,
           offset: 0,
           orderBy: 'createdAt',
+          order: 'DESC',
         })
 
         setMessages(messagesData.data)
@@ -49,7 +50,7 @@ const useChat = () => {
 
     setMessages([])
     setOffset(0)
-    setRoomIsLoading(true)
+    // setRoomIsLoading(true)
     if (appData?.chatData.roomChatId) {
       fetchRoom()
     } else {
@@ -57,79 +58,32 @@ const useChat = () => {
     }
   }, [appData.chatData?.roomChatId, setAppData])
 
-  // const initialFetchMessages = useCallback(async () => {
-  //   if (currentRoom) {
-  //     const messagesData = await getMessages({
-  //       roomId: currentRoom.id,
-  //     })
-  //     setMessages(messagesData)
-  //     setIsLoading(false)
-  //     setRoomIsLoading(false)
-  //   }
-  // }, [currentRoom])
+  const additonalFetchMessages = useCallback(async () => {
+    if (currentRoom) {
+      const messagesData = await getMessages({
+        roomId: currentRoom.id,
+        limit: 20,
+        offset: offset,
+        orderBy: 'createdAt',
+        order: 'DESC',
+      })
 
-  // useEffect(() => {
-  //   initialFetchMessages()
-  // }, [currentRoom, initialFetchMessages])
+      console.log('additonalFetchMessages')
+      setMessages((prevMessages) => [...messagesData.data, ...prevMessages])
+      setIsLoading(false)
+    }
+  }, [currentRoom, offset])
 
-  // useEffect(() => {
-  //   setMessages([])
-  //   setOffset(0)
-  //   setRoomIsLoading(true)
-  // }, [appData?.userChat, appData?.chatData?.userChat])
-
-  // useEffect(() => {
-  //   if (!appData?.roomChatId) {
-  //     setMessages([])
-  //     setOffset(0)
-  //     setRoomIsLoading(true)
-
-  //     setCurrentRoom(null)
-  //     setAppData((prev) => ({
-  //       ...prev,
-  //       roomChatId: null,
-  //     }))
-  //   }
-  // }, [appData?.roomChatId, setAppData, appData?.userChat])
-
-  // useEffect(() => {
-  //   if (currentRoom) {
-  //     const appData?.chatData?.userChat = currentRoom.members.find((u) => u.id !== user?.id)
-  //     if (!appData?.chatData?.userChat) return
-  //     setappData?.chatData?.userChat(appData?.chatData?.userChat)
-
-  //     initialFetchMessages()
-  //   } else {
-  //     setappData?.chatData?.userChat(appData.userChat)
-  //   }
-  // }, [appData.userChat, currentRoom, initialFetchMessages, user])
-
-  // // useEffect(() => {
-  // //   initialFetchMessages()
-  // // }, [initialFetchMessages, currentRoom])
-
-  // const additonalFetchMessages = useCallback(async () => {
-  //   if (currentRoom && !roomIsLoading) {
-  //     const messagesData = await getMessages({
-  //       roomId: currentRoom.id,
-  //     })
-
-  //     console.log('additonalFetchMessages')
-  //     setMessages((prevMessages) => [...messagesData, ...prevMessages])
-  //     setIsLoading(false) // Mettre fin au chargement lorsque les messages sont chargés.
-  //   }
-  // }, [currentRoom, roomIsLoading])
-
-  // useEffect(() => {
-  //   if (offset > 0) {
-  //     additonalFetchMessages()
-  //   }
-  // }, [additonalFetchMessages, offset])
+  useEffect(() => {
+    if (offset > 0) {
+      console.log('additonalFetchMessages')
+      additonalFetchMessages()
+    }
+  }, [additonalFetchMessages, offset])
 
   const sendMessage = useCallback(
     async (message: MessageInput) => {
       let room = currentRoom ?? null
-      debugger
       if (!currentRoom?.id) {
         const senderId = user?.id
         const otherUserId = appData?.chatData?.userChat?.id
@@ -178,7 +132,7 @@ const useChat = () => {
 
       // sendMessageSocket(appData.socket, newMessage)
     },
-    [currentRoom, setRooms]
+    [appData?.chatData?.userChat?.id, currentRoom, setRooms, user?.id]
   )
 
   useEffect(() => {

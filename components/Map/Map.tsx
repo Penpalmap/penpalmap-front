@@ -12,8 +12,6 @@ const Map = () => {
     zoom: 2,
   })
 
-  const [data, setData] = useContext(AppContext)
-
   const closeOverlay = useCallback(() => {
     if (mapObj.current && overlayRef) {
       overlayRef.setPosition(undefined)
