@@ -197,7 +197,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
       map.setTarget(undefined)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [currentUser?.geom?.coordinates?.[0], currentUser?.geom?.coordinates?.[1]])
 
   // Add users to the map
   useEffect(() => {
