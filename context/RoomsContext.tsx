@@ -156,22 +156,8 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
           }
         })
       })
-      if (appData.chatData.userChat) {
-        const userChat = appData.chatData.userChat
-        const userIsOnline = usersOnline.includes(userChat.id)
-        setAppData({
-          ...appData,
-          chatData: {
-            ...appData.chatData,
-            userChat: {
-              ...userChat,
-              isOnline: userIsOnline,
-            },
-          },
-        })
-      }
     })
-  }, [appData, appData.socket, setAppData])
+  }, [appData.socket])
 
   return (
     <RoomContext.Provider

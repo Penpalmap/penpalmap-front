@@ -19,7 +19,6 @@ type Props = {
   isNewChat: boolean
   offset: number
   setOffset: (offset: number) => void
-  isLoading: boolean
 }
 
 const formatDate = (dateString: string) => {
@@ -32,13 +31,7 @@ const formatDate = (dateString: string) => {
   return format(date, formatString)
 }
 
-const ChatMessages = ({
-  messages,
-  isNewChat,
-  offset,
-  setOffset,
-  isLoading,
-}: Props) => {
+const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
   const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
@@ -296,10 +289,6 @@ const ChatMessages = ({
       ref={chatContainerRef}
     >
       {renderMessages}
-
-      {isLoading && (
-        <Spinner size={'sm'} position={'absolute'} top={2} left={2} />
-      )}
 
       {isNewChat && (
         <EmptyChatMessages

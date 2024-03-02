@@ -22,8 +22,6 @@ const useChat = () => {
 
   const [offset, setOffset] = useState(0)
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [roomIsLoading, setRoomIsLoading] = useState(true)
   const { updateLastMessageInRoom, setRooms, resetCountUnreadMessagesOfRoom } =
     useRoom()
 
@@ -43,14 +41,12 @@ const useChat = () => {
         })
 
         setMessages(messagesData.data.reverse())
-
-        setIsLoading(false)
       }
     }
 
     setMessages([])
     setOffset(0)
-    if (appData?.chatData.roomChatId) {
+    if (appData?.chatData?.roomChatId) {
       fetchRoom()
     } else {
       setCurrentRoom(null)
@@ -71,7 +67,6 @@ const useChat = () => {
         ...messagesData.data.reverse(),
         ...prevMessages,
       ])
-      setIsLoading(false)
     }
   }, [currentRoom, offset])
 
@@ -120,7 +115,7 @@ const useChat = () => {
       if (!appData.socket) return
 
       const roomIsSameAsComingMessage = currentRoom?.id === message.roomId
-      const senderUserIsCurrentUser = message.senderId === user?.id
+      const senderUserIsCurrentUser = message.sender?.id === user?.id
 
       updateLastMessageInRoom(message)
 
@@ -138,7 +133,7 @@ const useChat = () => {
     })
 
     onSeenMessage(appData.socket, async (message) => {
-      const readerIsOtherUser = message.senderId === user?.id
+      const readerIsOtherUser = message.sender?.id === user?.id
 
       if (readerIsOtherUser) {
         setMessages((prevMessages) => {
@@ -181,7 +176,6 @@ const useChat = () => {
     room: currentRoom,
     offset,
     setOffset,
-    isLoading,
     // additonalFetchMessages,
   }
 }

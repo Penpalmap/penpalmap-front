@@ -11,8 +11,7 @@ import useGenderFolder from '../../hooks/useGenderFolder'
 const Chat = ({ visible }) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
-  const { room, sendMessage, messages, offset, setOffset, isLoading } =
-    useChat()
+  const { room, sendMessage, messages, offset, setOffset } = useChat()
 
   const { genderFolder } = useGenderFolder(
     appData?.chatData?.userChat?.gender || ''
@@ -45,7 +44,6 @@ const Chat = ({ visible }) => {
         isNewChat={!room}
         offset={offset}
         setOffset={setOffset}
-        isLoading={isLoading}
       />
 
       {user?.id && (
