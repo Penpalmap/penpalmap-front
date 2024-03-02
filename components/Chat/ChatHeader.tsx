@@ -29,7 +29,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 import { faArrowLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSession } from '../../hooks/useSession'
-import { blockUser } from '../../api/user/userApi'
+import { updateUser } from '../../api/user/userApi'
 import { useRoom } from '../../context/RoomsContext'
 
 type Props = {
@@ -47,6 +47,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
   const { rooms, setRooms } = useRoom()
 
   const { user } = useSession()
+  console.log('user', user)
 
   const { mobileView, setMobileView } = useMobileView()
 
@@ -73,7 +74,16 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
 
   const handleBlockUser = async () => {
     if (user?.id && userId) {
-      await blockUser(user.id, userId)
+      // users id already in blockedUserIds
+
+      const usersAlreadyBlocked =
+        user.blockedUsers?.map((blockedUser) => blockedUser.id) || []
+
+      await updateUser(
+        { blockedUserIds: [...usersAlreadyBlocked, userId] },
+        user.id
+      )
+      // await blockUser(user.id, userId)
       const roomsFilteredBlockedUsers = rooms.filter((room) =>
         room.members.every((member) => member.id !== userId)
       )

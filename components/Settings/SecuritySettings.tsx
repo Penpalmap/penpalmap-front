@@ -49,19 +49,6 @@ const SecuritySettings = () => {
 
   const { user } = useSession()
 
-  const [blockedUsers, setBlockedUsers] = useState<User[]>([])
-
-  const fetchBlockedUsers = useCallback(async () => {
-    if (user?.id) {
-      const users = await getUserBlocked(user.id)
-      setBlockedUsers(users)
-    }
-  }, [user])
-
-  useEffect(() => {
-    fetchBlockedUsers()
-  }, [user, fetchBlockedUsers])
-
   const onSubmit = async (data: FormData) => {
     if (!user?.id) return
 
@@ -184,10 +171,7 @@ const SecuritySettings = () => {
           </Text>
           <ModalCloseButton />
           <ModalBody>
-            <BlockedAccountList
-              blockedUsers={blockedUsers}
-              mutate={fetchBlockedUsers}
-            />
+            <BlockedAccountList />
           </ModalBody>
         </ModalContent>
       </Modal>

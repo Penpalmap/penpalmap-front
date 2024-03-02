@@ -1,4 +1,4 @@
-import { useContext, useMemo, useCallback } from 'react'
+import { useContext, useMemo, useCallback, useEffect } from 'react'
 import { Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
@@ -87,17 +87,23 @@ const ConversationList = () => {
   const conversationsRender = useMemo(
     () =>
       // rooms.sort(sortRoomsByLastMessageDate).map((room, index) => (
-      rooms.map((room, index) => (
-        <ConversationItem
-          clickOnRoom={clickOnConversation}
-          // lastMessage={room.messages[0]}
-          room={room}
-          sessionUserId={user?.id}
-          countUnreadMessages={room.countUnreadMessages}
-          key={index}
-        />
-      )),
-    [clickOnConversation, rooms, user?.id]
+      rooms
+        .filter((room) => {
+          return !user?.blockedUsers?.some((blockedUser) =>
+            room.members.some((member) => member.id === blockedUser.id)
+          )
+        })
+        .map((room, index) => (
+          <ConversationItem
+            clickOnRoom={clickOnConversation}
+            // lastMessage={room.messages[0]}
+            room={room}
+            sessionUserId={user?.id}
+            countUnreadMessages={room.countUnreadMessages}
+            key={index}
+          />
+        )),
+    [clickOnConversation, rooms, user?.blockedUsers, user?.id]
   )
 
   return (
