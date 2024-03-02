@@ -18,7 +18,7 @@ const Footer = () => {
       >
         <Box>
           <Flex mb={8}>
-            <Image src="/images/logo.png" alt="pen" h={42} />
+            <Image src="/images/logo.webp" alt="pen" h={42} />
             <Box display={'contents'} fontSize={'x-large'} fontWeight={'bold'}>
               <Text ml={2}>Penpal</Text>
               <Text as={'span'} color={'teal.400'}>
@@ -47,7 +47,7 @@ const Footer = () => {
         </Box>
         <HStack spacing={8} align="flex-start">
           <VStack spacing={4} align="flex-start">
-            <Text fontWeight="bold">Company Info</Text>
+            <Text fontWeight="bold">{t('footer.companyInfo')}</Text>
             <Link href="/about" fontWeight="medium" color={'gray.500'}>
               {t('footer.about')}
             </Link>
@@ -56,7 +56,7 @@ const Footer = () => {
             </Link>
           </VStack>
           <VStack spacing={4} align="flex-start">
-            <Text fontWeight="bold">Legal Links</Text>
+            <Text fontWeight="bold">{t('footer.legalLinks')}</Text>
             <Link
               href="/legalnotice"
               color="gray.500"
