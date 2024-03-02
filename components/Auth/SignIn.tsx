@@ -109,9 +109,8 @@ const SignIn = () => {
           p={6}
           pt={1}
           bg={
-            'linear-gradient(300deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%)'
+            'linear-gradient(300deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%)'
           }
-          backdropFilter="blur(6px)"
           rounded={'lg'}
           display={'flex'}
           flexDirection={'column'}
