@@ -63,8 +63,8 @@ const WhereIsPart = () => {
   }
 
   return (
-    <Flex display={'flex'} flexDirection="column">
-      <Text fontSize={['3xl', '5xl']} fontWeight={'bold'} mb={6}>
+    <Flex display={'flex'} flexDirection="column" mx={[0, 35]}>
+      <Text fontSize={['3xl', '5xl']} textAlign={'center'} fontWeight={'bold'} mb={6}>
         {t('presentation.isWorldwide')}
       </Text>
       <Flex overflow="hidden" mx={-4} py={6} position="relative">

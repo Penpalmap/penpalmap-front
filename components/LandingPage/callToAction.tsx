@@ -11,6 +11,7 @@ const CallToAction = () => {
       alignItems="center"
       justifyContent="center"
       pb={40}
+      mx={[0, 35]}
     >
       <Text fontSize="4xl" fontWeight="extrabold" textAlign="center" mb={4}>
         {t('presentation.letsCreateProfile')}

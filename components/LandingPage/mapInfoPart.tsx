@@ -7,10 +7,11 @@ const MapInfoPart = () => {
   return (
     <Flex
       flexDirection={['column-reverse', 'row']}
-      gap={[10, 32]}
+      gap={{base: 5, lg: 20}}
       alignItems={'center'}
       justifyContent={'center'}
       mb={20}
+      mx={[0, 35]}
     >
       <Image
         src={'/images/lp/user_map_info.webp'}
