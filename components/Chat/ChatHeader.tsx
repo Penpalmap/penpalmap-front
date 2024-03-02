@@ -47,7 +47,6 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
   const { rooms, setRooms } = useRoom()
 
   const { user } = useSession()
-  console.log('user', user)
 
   const { mobileView, setMobileView } = useMobileView()
 

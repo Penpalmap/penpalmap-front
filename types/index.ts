@@ -16,14 +16,9 @@ export type Message = {
   id: string
   content: string
   isSeen: boolean
-  senderId: string
-  sender: User
-  receiverId: string
-  receiver: User
-  roomId: string
-  room: Room
+  sender?: User
   createdAt: string
-  isNewRoom: boolean
+  updatedAt: string
 }
 
 export type MessageInput = {

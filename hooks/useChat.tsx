@@ -42,7 +42,7 @@ const useChat = () => {
           order: 'DESC',
         })
 
-        setMessages(messagesData.data)
+        setMessages(messagesData.data.reverse())
 
         setIsLoading(false)
       }
@@ -50,7 +50,6 @@ const useChat = () => {
 
     setMessages([])
     setOffset(0)
-    // setRoomIsLoading(true)
     if (appData?.chatData.roomChatId) {
       fetchRoom()
     } else {
@@ -68,15 +67,16 @@ const useChat = () => {
         order: 'DESC',
       })
 
-      console.log('additonalFetchMessages')
-      setMessages((prevMessages) => [...messagesData.data, ...prevMessages])
+      setMessages((prevMessages) => [
+        ...messagesData.data.reverse(),
+        ...prevMessages,
+      ])
       setIsLoading(false)
     }
   }, [currentRoom, offset])
 
   useEffect(() => {
     if (offset > 0) {
-      console.log('additonalFetchMessages')
       additonalFetchMessages()
     }
   }, [additonalFetchMessages, offset])
@@ -109,28 +109,6 @@ const useChat = () => {
 
       const newMessage = await createMessage(inputMessage)
       setMessages((prevMessages) => [...prevMessages, newMessage])
-
-      // if (newMessage.isNewRoom) {
-      //   createRoom(appData.socket, {
-      //     roomId: newMessage.roomId,
-      //     senderId: newMessage.senderId,
-      //     receiverId: message.receiverId,
-      //   })
-
-      //   const room = await getRoomById(newMessage.roomId)
-      //   room.countUnreadMessages = '0'
-      //   setCurrentRoom(room)
-      //   setRooms((prevRooms) => [...prevRooms, room])
-      // }
-
-      // setRooms((prevRooms) => [...prevRooms, room])
-
-      // newMessage.receiverId = message.receiverId
-
-      // setMessages((prevMessages) => [...prevMessages, newMessage])
-      // updateLastMessageInRoom(newMessage)
-
-      // sendMessageSocket(appData.socket, newMessage)
     },
     [appData?.chatData?.userChat?.id, currentRoom, setRooms, user?.id]
   )

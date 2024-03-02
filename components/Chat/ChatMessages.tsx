@@ -22,15 +22,15 @@ type Props = {
   isLoading: boolean
 }
 
-// const formatDate = (dateString: string) => {
-//   const date = new Date(dateString)
-//   const currentDate = new Date()
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  const currentDate = new Date()
 
-//   const sameYear = date.getFullYear() === currentDate.getFullYear()
-//   const formatString = sameYear ? 'MMMM d' : 'MMMM d, yyyy'
+  const sameYear = date.getFullYear() === currentDate.getFullYear()
+  const formatString = sameYear ? 'MMMM d' : 'MMMM d, yyyy'
 
-//   return format(date, formatString)
-// }
+  return format(date, formatString)
+}
 
 const ChatMessages = ({
   messages,
@@ -141,20 +141,22 @@ const ChatMessages = ({
 
     return sortedMessages?.map((message, index) => {
       const isLastMessage = index === sortedMessages.length - 1
-      const isOwnMessage = user?.id === message.senderId
+      const isOwnMessage = user?.id === message.sender?.id
       const seenText = message.isSeen ? t('chat.seen') : t('chat.send')
 
-      const isSameSender = lastSenderId.current === message.senderId
+      const isSameSender = lastSenderId.current === message.sender?.id
 
       // Ajout de cette vérification pour éviter l'erreur de TypeScript
       const previousMessage = index > 0 ? sortedMessages[index - 1] : null
       const posteriorMessage =
         index < sortedMessages.length - 1 ? sortedMessages[index + 1] : null
       const hasPreviousSameSender =
-        (previousMessage && previousMessage.senderId === message.senderId) ??
+        (previousMessage &&
+          previousMessage.sender?.id === message.sender?.id) ??
         false
       const hasNextSameSender =
-        (posteriorMessage && posteriorMessage.senderId === message.senderId) ??
+        (posteriorMessage &&
+          posteriorMessage.sender?.id === message.sender?.id) ??
         false
 
       const image =
@@ -164,51 +166,51 @@ const ChatMessages = ({
       // DO NOT DELETE THIS COMMENTED CODE
       // UPDATE IT IF API CHANGES AND MESSAGE HAS A DATE
 
-      // const messageDate = formatDate(message.createdAt)
+      const messageDate = formatDate(message.createdAt)
 
-      // const showDate =
-      //   !isLastMessage &&
-      //   index > 0 &&
-      //   previousMessage &&
-      //   messageDate !== formatDate(previousMessage.createdAt)
+      const showDate =
+        !isLastMessage &&
+        index > 0 &&
+        previousMessage &&
+        messageDate !== formatDate(previousMessage.createdAt)
 
-      // // if top message, put a ref to scroll to it
-      // if (index === 0) {
-      //   currentDate = messageDate
-      //   return (
-      //     <Box
-      //       key={message.id}
-      //       ref={topMessageRef}
-      //       display={'flex'}
-      //       flexDirection={'column'}
-      //     >
-      //       <Text textAlign="center" mt={2} mb={2} fontSize="small">
-      //         {currentDate}
-      //       </Text>
-      //       <MessageItem
-      //         key={message.id}
-      //         content={message.content}
-      //         isLastMessage={isLastMessage}
-      //         isOwnMessage={isOwnMessage}
-      //         seenText={seenText}
-      //         image={(!isSameSender && image) || ''}
-      //         timestamp={''}
-      //       />
-      //     </Box>
-      //   )
-      // }
-
-      // if (showDate) {
-      //   currentDate = messageDate
-      // }
-
-      return (
-        <React.Fragment key={message.id}>
-          {/* {showDate && (
+      // if top message, put a ref to scroll to it
+      if (index === 0) {
+        currentDate = messageDate
+        return (
+          <Box
+            key={message.id}
+            ref={topMessageRef}
+            display={'flex'}
+            flexDirection={'column'}
+          >
             <Text textAlign="center" mt={2} mb={2} fontSize="small">
               {currentDate}
             </Text>
-          )} */}
+            <MessageItem
+              key={message.id}
+              content={message.content}
+              isLastMessage={isLastMessage}
+              isOwnMessage={isOwnMessage}
+              seenText={seenText}
+              image={(!isSameSender && image) || ''}
+              timestamp={''}
+            />
+          </Box>
+        )
+      }
+
+      if (showDate) {
+        currentDate = messageDate
+      }
+
+      return (
+        <React.Fragment key={message.id}>
+          {showDate && (
+            <Text textAlign="center" mt={2} mb={2} fontSize="small">
+              {currentDate}
+            </Text>
+          )}
           <MessageItem
             key={message.id}
             content={message.content}
