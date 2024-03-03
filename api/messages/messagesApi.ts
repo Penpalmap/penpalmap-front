@@ -1,5 +1,6 @@
 import axiosInstance from '../../axiosInstance'
 import { Message } from '../../types'
+import { PageDto } from '../../types/pagination'
 import {
   CreateMessageDto,
   QueryMessagesDto,
@@ -36,7 +37,9 @@ const deleteMessage = async (id: string) => {
   }
 }
 
-const getMessages = async (input: QueryMessagesDto) => {
+const getMessages = async (
+  input: QueryMessagesDto
+): Promise<PageDto<Message>> => {
   try {
     const response = await axiosInstance.get('/api/messages', { params: input })
     return response.data

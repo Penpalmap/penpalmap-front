@@ -34,13 +34,6 @@ export type ChatData = {
   userChat: User | null
 }
 
-export type UserRoom = {
-  createdAt: string
-  roomId: string
-  updatedAt: string
-  userId: string
-}
-
 export type User = {
   id: string
   blockedUsers?: User[]
@@ -83,11 +76,8 @@ export type UserImage = {
 
 export type Room = {
   id: string
-  members: Array<User>
-  messages: Array<Message>
-  UserRoom: UserRoom | null
-  createdAt: string
-  updatedAt: string
+  members?: Array<User>
+  lastMessage: Message | null
   countUnreadMessages: string
 }
 

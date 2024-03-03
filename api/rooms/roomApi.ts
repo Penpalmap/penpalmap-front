@@ -1,7 +1,10 @@
 import axiosInstance from '../../axiosInstance'
+import { PageDto } from '../../types/pagination'
 import { CreateRoomDto, QueryRoomDto, RoomDto, UpdateRoomDto } from './roomDto'
 
-const getRooms = async ({ userIds }: QueryRoomDto): Promise<any> => {
+const getRooms = async ({
+  userIds,
+}: QueryRoomDto): Promise<PageDto<RoomDto>> => {
   try {
     const userParams = userIds?.join('&userIds[]=')
 
