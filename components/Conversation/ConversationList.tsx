@@ -96,7 +96,6 @@ const ConversationList = () => {
         .map((room, index) => (
           <ConversationItem
             clickOnRoom={clickOnConversation}
-            // lastMessage={room.messages[0]}
             room={room}
             sessionUserId={user?.id}
             countUnreadMessages={room.countUnreadMessages}

@@ -1,6 +1,6 @@
 import { Flex, Avatar, AvatarBadge, Icon, Box, Text } from '@chakra-ui/react'
 import dayjs from 'dayjs'
-import { Message, Room } from '../../types'
+import { Room } from '../../types'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
 import useGenderFolder from '../../hooks/useGenderFolder'
@@ -8,7 +8,6 @@ import useGenderFolder from '../../hooks/useGenderFolder'
 type ConversationItemProps = {
   clickOnRoom: (roomId: string) => void
   room: Room
-  lastMessage: Message | undefined
   countUnreadMessages: string
   sessionUserId: string | undefined
 }
@@ -16,7 +15,6 @@ type ConversationItemProps = {
 const ConversationItem = ({
   clickOnRoom,
   room,
-  lastMessage,
   countUnreadMessages,
   sessionUserId,
 }: ConversationItemProps) => {
@@ -88,20 +86,22 @@ const ConversationItem = ({
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
           ></Text>
-          {/* <Text
+          <Text
             fontSize={'.8em'}
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
           >
-            {lastMessage?.senderId === sessionUserId ? t('chat.you') : ''}{' '}
-          </Text> */}
+            {room.lastMessage?.sender?.id === sessionUserId
+              ? t('chat.you')
+              : ''}{' '}
+          </Text>
           <Text
             fontSize={'.8em'}
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
             fontWeight={parseInt(countUnreadMessages) > 0 ? 'bold' : 'normal'}
           >
-            {lastMessage?.content}
+            {room.lastMessage?.content}
           </Text>
 
           <Text
@@ -109,7 +109,7 @@ const ConversationItem = ({
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
           >
-            - {dayjs(lastMessage?.createdAt).format('D MMM')}
+            - {dayjs(room.lastMessage?.createdAt).format('D MMM')}
           </Text>
         </Flex>
       </Flex>

@@ -11,6 +11,7 @@ import { getRooms } from '../api/rooms/roomApi'
 import { useSession } from '../hooks/useSession'
 import { onUsersOnline } from '../sockets/socketManager'
 import { AppContext } from './AppContext'
+import { getMessages } from '../api/messages/messagesApi'
 
 interface RoomContextType {
   rooms: Room[]
@@ -40,25 +41,51 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     useState<number>(0)
 
   const { user } = useSession()
-  const [appData, setAppData] = useContext(AppContext)
+  const [appData] = useContext(AppContext)
 
   useEffect(() => {
     const fetchUserRooms = async () => {
       if (!user?.id) return
       const roomsData = await getRooms({ userIds: [user.id] })
 
-      if (roomsData) {
-        setRooms(roomsData.data)
-
-        let totalUnread = 0
-        roomsData.data.forEach((room) => {
-          if (room.countUnreadMessages) {
-            totalUnread += parseInt(room.countUnreadMessages)
-          }
+      const roomsArray: Room[] = []
+      for (const room of roomsData.data) {
+        const lastMessageData = await getMessages({
+          roomId: room.id,
+          limit: 1,
+          offset: 0,
+          orderBy: 'createdAt',
+          order: 'DESC',
         })
 
-        setTotalUnreadMessagesNumber(totalUnread)
+        const lastMessage = lastMessageData.data[0]
+
+        const newRoom: Room = {
+          ...room,
+          lastMessage: lastMessage ?? null,
+          countUnreadMessages:
+            !lastMessage?.isSeen && lastMessage?.sender?.id !== user.id
+              ? '1'
+              : '0',
+        }
+
+        roomsArray.push(newRoom)
       }
+
+      setRooms(roomsArray)
+
+      // if (roomsData) {
+      //   setRooms(roomsData.data)
+
+      //   let totalUnread = 0
+      //   roomsData.data.forEach((room) => {
+      //     if (room.countUnreadMessages) {
+      //       totalUnread += parseInt(room.countUnreadMessages)
+      //     }
+      //   })
+
+      //   setTotalUnreadMessagesNumber(totalUnread)
+      // }
     }
 
     if (user) {
