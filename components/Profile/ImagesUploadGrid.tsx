@@ -7,7 +7,6 @@ import { useSession } from './../../hooks/useSession'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCrown, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { UserImage } from '../../types'
-import { reorderProfileImages } from '../../api/user/userApi'
 
 type Props = {
   images: UserImage[]
@@ -63,12 +62,12 @@ const ImagesUploadGrid = ({
       })
 
       setImages(newImagesOrder)
-      await reorderProfileImages(user.id, newImagesOrder)
+
+      // TO DO
+      // await reorderProfileImages(user.id, newImagesOrder)
 
       // updateSession()
     }
-
-    return
   }
 
   const handleAddImage = () => {

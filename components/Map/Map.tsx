@@ -2,8 +2,7 @@ import { Box } from '@chakra-ui/react'
 import 'ol/ol.css'
 import useMap from '../../hooks/useMap'
 import OverlayProfileMap from './OverlayProfileMap'
-import { useCallback, useContext } from 'react'
-import { AppContext } from '../../context/AppContext'
+import { useCallback } from 'react'
 import SearchAndZoom from './SearchAndZoom'
 
 const Map = () => {

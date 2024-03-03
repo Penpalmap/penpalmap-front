@@ -1,14 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { SocketEvents } from '../constants/socketEnum'
-import { Message, MessageInput, Room, User } from '../types'
+import { Message, Room } from '../types'
 import { useSession } from './useSession'
 import { AppContext } from '../context/AppContext'
-import {
-  onNewMessage,
-  onNewRoom,
-  onSeenMessage,
-  sendMessageSeen,
-} from '../sockets/socketManager'
 import { useRoom } from '../context/RoomsContext'
 import { createRoom, getRoomById } from '../api/rooms/roomApi'
 import { CreateMessageDto } from '../api/messages/messagesDto'
@@ -29,8 +22,7 @@ const useChat = () => {
 
   const [offset, setOffset] = useState(0)
 
-  const { updateLastMessageInRoom, setRooms, resetCountUnreadMessagesOfRoom } =
-    useRoom()
+  const { setRooms } = useRoom()
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -115,68 +107,68 @@ const useChat = () => {
     },
     [appData?.chatData?.userChat?.id, currentRoom, setRooms, user?.id]
   )
+  // TO DO
+  // useEffect(() => {
+  //   if (!appData.socket) return
 
-  useEffect(() => {
-    if (!appData.socket) return
+  //   onNewMessage(appData.socket, async (message) => {
+  //     if (!appData.socket) return
 
-    onNewMessage(appData.socket, async (message) => {
-      if (!appData.socket) return
+  //     const roomIsSameAsComingMessage = currentRoom?.id === message.roomId
+  //     const senderUserIsCurrentUser = message.sender?.id === user?.id
 
-      const roomIsSameAsComingMessage = currentRoom?.id === message.roomId
-      const senderUserIsCurrentUser = message.sender?.id === user?.id
+  //     updateLastMessageInRoom(message)
 
-      updateLastMessageInRoom(message)
+  //     if (appData.chatOpen && user?.id) {
+  //       if (!senderUserIsCurrentUser) {
+  //         if (roomIsSameAsComingMessage) {
+  //           setMessages((prevMessages) => [...prevMessages, message])
 
-      if (appData.chatOpen && user?.id) {
-        if (!senderUserIsCurrentUser) {
-          if (roomIsSameAsComingMessage) {
-            setMessages((prevMessages) => [...prevMessages, message])
+  //           sendMessageSeen(appData?.socket, message)
+  //           resetCountUnreadMessagesOfRoom(message.roomId)
+  //           // await updateMessage({})
+  //         }
+  //       }
+  //     }
+  //   })
 
-            sendMessageSeen(appData?.socket, message)
-            resetCountUnreadMessagesOfRoom(message.roomId)
-            // await updateMessage({})
-          }
-        }
-      }
-    })
+  //   onSeenMessage(appData.socket, async (message) => {
+  //     const readerIsOtherUser = message.sender?.id === user?.id
 
-    onSeenMessage(appData.socket, async (message) => {
-      const readerIsOtherUser = message.sender?.id === user?.id
+  //     if (readerIsOtherUser) {
+  //       setMessages((prevMessages) => {
+  //         return prevMessages.map((msg) => {
+  //           if (msg.id === message.id) {
+  //             return {
+  //               ...msg,
+  //               isSeen: true,
+  //             }
+  //           }
+  //           return msg
+  //         })
+  //       })
+  //     }
+  //   })
 
-      if (readerIsOtherUser) {
-        setMessages((prevMessages) => {
-          return prevMessages.map((msg) => {
-            if (msg.id === message.id) {
-              return {
-                ...msg,
-                isSeen: true,
-              }
-            }
-            return msg
-          })
-        })
-      }
-    })
+  //   onNewRoom(appData.socket, async (roomId) => {
+  //     const newRoom = await getRoomById(roomId)
+  //     setRooms((prevRooms) => [...prevRooms, newRoom])
+  //   })
 
-    onNewRoom(appData.socket, async (roomId) => {
-      const newRoom = await getRoomById(roomId)
-      setRooms((prevRooms) => [...prevRooms, newRoom])
-    })
-
-    return () => {
-      appData?.socket?.off(SocketEvents.NewMessage)
-      appData?.socket?.off(SocketEvents.NewRoom)
-    }
-  }, [
-    appData.socket,
-    currentRoom,
-    user,
-    setAppData,
-    appData,
-    setRooms,
-    updateLastMessageInRoom,
-    resetCountUnreadMessagesOfRoom,
-  ])
+  //   return () => {
+  //     appData?.socket?.off(SocketEvents.NewMessage)
+  //     appData?.socket?.off(SocketEvents.NewRoom)
+  //   }
+  // }, [
+  //   appData.socket,
+  //   currentRoom,
+  //   user,
+  //   setAppData,
+  //   appData,
+  //   setRooms,
+  //   updateLastMessageInRoom,
+  //   resetCountUnreadMessagesOfRoom,
+  // ])
 
   return {
     messages: messages,

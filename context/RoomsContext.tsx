@@ -94,14 +94,14 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
   }, [user])
 
   const updateLastMessageInRoom = useCallback(
-    (message) => {
+    (message: Message) => {
       if (!user) return
       setRooms((prevRooms) => {
         return prevRooms.map((room) => {
-          if (room.id === message.roomId) {
+          if (room.id === appData?.chatData?.roomChatId) {
             let countUnreadMessages: string
 
-            if (message.senderId === user.id) {
+            if (message.sender?.id === user.id) {
               countUnreadMessages = '0'
               setTotalUnreadMessagesNumber(
                 (prev) => prev - parseInt(room.countUnreadMessages)
@@ -119,7 +119,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
 
             const newRoom: Room = {
               ...room,
-              messages: [message],
+              lastMessage: message,
               countUnreadMessages: countUnreadMessages,
             }
 
@@ -163,7 +163,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         return prevRooms.map((room) => {
           const newRoom: Room = {
             ...room,
-            members: room.members.map((member) => {
+            members: room?.members?.map((member) => {
               if (usersOnline.includes(member.id)) {
                 return {
                   ...member,

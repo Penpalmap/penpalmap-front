@@ -238,7 +238,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         return otherUser?.id === userElement.id
       })
 
-      const otherMemberOnline = room?.members.find(
+      const otherMemberOnline = room?.members?.find(
         (member) => member.isOnline && member.id !== currentUser?.id
       )
 

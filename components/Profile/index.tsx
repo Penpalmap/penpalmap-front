@@ -27,7 +27,6 @@ import { useTranslation } from 'next-i18next'
 import MapProfile from './Map'
 import { useMobileView } from '../../context/MobileViewContext'
 import { AppContext } from '../../context/AppContext'
-import LoggedInDate from '../Profile/loggedInDate'
 import { LanguagesKeys } from '../../types/translations'
 import { useRouter } from 'next/router'
 import { getUserById } from '../../api/user/userApi'
@@ -129,9 +128,9 @@ const Profile = ({ userId }: Props) => {
           Langues
         </Text>
         <VStack>
-          {user?.userLanguages?.map((language) => (
+          {user?.userLanguages?.map((language, index) => (
             <Badge
-              key={language.id}
+              key={index}
               variant={'solid'}
               borderRadius={'full'}
               px={2}
@@ -265,7 +264,9 @@ const Profile = ({ userId }: Props) => {
         <VStack alignItems={'flex-start'}>
           <HStack gap={2}>
             <Text fontWeight={'extrabold'} fontSize={'4xl'}>
-              {user?.name}, {user?.birthday && getAgeByDate(user.birthday)}
+              {user?.name},{' '}
+              {user?.birthday &&
+                getAgeByDate(user?.birthday as unknown as string)}
             </Text>
 
             <Badge

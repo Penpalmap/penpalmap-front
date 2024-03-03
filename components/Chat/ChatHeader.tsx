@@ -84,7 +84,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
       )
       // await blockUser(user.id, userId)
       const roomsFilteredBlockedUsers = rooms.filter((room) =>
-        room.members.every((member) => member.id !== userId)
+        room?.members?.every((member) => member.id !== userId)
       )
 
       setRooms(roomsFilteredBlockedUsers)

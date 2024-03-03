@@ -1,8 +1,7 @@
-import { useContext, useMemo, useCallback, useEffect } from 'react'
+import { useContext, useMemo, useCallback } from 'react'
 import { Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
-import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
 import { useMobileView } from '../../context/MobileViewContext'
@@ -25,7 +24,7 @@ const ConversationList = () => {
           chatData: {
             roomChatId: room.id,
             userChat:
-              room.members.find((member) => member.id !== user?.id) || null,
+              room?.members?.find((member) => member.id !== user?.id) || null,
           },
           chatOpen: true,
         })

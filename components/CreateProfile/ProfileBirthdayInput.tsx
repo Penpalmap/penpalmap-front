@@ -10,13 +10,13 @@ import {
 } from '@chakra-ui/react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
-import { ProfileFormData } from '../../types'
 import { useTranslation } from 'next-i18next'
 import { MonthsKeys } from '../../types/translations'
+import { UpdateUserDto } from '../../api/user/userDto'
 
 type Props = {
-  register: UseFormRegister<ProfileFormData>
-  setValue: UseFormSetValue<ProfileFormData>
+  register: UseFormRegister<UpdateUserDto>
+  setValue: UseFormSetValue<UpdateUserDto>
   setIsUnderage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -67,7 +67,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     toast.closeAll()
     if (day !== null && month !== null && year !== null) {
       const birthday = dayjs(`${year}-${month}-${day}`).format('YYYY-MM-DD')
-      setValue('birthday', birthday)
+      setValue('birthday', birthday as unknown as string)
 
       const calculatedAge = calculateAge(birthday)
       setIsUnderage(calculatedAge < 12)

@@ -1,16 +1,4 @@
 import { Socket } from 'socket.io-client'
-import { Gender } from '../constants/genderEnum'
-
-export type ProfileFormData = {
-  birthday: string
-  gender: Gender
-  languageUsed: string
-  userLanguages: Array<UserLanguage>
-  isNewUser: boolean
-  latitude: number
-  longitude: number
-  bio?: string
-}
 
 export type Message = {
   id: string
@@ -87,7 +75,6 @@ export type UserElement = User & {
 }
 
 export type UserLanguage = {
-  id: string
   language: string
   level: string
 }

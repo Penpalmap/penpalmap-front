@@ -1,6 +1,7 @@
 import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
-import { Message, MessageInput } from '../types'
+import { Message } from '../types'
+import { MessageInput } from '../hooks/useChat'
 
 export const connectToSocketServer = (socket) => {
   // Se connecter au serveur WebSocket

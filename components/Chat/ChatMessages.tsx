@@ -1,5 +1,5 @@
-import { Box, Button, Spinner, Text } from '@chakra-ui/react'
-import { Message, User } from '../../types'
+import { Box, Button, Text } from '@chakra-ui/react'
+import { Message } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
 import { useSession } from './../../hooks/useSession'
 import MessageItem from './MessageItem'
@@ -100,7 +100,7 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
         }, 100)
       } else if (
         sortedMessages &&
-        sortedMessages[sortedMessages.length - 1]?.senderId === user?.id
+        sortedMessages[sortedMessages.length - 1]?.sender?.id === user?.id
       ) {
         if (chatContainerRef.current) {
           chatContainerRef.current.scrollTop =

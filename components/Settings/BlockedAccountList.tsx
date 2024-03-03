@@ -14,9 +14,8 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { User } from '../../types'
 import { useRef } from 'react'
-import { unblockUser, updateUser } from '../../api/user/userApi'
+import { updateUser } from '../../api/user/userApi'
 import { useSession } from '../../hooks/useSession'
 
 type Props = {}

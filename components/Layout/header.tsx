@@ -12,7 +12,6 @@ import {
   MenuList,
   Select,
   Text,
-  useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import MyProfile from '../MyProfile'
@@ -36,7 +35,6 @@ const Header = () => {
   const [appData, setAppData] = useContext(AppContext)
 
   const { setMobileView } = useMobileView()
-  const isMobile = useBreakpointValue({ base: true, md: false })
 
   const { changeLocale, locale } = useLanguage()
 
@@ -46,7 +44,7 @@ const Header = () => {
   const disconnect = () => {
     setAppData({
       userTarget: null,
-      userChat: null,
+      chatData: { roomChatId: null, userChat: null },
       rooms: [],
       chatOpen: false,
       socket: null,

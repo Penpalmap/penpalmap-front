@@ -46,9 +46,7 @@ const Chat = ({ visible }) => {
         setOffset={setOffset}
       />
 
-      {user?.id && (
-        <ChatInput room={room} senderId={user?.id} sendMessage={sendMessage} />
-      )}
+      {user?.id && <ChatInput room={room} sendMessage={sendMessage} />}
     </Box>
   )
 }

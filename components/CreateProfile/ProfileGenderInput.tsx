@@ -1,6 +1,5 @@
 import { List, ListItem, Text } from '@chakra-ui/react'
 import { UseFormSetValue } from 'react-hook-form'
-import { ProfileFormData } from '../../types'
 import { useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'next-i18next'
@@ -19,10 +18,11 @@ import {
   faVenusMars,
 } from '@fortawesome/free-solid-svg-icons'
 import { Gender } from '../../constants/genderEnum'
+import { UpdateUserDto } from '../../api/user/userDto'
 
 type Props = {
-  setValue: UseFormSetValue<ProfileFormData>
-  selectedGender?: Gender
+  setValue: UseFormSetValue<UpdateUserDto>
+  selectedGender?: string
 }
 
 const ProfileGenderInput = ({ setValue, selectedGender }: Props) => {

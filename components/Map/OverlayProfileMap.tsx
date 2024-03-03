@@ -22,10 +22,9 @@ import Link from 'next/link'
 import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useTranslation } from 'next-i18next'
-import LoggedInDate from '../Profile/loggedInDate'
 import { getAgeByDate } from '../../utils/date'
 import { useRoom } from '../../context/RoomsContext'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 type OverlayProfileMapProps = {
@@ -184,7 +183,9 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
               {userTarget?.name}
             </Text>
             <Text>
-              , {userTarget?.birthday && getAgeByDate(userTarget.birthday)}
+              ,{' '}
+              {userTarget?.birthday &&
+                getAgeByDate(userTarget.birthday as unknown as string)}
             </Text>
           </Flex>
           <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
@@ -201,13 +202,13 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
               <Badge colorScheme="green">En ligne</Badge>
             )}
           </Flex>
-          <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
+          {/* <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
             {userTarget?.updatedAt && (
               <Text fontSize={'sm'} color={'#595959'}>
                 <LoggedInDate updatedAt={userTarget.updatedAt} />
               </Text>
             )}
-          </Flex>
+          </Flex> */}
           {/* <Text display={['none', 'block']} fontSize={'sm'}>
                             {userTarget?.bio}
                         </Text> */}

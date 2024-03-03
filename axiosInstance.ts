@@ -28,7 +28,9 @@ axiosInstance.interceptors.response.use(
           return Promise.reject(error)
         }
 
-        const responseToken = await refreshToken(refreshTokenStocked)
+        const responseToken = await refreshToken({
+          refreshToken: refreshTokenStocked,
+        })
         const { accessToken } = responseToken
 
         localStorage.setItem('accessToken', accessToken)

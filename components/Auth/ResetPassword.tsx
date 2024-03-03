@@ -23,10 +23,10 @@ const ResetPassword = () => {
   const { handleSubmit, register, watch } = useForm()
 
   const onSubmit = async (data) => {
-    const resetPasswordResult = await resetPassword(
-      token as string,
-      data.newPassword
-    )
+    const resetPasswordResult = await resetPassword({
+      token: token as string,
+      password: data.newPassword,
+    })
     if (resetPasswordResult.success) {
       router.push('/auth/signin')
     } else {

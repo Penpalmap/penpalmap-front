@@ -1,4 +1,4 @@
-import { User, UserImage, UserMap } from '../../types'
+import { User } from '../../types'
 import axiosInstance from '../../axiosInstance'
 import { OrderImagesDto, UpdatePasswordDto, UpdateUserDto } from './userDto'
 
