@@ -1,5 +1,3 @@
-import { off } from 'process'
-
 interface PaginatedQueryDto {
   // Supposons que PaginatedQueryDto définisse ces propriétés, ajustez selon vos besoins
   limit?: number
@@ -22,3 +20,13 @@ export type QueryMessagesDto = PaginatedQueryDto &
   OrderDto<OrderableMessageFields> & {
     roomId?: string // Le ? indique que la propriété est optionnelle
   }
+
+export type CreateMessageDto = {
+  content: string
+  roomId: string
+  senderId: string
+}
+
+export type UpdateMessageDto = {
+  content: string
+}

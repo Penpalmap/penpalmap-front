@@ -85,6 +85,7 @@ const useChat = () => {
 
   const sendMessage = useCallback(
     async (message: MessageInput) => {
+      if (!user?.id) return
       let room = currentRoom ?? null
       if (!currentRoom?.id) {
         const senderId = user?.id
