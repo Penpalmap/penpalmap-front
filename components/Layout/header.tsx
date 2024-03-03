@@ -142,15 +142,9 @@ const Header = () => {
                 <MenuDivider />
                 <MenuItem onClick={onOpen}>{t('menu.myProfile')}</MenuItem>
 
-                {isMobile ? (
-                  <Link href={`/`} onClick={() => setMobileView('settings')}>
-                    <MenuItem> {t('menu.parameters')}</MenuItem>
-                  </Link>
-                ) : (
-                  <Link href={`/settings`}>
-                    <MenuItem> {t('menu.parameters')}</MenuItem>
-                  </Link>
-                )}
+                <Link href={`/settings`}>
+                  <MenuItem> {t('menu.parameters')}</MenuItem>
+                </Link>
                 <MenuDivider />
                 <MenuItem onClick={disconnect}>{t('menu.logout')}</MenuItem>
               </MenuList>

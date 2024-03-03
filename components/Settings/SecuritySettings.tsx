@@ -53,7 +53,10 @@ const SecuritySettings = () => {
     if (!user?.id) return
 
     try {
-      await changePassword(data.oldPassword, data.newPassword, user.id)
+      await changePassword(
+        { oldPassword: data.oldPassword, newPassword: data.newPassword },
+        user.id
+      )
 
       setMessage(t('form.messagePasswordChange'))
       setError('')

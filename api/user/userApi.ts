@@ -83,7 +83,7 @@ const changePassword = async (
   userId: string
 ) => {
   try {
-    const response = await axiosInstance.put(`/api/users/${userId}/password`, {
+    const response = await axiosInstance.post(`/api/users/${userId}/password`, {
       oldPassword,
       newPassword,
     })
