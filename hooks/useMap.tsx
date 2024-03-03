@@ -231,7 +231,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
       // chaque room que l'on a (nous)
       const room = rooms?.find((room) => {
-        const otherUser = room.members.find(
+        const otherUser = room.members?.find(
           (member) => member.id !== currentUser?.id
         )
 

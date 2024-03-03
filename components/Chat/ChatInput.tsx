@@ -3,6 +3,7 @@ import {
   Flex,
   FormControl,
   IconButton,
+  Text,
   Textarea,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -35,21 +36,15 @@ const ChatInput = ({ room, senderId, sendMessage }: Props) => {
   useEffect(() => {
     if (!appData?.chatData?.roomChatId) return
 
-    setValue('roomId', room?.id)
-    setValue('senderId', senderId)
-    setValue(
-      'receiverId',
-      room?.members?.find((member) => member.id !== senderId)?.id || ''
-    )
+    // setValue('roomId', room?.id)
+    // setValue('senderId', senderId)
+    // setValue(
+    //   'receiverId',
+    //   room?.members?.find((member) => member.id !== senderId)?.id || ''
+    // )
     setValue('content', '')
     inputRef?.current?.focus()
-  }, [
-    appData?.chatData?.roomChatId,
-    room?.id,
-    room?.members,
-    senderId,
-    setValue,
-  ])
+  }, [appData?.chatData?.roomChatId, room?.id, room?.members, setValue])
 
   const onSubmitHandler = async (data: MessageInput) => {
     sendMessage(data)

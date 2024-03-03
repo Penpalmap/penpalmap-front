@@ -90,7 +90,7 @@ const ConversationList = () => {
       rooms
         .filter((room) => {
           return !user?.blockedUsers?.some((blockedUser) =>
-            room.members.some((member) => member.id === blockedUser.id)
+            room.members?.some((member) => member.id === blockedUser.id)
           )
         })
         .map((room, index) => (

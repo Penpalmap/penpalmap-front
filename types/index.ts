@@ -21,13 +21,6 @@ export type Message = {
   updatedAt: string
 }
 
-export type MessageInput = {
-  content: string
-  roomId: string | null | undefined
-  senderId: string
-  receiverId: string
-}
-
 export type ContextStateData = {
   userTarget: UserElement | null
   rooms: Array<Room> | null

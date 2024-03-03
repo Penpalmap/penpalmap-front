@@ -14,6 +14,13 @@ import { createRoom, getRoomById } from '../api/rooms/roomApi'
 import { CreateMessageDto } from '../api/messages/messagesDto'
 import { createMessage, getMessages } from '../api/messages/messagesApi'
 
+export type MessageInput = {
+  content: string
+  // roomId: string | null | undefined
+  // senderId: string
+  // receiverId: string
+}
+
 const useChat = () => {
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null)
   const { user } = useSession()
@@ -99,7 +106,7 @@ const useChat = () => {
       const inputMessage: CreateMessageDto = {
         content: message.content,
         roomId: room.id,
-        senderId: message.senderId,
+        senderId: user?.id,
       }
 
       const newMessage = await createMessage(inputMessage)
