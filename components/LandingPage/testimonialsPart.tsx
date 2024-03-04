@@ -34,7 +34,7 @@ const Testimonial = ({ name, text, image, country }) => {
       px={12}
       bg="white"
       boxShadow={'lg'}
-      w={['full', '30%']}
+      w={{base:'full', lg: '30%'}}
     >
       <Flex mb={5} alignItems={'center'}>
         <Box w={'20'} mr={6}>
@@ -65,11 +65,11 @@ const Testimonial = ({ name, text, image, country }) => {
 
 const TestimonialsPart = () => {
   return (
-    <Box mb={40}>
+    <Box mb={40} mx={[0, 35]}>
       <Text fontSize={'4xl'} textAlign={'center'} fontWeight={'bold'} mb={20}>
         What our users say
       </Text>
-      <Flex flexWrap={'wrap'} justifyContent={'space-between'} gap={4}>
+      <Flex flexWrap={'wrap'} flexDirection={{base: 'column', lg: 'row'}} justifyContent={'space-between'} gap={4}>
         {testimonials.map((testimonial, index) => (
           <Testimonial key={index} {...testimonial} />
         ))}

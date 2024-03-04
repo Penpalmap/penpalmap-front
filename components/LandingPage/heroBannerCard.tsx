@@ -55,15 +55,14 @@ const HeroBannerCard = () => {
         flexDir={'column'}
         position={'absolute'}
         zIndex={2}
-        p={[10, 20]}
-        w={['full', '70%']}
+        p={{base: '2.5rem', md: '3.5rem', lg: '5rem'}}
         justifyContent={'space-between'}
         h={'full'}
       >
         <Box>
           <Box
             display={'contents'}
-            fontSize={['1.5em', '3em']}
+            fontSize={{base: '2em', md: '2.5em', lg: '3.5em'}}
             fontWeight={'extrabold'}
             color={'white'}
             mb={3}
@@ -86,7 +85,7 @@ const HeroBannerCard = () => {
 
           <Text
             marginTop={5}
-            fontSize={['1em', '1,5em']}
+            fontSize={['1,5em', '2em']}
             fontWeight={'bold'}
             color={'white'}
             textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}

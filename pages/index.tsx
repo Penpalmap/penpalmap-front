@@ -19,7 +19,7 @@ export default function Home() {
       <Box
         backgroundImage={'/images/lp/Vector 1.svg'}
         backgroundSize={'cover'}
-        pt={44}
+        pt={{base: 20, md: 40}}
       >
         <Box mx={{ base: 4, md: 'auto' }} maxW={'1800px'}>
           <TestimonialsPart />
