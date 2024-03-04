@@ -9,8 +9,8 @@ const useUploadUserImage = () => {
     setError(null)
     setIsLoading(true)
     const formData = new FormData()
-    formData.append('profileImage', file as Blob)
-    formData.append('position', `${position}`)
+    formData.append('profileImage', file)
+    formData.append('position', position.toString())
 
     const image = await uploadProfileImage(formData, userId)
 

@@ -1,6 +1,12 @@
 import { User } from '../../types'
 import axiosInstance from '../../axiosInstance'
-import { OrderImagesDto, UpdatePasswordDto, UpdateUserDto } from './userDto'
+import {
+  OrderImagesDto,
+  UpdatePasswordDto,
+  UpdateUserDto,
+  UploadImageDto,
+  UserImageDto,
+} from './userDto'
 
 const getUserById = async (id: string): Promise<User> => {
   try {
@@ -35,16 +41,20 @@ const deleteUser = async (userId: string) => {
   }
 }
 
-const uploadProfileImage = async (formData: FormData, userId: string) => {
+const uploadProfileImage = async (
+  formData: FormData,
+  userId: string
+): Promise<UserImageDto> => {
   try {
     const response = await axiosInstance.post(
       `/api/users/${userId}/images`,
       formData
     )
+    console.log('response', response)
 
     return response.data
   } catch (error) {
-    console.error('Error while uploading profile image', error)
+    throw error
   }
 }
 

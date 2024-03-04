@@ -22,3 +22,14 @@ export type UpdatePasswordDto = {
   oldPassword: string
   newPassword: string
 }
+
+export type UploadImageDto = {
+  position: number
+  image: File
+}
+
+export type UserImageDto = {
+  id: string
+  src: string
+  position: number
+}
