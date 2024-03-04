@@ -50,7 +50,6 @@ const uploadProfileImage = async (
       `/api/users/${userId}/images`,
       formData
     )
-    console.log('response', response)
 
     return response.data
   } catch (error) {
