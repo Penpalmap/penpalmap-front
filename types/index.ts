@@ -6,7 +6,6 @@ export type Message = {
   isSeen: boolean
   sender?: User
   createdAt: string
-  updatedAt: string
 }
 
 export type ContextStateData = {

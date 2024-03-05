@@ -2,6 +2,7 @@ import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
 import { Message } from '../types'
 import { MessageInput } from '../hooks/useChat'
+import { SendMessageEventDto } from './socketDto'
 
 export const connectToSocketServer = (socket) => {
   // Se connecter au serveur WebSocket
@@ -33,17 +34,17 @@ export const leaveRoom = (socket, roomId: string) => {
   socket.emit(SocketEvents.LeaveRoom, roomId)
 }
 
-export const sendMessageSocket = (socket, message: Message) => {
+export const sendMessageSocket = (socket, data: SendMessageEventDto) => {
   // Envoyer un message à une room spécifique
-  socket.emit(SocketEvents.SendMessage, message)
+  socket.emit(SocketEvents.SendMessage, data)
 }
 
 export const onNewMessage = (
   socket: Socket,
-  callback: (message: Message) => void
+  callback: (message: SendMessageEventDto) => void
 ) => {
   // Écouter les nouveaux messages
-  socket.on(SocketEvents.NewMessage, (message: Message) => {
+  socket.on(SocketEvents.NewMessage, (message: SendMessageEventDto) => {
     callback(message)
   })
 }

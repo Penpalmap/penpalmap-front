@@ -10,6 +10,8 @@ import {
   getMessages,
   updateMessage,
 } from '../api/messages/messagesApi'
+import { sendMessageSocket } from '../sockets/socketManager'
+import { SocketEvents } from '../constants/socketEnum'
 
 export type MessageInput = {
   content: string
@@ -78,6 +80,7 @@ const useChat = () => {
 
   const sendMessage = useCallback(
     async (message: MessageInput) => {
+      if (!appData?.chatData?.userChat) return
       if (!user?.id) return
       let room = currentRoom ?? null
       if (!currentRoom?.id) {
@@ -104,15 +107,24 @@ const useChat = () => {
       }
 
       const newMessage = await createMessage(inputMessage)
+      sendMessageSocket(appData?.socket, {
+        id: newMessage.id,
+        receiverId: appData?.chatData?.userChat?.id,
+        content: newMessage.content,
+        roomId: room.id,
+        createdAt: newMessage.createdAt,
+        sender: user,
+      })
       setMessages((prevMessages) => [...prevMessages, newMessage])
       updateLastMessageInRoom(newMessage, room.id)
     },
     [
-      appData?.chatData?.userChat?.id,
+      appData?.chatData?.userChat,
+      appData?.socket,
       currentRoom,
       setRooms,
       updateLastMessageInRoom,
-      user?.id,
+      user,
     ]
   )
 
@@ -133,10 +145,43 @@ const useChat = () => {
     appData.chatData.roomChatId,
     appData.chatOpen,
     messages,
-    setMessages,
     updateLastMessageInRoom,
     user?.id,
   ])
+
+  // Socket events
+  useEffect(() => {
+    if (!appData?.socket) return
+
+    const handleNewMessage = async (message) => {
+      const messageToAdd: Message = {
+        id: message.id,
+        content: message.content,
+        sender: message.sender,
+        isSeen: false,
+        createdAt: message.createdAt,
+      }
+      setMessages((prevMessages) => {
+        // Vérifier si le message est déjà présent
+        const isMessagePresent = prevMessages.some(
+          (msg) => msg.id === message.id
+        )
+        if (isMessagePresent) {
+          return prevMessages
+        }
+
+        return [...prevMessages, messageToAdd]
+      })
+
+      updateLastMessageInRoom(messageToAdd, message.roomId)
+    }
+
+    appData.socket.on(SocketEvents.NewMessage, handleNewMessage)
+
+    return () => {
+      appData?.socket?.off(SocketEvents.NewMessage, handleNewMessage)
+    }
+  }, [appData.socket, setMessages, updateLastMessageInRoom])
 
   // TO DO
   // useEffect(() => {
