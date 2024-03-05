@@ -5,7 +5,10 @@ import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { useSession } from '../../hooks/useSession'
 import ImagesUploadGrid from '../Profile/ImagesUploadGrid'
 import { UserImage } from '../../types'
-import { deleteProfileImage } from '../../api/user/userApi'
+import {
+  deleteProfileImage,
+  reorderProfileImages,
+} from '../../api/user/userApi'
 
 const ProfilePhotoUpload = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -46,8 +49,9 @@ const ProfilePhotoUpload = () => {
       newImages.splice(index, 1)
       return newImages
     })
-
+    const newOrder: number[] = croppedImages.map((image) => image.position)
     await deleteProfileImage(index + 1, user.id)
+    await reorderProfileImages(user.id, { order: newOrder })
   }
 
   return (

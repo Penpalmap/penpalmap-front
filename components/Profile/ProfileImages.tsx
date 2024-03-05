@@ -5,7 +5,10 @@ import ImagesUploadGrid from './ImagesUploadGrid'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
 import { Alert, Text, VStack, useDisclosure } from '@chakra-ui/react'
-import { deleteProfileImage } from '../../api/user/userApi'
+import {
+  deleteProfileImage,
+  reorderProfileImages,
+} from '../../api/user/userApi'
 
 type Props = {
   images: UserImage[]
@@ -34,8 +37,9 @@ const ProfileImage = ({ images }: Props) => {
 
   const handleDeleteImage = async (index: number) => {
     if (!user) return
+    let newImages
     setCroppedImages((prevImages) => {
-      const newImages = [...prevImages]
+      newImages = [...prevImages]
       newImages.splice(index, 1)
 
       newImages.forEach((image, index) => {
@@ -43,8 +47,9 @@ const ProfileImage = ({ images }: Props) => {
       })
       return newImages
     })
-
+    const newOrder: number[] = newImages.map((image) => image.position)
     await deleteProfileImage(index + 1, user.id)
+    await reorderProfileImages(user.id, { order: newOrder })
   }
 
   const handleImageCrop = async (croppedImage: Blob) => {
