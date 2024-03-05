@@ -58,7 +58,7 @@ const ImagesUploadGrid = ({
       const newImagesOrder = arrayMove(images, oldIndex, newIndex)
 
       newImagesOrder.forEach((image, index) => {
-        image.position = index
+        image.position = index + 1
       })
 
       setImages(newImagesOrder)

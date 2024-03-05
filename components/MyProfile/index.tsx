@@ -122,7 +122,6 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
         backdropBlur="10px"
       />
       <ModalContent
-        w={500}
         h={'70vh'}
         overflow={'hidden'}
         alignSelf={'center'}

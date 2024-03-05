@@ -39,12 +39,12 @@ const ProfileImage = ({ images }: Props) => {
       newImages.splice(index, 1)
 
       newImages.forEach((image, index) => {
-        image.position = index
+        image.position = index + 1
       })
       return newImages
     })
 
-    await deleteProfileImage(index, user.id)
+    await deleteProfileImage(index + 1, user.id)
   }
 
   const handleImageCrop = async (croppedImage: Blob) => {
@@ -53,7 +53,7 @@ const ProfileImage = ({ images }: Props) => {
       type: selectedImage?.type,
     })
 
-    const position = croppedImages.length
+    const position = croppedImages.length + 1
     if (user) {
       const userImage = await uploadImage(croppedImageFile, position, user.id)
 

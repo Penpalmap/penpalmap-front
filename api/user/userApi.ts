@@ -74,11 +74,9 @@ const reorderProfileImages = async (
   newImagesOrder: OrderImagesDto
 ) => {
   try {
-    const response = await axiosInstance.put(
-      `/api/users/${userId}/profile/reorder`,
-      {
-        newImagesOrder,
-      }
+    const response = await axiosInstance.post(
+      `/api/users/${userId}/images/reorder`,
+      newImagesOrder
     )
 
     return response.data

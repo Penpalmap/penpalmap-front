@@ -47,7 +47,7 @@ const ProfilePhotoUpload = () => {
       return newImages
     })
 
-    await deleteProfileImage(index, user.id)
+    await deleteProfileImage(index + 1, user.id)
   }
 
   return (
