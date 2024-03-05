@@ -28,5 +28,6 @@ export type CreateMessageDto = {
 }
 
 export type UpdateMessageDto = {
-  content: string
+  content?: string
+  isSeen?: boolean
 }

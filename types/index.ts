@@ -41,6 +41,7 @@ export type User = {
   userImages?: UserImage[]
   userLanguages?: UserLanguage[]
   isOnline: boolean
+  updatedAt: string
 }
 
 export type Geom = {

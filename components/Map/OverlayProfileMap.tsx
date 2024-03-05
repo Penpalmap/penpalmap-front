@@ -26,6 +26,7 @@ import { getAgeByDate } from '../../utils/date'
 import { useRoom } from '../../context/RoomsContext'
 import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
+import LoggedInDate from '../Profile/loggedInDate'
 
 type OverlayProfileMapProps = {
   closeOverlay: () => void
@@ -202,16 +203,16 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
               <Badge colorScheme="green">En ligne</Badge>
             )}
           </Flex>
-          {/* <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
+          <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
             {userTarget?.updatedAt && (
               <Text fontSize={'sm'} color={'#595959'}>
                 <LoggedInDate updatedAt={userTarget.updatedAt} />
               </Text>
             )}
-          </Flex> */}
+          </Flex>
           {/* <Text display={['none', 'block']} fontSize={'sm'}>
-                            {userTarget?.bio}
-                        </Text> */}
+            {userTarget?.bio}
+          </Text> */}
         </Box>
         <Flex justifyContent={'space-between'} gap={'12px'}>
           {isMobile ? (

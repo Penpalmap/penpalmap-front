@@ -5,13 +5,14 @@ import { AppContext } from '../context/AppContext'
 import { useRoom } from '../context/RoomsContext'
 import { createRoom, getRoomById } from '../api/rooms/roomApi'
 import { CreateMessageDto } from '../api/messages/messagesDto'
-import { createMessage, getMessages } from '../api/messages/messagesApi'
+import {
+  createMessage,
+  getMessages,
+  updateMessage,
+} from '../api/messages/messagesApi'
 
 export type MessageInput = {
   content: string
-  // roomId: string | null | undefined
-  // senderId: string
-  // receiverId: string
 }
 
 const useChat = () => {
@@ -22,7 +23,7 @@ const useChat = () => {
 
   const [offset, setOffset] = useState(0)
 
-  const { setRooms } = useRoom()
+  const { setRooms, updateLastMessageInRoom } = useRoom()
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -104,9 +105,39 @@ const useChat = () => {
 
       const newMessage = await createMessage(inputMessage)
       setMessages((prevMessages) => [...prevMessages, newMessage])
+      updateLastMessageInRoom(newMessage, room.id)
     },
-    [appData?.chatData?.userChat?.id, currentRoom, setRooms, user?.id]
+    [
+      appData?.chatData?.userChat?.id,
+      currentRoom,
+      setRooms,
+      updateLastMessageInRoom,
+      user?.id,
+    ]
   )
+
+  useEffect(() => {
+    // Message seen are updated
+    if (appData.chatOpen) {
+      const messagesToUpdate = messages.filter(
+        (message) => message.sender?.id !== user?.id && !message.isSeen
+      )
+
+      messagesToUpdate.forEach(async (message) => {
+        await updateMessage(message.id, {
+          isSeen: true,
+        })
+      })
+    }
+  }, [
+    appData.chatData.roomChatId,
+    appData.chatOpen,
+    messages,
+    setMessages,
+    updateLastMessageInRoom,
+    user?.id,
+  ])
+
   // TO DO
   // useEffect(() => {
   //   if (!appData.socket) return

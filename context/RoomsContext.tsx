@@ -16,7 +16,7 @@ import { getMessages } from '../api/messages/messagesApi'
 interface RoomContextType {
   rooms: Room[]
   resetCountUnreadMessagesOfRoom: (roomId: string) => void
-  updateLastMessageInRoom: (message: Message) => void
+  updateLastMessageInRoom: (message: Message, roomId: string) => void
   setRooms: React.Dispatch<React.SetStateAction<Room[]>>
   totalUnreadMessagesNumber: number
 }
@@ -94,11 +94,11 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
   }, [user])
 
   const updateLastMessageInRoom = useCallback(
-    (message: Message) => {
+    (message: Message, roomId: string) => {
       if (!user) return
       setRooms((prevRooms) => {
         return prevRooms.map((room) => {
-          if (room.id === appData?.chatData?.roomChatId) {
+          if (room.id === roomId) {
             let countUnreadMessages: string
 
             if (message.sender?.id === user.id) {

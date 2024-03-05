@@ -17,9 +17,9 @@ const createMessage = async (message: CreateMessageDto): Promise<Message> => {
   }
 }
 
-const updateMessage = async (message: UpdateMessageDto) => {
+const updateMessage = async (id: string, message: UpdateMessageDto) => {
   try {
-    const response = await axiosInstance.patch('/api/messages', message)
+    const response = await axiosInstance.patch(`/api/messages/${id}`, message)
     return response.data
   } catch (error) {
     console.error('Error while creating message', error)
