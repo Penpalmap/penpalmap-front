@@ -2,7 +2,7 @@ import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
 import { Message } from '../types'
 import { MessageInput } from '../hooks/useChat'
-import { SendMessageEventDto } from './socketDto'
+import { CreateRoomEventDto, SendMessageEventDto } from './socketDto'
 
 export const connectToSocketServer = (socket) => {
   // Se connecter au serveur WebSocket
@@ -19,13 +19,16 @@ export const joinRoom = (socket, roomId: string) => {
   socket.emit(SocketEvents.JoinRoom, roomId)
 }
 
-export const createRoom = (socket, data: any) => {
+export const createRoom = (socket, data: CreateRoomEventDto) => {
   socket.emit(SocketEvents.CreateRoom, data)
 }
 
-export const onNewRoom = (socket: Socket, callback: (room: any) => void) => {
-  socket.on(SocketEvents.NewRoom, (room: any) => {
-    callback(room)
+export const onNewRoom = (
+  socket: Socket,
+  callback: (roomId: string) => void
+) => {
+  socket.on(SocketEvents.NewRoom, (roomId: string) => {
+    callback(roomId)
   })
 }
 

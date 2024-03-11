@@ -9,7 +9,7 @@ import {
 import { Message, Room } from '../types'
 import { getRooms } from '../api/rooms/roomApi'
 import { useSession } from '../hooks/useSession'
-import { onUsersOnline } from '../sockets/socketManager'
+import { onNewRoom, onUsersOnline } from '../sockets/socketManager'
 import { AppContext } from './AppContext'
 import { getMessages } from '../api/messages/messagesApi'
 
@@ -43,55 +43,55 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
 
-  useEffect(() => {
-    const fetchUserRooms = async () => {
-      if (!user?.id) return
-      const roomsData = await getRooms({ userIds: [user.id] })
+  const fetchUserRooms = useCallback(async () => {
+    if (!user?.id) return
+    const roomsData = await getRooms({ userIds: [user.id] })
 
-      const roomsArray: Room[] = []
-      for (const room of roomsData.data) {
-        const lastMessageData = await getMessages({
-          roomId: room.id,
-          limit: 1,
-          offset: 0,
-          orderBy: 'createdAt',
-          order: 'DESC',
-        })
+    const roomsArray: Room[] = []
+    for (const room of roomsData.data) {
+      const lastMessageData = await getMessages({
+        roomId: room.id,
+        limit: 1,
+        offset: 0,
+        orderBy: 'createdAt',
+        order: 'DESC',
+      })
 
-        const lastMessage = lastMessageData.data[0]
+      const lastMessage = lastMessageData.data[0]
 
-        const newRoom: Room = {
-          ...room,
-          lastMessage: lastMessage ?? null,
-          countUnreadMessages:
-            !lastMessage?.isSeen && lastMessage?.sender?.id !== user.id
-              ? '1'
-              : '0',
-        }
-
-        roomsArray.push(newRoom)
+      const newRoom: Room = {
+        ...room,
+        lastMessage: lastMessage ?? null,
+        countUnreadMessages:
+          !lastMessage?.isSeen && lastMessage?.sender?.id !== user.id
+            ? '1'
+            : '0',
       }
 
-      setRooms(roomsArray)
-
-      // if (roomsData) {
-      //   setRooms(roomsData.data)
-
-      //   let totalUnread = 0
-      //   roomsData.data.forEach((room) => {
-      //     if (room.countUnreadMessages) {
-      //       totalUnread += parseInt(room.countUnreadMessages)
-      //     }
-      //   })
-
-      //   setTotalUnreadMessagesNumber(totalUnread)
-      // }
+      roomsArray.push(newRoom)
     }
 
+    setRooms(roomsArray)
+
+    // if (roomsData) {
+    //   setRooms(roomsData.data)
+
+    //   let totalUnread = 0
+    //   roomsData.data.forEach((room) => {
+    //     if (room.countUnreadMessages) {
+    //       totalUnread += parseInt(room.countUnreadMessages)
+    //     }
+    //   })
+
+    //   setTotalUnreadMessagesNumber(totalUnread)
+    // }
+  }, [user?.id])
+
+  useEffect(() => {
     if (user) {
       fetchUserRooms()
     }
-  }, [user])
+  }, [user, fetchUserRooms])
 
   const updateLastMessageInRoom = useCallback(
     (message: Message, roomId: string) => {
@@ -184,7 +184,11 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         })
       })
     })
-  }, [appData.socket])
+
+    onNewRoom(appData.socket, async () => {
+      fetchUserRooms()
+    })
+  }, [appData.socket, fetchUserRooms])
 
   return (
     <RoomContext.Provider

@@ -8,3 +8,8 @@ export type SendMessageEventDto = {
   createdAt: string
   sender: User
 }
+
+export type CreateRoomEventDto = {
+  receiverId: string
+  roomId: string
+}

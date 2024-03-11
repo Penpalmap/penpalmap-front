@@ -12,6 +12,7 @@ import {
 } from '../api/messages/messagesApi'
 import { sendMessageSocket } from '../sockets/socketManager'
 import { SocketEvents } from '../constants/socketEnum'
+import { createRoom as createRoomSocket } from '../sockets/socketManager'
 
 export type MessageInput = {
   content: string
@@ -91,6 +92,10 @@ const useChat = () => {
           memberIds: [senderId, otherUserId],
         })
         setCurrentRoom(roomData)
+        createRoomSocket(appData?.socket, {
+          receiverId: otherUserId,
+          roomId: roomData.id,
+        })
 
         room = roomData
         setRooms((prevRooms) => [...prevRooms, roomData])
