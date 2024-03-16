@@ -10,13 +10,13 @@ const Layout = ({ children }) => {
 
   return (
     <Flex direction={'column'} h={'100vh'}>
-      {(router.pathname !== '/auth/signup' &&
-        router.pathname !== '/auth/signin') ||
-      (isMobile && mobileView === 'home') ? (
-        <Box h={'4rem'}>
-          <Header />
-        </Box>
-      ) : null}
+      {router.pathname !== '/auth/signup' &&
+        router.pathname !== '/auth/signin' &&
+        !(isMobile && mobileView === 'chat') && (
+          <Box h={'4rem'}>
+            <Header />
+          </Box>
+        )}
 
       <Box style={{ flexGrow: 1 }}>{children}</Box>
       {router.pathname !== '/home' &&

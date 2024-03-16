@@ -109,7 +109,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
             onClick={onCloseChat}
           />
           <Flex>
-            <Link href={`/?profileId=${userId}`} as={NextLink} passHref>
+            <Link href={`/home?profileId=${userId}`} as={NextLink} passHref>
               <Avatar name={name} src={photoUrl} width={10} height={10}>
                 <AvatarBadge
                   boxSize="0.9em"
@@ -119,7 +119,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
               </Avatar>
             </Link>
 
-            <Link href={`/?profileId=${userId}`} as={NextLink} passHref>
+            <Link href={`/home?profileId=${userId}`} as={NextLink} passHref>
               <Box ml={4}>
                 <Text fontSize={'lg'} fontWeight={'semibold'} lineHeight={'4'}>
                   {name}
@@ -151,7 +151,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
               <MenuItem onClick={() => onToggleBlockUser()}>
                 🛡️ Block user
               </MenuItem>
-              <NextLink href={`/?profileId=${userId}`} passHref>
+              <NextLink href={`/home?profileId=${userId}`} passHref>
                 <MenuItem as="a">
                   {' '}
                   <Avatar
