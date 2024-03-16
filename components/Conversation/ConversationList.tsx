@@ -2,11 +2,8 @@ import { useContext, useMemo, useCallback } from 'react'
 import { Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
-import { updateMessageIsReadByRoom } from '../../api/chatApi'
-import { sendMessageSeen } from '../../sockets/socketManager'
 import ConversationItem from './ConversationItem'
 import { useRoom } from '../../context/RoomsContext'
-import { sortRoomsByLastMessageDate } from '../../utils/messageFunction'
 import { useMobileView } from '../../context/MobileViewContext'
 import { useTranslation } from 'next-i18next'
 
@@ -19,32 +16,63 @@ const ConversationList = () => {
   const { setMobileView } = useMobileView()
 
   const clickOnConversation = useCallback(
-    async (members) => {
-      const userMember = members?.find((member) => member.id !== user?.id)
-      if (userMember) {
-        const roomIncludeUser = rooms.find((room) =>
-          room.members.includes(userMember)
-        )
-        if (roomIncludeUser) {
-          setAppData({
-            ...appData,
-            userChat: userMember,
-            chatOpen: true,
-          })
-          resetCountUnreadMessagesOfRoom(roomIncludeUser.id)
+    async (roomId: string) => {
+      const room = rooms.find((room) => room.id === roomId)
+      if (room) {
+        setAppData({
+          ...appData,
+          chatData: {
+            roomChatId: room.id,
+            userChat:
+              room?.members?.find((member) => member.id !== user?.id) || null,
+          },
+          chatOpen: true,
+        })
+        resetCountUnreadMessagesOfRoom(roomId)
 
-          await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
-          const lastMessage =
-            roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
+        // DO NOT DELETE
+        // UPDATE WHEN API CHanges
 
-          if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
-            sendMessageSeen(appData.socket, lastMessage)
-          }
+        // await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
+        // const lastMessage =
+        //   roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
 
-          setMobileView('chat')
-        }
+        // if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
+        //   sendMessageSeen(appData.socket, lastMessage)
+        // }
+
+        setMobileView('chat')
       }
     },
+    // async (members) => {
+    //   const userMember = members?.find((member) => member.id !== user?.id)
+    //   if (userMember) {
+    //     const roomIncludeUser = rooms.find((room) =>
+    //       room.members.includes(userMember)
+    //     )
+    //     if (roomIncludeUser) {
+    //       setAppData({
+    //         ...appData,
+    //         userChat: userMember,
+    //         chatOpen: true,
+    //       })
+    //       resetCountUnreadMessagesOfRoom(roomIncludeUser.id)
+
+    //       // DO NOT DELETE
+    //       // UPDATE WHEN API CHanges
+
+    //       // await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
+    //       // const lastMessage =
+    //       //   roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
+
+    //       // if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
+    //       //   sendMessageSeen(appData.socket, lastMessage)
+    //       // }
+
+    //       setMobileView('chat')
+    //     }
+    //   }
+    // },
     [
       appData,
       resetCountUnreadMessagesOfRoom,
@@ -57,19 +85,23 @@ const ConversationList = () => {
 
   const conversationsRender = useMemo(
     () =>
+      // rooms.sort(sortRoomsByLastMessageDate).map((room, index) => (
       rooms
-        .sort(sortRoomsByLastMessageDate)
+        .filter((room) => {
+          return !user?.blockedUsers?.some((blockedUser) =>
+            room.members?.some((member) => member.id === blockedUser.id)
+          )
+        })
         .map((room, index) => (
           <ConversationItem
             clickOnRoom={clickOnConversation}
-            lastMessage={room.messages[0]}
-            members={room.members}
+            room={room}
             sessionUserId={user?.id}
             countUnreadMessages={room.countUnreadMessages}
             key={index}
           />
         )),
-    [clickOnConversation, rooms, user?.id]
+    [clickOnConversation, rooms, user?.blockedUsers, user?.id]
   )
 
   return (

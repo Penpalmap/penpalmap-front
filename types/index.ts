@@ -1,77 +1,45 @@
 import { Socket } from 'socket.io-client'
-import { Gender } from '../constants/genderEnum'
-
-export type RegisterUserInput = {
-  email: string
-  name: string
-  password: string
-  passwordConfirmation: string
-}
-
-export type ProfileFormData = {
-  birthday: string
-  gender: Gender
-  languageUsed: string
-  userLanguages: Array<UserLanguage>
-  isNewUser: boolean
-  latitude: number
-  longitude: number
-  bio?: string
-}
 
 export type Message = {
   id: string
   content: string
   isSeen: boolean
-  senderId: string
-  sender: User
-  receiverId: string
-  receiver: User
-  roomId: string
-  room: Room
+  sender?: User
   createdAt: string
-  isNewRoom: boolean
-}
-
-export type MessageInput = {
-  content: string
-  roomId: string | null | undefined
-  senderId: string
-  receiverId: string
 }
 
 export type ContextStateData = {
   userTarget: UserElement | null
   rooms: Array<Room> | null
   chatOpen: boolean
-  userChat: User | null
+  chatData: ChatData
   socket: Socket | null
 }
 
-export type UserRoom = {
-  createdAt: string
-  roomId: string
-  updatedAt: string
-  userId: string
+export type ChatData = {
+  roomChatId: string | null
+  userChat: User | null
 }
 
 export type User = {
   id: string
-  email: string
-  image: string
+  blockedUsers?: User[]
   name: string
-  geom: Geom | null
-  geomR: Geom | null
+  email: string
+  googleId?: string
+  geom?: Geom
   points: number
-  gender: string
-  birthday: string
-  bio: string
-  userImages: Array<UserImage>
+  image?: string
+  gender?: string
+  birthday?: Date
+  bio?: string
   isNewUser: boolean
+  connections: number
+  languageUsed?: string
+  avatarNumber?: number
+  userImages?: UserImage[]
+  userLanguages?: UserLanguage[]
   isOnline: boolean
-  languageUsed: string
-  avatarNumber: number
-  userLanguages: Array<UserLanguage>
   updatedAt: string
 }
 
@@ -83,7 +51,6 @@ export type UserMap = {
   id: string
   name: string
   geom: Geom
-  geomR: Geom
   image: string
   points: number
   avatarNumber: number
@@ -93,17 +60,12 @@ export type UserImage = {
   id: string
   src: string
   position: number
-  userId: string
-  user: User
 }
 
 export type Room = {
   id: string
-  members: Array<User>
-  messages: Array<Message>
-  UserRoom: UserRoom | null
-  createdAt: string
-  updatedAt: string
+  members?: Array<User>
+  lastMessage: Message | null
   countUnreadMessages: string
 }
 
@@ -113,10 +75,8 @@ export type UserElement = User & {
 }
 
 export type UserLanguage = {
-  id?: string
   language: string
   level: string
-  userId: string
 }
 
 export type AuthContextType = {
@@ -124,6 +84,6 @@ export type AuthContextType = {
   status: 'loading' | 'authenticated' | 'unauthenticated'
   login: (tokens: { accessToken: string; refreshToken: string }) => void
   logout: () => void
-  refreshTokenFunc: () => Promise<boolean>
+  // refreshTokenFunc: () => Promise<boolean>
   fetchUser: () => void
 }

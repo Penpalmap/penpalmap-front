@@ -1,12 +1,11 @@
 import { useSteps, useToast } from '@chakra-ui/react'
 import { useEffect, useMemo, useState } from 'react'
-import { ProfileFormData } from '../../types'
 import { useForm } from 'react-hook-form'
 import ProfileGenderInput from './ProfileGenderInput'
 import ProfileBirthdayInput from './ProfileBirthdayInput'
 import ProfileLocationInput from './ProfileLocationInput'
 import { useSession } from './../../hooks/useSession'
-import { getUserById, updateUser } from '../../api/userApi'
+import { getUserById, updateUser } from '../../api/user/userApi'
 import { useRouter } from 'next/router'
 import LayoutCreationProfile from './LayoutCreationProfile'
 import ProfileImage from '../Profile/ProfileImages'
@@ -14,6 +13,7 @@ import ProfileLanguageForm from './ProfileLanguageForm'
 import TermsAndConditionsStep from './TermsAndConditionsStep'
 import { ProfileBioForm } from './ProfileBioForm'
 import Loading from '../Layout/loading'
+import { UpdateUserDto } from '../../api/user/userDto'
 
 const CreateProfile = () => {
   const { status, user, fetchUser } = useSession()
@@ -21,7 +21,7 @@ const CreateProfile = () => {
 
   const [loading, setLoading] = useState(false)
 
-  const { register, handleSubmit, setValue, watch } = useForm<ProfileFormData>({
+  const { register, handleSubmit, setValue, watch } = useForm<UpdateUserDto>({
     mode: 'onSubmit',
   })
 
@@ -34,8 +34,6 @@ const CreateProfile = () => {
   const usersLanguages = watch('userLanguages')
   const watchForm = watch()
   const bio = watch('bio')
-  const birthday = watch('birthday')
-  console.log(birthday)
 
   const bioLength = useMemo(() => {
     if (bio) return bio.length
@@ -101,9 +99,8 @@ const CreateProfile = () => {
     checkCreationProfile()
   }, [router, user, status])
 
-  const onSubmit = async (data: ProfileFormData) => {
+  const onSubmit = async (data: UpdateUserDto) => {
     if (!user?.id) return
-
     setLoading(true)
 
     if (router.locale) data.languageUsed = router.locale
@@ -118,7 +115,7 @@ const CreateProfile = () => {
     }
 
     const response = await updateUser(data, user.id)
-    await fetchUser()
+    fetchUser()
     if (response) {
       router.push('/home')
     }

@@ -16,7 +16,7 @@ import { UserImage } from '../../types'
 import ProfileImage from '../Profile/ProfileImages'
 import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
-import { updateUser } from '../../api/userApi'
+import { updateUser } from '../../api/user/userApi'
 import MapInput from '../Elements/form/mapInput'
 
 type Props = {
@@ -122,7 +122,6 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
         backdropBlur="10px"
       />
       <ModalContent
-        w={500}
         h={'70vh'}
         overflow={'hidden'}
         alignSelf={'center'}

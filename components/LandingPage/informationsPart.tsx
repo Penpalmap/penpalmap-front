@@ -3,7 +3,13 @@ import { useTranslation } from 'next-i18next'
 
 const InformationBlock = ({ title, description, emoji }) => {
   return (
-    <Flex textAlign={'center'} flexDir={'column'} alignItems={'center'} gap={4} m={5}>
+    <Flex
+      textAlign={'center'}
+      flexDir={'column'}
+      alignItems={'center'}
+      gap={4}
+      m={5}
+    >
       <Flex
         borderRadius={'full'}
         background={'gray.200'}

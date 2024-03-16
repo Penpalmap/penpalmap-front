@@ -55,14 +55,14 @@ const HeroBannerCard = () => {
         flexDir={'column'}
         position={'absolute'}
         zIndex={2}
-        p={{base: '2.5rem', md: '3.5rem', lg: '5rem'}}
+        p={{ base: '2.5rem', md: '3.5rem', lg: '5rem' }}
         justifyContent={'space-between'}
         h={'full'}
       >
         <Box>
           <Box
             display={'contents'}
-            fontSize={{base: '2em', md: '2.5em', lg: '3.5em'}}
+            fontSize={{ base: '2em', md: '2.5em', lg: '3.5em' }}
             fontWeight={'extrabold'}
             color={'white'}
             mb={3}

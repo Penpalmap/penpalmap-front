@@ -11,10 +11,11 @@ import useGenderFolder from '../../hooks/useGenderFolder'
 const Chat = ({ visible }) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
-  const { room, sendMessage, messages, offset, setOffset, isLoading } =
-    useChat()
+  const { room, sendMessage, messages, offset, setOffset } = useChat()
 
-  const { genderFolder } = useGenderFolder(appData?.userChat?.gender || '')
+  const { genderFolder } = useGenderFolder(
+    appData?.chatData?.userChat?.gender || ''
+  )
   return (
     <Box
       position={{ base: 'initial', md: 'absolute' }}
@@ -29,13 +30,13 @@ const Chat = ({ visible }) => {
       zIndex={1000}
     >
       <ChatHeader
-        name={appData?.userChat?.name}
+        name={appData?.chatData?.userChat?.name}
         photoUrl={
-          appData?.userChat?.image ||
-          `/images/avatar/${genderFolder}/${appData?.userChat?.avatarNumber}.png`
+          appData?.chatData?.userChat?.image ||
+          `/images/avatar/${genderFolder}/${appData?.chatData?.userChat?.avatarNumber}.png`
         }
-        isOnline={appData?.userChat?.isOnline}
-        userId={appData?.userChat?.id}
+        isOnline={appData?.chatData?.userChat?.isOnline}
+        userId={appData?.chatData?.userChat?.id}
       />
 
       <ChatMessages
@@ -43,12 +44,9 @@ const Chat = ({ visible }) => {
         isNewChat={!room}
         offset={offset}
         setOffset={setOffset}
-        isLoading={isLoading}
       />
 
-      {user?.id && (
-        <ChatInput room={room} senderId={user?.id} sendMessage={sendMessage} />
-      )}
+      {user?.id && <ChatInput room={room} sendMessage={sendMessage} />}
     </Box>
   )
 }

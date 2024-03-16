@@ -1,4 +1,4 @@
-import { Box, Button, Spinner, Text } from '@chakra-ui/react'
+import { Box, Button, Text } from '@chakra-ui/react'
 import { Message } from '../../types'
 import { useEffect, useMemo, useRef, useContext, useState } from 'react'
 import { useSession } from './../../hooks/useSession'
@@ -12,13 +12,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
 import React from 'react'
+import useGenderFolder from '../../hooks/useGenderFolder'
 
 type Props = {
   messages: Array<Message> | undefined
   isNewChat: boolean
   offset: number
   setOffset: (offset: number) => void
-  isLoading: boolean
 }
 
 const formatDate = (dateString: string) => {
@@ -31,13 +31,7 @@ const formatDate = (dateString: string) => {
   return format(date, formatString)
 }
 
-const ChatMessages = ({
-  messages,
-  isNewChat,
-  offset,
-  setOffset,
-  isLoading,
-}: Props) => {
+const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
   const { user } = useSession()
   const [appData] = useContext(AppContext)
   const [otherUserIsTyping, setOtherUserIsTyping] = useState(false)
@@ -60,17 +54,15 @@ const ChatMessages = ({
 
   const lastSenderId = useRef<string | null>(null)
   const [bottomScrollIsDone, setBottomScrollIsDone] = useState(false)
-
-  const genderFolder =
-    appData?.userChat?.gender === 'man' || appData?.userChat?.gender === 'woman'
-      ? appData?.userChat?.gender
-      : 'other'
+  const { genderFolder } = useGenderFolder(
+    appData?.chatData?.userChat?.gender || ''
+  )
 
   const [arrowDisplay, setArrowDisplay] = useState<boolean>(false)
 
   useEffect(() => {
     setBottomScrollIsDone(false)
-  }, [appData.userChat])
+  }, [])
 
   const checkIfAtBottom = (offsetHeight: number) => {
     if (!chatContainerRef.current) return false
@@ -91,7 +83,7 @@ const ChatMessages = ({
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
       setBottomScrollIsDone(true)
     }
-  }, [appData.userChat, sortedMessages])
+  }, [sortedMessages])
 
   useEffect(() => {
     const currentChatContainer = chatContainerRef.current
@@ -108,7 +100,7 @@ const ChatMessages = ({
         }, 100)
       } else if (
         sortedMessages &&
-        sortedMessages[sortedMessages.length - 1]?.senderId === user?.id
+        sortedMessages[sortedMessages.length - 1]?.sender?.id === user?.id
       ) {
         if (chatContainerRef.current) {
           chatContainerRef.current.scrollTop =
@@ -142,25 +134,30 @@ const ChatMessages = ({
 
     return sortedMessages?.map((message, index) => {
       const isLastMessage = index === sortedMessages.length - 1
-      const isOwnMessage = user?.id === message.senderId
+      const isOwnMessage = user?.id === message.sender?.id
       const seenText = message.isSeen ? t('chat.seen') : t('chat.send')
 
-      const isSameSender = lastSenderId.current === message.senderId
+      const isSameSender = lastSenderId.current === message.sender?.id
 
       // Ajout de cette vérification pour éviter l'erreur de TypeScript
       const previousMessage = index > 0 ? sortedMessages[index - 1] : null
       const posteriorMessage =
         index < sortedMessages.length - 1 ? sortedMessages[index + 1] : null
       const hasPreviousSameSender =
-        (previousMessage && previousMessage.senderId === message.senderId) ??
+        (previousMessage &&
+          previousMessage.sender?.id === message.sender?.id) ??
         false
       const hasNextSameSender =
-        (posteriorMessage && posteriorMessage.senderId === message.senderId) ??
+        (posteriorMessage &&
+          posteriorMessage.sender?.id === message.sender?.id) ??
         false
 
       const image =
-        appData?.userChat?.image ??
-        `/images/avatar/${genderFolder}/${appData.userChat?.avatarNumber}.png`
+        appData?.chatData?.userChat?.image ??
+        `/images/avatar/${genderFolder}/${appData?.chatData?.userChat?.avatarNumber}.png`
+
+      // DO NOT DELETE THIS COMMENTED CODE
+      // UPDATE IT IF API CHANGES AND MESSAGE HAS A DATE
 
       const messageDate = formatDate(message.createdAt)
 
@@ -222,8 +219,8 @@ const ChatMessages = ({
       )
     })
   }, [
-    appData.userChat?.avatarNumber,
-    appData.userChat?.image,
+    appData?.chatData?.userChat?.avatarNumber,
+    appData?.chatData?.userChat?.image,
     genderFolder,
     sortedMessages,
     user?.id,
@@ -245,7 +242,7 @@ const ChatMessages = ({
     })
 
     const handleIsTyping = (message) => {
-      if (message.senderId !== appData.userChat?.id) return
+      if (message.senderId !== appData?.chatData?.userChat?.id) return
       clearTimeout(typingTimeout as NodeJS.Timeout)
       setOtherUserIsTyping(true)
 
@@ -262,7 +259,7 @@ const ChatMessages = ({
       appData?.socket?.off(SocketEvents.IsTyping)
       appData?.socket?.off(SocketEvents.StopIsTyping)
     }
-  }, [appData.socket, appData.userChat?.id, typingTimeout])
+  }, [appData.socket, appData?.chatData?.userChat?.id, typingTimeout])
 
   const clickOnArrowNewMessage = () => {
     setArrowDisplay(false)
@@ -293,23 +290,19 @@ const ChatMessages = ({
     >
       {renderMessages}
 
-      {isLoading && (
-        <Spinner size={'sm'} position={'absolute'} top={2} left={2} />
-      )}
-
       {isNewChat && (
         <EmptyChatMessages
           image={
-            appData?.userChat?.image ||
-            `/images/avatar/${genderFolder}/${appData?.userChat?.avatarNumber}.png`
+            appData?.chatData?.userChat?.image ||
+            `/images/avatar/${genderFolder}/${appData?.chatData?.userChat?.avatarNumber}.png`
           }
-          name={appData?.userChat?.name || ''}
+          name={appData?.chatData?.userChat?.name || ''}
         />
       )}
       {otherUserIsTyping && (
         <Box position={'absolute'} bottom={10} left={0} p={4}>
           <Text fontSize={'small'}>
-            {appData?.userChat?.name} {t('chat.IsTyping')}
+            {appData?.chatData?.userChat?.name} {t('chat.IsTyping')}
           </Text>
         </Box>
       )}

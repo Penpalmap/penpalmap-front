@@ -29,7 +29,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 import { faArrowLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSession } from '../../hooks/useSession'
-import { blockUser } from '../../api/userApi'
+import { updateUser } from '../../api/user/userApi'
 import { useRoom } from '../../context/RoomsContext'
 
 type Props = {
@@ -53,10 +53,10 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
   const dialogRef = useRef<HTMLButtonElement>(null)
 
   const { city, country, flag } = useLocation(
-    appData?.userChat?.geomR?.coordinates?.[1] ||
-      appData?.userChat?.geom?.coordinates?.[1],
-    appData?.userChat?.geomR?.coordinates?.[0] ||
-      appData?.userChat?.geom?.coordinates?.[0]
+    appData?.chatData?.userChat?.geom?.coordinates?.[1] ||
+      appData?.chatData?.userChat?.geom?.coordinates?.[1],
+    appData?.chatData?.userChat?.geom?.coordinates?.[0] ||
+      appData?.chatData?.userChat?.geom?.coordinates?.[0]
   )
 
   const onCloseChat = () => {
@@ -66,23 +66,32 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
 
     setAppData({
       ...appData,
-      userChat: null,
+      chatData: { roomChatId: null, userChat: null },
       chatOpen: false,
     })
   }
 
   const handleBlockUser = async () => {
     if (user?.id && userId) {
-      await blockUser(user.id, userId)
+      // users id already in blockedUserIds
+
+      const usersAlreadyBlocked =
+        user.blockedUsers?.map((blockedUser) => blockedUser.id) || []
+
+      await updateUser(
+        { blockedUserIds: [...usersAlreadyBlocked, userId] },
+        user.id
+      )
+      // await blockUser(user.id, userId)
       const roomsFilteredBlockedUsers = rooms.filter((room) =>
-        room.members.every((member) => member.id !== userId)
+        room?.members?.every((member) => member.id !== userId)
       )
 
       setRooms(roomsFilteredBlockedUsers)
 
       setAppData({
         ...appData,
-        userChat: null,
+        chatData: { roomChatId: null, userChat: null },
         chatOpen: false,
       })
     }

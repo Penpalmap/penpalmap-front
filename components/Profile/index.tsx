@@ -19,7 +19,6 @@ import {
   useCallback,
 } from 'react'
 import { User } from '../../types'
-import { getProfile } from '../../api/profileApi'
 import { getAgeByDate } from '../../utils/date'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
@@ -28,18 +27,18 @@ import { useTranslation } from 'next-i18next'
 import MapProfile from './Map'
 import { useMobileView } from '../../context/MobileViewContext'
 import { AppContext } from '../../context/AppContext'
-import LoggedInDate from '../Profile/loggedInDate'
 import { LanguagesKeys } from '../../types/translations'
 import { useRouter } from 'next/router'
+import { getUserById } from '../../api/user/userApi'
 
 type Props = {
-  profileId: string
+  userId: string
 }
 
 type ContentType = 'image' | 'bio' | 'map' | 'languages'
 type ContentArray = ContentType[]
 
-const Profile = ({ profileId }: Props) => {
+const Profile = ({ userId }: Props) => {
   const [user, setUser] = useState<User | null>(null)
   const { country, flag, city } = useLocation(
     user?.geom?.coordinates[1],
@@ -57,18 +56,18 @@ const Profile = ({ profileId }: Props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const user = await getProfile(profileId)
+      const user = await getUserById(userId)
       setUser(user)
     }
 
     fetchUser()
-  }, [profileId])
+  }, [userId])
 
   useEffect(() => {
     if (user) {
       const profileContent: ContentArray = []
 
-      if (user.userImages[1]) {
+      if (user?.userImages?.[1]) {
         profileContent.push('image')
       }
 
@@ -88,12 +87,12 @@ const Profile = ({ profileId }: Props) => {
       // Ajouter Map
 
       // Ajouter Image3 s'il existe
-      if (user.userImages[2]) {
+      if (user?.userImages?.[2]) {
         profileContent.push('image')
       }
 
       // Ajouter Image4 s'il existe
-      if (user.userImages[3]) {
+      if (user?.userImages?.[3]) {
         profileContent.push('image')
       }
 
@@ -129,9 +128,9 @@ const Profile = ({ profileId }: Props) => {
           Langues
         </Text>
         <VStack>
-          {user.userLanguages.map((language) => (
+          {user?.userLanguages?.map((language, index) => (
             <Badge
-              key={language.id}
+              key={index}
               variant={'solid'}
               borderRadius={'full'}
               px={2}
@@ -196,7 +195,7 @@ const Profile = ({ profileId }: Props) => {
       const group = listProfiles.slice(i, i + 2).map((contentType, index) => {
         switch (contentType) {
           case 'image':
-            const imageUrl = user?.userImages[imageIndex]?.src
+            const imageUrl = user?.userImages?.[imageIndex]?.src
             imageIndex++
             return (
               <Flex flex={1} key={index}>
@@ -265,7 +264,9 @@ const Profile = ({ profileId }: Props) => {
         <VStack alignItems={'flex-start'}>
           <HStack gap={2}>
             <Text fontWeight={'extrabold'} fontSize={'4xl'}>
-              {user?.name}, {user?.birthday && getAgeByDate(user.birthday)}
+              {user?.name},{' '}
+              {user?.birthday &&
+                getAgeByDate(user?.birthday as unknown as string)}
             </Text>
 
             <Badge
@@ -277,12 +278,12 @@ const Profile = ({ profileId }: Props) => {
               {user?.isOnline ? 'Online' : 'Offline'}
             </Badge>
           </HStack>
-          {!user?.isOnline && (
+          {/* {!user?.isOnline && (
             <Flex>
               <Text>{user?.gender === 'man' ? '👨🏻‍💻' : '👩‍💻'}</Text>
               {user?.updatedAt && <LoggedInDate updatedAt={user.updatedAt} />}
             </Flex>
-          )}
+          )} */}
           <Flex gap={2}>
             <Text>{user?.gender === 'man' ? '👨' : '👩'}</Text>
             <Text>{user?.gender}</Text>
@@ -318,7 +319,7 @@ const Profile = ({ profileId }: Props) => {
               setAppData({
                 ...appData,
                 chatOpen: true,
-                userChat: appData.userTarget,
+                chatData: { roomChatId: null, userChat: appData.userTarget },
               })
               setMobileView('chat')
             }}

@@ -1,10 +1,10 @@
 import { Box, FormControl, Textarea } from '@chakra-ui/react'
 import { UseFormRegister } from 'react-hook-form'
-import { ProfileFormData } from '../../types'
 import { useTranslation } from 'next-i18next'
+import { UpdateUserDto } from '../../api/user/userDto'
 
 type Props = {
-  register: UseFormRegister<ProfileFormData>
+  register: UseFormRegister<UpdateUserDto>
 }
 
 export const ProfileBioForm = ({ register }: Props) => {

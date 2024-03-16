@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { resetPassword, verifyResetPasswordToken } from '../../api/authApi'
+import { resetPassword, verifyResetPasswordToken } from '../../api/auth/authApi'
 
 const ResetPassword = () => {
   const router = useRouter()
@@ -23,10 +23,10 @@ const ResetPassword = () => {
   const { handleSubmit, register, watch } = useForm()
 
   const onSubmit = async (data) => {
-    const resetPasswordResult = await resetPassword(
-      token as string,
-      data.newPassword
-    )
+    const resetPasswordResult = await resetPassword({
+      token: token as string,
+      password: data.newPassword,
+    })
     if (resetPasswordResult.success) {
       router.push('/auth/signin')
     } else {

@@ -1,26 +1,24 @@
 import { Flex, Avatar, AvatarBadge, Icon, Box, Text } from '@chakra-ui/react'
 import dayjs from 'dayjs'
-import { Message, User } from '../../types'
+import { Room } from '../../types'
 import useLocation from '../../hooks/useLocation'
 import { useTranslation } from 'next-i18next'
 import useGenderFolder from '../../hooks/useGenderFolder'
 
 type ConversationItemProps = {
-  clickOnRoom: (members: User[]) => void
-  members: User[]
-  lastMessage: Message | undefined
+  clickOnRoom: (roomId: string) => void
+  room: Room
   countUnreadMessages: string
   sessionUserId: string | undefined
 }
 
 const ConversationItem = ({
   clickOnRoom,
-  members,
-  lastMessage,
+  room,
   countUnreadMessages,
   sessionUserId,
 }: ConversationItemProps) => {
-  const user = members?.find((member) => member.id !== sessionUserId)
+  const user = room.members?.find((member) => member.id !== sessionUserId)
   const { flag } = useLocation(
     user?.geom?.coordinates?.[1],
     user?.geom?.coordinates?.[0]
@@ -32,7 +30,7 @@ const ConversationItem = ({
     <Flex
       p={2}
       w={'full'}
-      onClick={() => clickOnRoom(members)}
+      onClick={() => clickOnRoom(room.id)}
       cursor={'pointer'}
       _hover={{
         background: 'gray.200',
@@ -93,7 +91,9 @@ const ConversationItem = ({
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
           >
-            {lastMessage?.senderId === sessionUserId ? t('chat.you') : ''}{' '}
+            {room.lastMessage?.sender?.id === sessionUserId
+              ? t('chat.you')
+              : ''}{' '}
           </Text>
           <Text
             fontSize={'.8em'}
@@ -101,7 +101,7 @@ const ConversationItem = ({
             textOverflow={'ellipsis'}
             fontWeight={parseInt(countUnreadMessages) > 0 ? 'bold' : 'normal'}
           >
-            {lastMessage?.content}
+            {room.lastMessage?.content}
           </Text>
 
           <Text
@@ -109,7 +109,7 @@ const ConversationItem = ({
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
           >
-            - {dayjs(lastMessage?.createdAt).format('D MMM')}
+            - {dayjs(room.lastMessage?.createdAt).format('D MMM')}
           </Text>
         </Flex>
       </Flex>

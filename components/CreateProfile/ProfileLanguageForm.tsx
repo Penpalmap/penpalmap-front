@@ -17,7 +17,7 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
 
   useEffect(() => {
     if (user?.id) {
-      setLanguages([{ language: '', level: '', userId: user.id }])
+      setLanguages([{ language: '', level: '' }])
     }
   }, [user])
 
@@ -212,7 +212,6 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
     const newLanguage: UserLanguage = {
       language: '',
       level: '',
-      userId: user.id,
     }
     setLanguages([...languages, newLanguage])
     setValue('userLanguages', [...languages, newLanguage])
@@ -248,7 +247,7 @@ const ProfileLanguageForm = ({ setValue }: Props) => {
   return (
     <VStack spacing={4} alignItems={'flex-start'}>
       {languages.map((language, index) => (
-        <Flex key={language.id} gap={4} alignItems="center">
+        <Flex key={index} gap={4} alignItems="center">
           <FontAwesomeIcon icon={faFlag} />
           <Select
             placeholder={t('connect.selectALanguage')}

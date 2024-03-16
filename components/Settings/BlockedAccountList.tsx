@@ -14,38 +14,40 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { User } from '../../types'
 import { useRef } from 'react'
-import { unblockUser } from '../../api/userApi'
+import { updateUser } from '../../api/user/userApi'
 import { useSession } from '../../hooks/useSession'
 
-type Props = {
-  blockedUsers: User[]
-  mutate: () => void
-}
-
-const BlockedAccountList = ({ blockedUsers, mutate }: Props) => {
+const BlockedAccountList = () => {
   const { isOpen: isOpenUnblock, onToggle: onToggleUnblockUser } =
     useDisclosure()
-  const { user } = useSession()
+  const { user, fetchUser } = useSession()
 
   const dialogRef = useRef<HTMLButtonElement>(null)
 
   const handleUnblockUser = async (blockedUserId: string) => {
     if (user?.id) {
-      await unblockUser(user.id, blockedUserId)
+      await updateUser(
+        {
+          blockedUserIds:
+            user.blockedUsers
+              ?.filter((blockedUser) => blockedUser.id !== blockedUserId)
+              ?.map((blockedUser) => blockedUser.id) ?? [],
+        },
+        user.id
+      )
     }
 
-    mutate()
+    fetchUser()
     onToggleUnblockUser()
   }
 
   return (
     <List spacing={3} marginBottom={3}>
-      {blockedUsers.length === 0 && (
+      {user?.blockedUsers?.length === 0 && (
         <Text textAlign={'center'}>No blocked users</Text>
       )}
-      {blockedUsers.map((user) => (
+      {user?.blockedUsers?.map((user) => (
         <>
           <ListItem key={user.id}>
             <Flex alignItems={'center'} gap={4} justify={'space-between'}>

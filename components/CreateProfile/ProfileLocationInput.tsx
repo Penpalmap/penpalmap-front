@@ -2,14 +2,14 @@ import { Box, Text, useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
 
-import { ProfileFormData } from '../../types'
 import 'ol/ol.css'
 import { useTranslation } from 'next-i18next'
 import MapInput from '../Elements/form/mapInput'
 import { Coordinate } from 'ol/coordinate'
+import { UpdateUserDto } from '../../api/user/userDto'
 
 type Props = {
-  setValue?: UseFormSetValue<ProfileFormData>
+  setValue?: UseFormSetValue<UpdateUserDto>
 }
 
 const ProfileLocationInput = (props: Props) => {

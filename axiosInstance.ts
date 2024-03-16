@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { refreshToken } from './api/auth/authApi'
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 })
@@ -19,29 +19,25 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config
+    if (error.response?.status) {
+      if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true
 
-    // If the error status is 401 and there is no originalRequest._retry flag,
-    // it means the token has expired and we need to refresh it
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true
+        const refreshTokenStocked = localStorage.getItem('refreshToken')
+        if (!refreshTokenStocked) {
+          return Promise.reject(error)
+        }
 
-      try {
-        const refreshToken = localStorage.getItem('refreshToken')
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
-          {
-            refreshToken,
-          }
-        )
-        const { accessToken } = response.data
+        const responseToken = await refreshToken({
+          refreshToken: refreshTokenStocked,
+        })
+        const { accessToken } = responseToken
 
         localStorage.setItem('accessToken', accessToken)
 
         // Retry the original request with the new token
         originalRequest.headers.Authorization = `Bearer ${accessToken}`
         return axios(originalRequest)
-      } catch (error) {
-        // Handle refresh token error or redirect to login
       }
     }
 

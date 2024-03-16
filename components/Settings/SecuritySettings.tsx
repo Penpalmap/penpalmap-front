@@ -18,10 +18,9 @@ import {
 } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { useForm } from 'react-hook-form'
-import { changePassword, getUserBlocked } from '../../api/userApi'
-import { useCallback, useEffect, useState } from 'react'
+import { changePassword } from '../../api/user/userApi'
+import { useState } from 'react'
 import { useSession } from '../../hooks/useSession'
-import { User } from '../../types'
 import BlockedAccountList from './BlockedAccountList'
 
 type FormData = {
@@ -49,24 +48,14 @@ const SecuritySettings = () => {
 
   const { user } = useSession()
 
-  const [blockedUsers, setBlockedUsers] = useState<User[]>([])
-
-  const fetchBlockedUsers = useCallback(async () => {
-    if (user?.id) {
-      const users = await getUserBlocked(user.id)
-      setBlockedUsers(users)
-    }
-  }, [user])
-
-  useEffect(() => {
-    fetchBlockedUsers()
-  }, [user, fetchBlockedUsers])
-
   const onSubmit = async (data: FormData) => {
     if (!user?.id) return
 
     try {
-      await changePassword(data.oldPassword, data.newPassword, user.id)
+      await changePassword(
+        { oldPassword: data.oldPassword, newPassword: data.newPassword },
+        user.id
+      )
 
       setMessage(t('form.messagePasswordChange'))
       setError('')
@@ -184,10 +173,7 @@ const SecuritySettings = () => {
           </Text>
           <ModalCloseButton />
           <ModalBody>
-            <BlockedAccountList
-              blockedUsers={blockedUsers}
-              mutate={fetchBlockedUsers}
-            />
+            <BlockedAccountList />
           </ModalBody>
         </ModalContent>
       </Modal>

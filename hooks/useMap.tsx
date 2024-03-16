@@ -4,7 +4,7 @@ import { ScaleLine, defaults as defaultControls } from 'ol/control'
 import TileLayer from 'ol/layer/Tile'
 import { fromLonLat, transformExtent } from 'ol/proj'
 import { Feature, Map as OLMap, Overlay } from 'ol'
-import { getUsersInMap } from '../api/userApi'
+import { getUsersInMap } from '../api/map/mapApi'
 import VectorSource from 'ol/source/Vector'
 import Cluster from 'ol/source/Cluster'
 import VectorLayer from 'ol/layer/Vector'
@@ -38,11 +38,10 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
   const overlayRef = useRef<Overlay | null>(null)
 
-  const getUsers = async () => {
-    if (!currentUser) return
-    const users = await getUsersInMap(currentUser?.id)
+  const getUsers = useCallback(async () => {
+    const users = await getUsersInMap()
     setUsers(users)
-  }
+  }, [])
 
   // Pour changer le style du curseur quand il survole un user
   const onPointermove = useCallback((e) => {
@@ -89,20 +88,20 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
   const showUserOverlay = useCallback((user: User) => {
     if (
       !mapObj.current ||
-      (user.geomR?.coordinates[1] === undefined &&
-        user.geomR?.coordinates[0] === undefined)
+      (user.geom?.coordinates[1] === undefined &&
+        user.geom?.coordinates[0] === undefined)
     )
       return
-    const { geomR } = user
+    const { geom } = user
 
-    if (!geomR) {
+    if (!geom) {
       // Gérer le cas où geom est manquant
       return
     }
 
     const coordinate = fromLonLat([
-      geomR.coordinates[0] as number,
-      geomR.coordinates[1] as number,
+      geom.coordinates[0] as number,
+      geom.coordinates[1] as number,
     ])
 
     overlayRef.current = new Overlay({
@@ -141,8 +140,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         mapObj.current.getView().animate({
           center: fromLonLat([
-            user?.geomR?.coordinates?.[0] || 0,
-            user?.geomR?.coordinates?.[1] || 0,
+            user.geom?.coordinates[0] || 0,
+            user.geom?.coordinates[1] || 0,
           ]),
           duration: 500,
         })
@@ -153,7 +152,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
   // Initialize the map
   useEffect(() => {
-    if (!mapContainerRef.current || !currentUser) return undefined
+    if (!mapContainerRef.current) return undefined
 
     const map = new OLMap({
       target: mapContainerRef.current,
@@ -191,15 +190,14 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         }),
       ]),
     })
-
     getUsers()
-
     mapObj.current = map
 
     return () => {
       map.setTarget(undefined)
     }
-  }, [currentUser])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser?.geom?.coordinates?.[0], currentUser?.geom?.coordinates?.[1]])
 
   // Add users to the map
   useEffect(() => {
@@ -229,26 +227,26 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     )
 
     const allUsersFeatures = filteredWithGeom.map((userElement) => {
-      const { geomR } = userElement
+      const { geom } = userElement
 
       // chaque room que l'on a (nous)
       const room = rooms?.find((room) => {
-        const otherUser = room.members.find(
+        const otherUser = room.members?.find(
           (member) => member.id !== currentUser?.id
         )
 
         return otherUser?.id === userElement.id
       })
 
-      const otherMemberOnline = room?.members.find(
+      const otherMemberOnline = room?.members?.find(
         (member) => member.isOnline && member.id !== currentUser?.id
       )
 
       return new Feature({
         geometry: new Point(
           fromLonLat([
-            geomR?.coordinates[0] as number,
-            geomR?.coordinates[1] as number,
+            geom?.coordinates[0] as number,
+            geom?.coordinates[1] as number,
           ])
         ),
         element: {
@@ -264,8 +262,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
       ? new Feature({
           geometry: new Point(
             fromLonLat([
-              filteredCurrentUser.geomR.coordinates[0] || 0,
-              filteredCurrentUser.geomR.coordinates[1] || 0,
+              filteredCurrentUser.geom.coordinates[0] || 0,
+              filteredCurrentUser.geom.coordinates[1] || 0,
             ])
           ),
           element: {

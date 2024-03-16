@@ -1,6 +1,12 @@
 import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
-import { Message, MessageInput } from '../types'
+import { Message } from '../types'
+import { MessageInput } from '../hooks/useChat'
+import {
+  CreateRoomEventDto,
+  SendMessageEventDto,
+  SendMessageSeenDto,
+} from './socketDto'
 
 export const connectToSocketServer = (socket) => {
   // Se connecter au serveur WebSocket
@@ -17,13 +23,16 @@ export const joinRoom = (socket, roomId: string) => {
   socket.emit(SocketEvents.JoinRoom, roomId)
 }
 
-export const createRoom = (socket, data: any) => {
+export const createRoom = (socket, data: CreateRoomEventDto) => {
   socket.emit(SocketEvents.CreateRoom, data)
 }
 
-export const onNewRoom = (socket: Socket, callback: (room: any) => void) => {
-  socket.on(SocketEvents.NewRoom, (room: any) => {
-    callback(room)
+export const onNewRoom = (
+  socket: Socket,
+  callback: (roomId: string) => void
+) => {
+  socket.on(SocketEvents.NewRoom, (roomId: string) => {
+    callback(roomId)
   })
 }
 
@@ -32,33 +41,34 @@ export const leaveRoom = (socket, roomId: string) => {
   socket.emit(SocketEvents.LeaveRoom, roomId)
 }
 
-export const sendMessageSocket = (socket, message: Message) => {
+export const sendMessageSocket = (socket, data: SendMessageEventDto) => {
   // Envoyer un message à une room spécifique
-  socket.emit(SocketEvents.SendMessage, message)
+  socket.emit(SocketEvents.SendMessage, data)
 }
 
 export const onNewMessage = (
   socket: Socket,
-  callback: (message: Message) => void
+  callback: (message: SendMessageEventDto) => void
 ) => {
   // Écouter les nouveaux messages
-  socket.on(SocketEvents.NewMessage, (message: Message) => {
+  socket.on(SocketEvents.NewMessage, (message: SendMessageEventDto) => {
     callback(message)
   })
 }
 
-export const sendMessageSeen = (socket: Socket, message: Message) => {
+export const sendMessageSeen = (socket: Socket, data: SendMessageSeenDto) => {
   // Envoyer un message vu
-  socket.emit(SocketEvents.SendSeenMessage, message)
+  console.log('sending seen message', data)
+  socket.emit(SocketEvents.SendSeenMessage, data)
 }
 
 export const onSeenMessage = (
   socket: Socket,
-  callback: (message: Message) => void
+  callback: (data: SendMessageSeenDto) => void
 ) => {
   // Écouter les messages vus
-  socket.on(SocketEvents.SeenMessage, (message: Message) => {
-    callback(message)
+  socket.on(SocketEvents.SeenMessage, (data: SendMessageSeenDto) => {
+    callback(data)
   })
 }
 

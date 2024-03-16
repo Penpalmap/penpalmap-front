@@ -1,9 +1,8 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { AuthContextType, User } from '../types'
-import axios from 'axios'
-import axiosInstance from '../axiosInstance'
 import { jwtDecode } from 'jwt-decode'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
+import { getUserById } from '../api/user/userApi'
 
 export const SessionContext = createContext<AuthContextType | undefined>(
   undefined
@@ -25,85 +24,25 @@ export const SessionProvider = ({ children }) => {
     localStorage.setItem('accessToken', tokens.accessToken)
     localStorage.setItem('refreshToken', tokens.refreshToken)
 
-    const decoded = jwtDecode(tokens.accessToken) as {
-      userId: string
-      iat: number
-      exp: number
-      email
-    }
-
-    const response = await axiosInstance.get(`/api/users/${decoded.userId}`)
-    setUser(response.data)
+    const decoded: { userId: string } = jwtDecode(tokens.accessToken)
+    const user = await getUserById(decoded.userId)
+    setUser(user)
     setStatus('authenticated')
   }
 
   // Fonction pour se déconnecter
-  const logout = () => {
-    router.push('/auth/signin')
+  const logout = useCallback(() => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     setUser(null)
     setStatus('unauthenticated')
-  }
-
-  // Fonction pour rafraîchir le token
-  const refreshTokenFunc = useCallback(async (): Promise<boolean> => {
-    const refreshToken = localStorage.getItem('refreshToken')
-    if (!refreshToken) {
-      logout()
-      return false
-    }
-
-    // if token is expired logout
-    const decoded = jwtDecode(refreshToken) as {
-      userId: string
-      iat: number
-      exp: number
-      email
-    }
-    if (decoded.exp * 1000 < Date.now()) {
-      logout()
-      return false
-    }
-
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`,
-        {
-          refreshToken,
-        }
-      )
-
-      if (response.status === 200) {
-        const { accessToken } = response.data
-        localStorage.setItem('accessToken', accessToken)
-        const decoded = jwtDecode(accessToken) as {
-          userId: string
-          iat: number
-          exp: number
-          email
-        }
-        const responseDecoded = (await axiosInstance.get(
-          `/api/users/${decoded.userId}`
-        )) as any
-        setUser(responseDecoded.data)
-        setStatus('authenticated')
-        return true
-      } else {
-        logout()
-        return false
-      }
-    } catch (error) {
-      console.error('Error refreshing token:', error)
-      logout()
-      return false
-    }
-  }, [])
+    router.push('/auth/signin')
+  }, [router])
 
   const fetchUser = async () => {
     if (user) {
-      const response = (await axiosInstance.get(`/api/users/${user.id}`)) as any
-      setUser(response.data)
+      const data = await getUserById(user.id)
+      setUser(data)
     }
   }
 
@@ -123,27 +62,43 @@ export const SessionProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    const handleRedirect = async () => {
-      if (!isAuthRoute(router.pathname)) {
-        return
-      }
+    const setAuthStatus = async () => {
+      const accessToken = localStorage.getItem('accessToken')
+      const refreshToken = localStorage.getItem('refreshToken')
 
-      if (status === 'loading') {
-        const success = await refreshTokenFunc()
-        if (!success && isAuthRoute(router.pathname)) {
-          Router.push('/auth/signin')
+      if (accessToken && refreshToken) {
+        const decoded: { exp: number; userId: string } = jwtDecode(accessToken)
+
+        if (decoded.exp * 1000 < Date.now()) {
+          setStatus('unauthenticated')
+        } else {
+          try {
+            const userData = await getUserById(decoded.userId)
+            setUser(userData)
+            setStatus('authenticated')
+          } catch (err) {
+            logout()
+          }
         }
-      } else if (status === 'unauthenticated' && isAuthRoute(Router.pathname)) {
-        Router.push('/auth/signin')
-      } else if (status === 'authenticated') {
-        if (user?.isNewUser) {
-          Router.push('/create-profile')
-        }
+      } else {
+        setStatus('unauthenticated')
       }
     }
 
-    handleRedirect()
-  }, [status, user?.isNewUser, refreshTokenFunc, router.pathname])
+    setAuthStatus()
+
+    if (status === 'unauthenticated' && isAuthRoute(router.pathname)) {
+      router.push('/auth/signin')
+    } else if (
+      status === 'authenticated' &&
+      user?.isNewUser &&
+      router.pathname !== '/create-profile'
+    ) {
+      router.push('/create-profile')
+    }
+  }, [logout, router, status, user?.isNewUser])
+
+  //
 
   return (
     <SessionContext.Provider
@@ -152,7 +107,6 @@ export const SessionProvider = ({ children }) => {
         status,
         login,
         logout,
-        refreshTokenFunc,
         fetchUser,
       }}
     >

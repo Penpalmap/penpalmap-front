@@ -2,8 +2,7 @@ import { Box } from '@chakra-ui/react'
 import 'ol/ol.css'
 import useMap from '../../hooks/useMap'
 import OverlayProfileMap from './OverlayProfileMap'
-import { useCallback, useContext } from 'react'
-import { AppContext } from '../../context/AppContext'
+import { useCallback } from 'react'
 import SearchAndZoom from './SearchAndZoom'
 
 const Map = () => {
@@ -11,8 +10,6 @@ const Map = () => {
     center: [0, 0],
     zoom: 2,
   })
-
-  const [data, setData] = useContext(AppContext)
 
   const closeOverlay = useCallback(() => {
     if (mapObj.current && overlayRef) {
@@ -33,17 +30,7 @@ const Map = () => {
         />
       </Box>
       <Box display="none">
-        <OverlayProfileMap
-          userMap={data.userTarget}
-          closeOverlay={closeOverlay}
-          onOpenChat={() => {
-            setData({
-              ...data,
-              userChat: data.userTarget,
-              chatOpen: true,
-            })
-          }}
-        />
+        <OverlayProfileMap closeOverlay={closeOverlay} />
       </Box>
     </>
   )

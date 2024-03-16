@@ -13,17 +13,17 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import { RegisterUserInput } from '../../types'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { useSession } from '../../hooks/useSession'
-import { registerUser } from '../../api/authApi'
+import { registerUser } from '../../api/auth/authApi'
 import Input from '../Elements/Input'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import RGPDNotice from '../Elements/rgpdNotice'
+import { RegisterDto } from '../../api/auth/authDto'
 
 const Register = () => {
   const [error, setError] = useState<string | null>(null)
@@ -33,7 +33,7 @@ const Register = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<RegisterUserInput>()
+  } = useForm<RegisterDto>()
 
   const password = watch('password')
 
@@ -58,18 +58,17 @@ const Register = () => {
     }
   }, [status, router])
 
-  const onSubmit = async (data: RegisterUserInput) => {
-    const resultRegisterData = await registerUser(data)
+  const onSubmit = async (data: RegisterDto) => {
+    try {
+      const resultRegisterData = await registerUser(data)
 
-    if (!resultRegisterData.success) {
-      setError("Une erreur s'est produite")
-      return
+      login({
+        accessToken: resultRegisterData.accessToken,
+        refreshToken: resultRegisterData.refreshToken,
+      })
+    } catch (error) {
+      setError(error.response.data.message)
     }
-
-    login({
-      accessToken: resultRegisterData.accessToken,
-      refreshToken: resultRegisterData.refreshToken,
-    })
   }
 
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`

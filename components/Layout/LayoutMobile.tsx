@@ -32,7 +32,7 @@ const LayoutMobile = () => {
           {mobileView === 'home' && <Map />}
           {mobileView === 'conversations' && <ConversationList />}
           {mobileView === 'profile' && user && appData?.userTarget?.id && (
-            <Profile profileId={appData.userTarget.id} />
+            <Profile userId={appData.userTarget.id} />
           )}
           {mobileView === 'settings' && <Settings />}
           <Chat visible={mobileView === 'chat'} />
