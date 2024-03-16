@@ -2,7 +2,11 @@ import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
 import { Message } from '../types'
 import { MessageInput } from '../hooks/useChat'
-import { CreateRoomEventDto, SendMessageEventDto } from './socketDto'
+import {
+  CreateRoomEventDto,
+  SendMessageEventDto,
+  SendMessageSeenDto,
+} from './socketDto'
 
 export const connectToSocketServer = (socket) => {
   // Se connecter au serveur WebSocket
@@ -52,18 +56,19 @@ export const onNewMessage = (
   })
 }
 
-export const sendMessageSeen = (socket: Socket, message: Message) => {
+export const sendMessageSeen = (socket: Socket, data: SendMessageSeenDto) => {
   // Envoyer un message vu
-  socket.emit(SocketEvents.SendSeenMessage, message)
+  console.log('sending seen message', data)
+  socket.emit(SocketEvents.SendSeenMessage, data)
 }
 
 export const onSeenMessage = (
   socket: Socket,
-  callback: (message: Message) => void
+  callback: (data: SendMessageSeenDto) => void
 ) => {
   // Écouter les messages vus
-  socket.on(SocketEvents.SeenMessage, (message: Message) => {
-    callback(message)
+  socket.on(SocketEvents.SeenMessage, (data: SendMessageSeenDto) => {
+    callback(data)
   })
 }
 

@@ -10,7 +10,12 @@ import {
   getMessages,
   updateMessage,
 } from '../api/messages/messagesApi'
-import { sendMessageSocket } from '../sockets/socketManager'
+import {
+  onNewMessage,
+  onSeenMessage,
+  sendMessageSeen,
+  sendMessageSocket,
+} from '../sockets/socketManager'
 import { SocketEvents } from '../constants/socketEnum'
 import { createRoom as createRoomSocket } from '../sockets/socketManager'
 
@@ -133,32 +138,12 @@ const useChat = () => {
     ]
   )
 
-  useEffect(() => {
-    // Message seen are updated
-    if (appData.chatOpen) {
-      const messagesToUpdate = messages.filter(
-        (message) => message.sender?.id !== user?.id && !message.isSeen
-      )
-
-      messagesToUpdate.forEach(async (message) => {
-        await updateMessage(message.id, {
-          isSeen: true,
-        })
-      })
-    }
-  }, [
-    appData.chatData.roomChatId,
-    appData.chatOpen,
-    messages,
-    updateLastMessageInRoom,
-    user?.id,
-  ])
-
   // Socket events
   useEffect(() => {
     if (!appData?.socket) return
 
-    const handleNewMessage = async (message) => {
+    console.log('socket event', appData.socket.id)
+    onNewMessage(appData.socket, async (message) => {
       const messageToAdd: Message = {
         id: message.id,
         content: message.content,
@@ -166,6 +151,10 @@ const useChat = () => {
         isSeen: false,
         createdAt: message.createdAt,
       }
+
+      updateLastMessageInRoom(messageToAdd, message.roomId)
+
+      if (message.roomId !== currentRoom?.id) return
       setMessages((prevMessages) => {
         // Vérifier si le message est déjà présent
         const isMessagePresent = prevMessages.some(
@@ -178,15 +167,78 @@ const useChat = () => {
         return [...prevMessages, messageToAdd]
       })
 
-      updateLastMessageInRoom(messageToAdd, message.roomId)
-    }
+      // if (appData.chatOpen && user?.id && appData.socket) {
+      //   if (message.sender?.id !== user?.id) {
+      //     console.log('sending seen message')
+      //     sendMessageSeen(appData.socket, {
+      //       roomId: message.roomId,
+      //       senderId: user?.id,
+      //     })
+      //   }
+      // }
+    })
 
-    appData.socket.on(SocketEvents.NewMessage, handleNewMessage)
-
+    onSeenMessage(appData.socket, async (data) => {
+      console.log('seen message')
+      if (data.roomId !== currentRoom?.id) return
+      setMessages((prevMessages) => {
+        return prevMessages.map((msg) => {
+          return {
+            ...msg,
+            isSeen: true,
+          }
+        })
+      })
+    })
     return () => {
-      appData?.socket?.off(SocketEvents.NewMessage, handleNewMessage)
+      appData?.socket?.off(SocketEvents.NewMessage)
+      appData?.socket?.off(SocketEvents.SeenMessage)
     }
-  }, [appData.socket, setMessages, updateLastMessageInRoom])
+  }, [
+    appData.chatOpen,
+    appData.socket,
+    currentRoom?.id,
+    setMessages,
+    updateLastMessageInRoom,
+    user?.id,
+  ])
+
+  useEffect(() => {
+    if (appData?.chatOpen && appData?.socket && currentRoom?.id && user?.id) {
+      const isMessageToBeSeen = messages.some(
+        (message) => message.sender?.id !== user?.id && !message.isSeen
+      )
+
+      if (isMessageToBeSeen) {
+        const messagesToUpdate = messages.filter(
+          (message) => message.sender?.id !== user?.id && !message.isSeen
+        )
+
+        messagesToUpdate.forEach(async (message) => {
+          await updateMessage(message.id, {
+            isSeen: true,
+          })
+        })
+
+        setMessages((prevMessages) => {
+          return prevMessages.map((msg) => {
+            if (msg.sender?.id !== user?.id && !msg.isSeen) {
+              return {
+                ...msg,
+                isSeen: true,
+              }
+            }
+            return msg
+          })
+        })
+
+        sendMessageSeen(appData?.socket, {
+          roomId: currentRoom?.id,
+          senderId: user?.id,
+        })
+      }
+    }
+  }, [appData?.chatOpen, appData?.socket, currentRoom?.id, messages, user?.id])
 
   // TO DO
   // useEffect(() => {

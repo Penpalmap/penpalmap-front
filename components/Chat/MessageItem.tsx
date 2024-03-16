@@ -104,7 +104,7 @@ const MessageItem = ({
               color={isOwnMessage ? 'white' : 'black'}
               fontWeight={'normal'}
             >
-              {content}
+              {content} - {seenText}
             </Text>
           </Box>
         </Tooltip>

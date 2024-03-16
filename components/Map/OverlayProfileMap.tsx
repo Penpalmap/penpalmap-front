@@ -78,8 +78,9 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
       userTarget.userImages &&
       userTarget.userImages.length > 1
     ) {
+      const lastIndex = userTarget.userImages.length - 1
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === userTarget.userImages.length - 1 ? 0 : prevIndex + 1
+        prevIndex === lastIndex ? 0 : prevIndex + 1
       )
     }
   }
@@ -90,11 +91,13 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
       userTarget.userImages &&
       userTarget.userImages.length > 1
     ) {
+      const lastIndex = userTarget.userImages.length - 1
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === 0 ? userTarget.userImages.length - 1 : prevIndex - 1
+        prevIndex === 0 ? lastIndex : prevIndex - 1
       )
     }
   }
+
   useEffect(() => {
     setCurrentImageIndex(0)
   }, [userTarget])
@@ -162,7 +165,7 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
         ) : (
           <Image
             src={
-              userTarget?.userImages.find((img) => img.position === 0)?.src ??
+              userTarget?.userImages?.find((img) => img.position === 0)?.src ??
               `/images/avatar/${genderFolder}/${userTarget?.avatarNumber}.png`
             }
             w={'100%'}

@@ -4,7 +4,6 @@ import {
   OrderImagesDto,
   UpdatePasswordDto,
   UpdateUserDto,
-  UploadImageDto,
   UserImageDto,
 } from './userDto'
 

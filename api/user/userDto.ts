@@ -1,7 +1,7 @@
 export type UpdateUserDto = {
   bio?: string
   blockedUserIds?: string[]
-  birthday?: Date
+  birthday?: string
   gender?: string
   languageUsed?: string
   latitude?: number

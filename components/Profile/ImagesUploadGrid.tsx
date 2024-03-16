@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
-import { DndContext } from '@dnd-kit/core'
+import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import SortableItem from './SortableItem'
 import { Box, Button, Center, Flex, Grid, Image, Input } from '@chakra-ui/react'
 import { useSession } from './../../hooks/useSession'
@@ -30,7 +30,7 @@ const ImagesUploadGrid = ({
     return images.map((image) => image.src)
   }, [images])
 
-  const handleDragEnd = async (event) => {
+  const handleDragEnd = (event: DragEndEvent): void => {
     if (!user) return
     const { active, over } = event
 
@@ -42,31 +42,27 @@ const ImagesUploadGrid = ({
       let oldIndex
       let newIndex
       const oldFile = images.find((image) => image.src === active.id)
-      if (oldFile) {
-        oldIndex = images.indexOf(oldFile)
-      }
-
       const newFile = images.find((image) => image.src === over.id)
-      if (newFile) {
+
+      if (oldFile && newFile) {
+        oldIndex = images.indexOf(oldFile)
         newIndex = images.indexOf(newFile)
+        oldFile.position = newIndex
+        newFile.position = oldIndex
+
+        const newImagesOrder = arrayMove(images, oldIndex, newIndex)
+
+        newImagesOrder.forEach((image, index) => {
+          image.position = index + 1
+        })
+
+        setImages(newImagesOrder)
+
+        // TO DO
+        // await reorderProfileImages(user.id, newImagesOrder)
+
+        // updateSession()
       }
-
-      if (!oldFile || !newFile) return images
-      oldFile.position = newIndex
-      newFile.position = oldIndex
-
-      const newImagesOrder = arrayMove(images, oldIndex, newIndex)
-
-      newImagesOrder.forEach((image, index) => {
-        image.position = index + 1
-      })
-
-      setImages(newImagesOrder)
-
-      // TO DO
-      // await reorderProfileImages(user.id, newImagesOrder)
-
-      // updateSession()
     }
   }
 

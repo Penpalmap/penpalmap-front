@@ -36,6 +36,7 @@ const ProfilePhotoUpload = () => {
     if (user?.id) {
       const userImage = await uploadImage(croppedImageFile, position, user?.id)
 
+      if (!userImage) return
       setCroppedImages((prevImages) => [...prevImages, userImage])
 
       onClose()

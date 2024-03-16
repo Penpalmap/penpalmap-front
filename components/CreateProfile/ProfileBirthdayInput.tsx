@@ -67,7 +67,7 @@ const ProfileBirthdayInput: React.FC<Props> = ({
     toast.closeAll()
     if (day !== null && month !== null && year !== null) {
       const birthday = dayjs(`${year}-${month}-${day}`).format('YYYY-MM-DD')
-      setValue('birthday', birthday as unknown as string)
+      setValue('birthday', birthday)
 
       const calculatedAge = calculateAge(birthday)
       setIsUnderage(calculatedAge < 12)
