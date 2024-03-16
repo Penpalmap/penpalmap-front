@@ -18,9 +18,7 @@ import { useRef } from 'react'
 import { updateUser } from '../../api/user/userApi'
 import { useSession } from '../../hooks/useSession'
 
-type Props = {}
-
-const BlockedAccountList = ({}: Props) => {
+const BlockedAccountList = () => {
   const { isOpen: isOpenUnblock, onToggle: onToggleUnblockUser } =
     useDisclosure()
   const { user, fetchUser } = useSession()
