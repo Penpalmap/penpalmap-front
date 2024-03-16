@@ -10,7 +10,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 export default function Home() {
   return (
     <>
-      <Box mx={{ base: 4, md: '20' }} maxW={'1800px'}>
+      <Box mx={{ base: 4, md: 'auto' }} maxW={'1800px'}>
         <HeroBannerCard />
         <InformationsPart />
         <MapInfoPart />
@@ -19,9 +19,9 @@ export default function Home() {
       <Box
         backgroundImage={'/images/lp/Vector 1.svg'}
         backgroundSize={'cover'}
-        pt={44}
+        pt={{base: 20, md: 40}}
       >
-        <Box mx={{ base: 4, md: '20' }} maxW={'1800px'}>
+        <Box mx={{ base: 4, md: 'auto' }} maxW={'1800px'}>
           <TestimonialsPart />
           <CallToAction />
         </Box>

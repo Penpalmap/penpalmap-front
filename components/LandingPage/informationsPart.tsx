@@ -1,8 +1,9 @@
 import { Flex, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 const InformationBlock = ({ title, description, emoji }) => {
   return (
-    <Flex textAlign={'center'} flexDir={'column'} alignItems={'center'} gap={4}>
+    <Flex textAlign={'center'} flexDir={'column'} alignItems={'center'} gap={4} m={5}>
       <Flex
         borderRadius={'full'}
         background={'gray.200'}
@@ -23,41 +24,34 @@ const InformationBlock = ({ title, description, emoji }) => {
 }
 
 const InformationsPart = () => {
+  const { t } = useTranslation('common')
+
   return (
     <Flex
       direction={['column', 'row']}
       justifyContent={'space-around'}
-      alignItems={'center'}
-      gap={[10, 32]}
+      display={'flex'}
       mb={20}
       id="informationsPart"
     >
       <InformationBlock
-        title={'Around the world'}
-        description={
-          'Grâce à PenPalMap, découvrez des personnes du monde entier et élargissez vos horizons en établissant des correspondances internationales uniques.'
-        }
+        title={t('presentation.aroundTheWorld')}
+        description={t('presentation.aroundTheWorldText')}
         emoji={'🌍'}
       />
       <InformationBlock
-        title={'Travel and go'}
-        description={
-          'Lors de vos voyages, PenPalMap vous met en contact avec des habitants locaux, vous offrant ainsi une expérience de voyage enrichissante et authentique.'
-        }
+        title={t('presentation.travelAndMeet')}
+        description={t('presentation.travelAndMeetText')}
         emoji={'✈️'}
       />
       <InformationBlock
-        title={'Secure app'}
-        description={
-          "PenPalMap garantit la sécurité de vos données et de vos communications, vous permettant de vous connecter en toute tranquillité d'esprit avec une communauté mondiale diversifiée."
-        }
+        title={t('presentation.secureApp')}
+        description={t('presentation.secureAppText')}
         emoji={'🛡️'}
       />
       <InformationBlock
-        title={'Beautiful community'}
-        description={
-          "Faites partie d'une communauté chaleureuse et bienveillante sur PenPalMap, où vous pouvez échanger des idées, partager des expériences et créer des amitiés durables à travers le monde."
-        }
+        title={t('presentation.beautifulCommunity')}
+        description={t('presentation.beautifulCommunityText')}
         emoji={'😉'}
       />
     </Flex>

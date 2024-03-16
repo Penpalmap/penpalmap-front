@@ -5,10 +5,11 @@ import {
   HStack,
   Image,
   Text,
+  Link,
   keyframes,
 } from '@chakra-ui/react'
+import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { useTranslation } from 'next-i18next'
-import Link from 'next/link'
 
 const HeroBannerCard = () => {
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
@@ -16,11 +17,12 @@ const HeroBannerCard = () => {
 
   return (
     <Box
-      h={'600px'}
+      h={['calc(95vh - 3.5rem)', '700px']}
       borderRadius={'30px'}
       position={'relative'}
       overflow={'hidden'}
-      my={20}
+      my={[15, 35]}
+      mx={[0, 35]}
     >
       <Box
         background={'blackAlpha.500'}
@@ -39,7 +41,7 @@ const HeroBannerCard = () => {
         {[...Array(6)].map((_, index) => (
           <Box key={index} flex="0 0 auto">
             <Image
-              src="/images/LandingMap.webp"
+              src="/images/LandingMapLight.webp"
               alt="PenpalMap"
               height="100%"
               width="auto"
@@ -53,31 +55,51 @@ const HeroBannerCard = () => {
         flexDir={'column'}
         position={'absolute'}
         zIndex={2}
-        p={[10, 20]}
-        w={['full', '70%']}
+        p={{base: '2.5rem', md: '3.5rem', lg: '5rem'}}
         justifyContent={'space-between'}
         h={'full'}
       >
         <Box>
           <Box
             display={'contents'}
-            fontSize={['4xl', '6xl']}
-            fontWeight={'bold'}
+            fontSize={{base: '2em', md: '2.5em', lg: '3.5em'}}
+            fontWeight={'extrabold'}
             color={'white'}
-            mb={6}
+            mb={3}
           >
-            <Text as="span">Connect with </Text>
-
-            <Text as="span" color={'#30e3c5'}>
-              friends{' '}
+            <Text as="span" textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}>
+              {t('presentation.taglineBeforeFriends')}
             </Text>
-            <Text as="span">from all over the world, wherever you are.</Text>
+
+            <Text
+              as="span"
+              color={'teal.300'}
+              textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
+            >
+              {t('presentation.taglineFriends')}
+            </Text>
+            <Text as="span" textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}>
+              {t('presentation.taglineAfterFriends')}
+            </Text>
           </Box>
 
-          <Text fontSize={'2xl'} color={'white'}>
-            Make friends, learn languages and discover new cultures whatever
-            your location
+          <Text
+            marginTop={5}
+            fontSize={['1,5em', '2em']}
+            fontWeight={'bold'}
+            color={'white'}
+            textShadow={'0px 4px 6px rgba(0, 0, 0, 0.3)'}
+          >
+            {t('presentation.taglineActions')}
           </Text>
+
+          <Box py={{ base: 6, md: 20 }} color={'white'}>
+            <Link href={`/#informationsPart`} color={'white.500'}>
+              <Text>
+                {t('presentation.learnMore')} <ArrowForwardIcon />
+              </Text>
+            </Link>
+          </Box>
         </Box>
 
         <HStack spacing={'16'}>
@@ -93,19 +115,6 @@ const HeroBannerCard = () => {
               {t('connect.sign-up')}
             </Button>
           </Link>
-
-          <Button
-            variant={'outline'}
-            border={'2px solid white'}
-            color={'white'}
-            borderRadius="full"
-            px={12}
-            size={'lg'}
-            _hover={{ bg: 'teal.400', color: 'white' }}
-            textTransform={'capitalize'}
-          >
-            <Link href={`/#informationsPart`}>Learn more</Link>
-          </Button>
         </HStack>
       </Flex>
     </Box>
