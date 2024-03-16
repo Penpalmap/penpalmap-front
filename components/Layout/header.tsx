@@ -34,7 +34,7 @@ const Header = () => {
   const { logout, user, status } = useSession()
   const [appData, setAppData] = useContext(AppContext)
 
-  const { setMobileView } = useMobileView()
+  const { isMobile, setMobileView } = useMobileView()
 
   const { changeLocale, locale } = useLanguage()
 
