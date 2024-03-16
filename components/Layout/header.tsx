@@ -148,7 +148,6 @@ const Header = () => {
               </MenuList>
             </Menu>
           </HStack>
-
         ) : (
           <Flex alignItems={'center'} gap={'2'}>
             {!isMobile && <FontAwesomeIcon icon={faGlobeEurope} />}

@@ -7,7 +7,7 @@ const MapInfoPart = () => {
   return (
     <Flex
       flexDirection={['column-reverse', 'row']}
-      gap={{base: 5, lg: 20}}
+      gap={{ base: 5, lg: 20 }}
       alignItems={'center'}
       justifyContent={'center'}
       mb={20}
