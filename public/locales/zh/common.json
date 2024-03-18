@@ -291,5 +291,36 @@
     "content": "随时联系我们，提出任何疑问或反馈。",
     "email": "电子邮件",
     "follow_us": "关注我们"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - 关于我们"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - 忘记密码",
+      "resetPassword": "PenpalMap - 重置密码",
+      "signin": "PenpalMap - 登录",
+      "signup": "PenpalMap - 注册"
+    },
+    "contact": {
+      "index": "PenpalMap - 联系我们"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - 个人资料"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - 法律声明"
+    },
+    "settings": {
+      "index": "PenpalMap - 设置"
+    },
+    "terms": {
+      "index": "PenpalMap - 使用条款"
+    },
+    "index": "PenpalMap - 无论你身在何处，与世界各地的朋友连接",
+    "createProfile": "PenpalMap - 创建你的个人资料"
   }
 }

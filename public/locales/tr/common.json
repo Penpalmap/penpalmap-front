@@ -291,5 +291,36 @@
     "content": "Herhangi bir soru veya geri bildirim için bize ulaşmaktan çekinmeyin.",
     "email": "E-posta",
     "follow_us": "Bizi takip edin"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - Hakkımızda"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - Şifremi Unuttum",
+      "resetPassword": "PenpalMap - Şifreyi Sıfırla",
+      "signin": "PenpalMap - Giriş Yap",
+      "signup": "PenpalMap - Kayıt Ol"
+    },
+    "contact": {
+      "index": "PenpalMap - Bize Ulaşın"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - Profil"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - Yasal Uyarı"
+    },
+    "settings": {
+      "index": "PenpalMap - Ayarlar"
+    },
+    "terms": {
+      "index": "PenpalMap - Kullanım Koşulları"
+    },
+    "index": "PenpalMap - Nerede olursanız olun, dünyanın dört bir yanından arkadaşlarınızla bağlantı kurun",
+    "createProfile": "PenpalMap - Profilinizi Oluşturun"
   }
 }

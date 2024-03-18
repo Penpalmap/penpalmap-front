@@ -293,5 +293,36 @@
     "content": "Feel free to reach out to us for any inquiries or feedback.",
     "email": "Email",
     "follow_us": "Follow Us"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - About us"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - Forgot password",
+      "resetPassword": "PenpalMap - Reset password",
+      "signin": "PenpalMap - Sign in",
+      "signup": "PenpalMap - Sign up"
+    },
+    "contact": {
+      "index": "PenpalMap - Contact us"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - Profile"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - Legal Notice"
+    },
+    "settings": {
+      "index": "PenpalMap - Settings"
+    },
+    "terms": {
+      "index": "PenpalMap - Terms of use"
+    },
+    "index": "PenpalMap - Connect with friends from around the world, wherever you are",
+    "createProfile": "PenpalMap - Create your profile"
   }
 }
