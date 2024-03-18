@@ -1,12 +1,14 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Head from 'next/head'
 import ForgotPassword from '../../components/Auth/ForgotPassword'
+import { useTranslation } from 'next-i18next'
 
-export default function forgotPassword() {
+export default function ForgotPasswordPage() {
+  const { t } = useTranslation('common')
   return (
     <>
       <Head>
-        <title>PenpalMap - Mot de passe oublié</title>
+        <title>{t('title.auth.forgotPassword')}</title>
       </Head>
       <ForgotPassword />
     </>
