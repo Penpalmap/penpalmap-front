@@ -13,6 +13,7 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
 import React from 'react'
 import useGenderFolder from '../../hooks/useGenderFolder'
+import { UserTypingEventDto } from '../../sockets/socketDto'
 
 type Props = {
   messages: Array<Message> | undefined
@@ -241,16 +242,20 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
       }
     })
 
-    const handleIsTyping = (message) => {
-      if (message.senderId !== appData?.chatData?.userChat?.id) return
-      clearTimeout(typingTimeout as NodeJS.Timeout)
-      setOtherUserIsTyping(true)
-
-      const newTimeout = setTimeout(() => {
+    const handleIsTyping = (data: UserTypingEventDto) => {
+      if (!data.isTyping) {
         setOtherUserIsTyping(false)
-      }, 3000)
+      } else {
+        if (data.userId !== appData?.chatData?.userChat?.id) return
+        clearTimeout(typingTimeout as NodeJS.Timeout)
+        setOtherUserIsTyping(true)
 
-      setTypingTimeout(newTimeout)
+        const newTimeout = setTimeout(() => {
+          setOtherUserIsTyping(false)
+        }, 3000)
+
+        setTypingTimeout(newTimeout)
+      }
     }
 
     onIsTyping(appData.socket, handleIsTyping)
@@ -300,7 +305,7 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
         />
       )}
       {otherUserIsTyping && (
-        <Box position={'absolute'} bottom={10} left={0} p={4}>
+        <Box position={'relative'} bottom={10} left={0} p={4}>
           <Text fontSize={'small'}>
             {appData?.chatData?.userChat?.name} {t('chat.IsTyping')}
           </Text>

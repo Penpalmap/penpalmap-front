@@ -8,13 +8,16 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { Room } from '../../types'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFaceSmile, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
 import EmojiPicker from '@emoji-mart/react'
 import { MessageInput } from '../../hooks/useChat'
+import { isTyping } from '../../sockets/socketManager'
+import { SocketEvents } from '../../constants/socketEnum'
+import { useSession } from '../../hooks/useSession'
 
 type Props = {
   room: Room | null
@@ -30,6 +33,7 @@ const ChatInput = ({ room, sendMessage }: Props) => {
   const { t } = useTranslation('common')
   const { isOpen, onToggle } = useDisclosure()
   const btnRef = useRef<HTMLButtonElement | null>(null)
+  const { user } = useSession()
 
   useEffect(() => {
     if (!appData?.chatData?.roomChatId) return
@@ -46,36 +50,43 @@ const ChatInput = ({ room, sendMessage }: Props) => {
 
   const onSubmitHandler = async (data: MessageInput) => {
     sendMessage(data)
+    if (appData?.socket && appData?.chatData.roomChatId) {
+      isTyping(appData.socket, {
+        eventId: SocketEvents.IsTyping,
+        isTyping: false,
+        roomId: appData.chatData.roomChatId,
+        userId: user?.id ?? '',
+      })
+    }
     setValue('content', '')
     if (inputRef.current) {
       inputRef.current.style.minHeight = '10px'
     }
   }
 
-  // const [lastTypingTime, setLastTypingTime] = useState<number | null>(null)
+  const [lastTypingTime, setLastTypingTime] = useState<number | null>(null)
 
   // TO DO
-  // useEffect(() => {
-  //   if (content && appData?.socket && appData?.chatData?.roomChatId) {
-  //     const currentTime = Date.now()
-  //     if (!lastTypingTime || currentTime - lastTypingTime >= 3000) {
-  //       isTyping(appData.socket, {
-  //         receiverId: appData?.chatData?.roomChatId,
-  //         senderId: senderId,
-  //         roomId: room?.id,
-  //         content: content,
-  //       })
-  //       setLastTypingTime(currentTime)
-  //     }
-  //   }
-  // }, [
-  //   appData.socket,
-  //   appData?.chatData?.roomChatId,
-  //   content,
-  //   room?.id,
-  //   senderId,
-  //   lastTypingTime,
-  // ])
+  useEffect(() => {
+    if (content && appData?.socket && appData?.chatData?.roomChatId) {
+      const currentTime = Date.now()
+      if (!lastTypingTime || currentTime - lastTypingTime >= 1000) {
+        isTyping(appData.socket, {
+          eventId: SocketEvents.IsTyping,
+          isTyping: true,
+          roomId: appData.chatData.roomChatId,
+          userId: user?.id ?? '',
+        })
+        setLastTypingTime(currentTime)
+      }
+    }
+  }, [
+    appData.socket,
+    appData.chatData.roomChatId,
+    content,
+    lastTypingTime,
+    user?.id,
+  ])
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
