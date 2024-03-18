@@ -291,5 +291,36 @@
     "content": "Neem gerust contact met ons op voor vragen of feedback.",
     "email": "E-mail",
     "follow_us": "Volg ons"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - Over ons"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - Wachtwoord vergeten",
+      "resetPassword": "PenpalMap - Wachtwoord resetten",
+      "signin": "PenpalMap - Inloggen",
+      "signup": "PenpalMap - Registreren"
+    },
+    "contact": {
+      "index": "PenpalMap - Contacteer ons"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - Profiel"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - Juridische kennisgeving"
+    },
+    "settings": {
+      "index": "PenpalMap - Instellingen"
+    },
+    "terms": {
+      "index": "PenpalMap - Gebruiksvoorwaarden"
+    },
+    "index": "PenpalMap - Verbind met vrienden van over de hele wereld, waar je ook bent",
+    "createProfile": "PenpalMap - Maak je profiel aan"
   }
 }

@@ -291,5 +291,36 @@
     "content": "お気軽にご連絡ください。ご質問やフィードバックについてもお待ちしています。",
     "email": "メール",
     "follow_us": "フォローする"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - 私たちについて"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - パスワードを忘れた",
+      "resetPassword": "PenpalMap - パスワードをリセットする",
+      "signin": "PenpalMap - サインイン",
+      "signup": "PenpalMap - サインアップ"
+    },
+    "contact": {
+      "index": "PenpalMap - お問い合わせ"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - プロファイル"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - 法的通知"
+    },
+    "settings": {
+      "index": "PenpalMap - 設定"
+    },
+    "terms": {
+      "index": "PenpalMap - 利用規約"
+    },
+    "index": "PenpalMap - 世界中の友達と、どこにいても繋がろう",
+    "createProfile": "PenpalMap - プロファイルを作成する"
   }
 }

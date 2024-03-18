@@ -293,5 +293,36 @@
     "content": "Jangan ragu untuk menghubungi kami untuk pertanyaan atau umpan balik.",
     "email": "Email",
     "follow_us": "Ikuti Kami"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - Tentang Kami"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - Lupa Kata Sandi",
+      "resetPassword": "PenpalMap - Atur Ulang Kata Sandi",
+      "signin": "PenpalMap - Masuk",
+      "signup": "PenpalMap - Daftar"
+    },
+    "contact": {
+      "index": "PenpalMap - Hubungi Kami"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - Profil"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - Pemberitahuan Hukum"
+    },
+    "settings": {
+      "index": "PenpalMap - Pengaturan"
+    },
+    "terms": {
+      "index": "PenpalMap - Syarat Penggunaan"
+    },
+    "index": "PenpalMap - Terhubung dengan teman dari seluruh dunia, di mana pun Anda berada",
+    "createProfile": "PenpalMap - Buat Profil Anda"
   }
 }

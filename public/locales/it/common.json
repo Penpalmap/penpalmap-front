@@ -291,5 +291,36 @@
     "content": "Sentiti libero di contattarci per qualsiasi domanda o commento.",
     "email": "E-mail",
     "follow_us": "Seguici"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - Chi siamo"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - Password dimenticata",
+      "resetPassword": "PenpalMap - Reimposta password",
+      "signin": "PenpalMap - Accedi",
+      "signup": "PenpalMap - Registrati"
+    },
+    "contact": {
+      "index": "PenpalMap - Contattaci"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - Profilo"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - Avviso legale"
+    },
+    "settings": {
+      "index": "PenpalMap - Impostazioni"
+    },
+    "terms": {
+      "index": "PenpalMap - Termini di utilizzo"
+    },
+    "index": "PenpalMap - Connettiti con amici da tutto il mondo, ovunque tu sia",
+    "createProfile": "PenpalMap - Crea il tuo profilo"
   }
 }

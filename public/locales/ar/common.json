@@ -285,5 +285,36 @@
     "content": "لا تتردد في الاتصال بنا بخصوص أي استفسار أو تعليق.",
     "email": "البريد الإلكتروني",
     "follow_us": "تابعنا"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - معلومات عنا"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - نسيت كلمة المرور",
+      "resetPassword": "PenpalMap - إعادة تعيين كلمة المرور",
+      "signin": "PenpalMap - تسجيل الدخول",
+      "signup": "PenpalMap - إنشاء حساب"
+    },
+    "contact": {
+      "index": "PenpalMap - اتصل بنا"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - الملف الشخصي"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - إشعار قانوني"
+    },
+    "settings": {
+      "index": "PenpalMap - الإعدادات"
+    },
+    "terms": {
+      "index": "PenpalMap - شروط الاستخدام"
+    },
+    "index": "PenpalMap - تواصل مع أصدقاء من حول العالم، أينما كنت",
+    "createProfile": "PenpalMap - أنشئ ملفك الشخصي"
   }
 }

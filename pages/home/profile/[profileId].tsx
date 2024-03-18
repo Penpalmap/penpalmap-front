@@ -5,42 +5,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticPaths } from 'next'
+import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
 
 export default function ProfilePage() {
+  const { t } = useTranslation('common')
   const router = useRouter()
   const { profileId } = router.query as { profileId: string }
 
   return (
-    <Box
-      bg={'gray.100'}
-      py={12}
-      display={'flex'}
-      flexDirection={'column'}
-      justifyContent={'center'}
-    >
-      <Box mx={36} pb={6} w="3xl" m={'auto'}>
-        <Button
-          leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
-          variant={'ghost'}
-          onClick={() => router.push('/')}
-        >
-          Back
-        </Button>
-      </Box>
+    <>
+      <Head>
+        <title>{t('title.home.profile.profileId')}</title>
+      </Head>
       <Box
-        mx={36}
-        bg={'white'}
-        boxShadow="lg"
-        borderRadius="md"
-        shadow={'xl'}
-        w="3xl"
-        margin={'auto'}
+        bg={'gray.100'}
+        py={12}
+        display={'flex'}
+        flexDirection={'column'}
+        justifyContent={'center'}
       >
-        <Box>
-          <Profile userId={profileId} />
+        <Box mx={36} pb={6} w="3xl" m={'auto'}>
+          <Button
+            leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+            variant={'ghost'}
+            onClick={() => router.push('/')}
+          >
+            Back
+          </Button>
+        </Box>
+        <Box
+          mx={36}
+          bg={'white'}
+          boxShadow="lg"
+          borderRadius="md"
+          shadow={'xl'}
+          w="3xl"
+          margin={'auto'}
+        >
+          <Box>
+            <Profile userId={profileId} />
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </>
   )
 }
 

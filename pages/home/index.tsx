@@ -12,8 +12,10 @@ import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import Head from 'next/head'
 import { Modal } from '../../components/Elements/Modal'
+import { useTranslation } from 'next-i18next'
 
 export default function HomePage() {
+  const { t } = useTranslation('common')
   const { status, user } = useSession()
   const isMobile = useBreakpointValue({ base: true, md: false })
   const router = useRouter()
@@ -35,6 +37,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
+        <title>{t('title.home.index')}</title>
         <meta
           name="description"
           content="Connect with friends from all over the world, wherever you are. Make friends, learn languages and discover new cultures whatever your location"

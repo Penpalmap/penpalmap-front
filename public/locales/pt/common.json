@@ -291,5 +291,36 @@
     "content": "Nie wahaj się skontaktować z nami w razie jakichkolwiek pytań lub uwag.",
     "email": "E-mail",
     "follow_us": "Śledź nas"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - Sobre nós"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - Esqueci minha senha",
+      "resetPassword": "PenpalMap - Redefinir senha",
+      "signin": "PenpalMap - Entrar",
+      "signup": "PenpalMap - Inscrever-se"
+    },
+    "contact": {
+      "index": "PenpalMap - Fale conosco"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - Perfil"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - Aviso Legal"
+    },
+    "settings": {
+      "index": "PenpalMap - Configurações"
+    },
+    "terms": {
+      "index": "PenpalMap - Termos de uso"
+    },
+    "index": "PenpalMap - Conecte-se com amigos de todo o mundo, onde quer que você esteja",
+    "createProfile": "PenpalMap - Crie seu perfil"
   }
 }

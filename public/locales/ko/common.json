@@ -291,5 +291,36 @@
     "content": "질문이나 피드백이 있으면 언제든지 연락하십시오.",
     "email": "이메일",
     "follow_us": "팔로우하기"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - 우리에 대하여"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - 비밀번호를 잊어버렸습니다",
+      "resetPassword": "PenpalMap - 비밀번호 재설정",
+      "signin": "PenpalMap - 로그인",
+      "signup": "PenpalMap - 회원가입"
+    },
+    "contact": {
+      "index": "PenpalMap - 문의하기"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - 프로필"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - 법적 고지"
+    },
+    "settings": {
+      "index": "PenpalMap - 설정"
+    },
+    "terms": {
+      "index": "PenpalMap - 이용 약관"
+    },
+    "index": "PenpalMap - 어디에 있든 세계 곳곳의 친구들과 연결하세요",
+    "createProfile": "PenpalMap - 프로필 만들기"
   }
 }

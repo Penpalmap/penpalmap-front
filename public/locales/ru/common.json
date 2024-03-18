@@ -291,5 +291,36 @@
     "content": "Не стесняйтесь обращаться к нам с любыми вопросами или отзывами.",
     "email": "Эл. почта",
     "follow_us": "Подписывайтесь на нас"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - О нас"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - Забыли пароль",
+      "resetPassword": "PenpalMap - Сброс пароля",
+      "signin": "PenpalMap - Войти",
+      "signup": "PenpalMap - Регистрация"
+    },
+    "contact": {
+      "index": "PenpalMap - Связаться с нами"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - Профиль"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - Юридическое уведомление"
+    },
+    "settings": {
+      "index": "PenpalMap - Настройки"
+    },
+    "terms": {
+      "index": "PenpalMap - Условия использования"
+    },
+    "index": "PenpalMap - Соединяйтесь с друзьями со всего мира, где бы вы ни находились",
+    "createProfile": "PenpalMap - Создайте свой профиль"
   }
 }

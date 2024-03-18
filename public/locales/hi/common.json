@@ -291,5 +291,36 @@
     "content": "किसी भी पूछताछ या प्रतिक्रिया के लिए हमसे संपर्क करें।",
     "email": "ईमेल",
     "follow_us": "हमें फॉलो करें"
+  },
+  "title": {
+    "about": {
+      "index": "PenpalMap - हमारे बारे में"
+    },
+    "auth": {
+      "forgotPassword": "PenpalMap - पासवर्ड भूल गए",
+      "resetPassword": "PenpalMap - पासवर्ड रीसेट करें",
+      "signin": "PenpalMap - साइन इन करें",
+      "signup": "PenpalMap - साइन अप करें"
+    },
+    "contact": {
+      "index": "PenpalMap - हमसे संपर्क करें"
+    },
+    "home": {
+      "profile": {
+        "profileId": "PenpalMap - प्रोफाइल"
+      },
+      "index": "PenpalMap"
+    },
+    "legalnotice": {
+      "index": "PenpalMap - कानूनी सूचना"
+    },
+    "settings": {
+      "index": "PenpalMap - सेटिंग्स"
+    },
+    "terms": {
+      "index": "PenpalMap - उपयोग की शर्तें"
+    },
+    "index": "PenpalMap - दुनिया भर के दोस्तों से जुड़ें, आप जहाँ भी हों",
+    "createProfile": "PenpalMap - अपनी प्रोफाइल बनाएँ"
   }
 }
