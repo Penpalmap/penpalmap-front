@@ -7,15 +7,11 @@ import { createRoom, getRoomById } from '../api/rooms/roomApi'
 import { CreateMessageDto } from '../api/messages/messagesDto'
 import {
   createMessage,
+  getMessage,
   getMessages,
   updateMessage,
 } from '../api/messages/messagesApi'
-import {
-  onNewMessage,
-  onSeenMessage,
-  sendMessageSeen,
-  sendMessageSocket,
-} from '../sockets/socketManager'
+import { onNewMessage, onSeenMessage } from '../sockets/socketManager'
 import { SocketEvents } from '../constants/socketEnum'
 import { createRoom as createRoomSocket } from '../sockets/socketManager'
 
@@ -117,14 +113,7 @@ const useChat = () => {
       }
 
       const newMessage = await createMessage(inputMessage)
-      sendMessageSocket(appData?.socket, {
-        id: newMessage.id,
-        receiverId: appData?.chatData?.userChat?.id,
-        content: newMessage.content,
-        roomId: room.id,
-        createdAt: newMessage.createdAt,
-        sender: user,
-      })
+
       setMessages((prevMessages) => [...prevMessages, newMessage])
       updateLastMessageInRoom(newMessage, room.id)
     },
@@ -142,51 +131,40 @@ const useChat = () => {
   useEffect(() => {
     if (!appData?.socket) return
 
-    console.log('socket event', appData.socket.id)
     onNewMessage(appData.socket, async (message) => {
-      const messageToAdd: Message = {
-        id: message.id,
-        content: message.content,
-        sender: message.sender,
-        isSeen: false,
-        createdAt: message.createdAt,
+      const messageToAdd = await getMessage(message.messageId)
+
+      if (messageToAdd?.room?.id) {
+        updateLastMessageInRoom(messageToAdd, messageToAdd?.room?.id)
+        if (messageToAdd?.room.id !== currentRoom?.id) return
+        setMessages((prevMessages) => {
+          // Vérifier si le message est déjà présent
+          const isMessagePresent = prevMessages.some(
+            (msg) => msg.id === message.messageId
+          )
+          if (isMessagePresent) {
+            return prevMessages
+          }
+
+          return [...prevMessages, messageToAdd]
+        })
       }
-
-      updateLastMessageInRoom(messageToAdd, message.roomId)
-
-      if (message.roomId !== currentRoom?.id) return
-      setMessages((prevMessages) => {
-        // Vérifier si le message est déjà présent
-        const isMessagePresent = prevMessages.some(
-          (msg) => msg.id === message.id
-        )
-        if (isMessagePresent) {
-          return prevMessages
-        }
-
-        return [...prevMessages, messageToAdd]
-      })
-
-      // if (appData.chatOpen && user?.id && appData.socket) {
-      //   if (message.sender?.id !== user?.id) {
-      //     console.log('sending seen message')
-      //     sendMessageSeen(appData.socket, {
-      //       roomId: message.roomId,
-      //       senderId: user?.id,
-      //     })
-      //   }
-      // }
     })
 
     onSeenMessage(appData.socket, async (data) => {
-      console.log('seen message')
-      if (data.roomId !== currentRoom?.id) return
+      const message = messages.find((msg) => msg.id === data.messageId)
+      if (message?.room?.id !== currentRoom?.id) return
+      if (message?.isSeen) return //
+      if (message?.sender?.id !== user?.id) return
       setMessages((prevMessages) => {
         return prevMessages.map((msg) => {
-          return {
-            ...msg,
-            isSeen: true,
+          if (msg.id === data.messageId) {
+            return {
+              ...msg,
+              isSeen: true,
+            }
           }
+          return msg
         })
       })
     })
@@ -198,6 +176,7 @@ const useChat = () => {
     appData.chatOpen,
     appData.socket,
     currentRoom?.id,
+    messages,
     setMessages,
     updateLastMessageInRoom,
     user?.id,
@@ -231,77 +210,9 @@ const useChat = () => {
             return msg
           })
         })
-
-        sendMessageSeen(appData?.socket, {
-          roomId: currentRoom?.id,
-          senderId: user?.id,
-        })
       }
     }
   }, [appData?.chatOpen, appData?.socket, currentRoom?.id, messages, user?.id])
-
-  // TO DO
-  // useEffect(() => {
-  //   if (!appData.socket) return
-
-  //   onNewMessage(appData.socket, async (message) => {
-  //     if (!appData.socket) return
-
-  //     const roomIsSameAsComingMessage = currentRoom?.id === message.roomId
-  //     const senderUserIsCurrentUser = message.sender?.id === user?.id
-
-  //     updateLastMessageInRoom(message)
-
-  //     if (appData.chatOpen && user?.id) {
-  //       if (!senderUserIsCurrentUser) {
-  //         if (roomIsSameAsComingMessage) {
-  //           setMessages((prevMessages) => [...prevMessages, message])
-
-  //           sendMessageSeen(appData?.socket, message)
-  //           resetCountUnreadMessagesOfRoom(message.roomId)
-  //           // await updateMessage({})
-  //         }
-  //       }
-  //     }
-  //   })
-
-  //   onSeenMessage(appData.socket, async (message) => {
-  //     const readerIsOtherUser = message.sender?.id === user?.id
-
-  //     if (readerIsOtherUser) {
-  //       setMessages((prevMessages) => {
-  //         return prevMessages.map((msg) => {
-  //           if (msg.id === message.id) {
-  //             return {
-  //               ...msg,
-  //               isSeen: true,
-  //             }
-  //           }
-  //           return msg
-  //         })
-  //       })
-  //     }
-  //   })
-
-  //   onNewRoom(appData.socket, async (roomId) => {
-  //     const newRoom = await getRoomById(roomId)
-  //     setRooms((prevRooms) => [...prevRooms, newRoom])
-  //   })
-
-  //   return () => {
-  //     appData?.socket?.off(SocketEvents.NewMessage)
-  //     appData?.socket?.off(SocketEvents.NewRoom)
-  //   }
-  // }, [
-  //   appData.socket,
-  //   currentRoom,
-  //   user,
-  //   setAppData,
-  //   appData,
-  //   setRooms,
-  //   updateLastMessageInRoom,
-  //   resetCountUnreadMessagesOfRoom,
-  // ])
 
   return {
     messages: messages,

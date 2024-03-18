@@ -4,8 +4,8 @@ import { Message } from '../types'
 import { MessageInput } from '../hooks/useChat'
 import {
   CreateRoomEventDto,
+  MessageSeenEventDto,
   SendMessageEventDto,
-  SendMessageSeenDto,
 } from './socketDto'
 
 export const connectToSocketServer = (socket) => {
@@ -16,6 +16,14 @@ export const connectToSocketServer = (socket) => {
 export const disconnectFromSocketServer = (socket) => {
   // Se déconnecter du serveur WebSocket
   socket.disconnect()
+}
+
+export const loggingSocket = (
+  socket,
+  data: { eventId: string; accessToken: string }
+) => {
+  // Se connecter au serveur WebSocket
+  socket.emit(SocketEvents.AddUser, data)
 }
 
 export const joinRoom = (socket, roomId: string) => {
@@ -43,7 +51,7 @@ export const leaveRoom = (socket, roomId: string) => {
 
 export const sendMessageSocket = (socket, data: SendMessageEventDto) => {
   // Envoyer un message à une room spécifique
-  socket.emit(SocketEvents.SendMessage, data)
+  socket.emit(SocketEvents.NewMessage, data)
 }
 
 export const onNewMessage = (
@@ -56,18 +64,12 @@ export const onNewMessage = (
   })
 }
 
-export const sendMessageSeen = (socket: Socket, data: SendMessageSeenDto) => {
-  // Envoyer un message vu
-  console.log('sending seen message', data)
-  socket.emit(SocketEvents.SendSeenMessage, data)
-}
-
 export const onSeenMessage = (
   socket: Socket,
-  callback: (data: SendMessageSeenDto) => void
+  callback: (data: MessageSeenEventDto) => void
 ) => {
   // Écouter les messages vus
-  socket.on(SocketEvents.SeenMessage, (data: SendMessageSeenDto) => {
+  socket.on(SocketEvents.SeenMessage, (data: MessageSeenEventDto) => {
     callback(data)
   })
 }
