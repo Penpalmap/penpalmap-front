@@ -50,10 +50,9 @@ const Header = () => {
       chatOpen: false,
       socket: null,
     })
+    disconnectFromSocketServer(appData.socket)
     logout()
     localStorage.removeItem('token')
-
-    disconnectFromSocketServer(appData.socket)
   }
 
   const genderFolder =

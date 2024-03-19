@@ -23,7 +23,7 @@ export const loggingSocket = (
   data: { eventId: string; accessToken: string }
 ) => {
   // Se connecter au serveur WebSocket
-  socket.emit(SocketEvents.AddUser, data)
+  socket.emit(SocketEvents.LoggedIn, data)
 }
 
 export const joinRoom = (socket, roomId: string) => {

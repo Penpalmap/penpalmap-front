@@ -28,7 +28,7 @@ export default function HomePage() {
       const newSocket = io(process.env.NEXT_PUBLIC_API_URL as string)
       const accessToken = localStorage.getItem('accessToken')
       loggingSocket(newSocket, {
-        eventId: SocketEvents.AddUser,
+        eventId: SocketEvents.LoggedIn,
         accessToken: accessToken as string,
       })
 
