@@ -99,12 +99,8 @@ const MessageItem = ({
             ml={!isOwnMessage && !image ? 10 : 0}
             style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
           >
-            <Text
-              fontSize={isOwnMessage ? '.9em' : '.9em'}
-              color={isOwnMessage ? 'white' : 'black'}
-              fontWeight={'normal'}
-            >
-              {content} - {seenText}
+            <Text fontSize={'.9em'} color={isOwnMessage ? 'white' : 'black'}>
+              {content}
             </Text>
           </Box>
         </Tooltip>

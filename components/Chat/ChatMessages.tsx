@@ -13,6 +13,8 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { format } from 'date-fns'
 import React from 'react'
 import useGenderFolder from '../../hooks/useGenderFolder'
+import { UserTypingEventDto } from '../../sockets/socketDto'
+import MessageIsWriting from './MessageIsWriting'
 
 type Props = {
   messages: Array<Message> | undefined
@@ -127,17 +129,17 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
         currentChatContainer.removeEventListener('scroll', checkScrollBottom)
       }
     }
-  }, [sortedMessages, user?.id])
+  }, [sortedMessages, user?.id, otherUserIsTyping])
 
   const renderMessages = useMemo(() => {
     let currentDate = ''
-
     return sortedMessages?.map((message, index) => {
       const isLastMessage = index === sortedMessages.length - 1
       const isOwnMessage = user?.id === message.sender?.id
       const seenText = message.isSeen ? t('chat.seen') : t('chat.send')
 
       const isSameSender = lastSenderId.current === message.sender?.id
+      lastSenderId.current = message.sender?.id ?? null
 
       // Ajout de cette vérification pour éviter l'erreur de TypeScript
       const previousMessage = index > 0 ? sortedMessages[index - 1] : null
@@ -155,9 +157,6 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
       const image =
         appData?.chatData?.userChat?.image ??
         `/images/avatar/${genderFolder}/${appData?.chatData?.userChat?.avatarNumber}.png`
-
-      // DO NOT DELETE THIS COMMENTED CODE
-      // UPDATE IT IF API CHANGES AND MESSAGE HAS A DATE
 
       const messageDate = formatDate(message.createdAt)
 
@@ -215,16 +214,22 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
             hasNextSameSender={hasNextSameSender}
             timestamp={message.createdAt}
           />
+          {otherUserIsTyping && isLastMessage && (
+            <MessageIsWriting
+              image={appData?.chatData?.userChat?.image || ''}
+            />
+          )}
         </React.Fragment>
       )
     })
   }, [
-    appData?.chatData?.userChat?.avatarNumber,
-    appData?.chatData?.userChat?.image,
-    genderFolder,
     sortedMessages,
     user?.id,
     t,
+    appData?.chatData?.userChat?.image,
+    appData?.chatData?.userChat?.avatarNumber,
+    genderFolder,
+    otherUserIsTyping,
   ])
 
   useEffect(() => {
@@ -241,16 +246,20 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
       }
     })
 
-    const handleIsTyping = (message) => {
-      if (message.senderId !== appData?.chatData?.userChat?.id) return
-      clearTimeout(typingTimeout as NodeJS.Timeout)
-      setOtherUserIsTyping(true)
-
-      const newTimeout = setTimeout(() => {
+    const handleIsTyping = (data: UserTypingEventDto) => {
+      if (!data.isTyping) {
         setOtherUserIsTyping(false)
-      }, 3000)
+      } else {
+        if (data.userId !== appData?.chatData?.userChat?.id) return
+        clearTimeout(typingTimeout as NodeJS.Timeout)
+        setOtherUserIsTyping(true)
 
-      setTypingTimeout(newTimeout)
+        const newTimeout = setTimeout(() => {
+          setOtherUserIsTyping(false)
+        }, 3000)
+
+        setTypingTimeout(newTimeout)
+      }
     }
 
     onIsTyping(appData.socket, handleIsTyping)
@@ -298,13 +307,6 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
           }
           name={appData?.chatData?.userChat?.name || ''}
         />
-      )}
-      {otherUserIsTyping && (
-        <Box position={'absolute'} bottom={10} left={0} p={4}>
-          <Text fontSize={'small'}>
-            {appData?.chatData?.userChat?.name} {t('chat.IsTyping')}
-          </Text>
-        </Box>
       )}
 
       {arrowDisplay && (
