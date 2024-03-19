@@ -14,6 +14,7 @@ import { format } from 'date-fns'
 import React from 'react'
 import useGenderFolder from '../../hooks/useGenderFolder'
 import { UserTypingEventDto } from '../../sockets/socketDto'
+import MessageIsWriting from './MessageIsWriting'
 
 type Props = {
   messages: Array<Message> | undefined
@@ -128,17 +129,17 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
         currentChatContainer.removeEventListener('scroll', checkScrollBottom)
       }
     }
-  }, [sortedMessages, user?.id])
+  }, [sortedMessages, user?.id, otherUserIsTyping])
 
   const renderMessages = useMemo(() => {
     let currentDate = ''
-
     return sortedMessages?.map((message, index) => {
       const isLastMessage = index === sortedMessages.length - 1
       const isOwnMessage = user?.id === message.sender?.id
       const seenText = message.isSeen ? t('chat.seen') : t('chat.send')
 
       const isSameSender = lastSenderId.current === message.sender?.id
+      lastSenderId.current = message.sender?.id ?? null
 
       // Ajout de cette vérification pour éviter l'erreur de TypeScript
       const previousMessage = index > 0 ? sortedMessages[index - 1] : null
@@ -156,9 +157,6 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
       const image =
         appData?.chatData?.userChat?.image ??
         `/images/avatar/${genderFolder}/${appData?.chatData?.userChat?.avatarNumber}.png`
-
-      // DO NOT DELETE THIS COMMENTED CODE
-      // UPDATE IT IF API CHANGES AND MESSAGE HAS A DATE
 
       const messageDate = formatDate(message.createdAt)
 
@@ -216,16 +214,22 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
             hasNextSameSender={hasNextSameSender}
             timestamp={message.createdAt}
           />
+          {otherUserIsTyping && isLastMessage && (
+            <MessageIsWriting
+              image={appData?.chatData?.userChat?.image || ''}
+            />
+          )}
         </React.Fragment>
       )
     })
   }, [
-    appData?.chatData?.userChat?.avatarNumber,
-    appData?.chatData?.userChat?.image,
-    genderFolder,
     sortedMessages,
     user?.id,
     t,
+    appData?.chatData?.userChat?.image,
+    appData?.chatData?.userChat?.avatarNumber,
+    genderFolder,
+    otherUserIsTyping,
   ])
 
   useEffect(() => {
@@ -277,20 +281,11 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
       flex={1}
       display={'flex'}
       flexDirection={'column'}
+      position={'relative'} // Ajoutez cette ligne pour positionner les éléments enfants absolument par rapport à ce conteneur
       p={2}
       h={'full'}
       overflowY={'scroll'}
-      onScroll={(e) => {
-        const element = e.target as HTMLDivElement
-        if (element.scrollTop === 0 && bottomScrollIsDone) {
-          setOffset(offset + 20)
-          if (topMessageRef.current) {
-            topMessageRef.current.scrollIntoView({
-              behavior: 'auto',
-            })
-          }
-        }
-      }}
+      marginBottom={4}
       ref={chatContainerRef}
     >
       {renderMessages}
@@ -303,13 +298,6 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
           }
           name={appData?.chatData?.userChat?.name || ''}
         />
-      )}
-      {otherUserIsTyping && (
-        <Box position={'relative'} bottom={10} left={0} p={4}>
-          <Text fontSize={'small'}>
-            {appData?.chatData?.userChat?.name} {t('chat.IsTyping')}
-          </Text>
-        </Box>
       )}
 
       {arrowDisplay && (
