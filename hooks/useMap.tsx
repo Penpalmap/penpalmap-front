@@ -238,10 +238,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
         return otherUser?.id === userElement.id
       })
 
-      const otherMemberOnline = room?.members?.find(
-        (member) => member.isOnline && member.id !== currentUser?.id
-      )
-
       return new Feature({
         geometry: new Point(
           fromLonLat([
@@ -253,7 +249,6 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
           ...userElement,
           strokeColor: '#FFFFFF', // couleur pour les autres utilisateurs
           room: room,
-          isOnline: otherMemberOnline?.isOnline,
         },
       })
     })

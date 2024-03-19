@@ -13,6 +13,7 @@ import { useSession } from '../../hooks/useSession'
 import Head from 'next/head'
 import { Modal } from '../../components/Elements/Modal'
 import { useTranslation } from 'next-i18next'
+import { loggingSocket } from '../../sockets/socketManager'
 
 export default function HomePage() {
   const { t } = useTranslation('common')
@@ -25,7 +26,11 @@ export default function HomePage() {
   useEffect(() => {
     if (user?.id && status === 'authenticated') {
       const newSocket = io(process.env.NEXT_PUBLIC_API_URL as string)
-      newSocket.emit(SocketEvents.AddUser, user.id)
+      const accessToken = localStorage.getItem('accessToken')
+      loggingSocket(newSocket, {
+        eventId: SocketEvents.AddUser,
+        accessToken: accessToken as string,
+      })
 
       setAppData((prevData) => ({
         ...prevData,

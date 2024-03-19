@@ -1,14 +1,13 @@
 export enum SocketEvents {
   JoinRoom = 'JOIN_ROOM',
   LeaveRoom = 'LEAVE_ROOM',
-  NewMessage = 'NEW_MESSAGE',
-  SendMessage = 'SEND_MESSAGE',
-  SeenMessage = 'SEEN_MESSAGE',
+  NewMessage = 'MESSAGE_SENT',
+  SeenMessage = 'MESSAGE_SEEN',
   SendSeenMessage = 'SEND_SEEN_MESSAGE',
-  AddUser = 'ADD_USER',
-  IsTyping = 'IS_TYPING',
+  AddUser = 'LOGGED_IN',
   StopIsTyping = 'STOP_IS_TYPING',
   OnlineUsers = 'ONLINE_USERS',
   CreateRoom = 'CREATE_ROOM',
   NewRoom = 'NEW_ROOM',
+  IsTyping = 'USER_TYPING',
 }
