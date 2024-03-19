@@ -281,11 +281,20 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
       flex={1}
       display={'flex'}
       flexDirection={'column'}
-      position={'relative'} // Ajoutez cette ligne pour positionner les éléments enfants absolument par rapport à ce conteneur
       p={2}
       h={'full'}
       overflowY={'scroll'}
-      marginBottom={4}
+      onScroll={(e) => {
+        const element = e.target as HTMLDivElement
+        if (element.scrollTop === 0 && bottomScrollIsDone) {
+          setOffset(offset + 20)
+          if (topMessageRef.current) {
+            topMessageRef.current.scrollIntoView({
+              behavior: 'auto',
+            })
+          }
+        }
+      }}
       ref={chatContainerRef}
     >
       {renderMessages}
