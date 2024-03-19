@@ -215,9 +215,7 @@ const ChatMessages = ({ messages, isNewChat, offset, setOffset }: Props) => {
             timestamp={message.createdAt}
           />
           {otherUserIsTyping && isLastMessage && (
-            <MessageIsWriting
-              image={appData?.chatData?.userChat?.image || ''}
-            />
+            <MessageIsWriting image={image} />
           )}
         </React.Fragment>
       )
