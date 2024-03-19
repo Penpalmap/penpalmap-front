@@ -18,7 +18,7 @@ interface RoomContextType {
   resetCountUnreadMessagesOfRoom: (roomId: string) => void
   updateLastMessageInRoom: (message: Message, roomId: string) => void
   setRooms: React.Dispatch<React.SetStateAction<Room[]>>
-  totalUnreadMessagesNumber: number
+  isUnreadMessages: boolean
 }
 
 interface RoomProviderProps {
@@ -37,8 +37,7 @@ export function useRoom() {
 
 export const RoomProvider = ({ children }: RoomProviderProps) => {
   const [rooms, setRooms] = useState<Room[]>([])
-  const [totalUnreadMessagesNumber, setTotalUnreadMessagesNumber] =
-    useState<number>(0)
+  const [isUnreadMessages, setUnreadMessages] = useState<boolean>(false)
 
   const { user } = useSession()
   const [appData] = useContext(AppContext)
@@ -58,33 +57,19 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
       })
 
       const lastMessage = lastMessageData.data[0]
-
+      const isUnreadMessages =
+        !lastMessage?.isSeen && lastMessage?.sender?.id !== user.id
       const newRoom: Room = {
         ...room,
         lastMessage: lastMessage ?? null,
-        countUnreadMessages:
-          !lastMessage?.isSeen && lastMessage?.sender?.id !== user.id
-            ? '1'
-            : '0',
+        isUnreadMessages: isUnreadMessages,
       }
 
       roomsArray.push(newRoom)
     }
 
+    setUnreadMessages(roomsArray.some((room) => room.isUnreadMessages))
     setRooms(roomsArray)
-
-    // if (roomsData) {
-    //   setRooms(roomsData.data)
-
-    //   let totalUnread = 0
-    //   roomsData.data.forEach((room) => {
-    //     if (room.countUnreadMessages) {
-    //       totalUnread += parseInt(room.countUnreadMessages)
-    //     }
-    //   })
-
-    //   setTotalUnreadMessagesNumber(totalUnread)
-    // }
   }, [user?.id])
 
   useEffect(() => {
@@ -99,28 +84,11 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
       setRooms((prevRooms) => {
         return prevRooms.map((room) => {
           if (room.id === roomId) {
-            let countUnreadMessages: string
-
-            if (message.sender?.id === user.id) {
-              countUnreadMessages = '0'
-              setTotalUnreadMessagesNumber(
-                (prev) => prev - parseInt(room.countUnreadMessages)
-              )
-            } else {
-              if (!room.countUnreadMessages) {
-                countUnreadMessages = '1'
-              } else {
-                setTotalUnreadMessagesNumber((prev) => prev + 1)
-                countUnreadMessages = (
-                  parseInt(room.countUnreadMessages) + 1
-                ).toString()
-              }
-            }
-
             const newRoom: Room = {
               ...room,
               lastMessage: message,
-              countUnreadMessages: countUnreadMessages,
+              isUnreadMessages:
+                !message.isSeen && message.sender?.id !== user.id,
             }
 
             return {
@@ -138,17 +106,9 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     setRooms((prevRooms) => {
       return prevRooms.map((room) => {
         if (room.id === roomId) {
-          const newRoom: Room = {
-            ...room,
-            countUnreadMessages: '0',
-          }
-
-          setTotalUnreadMessagesNumber((prev) =>
-            prev === 0 ? 0 : prev - parseInt(room.countUnreadMessages)
-          )
-
           return {
-            ...newRoom,
+            ...room,
+            isUnreadMessages: false,
           }
         }
         return room
@@ -197,7 +157,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
         resetCountUnreadMessagesOfRoom,
         updateLastMessageInRoom,
         setRooms,
-        totalUnreadMessagesNumber,
+        isUnreadMessages,
       }}
     >
       {children}
