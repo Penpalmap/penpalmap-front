@@ -1,5 +1,6 @@
 import { Box, Flex, Image, Text, keyframes } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 
 type MessageIsWritingProps = {
   image: string
@@ -13,6 +14,7 @@ const animationKeyframes = keyframes`
 const animation = `${animationKeyframes} 1.2s ease-in-out infinite`
 
 export default function MessageIsWriting({ image }: MessageIsWritingProps) {
+  const { t } = useTranslation('common')
   return (
     <Flex alignSelf={'flex-start'} alignItems={'center'} maxW={'70%'}>
       {image && (
@@ -42,7 +44,7 @@ export default function MessageIsWriting({ image }: MessageIsWritingProps) {
           ml={0}
           style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
         >
-          <Text fontSize={'.9em'}>est en train d'écrire</Text>
+          <Text fontSize={'.9em'}>{t('chat.IsTyping')}</Text>
         </Box>
       </Box>
     </Flex>
