@@ -21,3 +21,10 @@ export class MessageSeenEventDto {
   eventId: string
   messageId: string
 }
+
+export class UserTypingEventDto {
+  eventId: string
+  userId: string
+  roomId: string
+  isTyping: boolean
+}

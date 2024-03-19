@@ -4,9 +4,10 @@ export enum SocketEvents {
   NewMessage = 'MESSAGE_SENT',
   SeenMessage = 'MESSAGE_SEEN',
   SendSeenMessage = 'SEND_SEEN_MESSAGE',
-  LoggedIn = 'LOGGED_IN',
+  AddUser = 'LOGGED_IN',
   StopIsTyping = 'STOP_IS_TYPING',
   OnlineUsers = 'ONLINE_USERS',
   CreateRoom = 'CREATE_ROOM',
   NewRoom = 'NEW_ROOM',
+  IsTyping = 'USER_TYPING',
 }

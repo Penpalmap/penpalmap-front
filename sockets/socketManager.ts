@@ -1,11 +1,10 @@
 import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
-import { Message } from '../types'
-import { MessageInput } from '../hooks/useChat'
 import {
   CreateRoomEventDto,
   MessageSeenEventDto,
   SendMessageEventDto,
+  UserTypingEventDto,
 } from './socketDto'
 
 export const connectToSocketServer = (socket) => {
@@ -23,7 +22,7 @@ export const loggingSocket = (
   data: { eventId: string; accessToken: string }
 ) => {
   // Se connecter au serveur WebSocket
-  socket.emit(SocketEvents.LoggedIn, data)
+  socket.emit(SocketEvents.AddUser, data)
 }
 
 export const joinRoom = (socket, roomId: string) => {
@@ -74,18 +73,18 @@ export const onSeenMessage = (
   })
 }
 
-export const isTyping = (socket: Socket, message: MessageInput) => {
+export const isTyping = (socket: Socket, data: UserTypingEventDto) => {
   // Envoyer un message de typing
-  socket.emit(SocketEvents.IsTyping, message)
+  socket.emit(SocketEvents.IsTyping, data)
 }
 
 export const onIsTyping = (
   socket: Socket,
-  callback: (message: Message) => void
+  callback: (data: UserTypingEventDto) => void
 ) => {
   // Écouter les messages de typing
-  socket.on(SocketEvents.IsTyping, (message) => {
-    callback(message)
+  socket.on(SocketEvents.IsTyping, (data) => {
+    callback(data)
   })
 }
 
