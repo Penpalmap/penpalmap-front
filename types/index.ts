@@ -67,7 +67,7 @@ export type Room = {
   id: string
   members?: Array<User>
   lastMessage: Message | null
-  countUnreadMessages: string
+  isUnreadMessages: boolean
 }
 
 export type UserElement = User & {

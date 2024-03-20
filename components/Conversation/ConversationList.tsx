@@ -30,49 +30,9 @@ const ConversationList = () => {
         })
         resetCountUnreadMessagesOfRoom(roomId)
 
-        // DO NOT DELETE
-        // UPDATE WHEN API CHanges
-
-        // await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
-        // const lastMessage =
-        //   roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
-
-        // if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
-        //   sendMessageSeen(appData.socket, lastMessage)
-        // }
-
         setMobileView('chat')
       }
     },
-    // async (members) => {
-    //   const userMember = members?.find((member) => member.id !== user?.id)
-    //   if (userMember) {
-    //     const roomIncludeUser = rooms.find((room) =>
-    //       room.members.includes(userMember)
-    //     )
-    //     if (roomIncludeUser) {
-    //       setAppData({
-    //         ...appData,
-    //         userChat: userMember,
-    //         chatOpen: true,
-    //       })
-    //       resetCountUnreadMessagesOfRoom(roomIncludeUser.id)
-
-    //       // DO NOT DELETE
-    //       // UPDATE WHEN API CHanges
-
-    //       // await updateMessageIsReadByRoom(roomIncludeUser.id, userMember.id)
-    //       // const lastMessage =
-    //       //   roomIncludeUser.messages[roomIncludeUser.messages.length - 1]
-
-    //       // if (lastMessage && lastMessage.isSeen === false && appData?.socket) {
-    //       //   sendMessageSeen(appData.socket, lastMessage)
-    //       // }
-
-    //       setMobileView('chat')
-    //     }
-    //   }
-    // },
     [
       appData,
       resetCountUnreadMessagesOfRoom,
@@ -97,7 +57,7 @@ const ConversationList = () => {
             clickOnRoom={clickOnConversation}
             room={room}
             sessionUserId={user?.id}
-            countUnreadMessages={room.countUnreadMessages}
+            isUnreadMessages={room.isUnreadMessages}
             key={index}
           />
         )),

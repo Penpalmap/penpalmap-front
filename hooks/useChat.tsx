@@ -13,7 +13,6 @@ import {
 } from '../api/messages/messagesApi'
 import { onNewMessage, onSeenMessage } from '../sockets/socketManager'
 import { SocketEvents } from '../constants/socketEnum'
-import { createRoom as createRoomSocket } from '../sockets/socketManager'
 
 export type MessageInput = {
   content: string
@@ -93,10 +92,6 @@ const useChat = () => {
           memberIds: [senderId, otherUserId],
         })
         setCurrentRoom(roomData)
-        createRoomSocket(appData?.socket, {
-          receiverId: otherUserId,
-          roomId: roomData.id,
-        })
 
         room = roomData
         setRooms((prevRooms) => [...prevRooms, roomData])
@@ -196,6 +191,18 @@ const useChat = () => {
         messagesToUpdate.forEach(async (message) => {
           await updateMessage(message.id, {
             isSeen: true,
+          })
+        })
+
+        setRooms((prevRooms) => {
+          return prevRooms.map((room) => {
+            if (room.id === currentRoom.id) {
+              return {
+                ...room,
+                isUnreadMessages: false,
+              }
+            }
+            return room
           })
         })
 

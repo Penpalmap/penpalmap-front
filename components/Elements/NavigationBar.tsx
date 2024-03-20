@@ -6,7 +6,7 @@ import { useRoom } from '../../context/RoomsContext'
 
 const NavigationBar = () => {
   const { mobileView, setMobileView } = useMobileView()
-  const { totalUnreadMessagesNumber } = useRoom()
+  const { isUnreadMessages } = useRoom()
 
   return (
     <Flex
@@ -43,22 +43,20 @@ const NavigationBar = () => {
         <Text fontSize="xs" fontWeight="light">
           Chat
         </Text>
-        {totalUnreadMessagesNumber > 0 && (
+        {isUnreadMessages && (
           <Flex
             position={'absolute'}
             alignItems={'center'}
             justifyContent={'center'}
             background={'red.400'}
             borderRadius={'full'}
-            w={4}
-            h={4}
+            w={3}
+            h={3}
             top={2}
             left={4}
             color={'white'}
             fontSize={'xs'}
-          >
-            {totalUnreadMessagesNumber}
-          </Flex>
+          ></Flex>
         )}
       </Flex>
     </Flex>

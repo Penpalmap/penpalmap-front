@@ -8,14 +8,14 @@ import useGenderFolder from '../../hooks/useGenderFolder'
 type ConversationItemProps = {
   clickOnRoom: (roomId: string) => void
   room: Room
-  countUnreadMessages: string
+  isUnreadMessages: boolean
   sessionUserId: string | undefined
 }
 
 const ConversationItem = ({
   clickOnRoom,
   room,
-  countUnreadMessages,
+  isUnreadMessages,
   sessionUserId,
 }: ConversationItemProps) => {
   const user = room.members?.find((member) => member.id !== sessionUserId)
@@ -99,7 +99,7 @@ const ConversationItem = ({
             fontSize={'.8em'}
             whiteSpace={'nowrap'}
             textOverflow={'ellipsis'}
-            fontWeight={parseInt(countUnreadMessages) > 0 ? 'bold' : 'normal'}
+            fontWeight={isUnreadMessages ? 'bold' : 'normal'}
           >
             {room.lastMessage?.content}
           </Text>
@@ -115,7 +115,7 @@ const ConversationItem = ({
       </Flex>
 
       <Flex justifyContent={'center'} alignItems={'center'} flex={1} pl={2}>
-        {parseInt(countUnreadMessages) > 0 && (
+        {isUnreadMessages && (
           <Icon viewBox="0 0 200 200" color="red.400">
             <path
               fill="currentColor"
