@@ -13,7 +13,9 @@ const animationKeyframes = keyframes`
 `
 const animation = `${animationKeyframes} 1.2s ease-in-out infinite`
 
-export default function MessageIsWriting({ image }: MessageIsWritingProps) {
+export default function MessageIsWriting({
+  image,
+}: Readonly<MessageIsWritingProps>) {
   const { t } = useTranslation('common')
   return (
     <Flex alignSelf={'flex-start'} alignItems={'center'} maxW={'70%'}>

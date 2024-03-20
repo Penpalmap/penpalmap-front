@@ -1,8 +1,8 @@
 import { Socket } from 'socket.io-client'
 import { SocketEvents } from '../constants/socketEnum'
 import {
-  CreateRoomEventDto,
   MessageSeenEventDto,
+  RoomCreatedEventDto,
   SendMessageEventDto,
   UserTypingEventDto,
 } from './socketDto'
@@ -30,16 +30,12 @@ export const joinRoom = (socket, roomId: string) => {
   socket.emit(SocketEvents.JoinRoom, roomId)
 }
 
-export const createRoom = (socket, data: CreateRoomEventDto) => {
-  socket.emit(SocketEvents.CreateRoom, data)
-}
-
 export const onNewRoom = (
   socket: Socket,
-  callback: (roomId: string) => void
+  callback: (data: RoomCreatedEventDto) => void
 ) => {
-  socket.on(SocketEvents.NewRoom, (roomId: string) => {
-    callback(roomId)
+  socket.on(SocketEvents.CreateRoom, (data: RoomCreatedEventDto) => {
+    callback(data)
   })
 }
 

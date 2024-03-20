@@ -3,11 +3,6 @@ export type SendMessageEventDto = {
   messageId: string
 }
 
-export type CreateRoomEventDto = {
-  receiverId: string
-  roomId: string
-}
-
 export type SendMessageSeenDto = {
   roomId: string
   senderId: string
@@ -27,4 +22,10 @@ export class UserTypingEventDto {
   userId: string
   roomId: string
   isTyping: boolean
+}
+
+export class RoomCreatedEventDto {
+  eventId: string
+  userId: string
+  roomId: string
 }

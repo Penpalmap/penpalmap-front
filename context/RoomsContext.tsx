@@ -4,12 +4,13 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 import { Message, Room } from '../types'
 import { getRooms } from '../api/rooms/roomApi'
 import { useSession } from '../hooks/useSession'
-import { onNewRoom, onUsersOnline } from '../sockets/socketManager'
+import { onNewRoom } from '../sockets/socketManager'
 import { AppContext } from './AppContext'
 import { getMessages } from '../api/messages/messagesApi'
 
@@ -68,7 +69,6 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
       roomsArray.push(newRoom)
     }
 
-    setUnreadMessages(roomsArray.some((room) => room.isUnreadMessages))
     setRooms(roomsArray)
   }, [user?.id])
 
@@ -117,50 +117,35 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
   }, [])
 
   useEffect(() => {
+    // Check if any room has unread messages
+    const hasUnreadMessages = rooms.some((room) => room.isUnreadMessages)
+
+    // Update the state based on the result
+    setUnreadMessages(hasUnreadMessages)
+  }, [rooms])
+
+  useEffect(() => {
     if (!appData.socket) return
-    onUsersOnline(appData.socket, (usersOnline) => {
-      setRooms((prevRooms) => {
-        return prevRooms.map((room) => {
-          const newRoom: Room = {
-            ...room,
-            members: room?.members?.map((member) => {
-              if (usersOnline.includes(member.id)) {
-                return {
-                  ...member,
-                  isOnline: true,
-                }
-              } else {
-                return {
-                  ...member,
-                  isOnline: false,
-                }
-              }
-            }),
-          }
-
-          return {
-            ...newRoom,
-          }
-        })
-      })
-    })
-
     onNewRoom(appData.socket, async () => {
       fetchUserRooms()
     })
   }, [appData.socket, fetchUserRooms])
 
-  return (
-    <RoomContext.Provider
-      value={{
-        rooms,
-        resetCountUnreadMessagesOfRoom,
-        updateLastMessageInRoom,
-        setRooms,
-        isUnreadMessages,
-      }}
-    >
-      {children}
-    </RoomContext.Provider>
+  const obj = useMemo(
+    () => ({
+      rooms,
+      resetCountUnreadMessagesOfRoom,
+      updateLastMessageInRoom,
+      setRooms,
+      isUnreadMessages,
+    }),
+    [
+      rooms,
+      resetCountUnreadMessagesOfRoom,
+      updateLastMessageInRoom,
+      isUnreadMessages,
+    ]
   )
+
+  return <RoomContext.Provider value={obj}>{children}</RoomContext.Provider>
 }
