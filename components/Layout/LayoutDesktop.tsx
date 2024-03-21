@@ -6,14 +6,12 @@ import ConversationList from '../Conversation/ConversationList'
 import { useRoom } from '../../context/RoomsContext'
 
 const LayoutDesktop = () => {
-  const { totalUnreadMessagesNumber } = useRoom()
+  const { isUnreadMessages } = useRoom()
   return (
     <>
       <Head>
         <title>
-          {totalUnreadMessagesNumber === 0
-            ? `PenpalMap`
-            : `(${totalUnreadMessagesNumber}) PenpalMap`}
+          {!isUnreadMessages ? `PenpalMap` : `New Message! PenpalMap`}
         </title>
       </Head>
       <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>

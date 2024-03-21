@@ -7,7 +7,6 @@ export enum SocketEvents {
   AddUser = 'LOGGED_IN',
   StopIsTyping = 'STOP_IS_TYPING',
   OnlineUsers = 'ONLINE_USERS',
-  CreateRoom = 'CREATE_ROOM',
-  NewRoom = 'NEW_ROOM',
+  CreateRoom = 'ROOM_CREATED',
   IsTyping = 'USER_TYPING',
 }
