@@ -12,7 +12,8 @@ const Layout = ({ children }) => {
     <Flex direction={'column'} h={'100vh'}>
       {router.pathname !== '/auth/signup' &&
         router.pathname !== '/auth/signin' &&
-        !(isMobile && mobileView === 'chat') && (
+        !(isMobile && mobileView === 'chat') &&
+        router.pathname !== '/create-profile' && (
           <Box h={'4rem'}>
             <Header />
           </Box>
