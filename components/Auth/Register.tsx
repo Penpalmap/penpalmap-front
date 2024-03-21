@@ -34,6 +34,7 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm<RegisterDto>()
+  const [isLoading, setIsLoading] = useState(false)
 
   const password = watch('password')
 
@@ -60,6 +61,8 @@ const Register = () => {
 
   const onSubmit = async (data: RegisterDto) => {
     try {
+      setIsLoading(true)
+
       const resultRegisterData = await registerUser(data)
 
       login({
@@ -67,6 +70,7 @@ const Register = () => {
         refreshToken: resultRegisterData.refreshToken,
       })
     } catch (error) {
+      setIsLoading(false)
       setError(error.response.data.message)
     }
   }
@@ -133,131 +137,146 @@ const Register = () => {
           <Heading as="h1" size="lg" mb={6}>
             {t('connect.sign-up')}
           </Heading>
-          <Box style={googleLoginStyle} marginBottom={4}>
-            <GoogleLogin
-              width={320}
-              onSuccess={async (credentialResponse) => {
-                const response = await axios.post(
-                  `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/google`,
-                  {
-                    token: credentialResponse.credential,
-                  }
-                )
+          {isLoading ? (
+            <Text>{t('connect.loading')}</Text>
+          ) : (
+            <>
+              <Box style={googleLoginStyle} marginBottom={4}>
+                <GoogleLogin
+                  width={320}
+                  onSuccess={async (credentialResponse) => {
+                    const response = await axios.post(
+                      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/google`,
+                      {
+                        token: credentialResponse.credential,
+                      }
+                    )
 
-                login(response.data)
-              }}
-              onError={() => {
-                console.log('Login Failed')
-              }}
-            />
-          </Box>
-          <Flex
-            alignItems="center"
-            mt={6}
-            mb={6}
-            w="90%"
-            justify="space-between"
-          >
-            <Box flex="1" h="1px" bg="gray.400"></Box>
-            <Text mx={2} color="gray.900" fontWeight="bold">
-              OR
-            </Text>
-            <Box flex="1" h="1px" bg="gray.400"></Box>
-          </Flex>
-          <form onSubmit={handleSubmit(onSubmit)} style={{ width: '90%' }}>
-            <Stack spacing={4}>
-              <FormControl isInvalid={!!errors.email} isRequired marginTop={4}>
-                <Input
-                  type="email"
-                  label={t('connect.mail')}
-                  name="email"
-                  register={register}
-                  validationSchema={{
-                    required: 'Email is required',
+                    login(response.data)
+                  }}
+                  onError={() => {
+                    console.log('Login Failed')
                   }}
                 />
-                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors.name} isRequired top={2}>
-                <Input
-                  type="text"
-                  label={t('connect.nom')}
-                  name="name"
-                  register={register}
-                  validationSchema={{
-                    required: 'Name is required',
-                  }}
-                />
-                <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors.password} isRequired>
-                <Box marginTop={4}>
-                  <Input
-                    name="password"
-                    label={t('connect.password')}
-                    type="password"
-                    register={register}
-                    validationSchema={{
-                      required: 'Password is required',
-                    }}
-                  />
-                </Box>
-
-                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-                {/* Password confirmation */}
-              </FormControl>
-              <FormControl isInvalid={!!errors.passwordConfirmation} isRequired>
-                <Box marginTop={2}>
-                  <Input
-                    name="passwordConfirmation"
-                    label={t('connect.password-confirmation')}
-                    type="password"
-                    register={register}
-                    validationSchema={{
-                      required: 'Password confirmation is required',
-                    }}
-                  />
-                </Box>
-
-                <FormErrorMessage>
-                  {errors.passwordConfirmation?.message}
-                </FormErrorMessage>
-              </FormControl>
-
-              {error && (
-                <Alert status="error" my={4}>
-                  <AlertIcon />
-                  {error}
-                </Alert>
-              )}
-              <Button
-                type="submit"
-                color={'white'}
-                variant="outline"
-                bgGradient="linear(to-r, #3EB6A0, #38B2AC)"
-                _hover={{
-                  bgGradient: 'linear(to-r, #297B70, #2C9185)',
-                }}
+              </Box>
+              <Flex
+                alignItems="center"
+                mt={6}
+                mb={6}
+                w="90%"
+                justify="space-between"
               >
-                {t('connect.register')}
-              </Button>
-            </Stack>
-          </form>
-          <Box mt={4}>
-            <Text fontSize={'small'} textColor={'#3EB6A0'}>
-              {t('connect.already-account')}{' '}
-              <Link href="/auth/signin">
-                <Text
-                  as="span"
-                  color="#3EB6A0"
-                  cursor="pointer"
-                  fontWeight="bold"
-                >
-                  {t('connect.connection')}
+                <Box flex="1" h="1px" bg="gray.400"></Box>
+                <Text mx={2} color="gray.900" fontWeight="bold">
+                  OR
                 </Text>
-              </Link>
-            </Text>
-          </Box>
+                <Box flex="1" h="1px" bg="gray.400"></Box>
+              </Flex>
+              <form onSubmit={handleSubmit(onSubmit)} style={{ width: '90%' }}>
+                <Stack spacing={4}>
+                  <FormControl
+                    isInvalid={!!errors.email}
+                    isRequired
+                    marginTop={4}
+                  >
+                    <Input
+                      type="email"
+                      label={t('connect.mail')}
+                      name="email"
+                      register={register}
+                      validationSchema={{
+                        required: 'Email is required',
+                      }}
+                    />
+                    <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl isInvalid={!!errors.name} isRequired top={2}>
+                    <Input
+                      type="text"
+                      label={t('connect.nom')}
+                      name="name"
+                      register={register}
+                      validationSchema={{
+                        required: 'Name is required',
+                      }}
+                    />
+                    <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+                  </FormControl>
+                  <FormControl isInvalid={!!errors.password} isRequired>
+                    <Box marginTop={4}>
+                      <Input
+                        name="password"
+                        label={t('connect.password')}
+                        type="password"
+                        register={register}
+                        validationSchema={{
+                          required: 'Password is required',
+                        }}
+                      />
+                    </Box>
+
+                    <FormErrorMessage>
+                      {errors.password?.message}
+                    </FormErrorMessage>
+                    {/* Password confirmation */}
+                  </FormControl>
+                  <FormControl
+                    isInvalid={!!errors.passwordConfirmation}
+                    isRequired
+                  >
+                    <Box marginTop={2}>
+                      <Input
+                        name="passwordConfirmation"
+                        label={t('connect.password-confirmation')}
+                        type="password"
+                        register={register}
+                        validationSchema={{
+                          required: 'Password confirmation is required',
+                        }}
+                      />
+                    </Box>
+
+                    <FormErrorMessage>
+                      {errors.passwordConfirmation?.message}
+                    </FormErrorMessage>
+                  </FormControl>
+
+                  {error && (
+                    <Alert status="error" my={4}>
+                      <AlertIcon />
+                      {error}
+                    </Alert>
+                  )}
+                  <Button
+                    type="submit"
+                    color={'white'}
+                    variant="outline"
+                    bgGradient="linear(to-r, #3EB6A0, #38B2AC)"
+                    _hover={{
+                      bgGradient: 'linear(to-r, #297B70, #2C9185)',
+                    }}
+                  >
+                    {t('connect.register')}
+                  </Button>
+                </Stack>
+              </form>
+              <Box mt={4}>
+                <Text fontSize={'small'} textColor={'#3EB6A0'}>
+                  {t('connect.already-account')}{' '}
+                  <Link href="/auth/signin">
+                    <Text
+                      as="span"
+                      color="#3EB6A0"
+                      cursor="pointer"
+                      fontWeight="bold"
+                    >
+                      {t('connect.connection')}
+                    </Text>
+                  </Link>
+                </Text>
+              </Box>
+            </>
+          )}
         </Box>
         {/* <FontAwesomeIcon
           icon={faChevronDown}
