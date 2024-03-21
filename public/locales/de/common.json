@@ -284,7 +284,8 @@
   },
   "form": {
     "messageError": "Ein Fehler ist aufgetreten, bitte versuchen Sie es später erneut.",
-    "messagePasswordChange": "Ihr Passwort wurde erfolgreich geändert!"
+    "messagePasswordChange": "Ihr Passwort wurde erfolgreich geändert!",
+    "loading": "Wird geladen..."
   },
   "contact": {
     "title": "Kontaktiere uns",

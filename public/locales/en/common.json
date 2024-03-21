@@ -286,7 +286,8 @@
   "form": {
     "messageError": "An error occurred, please try again later.",
     "messagePasswordChange": "Your password has been changed.",
-    "save": "Save"
+    "save": "Save",
+    "loading": "Loading..."
   },
   "contact": {
     "title": "Contact Us",

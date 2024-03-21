@@ -1,6 +1,8 @@
 import { Box, Image, Text } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 const Loading = () => {
+  const { t } = useTranslation('common')
   return (
     <Box
       display={'flex'}
@@ -16,7 +18,7 @@ const Loading = () => {
           boxSize="28"
         />
         <Text fontSize="lg" textAlign="center">
-          Loading...
+          {t('form.loading')}
         </Text>
       </Box>
     </Box>

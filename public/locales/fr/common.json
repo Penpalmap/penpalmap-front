@@ -284,7 +284,8 @@
   "form": {
     "messageError": "Une erreur est survenue, veuillez réessayer plus tard.",
     "messagePasswordChange": "Votre mot de passe a bien été modifié !",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "loading": "Chargement..."
   },
   "contact": {
     "title": "Nous Contacter",

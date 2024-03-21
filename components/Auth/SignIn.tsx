@@ -131,7 +131,7 @@ const SignIn = () => {
           </Heading>
           {isLoading ? (
             <Text color="black" fontSize="lg">
-              Chargement
+              {t('form.loading')}
             </Text>
           ) : (
             <>

@@ -138,7 +138,7 @@ const Register = () => {
             {t('connect.sign-up')}
           </Heading>
           {isLoading ? (
-            <Text>{t('connect.loading')}</Text>
+            <Text>{t('form.loading')}</Text>
           ) : (
             <>
               <Box style={googleLoginStyle} marginBottom={4}>

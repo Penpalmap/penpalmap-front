@@ -284,7 +284,8 @@
   },
   "form": {
     "messageError": "Se ha producido un error, inténtelo de nuevo más tarde.",
-    "messagePasswordChange": "¡Su contraseña ha sido cambiada con éxito!"
+    "messagePasswordChange": "¡Su contraseña ha sido cambiada con éxito!",
+    "loading": "Cargando..."
   },
   "contact": {
     "title": "Contáctenos",
