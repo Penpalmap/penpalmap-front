@@ -1,6 +1,6 @@
 {
   "name": "penpalmap-front",
-  "version": "0.1.6",
+  "version": "0.108.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
