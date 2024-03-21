@@ -101,25 +101,28 @@ const CreateProfile = () => {
 
   const onSubmit = async (data: UpdateUserDto) => {
     if (!user?.id) return
-    setLoading(true)
+    try {
+      setLoading(true)
 
-    if (router.locale) data.languageUsed = router.locale
+      if (router.locale) data.languageUsed = router.locale
 
-    data.isNewUser = false
+      data.isNewUser = false
 
-    // verify language with all values
-    if (data.userLanguages && data.userLanguages.length > 0) {
-      data.userLanguages = data.userLanguages.filter(
-        (language) => language.language && language.level
-      )
+      // verify language with all values
+      if (data.userLanguages && data.userLanguages.length > 0) {
+        data.userLanguages = data.userLanguages.filter(
+          (language) => language.language && language.level
+        )
+      }
+
+      const response = await updateUser(data, user.id)
+      fetchUser()
+      if (response) {
+        router.push('/home')
+      }
+    } catch (error) {
+      setLoading(false)
     }
-
-    const response = await updateUser(data, user.id)
-    fetchUser()
-    if (response) {
-      router.push('/home')
-    }
-    setLoading(false)
   }
 
   const renderActiveStep = useMemo(() => {
