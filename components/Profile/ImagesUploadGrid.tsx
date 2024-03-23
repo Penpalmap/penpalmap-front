@@ -126,7 +126,6 @@ const ImagesUploadGrid = ({
           <Grid
             templateColumns="repeat(2, 1fr)"
             gap={4}
-            p={4}
             justifyContent={'center'}
           >
             {images.map((image) => (

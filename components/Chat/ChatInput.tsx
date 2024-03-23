@@ -36,17 +36,11 @@ const ChatInput = ({ room, sendMessage }: Props) => {
   const { user } = useSession()
 
   useEffect(() => {
-    if (!appData?.chatData?.roomChatId) return
-
-    // setValue('roomId', room?.id)
-    // setValue('senderId', senderId)
-    // setValue(
-    //   'receiverId',
-    //   room?.members?.find((member) => member.id !== senderId)?.id || ''
-    // )
-    setValue('content', '')
-    inputRef?.current?.focus()
-  }, [appData?.chatData?.roomChatId, room?.id, room?.members, setValue])
+    if (appData?.chatOpen) {
+      setValue('content', '')
+      inputRef?.current?.focus()
+    }
+  }, [appData?.chatOpen, setValue, room?.id])
 
   const onSubmitHandler = async (data: MessageInput) => {
     sendMessage(data)

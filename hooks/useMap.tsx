@@ -32,16 +32,18 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapObj = useRef<OLMap | null>(null)
   const [users, setUsers] = useState<UserMap[]>([])
-  const [, setData] = useContext(AppContext)
+  const [appData, setData] = useContext(AppContext)
   const { rooms } = useRoom()
   const { user: currentUser } = useSession()
 
   const overlayRef = useRef<Overlay | null>(null)
 
   const getUsers = useCallback(async () => {
-    const users = await getUsersInMap()
-    setUsers(users)
-  }, [])
+    if (currentUser) {
+      const users = await getUsersInMap()
+      setUsers(users)
+    }
+  }, [currentUser])
 
   // Pour changer le style du curseur quand il survole un user
   const onPointermove = useCallback((e) => {
@@ -84,7 +86,22 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
     return user
   }
+  // move map on user chat when click on conversation
+  useEffect(() => {
+    const geom = appData.chatData.userChat?.geom
 
+    if (!mapObj.current || !geom) return
+
+    const coordinate = fromLonLat([
+      geom.coordinates[0] as number,
+      geom.coordinates[1] as number,
+    ])
+
+    mapObj.current.getView().animate({
+      center: coordinate,
+      duration: 500,
+    })
+  }, [appData.chatData.userChat])
   const showUserOverlay = useCallback((user: User) => {
     if (
       !mapObj.current ||

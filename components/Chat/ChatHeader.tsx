@@ -20,13 +20,14 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  HStack,
 } from '@chakra-ui/react'
 import { useContext, useRef } from 'react'
 import { AppContext } from '../../context/AppContext'
 import NextLink from 'next/link'
 import useLocation from '../../hooks/useLocation'
 import { useMobileView } from '../../context/MobileViewContext'
-import { faArrowLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSession } from '../../hooks/useSession'
 import { updateUser } from '../../api/user/userApi'
@@ -102,12 +103,7 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
   return (
     <>
       <Flex display={'flex'} alignItems={'center'} py={3} px={4}>
-        <Flex alignItems={'center'} justifyContent={'space-between'} flex={1}>
-          <IconButton
-            icon={<FontAwesomeIcon icon={faArrowLeft} size="lg" />}
-            aria-label="retour"
-            onClick={onCloseChat}
-          />
+        <Flex alignItems={'center'} flex={1} justifyContent={'space-between'}>
           <Flex>
             <Link href={`/home?profileId=${userId}`} as={NextLink} passHref>
               <Avatar name={name} src={photoUrl} width={10} height={10}>
@@ -140,35 +136,43 @@ const ChatHeader = ({ name, photoUrl, userId, isOnline }: Props) => {
               </Box>
             </Link>
           </Flex>
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              icon={<FontAwesomeIcon icon={faEllipsisV} size="lg" />}
-              size={'sm'}
-              backgroundColor={'transparent'}
-            ></MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => onToggleBlockUser()}>
-                🛡️ Block user
-              </MenuItem>
-              <NextLink href={`/home?profileId=${userId}`} passHref>
-                <MenuItem as="a">
-                  {' '}
-                  <Avatar
-                    name={name}
-                    src={photoUrl}
-                    width={6}
-                    height={6}
-                    mr={2}
-                  >
-                    <AvatarBadge borderWidth={2} />
-                  </Avatar>
-                  {'  '}
-                  View profile
+          <HStack>
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                icon={<FontAwesomeIcon icon={faEllipsisV} size="lg" />}
+                size={'sm'}
+                backgroundColor={'transparent'}
+              ></MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => onToggleBlockUser()}>
+                  🛡️ Block user
                 </MenuItem>
-              </NextLink>
-            </MenuList>
-          </Menu>
+                <NextLink href={`/home?profileId=${userId}`} passHref>
+                  <MenuItem as="a">
+                    {' '}
+                    <Avatar
+                      name={name}
+                      src={photoUrl}
+                      width={6}
+                      height={6}
+                      mr={2}
+                    >
+                      <AvatarBadge borderWidth={2} />
+                    </Avatar>
+                    {'  '}
+                    View profile
+                  </MenuItem>
+                </NextLink>
+              </MenuList>
+            </Menu>
+            <IconButton
+              size={'sm'}
+              icon={<FontAwesomeIcon icon={faClose} />}
+              aria-label="retour"
+              onClick={onCloseChat}
+            />
+          </HStack>
         </Flex>
       </Flex>
       <Divider borderColor={'gray.300'} boxShadow={'base'} />
