@@ -107,11 +107,11 @@ const Profile = ({ userId }: Props) => {
   const renderMap = useMemo(() => {
     if (!user || !country) return null
     return (
-      <Suspense fallback={<div>Chargement de la carte...</div>}>
+      <Suspense fallback={<div>{t('form.loading')}</div>}>
         <MapProfile user={user} country={country} />
       </Suspense>
     )
-  }, [country, user])
+  }, [country, t, user])
 
   const renderLanguages = useMemo(() => {
     if (!user) return null

@@ -202,9 +202,7 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
               </Flex>
             )}
 
-            {userTarget?.isOnline && (
-              <Badge colorScheme="green">En ligne</Badge>
-            )}
+            {userTarget?.isOnline && <Badge colorScheme="green">Online</Badge>}
           </Flex>
           <Flex alignItems={'center'} justifyContent={'space-between'} mb={'3'}>
             {userTarget?.updatedAt && (
