@@ -73,7 +73,7 @@ const Footer = () => {
         </HStack>
       </Flex>
       <Box bg={'gray.900'} color={'gray.400'} p={4}>
-        <Text fontSize="sm">&copy; 2021 PenpalMap. All rights reserved</Text>
+        <Text fontSize="sm">&copy; 2021 MeetMapper. All rights reserved</Text>
       </Box>
     </Box>
   )

@@ -104,7 +104,7 @@
     "seeDetails": "查看详情",
     "text1": "无论您身在何处，都可以与世界各地的朋友建立联系。无论您身在何处，都可以交友、学习语言并发现新文化。",
     "text2": "PenpalMap是一款即时通讯应用程序，可与世界各地的人进行交流。无论您是在旅行、在外出差还是在家，您都可以随时随地安全地访问PenpalMap。",
-    "meetPeople": "在 PenpalMap 上展开发现世界的冒险吧！无需离开沙发，就能结识来自全球各地的人。你是否梦想与澳大利亚冲浪者聊天，与墨西哥人分享玉米饼配方，或者与地球另一端的人讨论你最喜爱的剧集的最新一集？一切皆有可能！在 PenpalMap 上，没有界限，只有发现新文化和建立真实联系的乐趣。那么，你准备好从屏幕开始一场冒险了吗？",
+    "meetPeople": "在 MeetMapper 上展开发现世界的冒险吧！无需离开沙发，就能结识来自全球各地的人。你是否梦想与澳大利亚冲浪者聊天，与墨西哥人分享玉米饼配方，或者与地球另一端的人讨论你最喜爱的剧集的最新一集？一切皆有可能！在 MeetMapper 上，没有界限，只有发现新文化和建立真实联系的乐趣。那么，你准备好从屏幕开始一场冒险了吗？",
     "taglineActions": "与全世界的朋友联系，无论您身在何处，学习语言并发现新文化",
     "learnMore": "了解更多",
     "aroundTheWorld": "环游世界",
@@ -116,10 +116,10 @@
     "beautifulCommunity": "美丽的社区",
     "beautifulCommunityText": "成为 PenPalMap 上温暖关爱的社区的一部分，您可以在这里交流想法、分享经验并与全球各地的人建立持久的友谊。",
     "manyPeopleMeet": "有这么多人可以认识",
-    "isWorldwide": "Penpalmap 是全球性的",
+    "isWorldwide": "Meetmapper 是全球性的",
     "whatOurOthersSay": "我们的用户说什么",
     "letsCreateProfile": "创建个人资料，开始与人交往",
-    "startJourney": "开始 Penpalmap 之旅",
+    "startJourney": "开始 Meetmapper 之旅",
     "taglineBeforeFriends": "与来自全世界的 ",
     "taglineFriends": "朋友们",
     "taglineAfterFriends": " 连接，无论您身在何处。"
@@ -169,7 +169,7 @@
   },
   "legal": {
     "legalNoticeTitle": "Legal Notice",
-    "companyName": "Penpalmap.com",
+    "companyName": "Meetmapper.com",
     "companyEmail": "Email: contact@penpalmap.com",
     "domainEstablished": "The domain name www.penpalmap.com was established on September 15, 2018.",
     "disclaimer": "DISCLAIMER",
@@ -294,33 +294,33 @@
   },
   "title": {
     "about": {
-      "index": "PenpalMap - 关于我们"
+      "index": "MeetMapper - 关于我们"
     },
     "auth": {
-      "forgotPassword": "PenpalMap - 忘记密码",
-      "resetPassword": "PenpalMap - 重置密码",
-      "signin": "PenpalMap - 登录",
-      "signup": "PenpalMap - 注册"
+      "forgotPassword": "MeetMapper - 忘记密码",
+      "resetPassword": "MeetMapper - 重置密码",
+      "signin": "MeetMapper - 登录",
+      "signup": "MeetMapper - 注册"
     },
     "contact": {
-      "index": "PenpalMap - 联系我们"
+      "index": "MeetMapper - 联系我们"
     },
     "home": {
       "profile": {
-        "profileId": "PenpalMap - 个人资料"
+        "profileId": "MeetMapper - 个人资料"
       },
-      "index": "PenpalMap"
+      "index": "MeetMapper"
     },
     "legalnotice": {
-      "index": "PenpalMap - 法律声明"
+      "index": "MeetMapper - 法律声明"
     },
     "settings": {
-      "index": "PenpalMap - 设置"
+      "index": "MeetMapper - 设置"
     },
     "terms": {
-      "index": "PenpalMap - 使用条款"
+      "index": "MeetMapper - 使用条款"
     },
-    "index": "PenpalMap - 无论你身在何处，与世界各地的朋友连接",
-    "createProfile": "PenpalMap - 创建你的个人资料"
+    "index": "MeetMapper - 无论你身在何处，与世界各地的朋友连接",
+    "createProfile": "MeetMapper - 创建你的个人资料"
   }
 }

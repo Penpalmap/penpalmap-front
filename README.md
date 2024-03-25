@@ -1,8 +1,8 @@
-# Penpalmap-front
+# Meetmapper-front
 
 ## About penpalmap-front
 
-UI for Penpalmap project. Based on Next.js and Chakra UI.
+UI for Meetmapper project. Based on Next.js and Chakra UI.
 
 ## Prerequisites
 
@@ -27,14 +27,14 @@ To run `penpalmap-front`, ensure your system has the following:
    docker compose up -d
    ```
 
-   > **NOTE 1**: Docker images of Penpalmap API are stored in Github Container Registry (GHCR).
+   > **NOTE 1**: Docker images of Meetmapper API are stored in Github Container Registry (GHCR).
    > To pull the images, you need to create a `personal access token (classic)` with at least `read:packages` scope (See [Login to GHCR](https://docs.github.com/packages/working-with-a-github-packages-registry/working-with-the-container-registry)). Then, login to GHCR using the following command:
    >
    > ```bash
    > docker login ghcr.io -u <github-username> -p <access-token>
    > ```
 
-   > **NOTE 2**: To pull new Penpalmap API versions, run `docker compose pull` before `docker compose up -d`.
+   > **NOTE 2**: To pull new Meetmapper API versions, run `docker compose pull` before `docker compose up -d`.
 
 4. **Starting the app**: To start the server in development mode, run:
    ```bash
@@ -49,7 +49,7 @@ To run `penpalmap-front`, ensure your system has the following:
    docker build -t penpalmap-front:latest .
    ```
 
-2. **Running the app**: To run Penpalmap front in production mode, use:
+2. **Running the app**: To run Meetmapper front in production mode, use:
 
    ```bash
    docker run --env-file /path/to/env/file -p 3000:3000 penpalmap-front:latest
@@ -66,7 +66,7 @@ Here are the main source code folders of the project:
 - **styles**: Openlayer styles and custom theme for Chakra UI.
 - **public**: Static public files (images, polices, etc.).
 - **utils**: Useful functions and tools.
-- **api**: Penpalmap API related files.
+- **api**: Meetmapper API related files.
 - **context**: Global React context.
 - **hooks**: Custom React hooks.
 - **types**: Typescript type definitions.

@@ -14,7 +14,7 @@ const Loading = () => {
       <Box>
         <Image
           src="/images/AnimatedLogo.gif"
-          alt="PenpalMap Logo"
+          alt="MeetMapper Logo"
           boxSize="28"
         />
         <Text fontSize="lg" textAlign="center">

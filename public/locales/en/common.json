@@ -1,6 +1,6 @@
 {
   "connect": {
-    "connection": "login at PenpalMap!",
+    "connection": "login at MeetMapper!",
     "login-google": "Connnect with Google",
     "mail": "E-mail",
     "password": "Password",
@@ -26,9 +26,9 @@
     "month": "Month",
     "year": "Year",
     "heyExplorer": "Hey, explorer! 🚸",
-    "less12": "Just a heads-up: To journey in PenpalMap, you need to be at least 12 years old. Stay safe and enjoy the adventure! 🌍✨ Curious about the rules? Check our",
+    "less12": "Just a heads-up: To journey in MeetMapper, you need to be at least 12 years old. Stay safe and enjoy the adventure! 🌍✨ Curious about the rules? Check our",
     "more12part1": "🚸 Hey there, young explorer! Just a heads-up: there are adults on this app. Always stay safe and be cautious. 🛡️ Need more info? Check our",
-    "more12part2": ". If something feels off, don&apos;t hesitate to reach out to the PenpalMap team! 💌",
+    "more12part2": ". If something feels off, don&apos;t hesitate to reach out to the MeetMapper team! 💌",
     "editImage": "Edit image",
     "toastLocationOut": "Oops! It seems you're in the middle of nowhere. Time to bring out your imaginary passport and explore the 'Land of Nowhere'! 🌍✈️",
     "selectALanguage": "Select a language",
@@ -44,8 +44,8 @@
     "AcceptClose": "Accept and close",
     "validateTerms": "Terms of Use",
     "seeTerms": "See Terms of Use",
-    "conditionsPart1": "Penpalmap collects your data to provide you with its services and assistance, ensure the proper functioning of the application, send you promotional content as well as that of its partners, and conduct studies and statistics.",
-    "conditionsPart2": "These information are intended for Penpalmap and its collaborators located inside and outside the EU. You have the right to access, rectify, and delete information about you and, where applicable, the right to object, portability of your data, limitation of processing, and finally the possibility of defining directives regarding the sorting of your data after death. Without your consent, your account cannot be created.",
+    "conditionsPart1": "Meetmapper collects your data to provide you with its services and assistance, ensure the proper functioning of the application, send you promotional content as well as that of its partners, and conduct studies and statistics.",
+    "conditionsPart2": "These information are intended for Meetmapper and its collaborators located inside and outside the EU. You have the right to access, rectify, and delete information about you and, where applicable, the right to object, portability of your data, limitation of processing, and finally the possibility of defining directives regarding the sorting of your data after death. Without your consent, your account cannot be created.",
     "conditionsPart3": "By clicking 'I accept the conditions', you consent to the use of cookies to optimize the user experience, improve the website, and the web application.",
     "validateConnections": "I accept the conditions",
     "close": "Close",
@@ -91,20 +91,20 @@
     "othergender": "Other"
   },
   "presentation": {
-    "devise1": "\"Here at PenpalMap, we aren't about quick swipes...",
+    "devise1": "\"Here at MeetMapper, we aren't about quick swipes...",
     "devise2": "About learning, connecting, and growing - no matter the distance.\"",
     "mapTitle": "Interactive Map",
     "mapText": "Explore our interactive map to discover pen pals from around the world. Find friends across continents and connect with a diversity of cultures and perspectives.",
     "chatTitle": "Instant Messaging",
     "chatText": "Our instant messaging brings you closer to friends, whether you're on the go, traveling, or simply at home. Communicate in real-time with pen pals from around the world.",
     "securityTitle": "Security and Kindness",
-    "securityText": "At PenpalMap, your security and well-being are our priority. We have implemented robust security measures to ensure a safe and kind online experience. Connect with confidence!",
-    "whyPenpalmapTitle": "Why PenpalMap?",
-    "whyPenpalmapText": "PenpalMap reinvents penpalling with a focus on simplicity, community, and exploration. Unlike other platforms, our service is completely free. No more need for physical letters or outdated correspondence methods. We break down barriers, allowing you to connect instantly with friends from around the globe. Our interactive map is at the heart of the experience, making it easy to discover penpals worldwide. Explore, learn, and build friendships without borders. With PenpalMap, your international adventure begins here. Join us and explore the world with new and exciting friends!",
+    "securityText": "At MeetMapper, your security and well-being are our priority. We have implemented robust security measures to ensure a safe and kind online experience. Connect with confidence!",
+    "whyPenpalmapTitle": "Why MeetMapper?",
+    "whyPenpalmapText": "MeetMapper reinvents penpalling with a focus on simplicity, community, and exploration. Unlike other platforms, our service is completely free. No more need for physical letters or outdated correspondence methods. We break down barriers, allowing you to connect instantly with friends from around the globe. Our interactive map is at the heart of the experience, making it easy to discover penpals worldwide. Explore, learn, and build friendships without borders. With MeetMapper, your international adventure begins here. Join us and explore the world with new and exciting friends!",
     "seeDetails": "See Details",
     "text1": "Connect with friends from around the world, wherever you are. Make friends, learn languages, and explore new cultures no matter your location.",
-    "text2": "PenpalMap is an instant messaging application that allows you to chat with people from around the world. Whether you're traveling, on the go, or at home, you can access PenpalMap anytime, anywhere, securely.",
-    "meetPeople": "Dive into an adventure to discover the world on PenpalMap! Meet people from all corners of the planet without leaving your sofa. Whether you dream of chatting with an Australian surfer, sharing a taco recipe with someone from Mexico, or simply debating the latest episode of your favorite series with someone on the other side of the planet, anything is possible! On PenpalMap, there are no borders, only the pleasure of discovering new cultures and forging authentic bonds. So, are you ready to embark on an adventure from your screen?",
+    "text2": "MeetMapper is an instant messaging application that allows you to chat with people from around the world. Whether you're traveling, on the go, or at home, you can access MeetMapper anytime, anywhere, securely.",
+    "meetPeople": "Dive into an adventure to discover the world on MeetMapper! Meet people from all corners of the planet without leaving your sofa. Whether you dream of chatting with an Australian surfer, sharing a taco recipe with someone from Mexico, or simply debating the latest episode of your favorite series with someone on the other side of the planet, anything is possible! On MeetMapper, there are no borders, only the pleasure of discovering new cultures and forging authentic bonds. So, are you ready to embark on an adventure from your screen?",
     "taglineBeforeFriends": "Connect with ",
     "taglineFriends": "friends",
     "taglineAfterFriends": " from all over the world, wherever you are.",
@@ -119,10 +119,10 @@
     "beautifulCommunity": "Beautiful community",
     "beautifulCommunityText": "Be part of a warm and caring community on PenPalMap, where you can exchange ideas, share experiences and create lasting friendships across the globe.",
     "manyPeopleMeet": "So many people to meet",
-    "isWorldwide": "Penpalmap is worldwide",
+    "isWorldwide": "Meetmapper is worldwide",
     "whatOurOthersSay": "What our users say",
     "letsCreateProfile": "Let's create a profile and start meeting people",
-    "startJourney": "Start the journey of Penpalmap"
+    "startJourney": "Start the journey of Meetmapper"
   },
   "footer": {
     "terms": "Terms of use",
@@ -169,7 +169,7 @@
   },
   "legal": {
     "legalNoticeTitle": "Legal Notice",
-    "companyName": "Penpalmap.com",
+    "companyName": "Meetmapper.com",
     "companyEmail": "Email: contact@penpalmap.com",
     "domainEstablished": "The domain name www.penpalmap.com was established on September 15, 2018.",
     "disclaimer": "DISCLAIMER",
@@ -297,33 +297,33 @@
   },
   "title": {
     "about": {
-      "index": "PenpalMap - About us"
+      "index": "MeetMapper - About us"
     },
     "auth": {
-      "forgotPassword": "PenpalMap - Forgot password",
-      "resetPassword": "PenpalMap - Reset password",
-      "signin": "PenpalMap - Sign in",
-      "signup": "PenpalMap - Sign up"
+      "forgotPassword": "MeetMapper - Forgot password",
+      "resetPassword": "MeetMapper - Reset password",
+      "signin": "MeetMapper - Sign in",
+      "signup": "MeetMapper - Sign up"
     },
     "contact": {
-      "index": "PenpalMap - Contact us"
+      "index": "MeetMapper - Contact us"
     },
     "home": {
       "profile": {
-        "profileId": "PenpalMap - Profile"
+        "profileId": "MeetMapper - Profile"
       },
-      "index": "PenpalMap"
+      "index": "MeetMapper"
     },
     "legalnotice": {
-      "index": "PenpalMap - Legal Notice"
+      "index": "MeetMapper - Legal Notice"
     },
     "settings": {
-      "index": "PenpalMap - Settings"
+      "index": "MeetMapper - Settings"
     },
     "terms": {
-      "index": "PenpalMap - Terms of use"
+      "index": "MeetMapper - Terms of use"
     },
-    "index": "PenpalMap - Connect with friends from around the world, wherever you are",
-    "createProfile": "PenpalMap - Create your profile"
+    "index": "MeetMapper - Connect with friends from around the world, wherever you are",
+    "createProfile": "MeetMapper - Create your profile"
   }
 }

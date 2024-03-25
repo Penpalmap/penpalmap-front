@@ -1,6 +1,6 @@
 apiVersion: v2
 name: penpalmap-front
-description: Penpalmap frontend official Helm chart
+description: Meetmapper frontend official Helm chart
 type: application
 version: 0.109.0
-appVersion: "0.109.0"
+appVersion: '0.109.0'

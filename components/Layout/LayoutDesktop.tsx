@@ -11,7 +11,7 @@ const LayoutDesktop = () => {
     <>
       <Head>
         <title>
-          {!isUnreadMessages ? `PenpalMap` : `New Message! PenpalMap`}
+          {!isUnreadMessages ? `MeetMapper` : `New Message! MeetMapper`}
         </title>
       </Head>
       <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>

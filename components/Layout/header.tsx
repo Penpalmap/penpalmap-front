@@ -78,7 +78,7 @@ const Header = () => {
             <Flex alignItems={'center'} padding={'0.4rem'}>
               <Image src={'/images/logo.webp'} alt={'logo'} w={'8'} h={'8'} />
               <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
-                PenpalMap
+                MeetMapper
               </Text>
             </Flex>
           </Link>

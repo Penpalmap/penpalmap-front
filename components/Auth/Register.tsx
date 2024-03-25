@@ -102,7 +102,7 @@ const Register = () => {
             <Box key={index} flex="0 0 auto">
               <Image
                 src="/images/LandingMapLight.webp"
-                alt="PenpalMap"
+                alt="MeetMapper"
                 height="100%"
                 width="auto"
                 aspectRatio={'auto'}
@@ -131,7 +131,7 @@ const Register = () => {
         >
           <Image
             src="/images/AnimatedLogo.gif"
-            alt="PenpalMap Logo"
+            alt="MeetMapper Logo"
             boxSize="28"
           />
           <Heading as="h1" size="lg" mb={6}>

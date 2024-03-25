@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
   return (
     <>
       <Head>
-        <title>Penpalmap</title>
+        <title>Meetmapper</title>
       </Head>
       <ChakraProvider theme={customTheme}>
         <GoogleOAuthProvider

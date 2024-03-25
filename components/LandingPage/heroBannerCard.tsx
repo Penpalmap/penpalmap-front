@@ -42,7 +42,7 @@ const HeroBannerCard = () => {
           <Box key={index} flex="0 0 auto">
             <Image
               src="/images/LandingMapLight.webp"
-              alt="PenpalMap"
+              alt="MeetMapper"
               height="100%"
               width="auto"
               aspectRatio={'auto'}

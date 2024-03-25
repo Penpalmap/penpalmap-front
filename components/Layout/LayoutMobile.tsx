@@ -21,7 +21,7 @@ const LayoutMobile = () => {
   return (
     <>
       <Head>
-        <title>PenpalMap</title>
+        <title>MeetMapper</title>
         <meta
           name="viewport"
           content="width=device-width, user-scalable=no"

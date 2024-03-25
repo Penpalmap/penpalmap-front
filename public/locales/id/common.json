@@ -1,6 +1,6 @@
 {
   "connect": {
-    "connection": "masuk di PenpalMap!",
+    "connection": "masuk di MeetMapper!",
     "login-google": "Hubungkan dengan Google",
     "mail": "E-mail",
     "password": "Kata sandi",
@@ -26,9 +26,9 @@
     "month": "Bulan",
     "year": "Tahun",
     "heyExplorer": "Hai, petualang! 🚸",
-    "less12": "Hanya sebagai peringatan: Untuk berpetualang di PenpalMap, kamu harus berusia minimal 12 tahun. Tetap aman dan nikmati petualangan ini! 🌍✨ Ingin tahu aturannya? Lihat di",
+    "less12": "Hanya sebagai peringatan: Untuk berpetualang di MeetMapper, kamu harus berusia minimal 12 tahun. Tetap aman dan nikmati petualangan ini! 🌍✨ Ingin tahu aturannya? Lihat di",
     "more12part1": "🚸 Hai, penjelajah muda! Hanya sebagai peringatan: ada orang dewasa di aplikasi ini. Selalu berhati-hati dan aman. 🛡️ Butuh informasi lebih lanjut? Lihat di",
-    "more12part2": ". Jika ada yang terasa aneh, jangan ragu untuk menghubungi tim PenpalMap! 💌",
+    "more12part2": ". Jika ada yang terasa aneh, jangan ragu untuk menghubungi tim MeetMapper! 💌",
     "editImage": "Edit gambar",
     "toastLocationOut": "Oops! Sepertinya kamu tidak berada dimanapun. Waktunya keluarkan passport imajinermu dan jelajahi 'Land of Nowhere' 🌍✈️",
     "selectALanguage": "Pilih bahasa",
@@ -44,8 +44,8 @@
     "AcceptClose": "Terima dan tutup",
     "validateTerms": "Syarat Penggunaan",
     "seeTerms": "Lihat Syarat Penggunaan",
-    "conditionsPart1": "Penpalmap mengumpulkan datamu untuk menyediakan layanan dan bantuan, memastikan fungsi aplikasi yang tepat, mengirimkan konten promosi dan konten mitra, serta melakukan studi dan statistik.",
-    "conditionsPart2": "Informasi ini ditujukan untuk Penpalmap dan para kolaborator yang berada di dalam dan di luar UE. Kamu memiliki hak untuk mengakses, memperbaiki, dan menghapus informasi tentangmu dan jika berlaku, hak untuk keberatan, portabilitas datamu, pembatasan pemrosesan, dan kemungkinan menetapkan ahli waris jika sesuatu yang tidak diinginkan terjadi. Tanpa persetujuanmu, akunmu tidak dapat dibuat.",
+    "conditionsPart1": "Meetmapper mengumpulkan datamu untuk menyediakan layanan dan bantuan, memastikan fungsi aplikasi yang tepat, mengirimkan konten promosi dan konten mitra, serta melakukan studi dan statistik.",
+    "conditionsPart2": "Informasi ini ditujukan untuk Meetmapper dan para kolaborator yang berada di dalam dan di luar UE. Kamu memiliki hak untuk mengakses, memperbaiki, dan menghapus informasi tentangmu dan jika berlaku, hak untuk keberatan, portabilitas datamu, pembatasan pemrosesan, dan kemungkinan menetapkan ahli waris jika sesuatu yang tidak diinginkan terjadi. Tanpa persetujuanmu, akunmu tidak dapat dibuat.",
     "conditionsPart3": "Dengan mengklik 'Menerima syarat', Kamu memberikan persetujuan untuk menggunakan cookies untuk mengoptimalkan pengalaman pengguna, meningkatkan situs web, dan aplikasi web.",
     "validateConnections": "Terima syarat",
     "close": "Tutup",
@@ -91,20 +91,20 @@
     "othergender": "Lainnya"
   },
   "presentation": {
-    "devise1": "\"Di PenpalMap, bukan hanya tentang swipe...",
+    "devise1": "\"Di MeetMapper, bukan hanya tentang swipe...",
     "devise2": "Tentang belajar, terhubung, dan berkembang - tidak peduli jaraknya.\"",
     "mapTitle": "Peta Interaktif",
     "mapText": "Jelajahi peta interaktif kami untuk menemukan teman pena dari seluruh dunia. Temukan teman di berbagai benua dan terhubung dengan beragam budaya dan sudut pandang.",
     "chatTitle": "Pesan Instan",
     "chatText": "Pesan instan kami membawamu lebih dekat ke teman, baik kamu sedang bepergian, berwisata, atau hanya di rumah. Berkomunikasi secara real-time dengan teman pena dari seluruh dunia.",
     "securityTitle": "Keamanan dan Kebijakan",
-    "securityText": "Di PenpalMap, keamanan dan kesejahteraanmu adalah prioritas kami. Kami telah menerapkan langkah-langkah keamanan yang kokoh untuk memastikan pengalaman online yang aman dan baik. Terhubunglah dengan percaya diri!",
-    "whyPenpalmapTitle": "Mengapa PenpalMap?",
-    "whyPenpalmapText": "PenpalMap menciptakan kembali penpalling dengan fokus pada kesederhanaan, komunitas, dan eksplorasi. Berbeda dengan platform lain, layanan kami sepenuhnya gratis. Tidak perlu lagi surat fisik atau metode korespondensi kuno. Kami menghilangkan hambatan, memungkinkanmu terhubung secara instan dengan teman dari seluruh dunia. Peta interaktif kami berada di inti pengalaman, memudahkan penemuan teman pena di seluruh dunia. Jelajahi, pelajari, dan bangun persahabatan tanpa batas. Dengan PenpalMap, petualangan internasionalmu dimulai di sini. Bergabunglah dengan kami dan jelajahi dunia dengan teman baru dan menarik!",
+    "securityText": "Di MeetMapper, keamanan dan kesejahteraanmu adalah prioritas kami. Kami telah menerapkan langkah-langkah keamanan yang kokoh untuk memastikan pengalaman online yang aman dan baik. Terhubunglah dengan percaya diri!",
+    "whyPenpalmapTitle": "Mengapa MeetMapper?",
+    "whyPenpalmapText": "MeetMapper menciptakan kembali penpalling dengan fokus pada kesederhanaan, komunitas, dan eksplorasi. Berbeda dengan platform lain, layanan kami sepenuhnya gratis. Tidak perlu lagi surat fisik atau metode korespondensi kuno. Kami menghilangkan hambatan, memungkinkanmu terhubung secara instan dengan teman dari seluruh dunia. Peta interaktif kami berada di inti pengalaman, memudahkan penemuan teman pena di seluruh dunia. Jelajahi, pelajari, dan bangun persahabatan tanpa batas. Dengan MeetMapper, petualangan internasionalmu dimulai di sini. Bergabunglah dengan kami dan jelajahi dunia dengan teman baru dan menarik!",
     "seeDetails": "Lihat Detail",
     "text1": "Terhubunglah dengan teman dari seluruh dunia, di mana pun Anda berada. Bertemanlah, pelajari bahasa, dan jelajahi budaya baru tanpa memandang lokasimu.",
-    "text2": "PenpalMap adalah aplikasi pesan instan yang memungkinkan kamu berbincang dengan orang-orang dari seluruh dunia. Baik kamu sedang bepergian, dalam perjalanan, atau di rumah, kamu dapat mengakses PenpalMap kapan saja, di mana saja, dengan aman.",
-    "meetPeople": "Telusuri petualangan untuk menemukan dunia di PenpalMap! Temui orang-orang dari segala penjuru planet tanpa meninggalkan sofa Anda. Apakah Anda bermimpi berbincang-bincang dengan peselancar Australia, berbagi resep taco dengan seseorang dari Meksiko, atau hanya berdebat tentang episode terbaru dari seri favorit Anda dengan seseorang di sisi lain planet, segalanya mungkin! Di PenpalMap, tidak ada batasan, hanya kesenangan menemukan budaya baru dan membentuk ikatan yang autentik. Jadi, apakah Anda siap untuk memulai petualangan dari layar Anda?",
+    "text2": "MeetMapper adalah aplikasi pesan instan yang memungkinkan kamu berbincang dengan orang-orang dari seluruh dunia. Baik kamu sedang bepergian, dalam perjalanan, atau di rumah, kamu dapat mengakses MeetMapper kapan saja, di mana saja, dengan aman.",
+    "meetPeople": "Telusuri petualangan untuk menemukan dunia di MeetMapper! Temui orang-orang dari segala penjuru planet tanpa meninggalkan sofa Anda. Apakah Anda bermimpi berbincang-bincang dengan peselancar Australia, berbagi resep taco dengan seseorang dari Meksiko, atau hanya berdebat tentang episode terbaru dari seri favorit Anda dengan seseorang di sisi lain planet, segalanya mungkin! Di MeetMapper, tidak ada batasan, hanya kesenangan menemukan budaya baru dan membentuk ikatan yang autentik. Jadi, apakah Anda siap untuk memulai petualangan dari layar Anda?",
     "taglineBeforeFriends": "Terhubung dengan ",
     "taglineFriends": "teman-teman",
     "taglineAfterFriends": " dari seluruh dunia, di mana pun Anda berada.",
@@ -119,10 +119,10 @@
     "beautifulCommunity": "Komunitas yang indah",
     "beautifulCommunityText": "Jadilah bagian dari komunitas hangat dan peduli di PenPalMap, di mana Anda dapat bertukar pikiran, berbagi pengalaman, dan menciptakan persahabatan abadi di seluruh dunia.",
     "manyPeopleMeet": "Banyak orang untuk ditemui",
-    "isWorldwide": "Penpalmap adalah worldwide",
+    "isWorldwide": "Meetmapper adalah worldwide",
     "whatOurOthersSay": "Apa yang dikatakan pengguna kami",
     "letsCreateProfile": "Mari buat profil dan mulai bertemu orang",
-    "startJourney": "Mulai perjalanan Penpalmap"
+    "startJourney": "Mulai perjalanan Meetmapper"
   },
   "footer": {
     "terms": "Syarat Penggunaan",
@@ -169,7 +169,7 @@
   },
   "legal": {
     "legalNoticeTitle": "Pemberitahuan Hukum",
-    "companyName": "Penpalmap.com",
+    "companyName": "Meetmapper.com",
     "companyEmail": "Email: contact@penpalmap.com",
     "domainEstablished": "Nama domain www.penpalmap.com didirikan pada 15 September 2018.",
     "disclaimer": "PENOLAKAN",
@@ -296,33 +296,33 @@
   },
   "title": {
     "about": {
-      "index": "PenpalMap - Tentang Kami"
+      "index": "MeetMapper - Tentang Kami"
     },
     "auth": {
-      "forgotPassword": "PenpalMap - Lupa Kata Sandi",
-      "resetPassword": "PenpalMap - Atur Ulang Kata Sandi",
-      "signin": "PenpalMap - Masuk",
-      "signup": "PenpalMap - Daftar"
+      "forgotPassword": "MeetMapper - Lupa Kata Sandi",
+      "resetPassword": "MeetMapper - Atur Ulang Kata Sandi",
+      "signin": "MeetMapper - Masuk",
+      "signup": "MeetMapper - Daftar"
     },
     "contact": {
-      "index": "PenpalMap - Hubungi Kami"
+      "index": "MeetMapper - Hubungi Kami"
     },
     "home": {
       "profile": {
-        "profileId": "PenpalMap - Profil"
+        "profileId": "MeetMapper - Profil"
       },
-      "index": "PenpalMap"
+      "index": "MeetMapper"
     },
     "legalnotice": {
-      "index": "PenpalMap - Pemberitahuan Hukum"
+      "index": "MeetMapper - Pemberitahuan Hukum"
     },
     "settings": {
-      "index": "PenpalMap - Pengaturan"
+      "index": "MeetMapper - Pengaturan"
     },
     "terms": {
-      "index": "PenpalMap - Syarat Penggunaan"
+      "index": "MeetMapper - Syarat Penggunaan"
     },
-    "index": "PenpalMap - Terhubung dengan teman dari seluruh dunia, di mana pun Anda berada",
-    "createProfile": "PenpalMap - Buat Profil Anda"
+    "index": "MeetMapper - Terhubung dengan teman dari seluruh dunia, di mana pun Anda berada",
+    "createProfile": "MeetMapper - Buat Profil Anda"
   }
 }

@@ -1,6 +1,6 @@
 {
   "connect": {
-    "connection": "bei PenpalMap anmelden!",
+    "connection": "bei MeetMapper anmelden!",
     "login-google": "Mit Google anmelden",
     "mail": "E-Mail-Adresse",
     "password": "Passwort",
@@ -26,9 +26,9 @@
     "month": "Monat",
     "year": "Jahr",
     "heyExplorer": "Hey, Entdecker! 🚸",
-    "less12": "Nur eine Warnung: Um auf PenpalMap zu reisen, musst du mindestens 12 Jahre alt sein. Bleib sicher und genieße das Abenteuer! 🌍✨ Fragst du dich, welche Regeln gelten? Schau in unsere",
+    "less12": "Nur eine Warnung: Um auf MeetMapper zu reisen, musst du mindestens 12 Jahre alt sein. Bleib sicher und genieße das Abenteuer! 🌍✨ Fragst du dich, welche Regeln gelten? Schau in unsere",
     "more12part1": "🚸 Hallo! Nur eine Warnung: Es gibt Erwachsene in dieser Anwendung. Bleib immer sicher und sei vorsichtig. 🛡️ Brauchst du weitere Informationen? Schau in unsere",
-    "more12part2": ". Wenn etwas seltsam erscheint, zögere nicht, das PenpalMap-Team zu kontaktieren! 💌",
+    "more12part2": ". Wenn etwas seltsam erscheint, zögere nicht, das MeetMapper-Team zu kontaktieren! 💌",
     "editImage": "Bild bearbeiten",
     "toastLocationOut": "Hoppla! Es scheint, als wärst du mitten im Nirgendwo. Es ist Zeit, deinen imaginären Reisepass herauszuholen und das 'Land des Nirgendwo' zu erkunden! 🌍✈️",
     "selectALanguage": "Wähle eine Sprache",
@@ -44,8 +44,8 @@
     "AcceptClose": "Akzeptieren und schließen",
     "validateTerms": "Nutzungsbedingungen",
     "seeTerms": "Nutzungsbedingungen anzeigen",
-    "conditionsPart1": "Penpalmap sammelt Ihre Daten, um Ihnen seine Dienste und Unterstützung bereitzustellen, den ordnungsgemäßen Betrieb der Anwendung zu gewährleisten, Ihnen Werbeinhalte sowie die seiner Partner zu senden und Studien und Statistiken durchzuführen.",
-    "conditionsPart2": "Diese Informationen sind für Penpalmap und seine Mitarbeiter innerhalb und außerhalb der EU bestimmt. Sie haben das Recht auf Zugang, Berichtigung und Löschung von Informationen über Sie und gegebenenfalls das Recht auf Widerspruch, Portabilität Ihrer Daten, Beschränkung der Verarbeitung und schließlich die Möglichkeit, Anweisungen zur Sortierung Ihrer Daten nach dem Tod zu definieren. Ohne Ihre Zustimmung kann kein Konto erstellt werden.",
+    "conditionsPart1": "Meetmapper sammelt Ihre Daten, um Ihnen seine Dienste und Unterstützung bereitzustellen, den ordnungsgemäßen Betrieb der Anwendung zu gewährleisten, Ihnen Werbeinhalte sowie die seiner Partner zu senden und Studien und Statistiken durchzuführen.",
+    "conditionsPart2": "Diese Informationen sind für Meetmapper und seine Mitarbeiter innerhalb und außerhalb der EU bestimmt. Sie haben das Recht auf Zugang, Berichtigung und Löschung von Informationen über Sie und gegebenenfalls das Recht auf Widerspruch, Portabilität Ihrer Daten, Beschränkung der Verarbeitung und schließlich die Möglichkeit, Anweisungen zur Sortierung Ihrer Daten nach dem Tod zu definieren. Ohne Ihre Zustimmung kann kein Konto erstellt werden.",
     "conditionsPart3": "Durch Klicken auf 'Ich akzeptiere die Bedingungen' stimmen Sie der Verwendung von Cookies zur Optimierung der Benutzererfahrung, zur Verbesserung der Website und der Webanwendung zu.",
     "validateConnections": "Ich akzeptiere die Bedingungen",
     "close": "Schließen",
@@ -91,20 +91,20 @@
     "othergender": "Andere"
   },
   "presentation": {
-    "devise1": "\"Bei PenpalMap sind wir nicht hier für flüchtige Interaktionen...",
+    "devise1": "\"Bei MeetMapper sind wir nicht hier für flüchtige Interaktionen...",
     "devise2": "sondern um zu lernen, zu verbinden und sich weiterzuentwickeln, egal wie weit die Entfernung ist.\"",
     "mapTitle": "Interaktive Karte",
     "mapText": "Erkunde unsere interaktive Karte, um Korrespondenten auf der ganzen Welt zu entdecken. Finde Freunde über die Kontinente hinweg und verbinde dich mit einer Vielfalt von Kulturen und Perspektiven.",
     "chatTitle": "Sofortnachrichten",
     "chatText": "Unsere Sofortnachrichten bringen dich näher an deine Freunde, egal ob du unterwegs bist, auf Reisen oder einfach zu Hause. Kommuniziere in Echtzeit mit Korrespondenten aus der ganzen Welt.",
     "securityTitle": "Sicherheit und Fürsorge",
-    "securityText": "Bei PenpalMap haben deine Sicherheit und dein Wohlbefinden oberste Priorität. Wir haben robuste Sicherheitsmaßnahmen implementiert, um dir ein sicheres und fürsorgliches Online-Erlebnis zu bieten. Verbinde dich mit Vertrauen!",
-    "whyPenpalmapTitle": "Warum PenpalMap?",
-    "whyPenpalmapText": "PenpalMap revolutioniert die Korrespondenz, indem es den Fokus auf Einfachheit, Gemeinschaft und Erkundung legt. Im Gegensatz zu anderen Plattformen ist unser Service vollständig kostenlos. Keine Notwendigkeit für physische Briefe oder veraltete Korrespondenzmethoden. Wir beseitigen die Barrieren, damit du dich sofort mit Freunden auf der ganzen Welt verbinden kannst. Unsere interaktive Karte steht im Mittelpunkt des Erlebnisses und erleichtert das Entdecken von Korrespondenten auf der ganzen Welt. Entdecke, lerne und baue grenzenlose Freundschaften auf. Mit PenpalMap beginnt dein internationales Abenteuer hier. Schließe dich uns an und entdecke die Welt mit neuen und aufregenden Freunden!",
+    "securityText": "Bei MeetMapper haben deine Sicherheit und dein Wohlbefinden oberste Priorität. Wir haben robuste Sicherheitsmaßnahmen implementiert, um dir ein sicheres und fürsorgliches Online-Erlebnis zu bieten. Verbinde dich mit Vertrauen!",
+    "whyPenpalmapTitle": "Warum MeetMapper?",
+    "whyPenpalmapText": "MeetMapper revolutioniert die Korrespondenz, indem es den Fokus auf Einfachheit, Gemeinschaft und Erkundung legt. Im Gegensatz zu anderen Plattformen ist unser Service vollständig kostenlos. Keine Notwendigkeit für physische Briefe oder veraltete Korrespondenzmethoden. Wir beseitigen die Barrieren, damit du dich sofort mit Freunden auf der ganzen Welt verbinden kannst. Unsere interaktive Karte steht im Mittelpunkt des Erlebnisses und erleichtert das Entdecken von Korrespondenten auf der ganzen Welt. Entdecke, lerne und baue grenzenlose Freundschaften auf. Mit MeetMapper beginnt dein internationales Abenteuer hier. Schließe dich uns an und entdecke die Welt mit neuen und aufregenden Freunden!",
     "seeDetails": "Details anzeigen",
     "text1": "Verbinde dich mit Freunden auf der ganzen Welt, egal wo du gerade bist. Knüpfe Freundschaften, lerne Sprachen und entdecke neue Kulturen, ganz gleich, wo du dich befindest.",
-    "text2": "PenpalMap ist eine Instant-Messaging-App, mit der du mit Menschen auf der ganzen Welt chatten kannst. Egal, ob du auf Reisen bist, unterwegs oder zu Hause, du kannst jederzeit und überall sicher auf PenpalMap zugreifen.",
-    "meetPeople": "Tauche ein in ein Abenteuer, um die Welt auf PenpalMap zu entdecken! Treffe Menschen aus allen Ecken des Planeten, ohne dein Sofa zu verlassen. Ob du davon träumst, mit einem australischen Surfer zu plaudern, ein Rezept für Tacos mit einem Mexikaner zu teilen oder einfach nur über die neueste Folge deiner Lieblingsserie mit jemandem auf der anderen Seite des Planeten zu diskutieren – alles ist möglich! Auf PenpalMap gibt es keine Grenzen, nur das Vergnügen, neue Kulturen zu entdecken und authentische Bindungen zu knüpfen. Also, bist du bereit, dich von deinem Bildschirm aus auf ein Abenteuer zu begeben?",
+    "text2": "MeetMapper ist eine Instant-Messaging-App, mit der du mit Menschen auf der ganzen Welt chatten kannst. Egal, ob du auf Reisen bist, unterwegs oder zu Hause, du kannst jederzeit und überall sicher auf MeetMapper zugreifen.",
+    "meetPeople": "Tauche ein in ein Abenteuer, um die Welt auf MeetMapper zu entdecken! Treffe Menschen aus allen Ecken des Planeten, ohne dein Sofa zu verlassen. Ob du davon träumst, mit einem australischen Surfer zu plaudern, ein Rezept für Tacos mit einem Mexikaner zu teilen oder einfach nur über die neueste Folge deiner Lieblingsserie mit jemandem auf der anderen Seite des Planeten zu diskutieren – alles ist möglich! Auf MeetMapper gibt es keine Grenzen, nur das Vergnügen, neue Kulturen zu entdecken und authentische Bindungen zu knüpfen. Also, bist du bereit, dich von deinem Bildschirm aus auf ein Abenteuer zu begeben?",
     "taglineBeforeFriends": "Verbinde dich mit ",
     "taglineFriends": "Freunden",
     "taglineAfterFriends": " aus der ganzen Welt, egal wo du bist.",
@@ -119,10 +119,10 @@
     "beautifulCommunity": "Schöne Gemeinschaft",
     "beautifulCommunityText": "Werden Sie Teil einer warmen und fürsorglichen Gemeinschaft auf PenPalMap, wo Sie Ideen austauschen, Erfahrungen teilen und dauerhafte Freundschaften auf der ganzen Welt schließen können.",
     "manyPeopleMeet": "So viele Leute kennenlernen",
-    "isWorldwide": "Penpalmap ist weltweit",
+    "isWorldwide": "Meetmapper ist weltweit",
     "whatOurOthersSay": "Was unsere Benutzer sagen",
     "letsCreateProfile": "Lassen Sie uns ein Profil erstellen und Menschen treffen",
-    "startJourney": "Beginnen Sie die Reise von Penpalmap"
+    "startJourney": "Beginnen Sie die Reise von Meetmapper"
   },
   "footer": {
     "terms": "Nutzungsbedingungen",
@@ -169,7 +169,7 @@
   },
   "legal": {
     "legalNoticeTitle": "Legal Notice",
-    "companyName": "Penpalmap.com",
+    "companyName": "Meetmapper.com",
     "companyEmail": "Email: contact@penpalmap.com",
     "domainEstablished": "The domain name www.penpalmap.com was established on September 15, 2018.",
     "disclaimer": "DISCLAIMER",
@@ -295,33 +295,33 @@
   },
   "title": {
     "about": {
-      "index": "PenpalMap - Über uns"
+      "index": "MeetMapper - Über uns"
     },
     "auth": {
-      "forgotPassword": "PenpalMap - Passwort vergessen",
-      "resetPassword": "PenpalMap - Passwort zurücksetzen",
-      "signin": "PenpalMap - Anmelden",
-      "signup": "PenpalMap - Registrieren"
+      "forgotPassword": "MeetMapper - Passwort vergessen",
+      "resetPassword": "MeetMapper - Passwort zurücksetzen",
+      "signin": "MeetMapper - Anmelden",
+      "signup": "MeetMapper - Registrieren"
     },
     "contact": {
-      "index": "PenpalMap - Kontaktiere uns"
+      "index": "MeetMapper - Kontaktiere uns"
     },
     "home": {
       "profile": {
-        "profileId": "PenpalMap - Profil"
+        "profileId": "MeetMapper - Profil"
       },
-      "index": "PenpalMap"
+      "index": "MeetMapper"
     },
     "legalnotice": {
-      "index": "PenpalMap - Impressum"
+      "index": "MeetMapper - Impressum"
     },
     "settings": {
-      "index": "PenpalMap - Einstellungen"
+      "index": "MeetMapper - Einstellungen"
     },
     "terms": {
-      "index": "PenpalMap - Nutzungsbedingungen"
+      "index": "MeetMapper - Nutzungsbedingungen"
     },
-    "index": "PenpalMap - Verbinde dich mit Freunden aus der ganzen Welt, wo immer du bist",
-    "createProfile": "PenpalMap - Erstelle dein Profil"
+    "index": "MeetMapper - Verbinde dich mit Freunden aus der ganzen Welt, wo immer du bist",
+    "createProfile": "MeetMapper - Erstelle dein Profil"
   }
 }

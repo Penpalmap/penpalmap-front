@@ -18,7 +18,7 @@ export default function TermsOfUse() {
           Generalities
         </Heading>
         <Text mb="3">
-          PenpalMap provides a platform enabling individuals from all over the
+          MeetMapper provides a platform enabling individuals from all over the
           world to connect and communicate. We value and uphold your privacy,
           ensuring you can interact with other members on our platform. By
           posting or uploading content potentially protected by intellectual
@@ -31,24 +31,24 @@ export default function TermsOfUse() {
         </Heading>
         <List spacing={2}>
           <ListItem>
-            Photo Upload: As a PenpalMap user, you&apos;re allowed to upload
+            Photo Upload: As a MeetMapper user, you&apos;re allowed to upload
             personal photos to complete your profile. These photos can be
             centered on a specific part of the image according to your choice,
             and you can upload several to display on your profile.
           </ListItem>
           <ListItem>
             Photo Ownership: As a user, you certify that you hold all necessary
-            rights for photos you upload to PenpalMap.
+            rights for photos you upload to MeetMapper.
           </ListItem>
           <ListItem>
-            Photo License: When uploading a photo, you grant PenpalMap a
+            Photo License: When uploading a photo, you grant MeetMapper a
             non-exclusive, transferable, sublicensable, free, worldwide license
             to use, reproduce, distribute, and display this photo in relation to
-            PenpalMap&apos;s services.
+            MeetMapper&apos;s services.
           </ListItem>
           <ListItem>
             Prohibition of Scraping: It&apos;s strictly forbidden to scrape or
-            download photos of other PenpalMap users without their explicit
+            download photos of other MeetMapper users without their explicit
             consent.
           </ListItem>
           <ListItem>
@@ -72,7 +72,7 @@ export default function TermsOfUse() {
           Accounts
         </Heading>
         <Text mb="3">
-          You can register as a member of the PenpalMap community. Follow the
+          You can register as a member of the MeetMapper community. Follow the
           respective instructions during registration. An user account can be
           created with a personal email address.
         </Text>
@@ -81,7 +81,7 @@ export default function TermsOfUse() {
           Termination
         </Heading>
         <Text mb="3">
-          PenpalMap may terminate your access to all or part of the PenpalMap
+          MeetMapper may terminate your access to all or part of the MeetMapper
           services at any time, with or without reason, with or without notice,
           effective immediately. If you wish to terminate this agreement or your
           account, you can delete your account from your account profile
@@ -93,7 +93,7 @@ export default function TermsOfUse() {
         </Heading>
         <Text mb="3">
           The website and mobile applications are provided &quot;as is&quot;.
-          PenpalMap disclaims all responsibility for the accuracy, quality,
+          MeetMapper disclaims all responsibility for the accuracy, quality,
           completeness, reliability, or credibility of the content.
         </Text>
 
@@ -101,20 +101,20 @@ export default function TermsOfUse() {
           Privacy
         </Heading>
         <Text mb="3">
-          PenpalMap gives top priority to user information protection.
+          MeetMapper gives top priority to user information protection.
         </Text>
 
         <Heading mb="2" as="h2" size="md">
           Modifications
         </Heading>
         <Text mb="3">
-          PenpalMap reserves the right to change the terms of use with
+          MeetMapper reserves the right to change the terms of use with
           appropriate notice of at least six weeks.
         </Text>
 
         <Box mt="5">
           <Link href="/privacy-policy" color="blue.500">
-            For more details, refer to PenpalMap&quot;s Privacy Policy.
+            For more details, refer to MeetMapper&quot;s Privacy Policy.
           </Link>
         </Box>
       </Box>
