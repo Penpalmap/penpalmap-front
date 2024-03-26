@@ -10,9 +10,9 @@ const HeaderLandingPage = () => {
         <Flex alignItems={'center'} padding={'0.4rem'}>
           <Image src={'/images/logo.webp'} alt={'logo'} w={'8'} h={'8'} />
           <Box display={'contents'} fontSize={'x-large'} fontWeight={'bold'}>
-            <Text ml={2}>Penpal</Text>
+            <Text ml={2}>Meet</Text>
             <Text as={'span'} color={'teal.400'}>
-              Map
+              Mapper
             </Text>
           </Box>
         </Flex>
