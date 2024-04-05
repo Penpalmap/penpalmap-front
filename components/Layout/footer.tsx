@@ -20,9 +20,9 @@ const Footer = () => {
           <Flex mb={8}>
             <Image src="/images/logo.webp" alt="pen" h={42} />
             <Box display={'contents'} fontSize={'x-large'} fontWeight={'bold'}>
-              <Text ml={2}>Penpal</Text>
+              <Text ml={2}>Meet</Text>
               <Text as={'span'} color={'teal.400'}>
-                Map
+                Mapper
               </Text>
             </Box>
           </Flex>
