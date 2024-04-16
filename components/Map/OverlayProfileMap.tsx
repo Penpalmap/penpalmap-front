@@ -36,6 +36,7 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
   const [appData, setAppData] = useContext(AppContext)
 
   const { userTarget } = appData
+  console.log('userTarget', userTarget)
   const { user } = useSession()
   const { country } = useLocation(
     userTarget?.geom?.coordinates?.[1],
@@ -126,7 +127,7 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
               left="0"
             />
             <Image
-              src={userTarget?.userImages[currentImageIndex]?.src}
+              src={userTarget?.image}
               h={'100%'}
               alt={userTarget?.name}
               borderLeftRadius={'10px'}
