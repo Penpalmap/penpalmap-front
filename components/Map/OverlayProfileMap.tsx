@@ -11,8 +11,6 @@ import {
 } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faChevronLeft,
-  faChevronRight,
   faLocationDot,
   faMessage,
   faUser,
@@ -73,36 +71,36 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
     setMobileView('chat')
   }
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const nextImage = () => {
-    if (
-      userTarget &&
-      userTarget.userImages &&
-      userTarget.userImages.length > 1
-    ) {
-      const lastIndex = userTarget.userImages.length - 1
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === lastIndex ? 0 : prevIndex + 1
-      )
-    }
-  }
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  // const nextImage = () => {
+  //   if (
+  //     userTarget &&
+  //     userTarget.userImages &&
+  //     userTarget.userImages.length > 1
+  //   ) {
+  //     const lastIndex = userTarget.userImages.length - 1
+  //     setCurrentImageIndex((prevIndex) =>
+  //       prevIndex === lastIndex ? 0 : prevIndex + 1
+  //     )
+  //   }
+  // }
 
-  const prevImage = () => {
-    if (
-      userTarget &&
-      userTarget.userImages &&
-      userTarget.userImages.length > 1
-    ) {
-      const lastIndex = userTarget.userImages.length - 1
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === 0 ? lastIndex : prevIndex - 1
-      )
-    }
-  }
+  // const prevImage = () => {
+  //   if (
+  //     userTarget &&
+  //     userTarget.userImages &&
+  //     userTarget.userImages.length > 1
+  //   ) {
+  //     const lastIndex = userTarget.userImages.length - 1
+  //     setCurrentImageIndex((prevIndex) =>
+  //       prevIndex === 0 ? lastIndex : prevIndex - 1
+  //     )
+  //   }
+  // }
 
-  useEffect(() => {
-    setCurrentImageIndex(0)
-  }, [userTarget])
+  // useEffect(() => {
+  //   setCurrentImageIndex(0)
+  // }, [userTarget])
 
   return (
     <Flex
