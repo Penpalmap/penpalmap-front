@@ -27,6 +27,7 @@ import { useRoom } from '../../context/RoomsContext'
 import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 import LoggedInDate from '../Profile/loggedInDate'
+import useGenderFolder from '../../hooks/useGenderFolder'
 
 type OverlayProfileMapProps = {
   closeOverlay: () => void
@@ -41,10 +42,8 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
     userTarget?.geom?.coordinates?.[1],
     userTarget?.geom?.coordinates?.[0]
   )
-  const genderFolder =
-    userTarget?.gender === 'man' || userTarget?.gender === 'woman'
-      ? userTarget?.gender
-      : 'other'
+
+  const { genderFolder } = useGenderFolder(userTarget?.gender ?? '')
 
   const { setMobileView } = useMobileView()
 
