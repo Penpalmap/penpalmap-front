@@ -36,7 +36,6 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
   const [appData, setAppData] = useContext(AppContext)
 
   const { userTarget } = appData
-  console.log('userTarget', userTarget)
   const { user } = useSession()
   const { country } = useLocation(
     userTarget?.geom?.coordinates?.[1],
