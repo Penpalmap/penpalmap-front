@@ -37,6 +37,9 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
   const [appData, setAppData] = useContext(AppContext)
 
   const { userTarget } = appData
+  console.log('userTarget images : ', userTarget?.userImages)
+  console.log('userTarget image : ', userTarget?.image)
+
   const { user } = useSession()
   const { country } = useLocation(
     userTarget?.geom?.coordinates?.[1],
@@ -115,7 +118,7 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
       <Flex position="relative" alignItems="center" h="100%">
         {userTarget?.userImages && userTarget.userImages.length > 1 ? (
           <>
-            <IconButton
+            {/* <IconButton
               onClick={prevImage}
               aria-label="Previous"
               icon={<FontAwesomeIcon icon={faChevronLeft} />}
@@ -123,14 +126,17 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
               fontSize="10px"
               position="absolute"
               left="0"
-            />
+            /> */}
             <Image
-              src={userTarget?.image}
+              src={
+                userTarget?.userImages?.find((image) => image.position === 1)
+                  ?.src
+              }
               h={'100%'}
               alt={userTarget?.name}
               borderLeftRadius={'10px'}
             />
-            <Flex
+            {/* <Flex
               justifyContent="center"
               mt="2"
               position={'absolute'}
@@ -150,8 +156,8 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
                   onClick={() => setCurrentImageIndex(index)}
                 />
               ))}
-            </Flex>
-            <IconButton
+            </Flex> */}
+            {/* <IconButton
               onClick={nextImage}
               aria-label="Next"
               icon={<FontAwesomeIcon icon={faChevronRight} />}
@@ -159,12 +165,12 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
               fontSize="10px"
               position="absolute"
               right="0"
-            />
+            /> */}
           </>
         ) : (
           <Image
             src={
-              userTarget?.userImages?.find((img) => img.position === 0)?.src ??
+              userTarget?.image ??
               `/images/avatar/${genderFolder}/${userTarget?.avatarNumber}.png`
             }
             w={'100%'}
