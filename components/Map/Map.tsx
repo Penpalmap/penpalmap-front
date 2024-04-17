@@ -4,8 +4,10 @@ import useMap from '../../hooks/useMap'
 import OverlayProfileMap from './OverlayProfileMap'
 import { useCallback } from 'react'
 import SearchAndZoom from './SearchAndZoom'
+import { useMobileView } from '../../context/MobileViewContext'
 
 const Map = () => {
+  const { isMobile, setMobileView } = useMobileView()
   const { mapContainerRef, mapObj, overlayRef } = useMap({
     center: [0, 0],
     zoom: 2,
@@ -23,7 +25,7 @@ const Map = () => {
         <SearchAndZoom mapObj={mapObj} />
         <Box
           ref={mapContainerRef}
-          h="calc(100vh - 4rem)"
+          h={!isMobile ? 'calc(100vh - 4rem)' : 'calc(100vh - 7rem)'}
           w="full"
           className="map"
           bg="#8CBBD4"

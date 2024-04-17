@@ -71,15 +71,18 @@ const Header = () => {
         top={0}
         width={'100%'}
         backgroundColor={'white'}
-        h={'4rem'}
+        h={isMobile ? '3.5rem' : '4rem'}
       >
         <Flex alignItems={'center'}>
           <Link href={`/`} onClick={() => setMobileView('home')}>
             <Flex alignItems={'center'} padding={'0.4rem'}>
               <Image src={'/images/logo.webp'} alt={'logo'} w={'8'} h={'8'} />
-              <Text fontSize={'xl'} fontWeight={'bold'} ml={2}>
-                MeetMapper
-              </Text>
+              <Box display={'contents'} fontSize={'xl'} fontWeight={'bold'}>
+                <Text ml={2}>Meet</Text>
+                <Text as={'span'} color={'teal.400'}>
+                  Mapper
+                </Text>
+              </Box>
             </Flex>
           </Link>
           {!isMobile && (

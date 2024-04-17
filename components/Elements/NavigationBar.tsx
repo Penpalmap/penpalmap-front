@@ -10,14 +10,13 @@ const NavigationBar = () => {
 
   return (
     <Flex
-      position="fixed"
       bottom="0"
       left="0"
       right="0"
       bg="white"
       justify="space-around"
       align="center"
-      h={16}
+      h={'3.5rem'}
       boxShadow="0px -2px 5px rgba(0, 0, 0, 0.1)"
     >
       <Flex direction={'column'} onClick={() => setMobileView('home')} gap={2}>
