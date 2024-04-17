@@ -7,7 +7,7 @@ import SearchAndZoom from './SearchAndZoom'
 import { useMobileView } from '../../context/MobileViewContext'
 
 const Map = () => {
-  const { isMobile, setMobileView } = useMobileView()
+  const { isMobile } = useMobileView()
   const { mapContainerRef, mapObj, overlayRef } = useMap({
     center: [0, 0],
     zoom: 2,
