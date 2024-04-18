@@ -278,6 +278,7 @@
   "profil": {
     "photos": "Photos",
     "addPhotos": "Add photos",
+    "imagesInfo": "If you dont have any photos, you will have an avatar image",
     "description": "Description",
     "SeeTheProfile": "See the profile",
     "EnterDescription": "Enter a description",

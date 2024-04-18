@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react'
 import ImagesUploadGrid from './ImagesUploadGrid'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
-import { Alert, Text, VStack, useDisclosure } from '@chakra-ui/react'
+import { Alert, Icon, Text, VStack, useDisclosure } from '@chakra-ui/react'
 import {
   deleteProfileImage,
   reorderProfileImages,
 } from '../../api/user/userApi'
+import { useTranslation } from 'next-i18next'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   images: UserImage[]
@@ -19,6 +21,8 @@ const ProfileImage = ({ images }: Props) => {
   const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useSession()
+
+  const { t } = useTranslation('common')
 
   const { uploadImage, isLoading, error } = useUploadUserImage()
   useEffect(() => {
@@ -70,7 +74,7 @@ const ProfileImage = ({ images }: Props) => {
   }
 
   return (
-    <VStack>
+    <VStack maxW={'90%'}>
       <ModalImageCropped
         isOpen={isOpen}
         onClose={onClose}
@@ -88,6 +92,12 @@ const ProfileImage = ({ images }: Props) => {
       {error && (
         <Alert status="error" mt={4}>
           <Text fontSize="sm">{error}</Text>
+        </Alert>
+      )}
+
+      {croppedImages.length === 0 && (
+        <Alert status="info" mt={4} my={4}>
+          <Text fontSize="sm">{t('profil.imagesInfo')}</Text>
         </Alert>
       )}
     </VStack>
