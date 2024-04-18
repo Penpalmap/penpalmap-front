@@ -27,7 +27,13 @@ const LayoutMobile = () => {
           content="width=device-width, user-scalable=no"
         ></meta>
       </Head>
-      <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
+      <Box
+        w={'full'}
+        h={'full'}
+        display={'flex'}
+        position={'relative'}
+        flexDir={'column'}
+      >
         <Box flex={1}>
           {mobileView === 'home' && <Map />}
           {mobileView === 'conversations' && <ConversationList />}
