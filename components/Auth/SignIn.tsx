@@ -20,7 +20,6 @@ import axios from 'axios'
 import { GoogleLogin } from '@react-oauth/google'
 import { useSession } from '../../hooks/useSession'
 import Input from '../Elements/Input'
-import RGPDNotice from '../Elements/rgpdNotice'
 import { useRouter } from 'next/router'
 
 interface LoginFormData {
@@ -73,7 +72,6 @@ const SignIn = () => {
   }
   return (
     <>
-      <RGPDNotice />
       <Box position="relative" height={'100vh'} overflow="hidden">
         <Box
           position={'absolute'}

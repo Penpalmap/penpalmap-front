@@ -14,6 +14,7 @@ import Head from 'next/head'
 import { Modal } from '../../components/Elements/Modal'
 import { useTranslation } from 'next-i18next'
 import { loggingSocket } from '../../sockets/socketManager'
+import RGPDNotice from '../../components/Elements/rgpdNotice'
 
 export default function HomePage() {
   const { t } = useTranslation('common')
@@ -41,6 +42,7 @@ export default function HomePage() {
 
   return (
     <>
+      <RGPDNotice />
       <Head>
         <title>{t('title.home.index')}</title>
         <meta

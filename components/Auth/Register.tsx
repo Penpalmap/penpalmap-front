@@ -22,7 +22,6 @@ import Input from '../Elements/Input'
 import { GoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import RGPDNotice from '../Elements/rgpdNotice'
 import { RegisterDto } from '../../api/auth/authDto'
 
 const Register = () => {
@@ -81,7 +80,6 @@ const Register = () => {
   }
   return (
     <>
-      <RGPDNotice />
       <Box position="relative" height={'100vh'} overflow="hidden">
         <Box
           position={'absolute'}
