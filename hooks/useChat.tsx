@@ -43,7 +43,7 @@ const useChat = () => {
           order: 'DESC',
         })
 
-        setMessages(messagesData.data.toReversed())
+        setMessages(messagesData.data.reverse())
       }
     }
 
