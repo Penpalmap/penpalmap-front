@@ -74,7 +74,10 @@ const Header = () => {
         h={isMobile ? '3.5rem' : '4rem'}
       >
         <Flex alignItems={'center'}>
-          <Link href={`/`} onClick={() => setMobileView('home')}>
+          <Link
+            href={status === 'authenticated' ? `/home` : '/'}
+            onClick={() => setMobileView('home')}
+          >
             <Flex alignItems={'center'} padding={'0.4rem'}>
               <Image src={'/images/logo.webp'} alt={'logo'} w={'8'} h={'8'} />
               <Box display={'contents'} fontSize={'xl'} fontWeight={'bold'}>
