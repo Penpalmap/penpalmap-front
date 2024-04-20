@@ -61,42 +61,42 @@ export const SessionProvider = ({ children }) => {
     return !paths.includes(pathname)
   }
 
-  // useEffect(() => {
-  //   const setAuthStatus = async () => {
-  //     const accessToken = localStorage.getItem('accessToken')
-  //     const refreshToken = localStorage.getItem('refreshToken')
+  useEffect(() => {
+    const setAuthStatus = async () => {
+      const accessToken = localStorage.getItem('accessToken')
+      const refreshToken = localStorage.getItem('refreshToken')
 
-  //     if (accessToken && refreshToken) {
-  //       const decoded: { exp: number; userId: string } = jwtDecode(accessToken)
+      if (accessToken && refreshToken) {
+        const decoded: { exp: number; userId: string } = jwtDecode(accessToken)
 
-  //       if (decoded.exp * 1000 < Date.now()) {
-  //         setStatus('unauthenticated')
-  //       } else {
-  //         try {
-  //           const userData = await getUserById(decoded.userId)
-  //           setUser(userData)
-  //           setStatus('authenticated')
-  //         } catch (err) {
-  //           logout()
-  //         }
-  //       }
-  //     } else {
-  //       setStatus('unauthenticated')
-  //     }
-  //   }
+        if (decoded.exp * 1000 < Date.now()) {
+          setStatus('unauthenticated')
+        } else {
+          try {
+            const userData = await getUserById(decoded.userId)
+            setUser(userData)
+            setStatus('authenticated')
+          } catch (err) {
+            logout()
+          }
+        }
+      } else {
+        setStatus('unauthenticated')
+      }
+    }
 
-  //   setAuthStatus()
+    setAuthStatus()
 
-  //   if (status === 'unauthenticated' && isAuthRoute(router.pathname)) {
-  //     router.push('/auth/signin')
-  //   } else if (
-  //     status === 'authenticated' &&
-  //     user?.isNewUser &&
-  //     router.pathname !== '/create-profile'
-  //   ) {
-  //     router.push('/create-profile')
-  //   }
-  // }, [logout, router, status, user?.isNewUser])
+    if (status === 'unauthenticated' && isAuthRoute(router.pathname)) {
+      router.push('/auth/signin')
+    } else if (
+      status === 'authenticated' &&
+      user?.isNewUser &&
+      router.pathname !== '/create-profile'
+    ) {
+      router.push('/create-profile')
+    }
+  }, [logout, router, status, user?.isNewUser])
 
   return (
     <SessionContext.Provider
