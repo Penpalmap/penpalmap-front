@@ -16,13 +16,13 @@ const registerUser = async (user: RegisterDto): Promise<TokenSetDto> => {
   return response.data
 }
 
-const reinitializePassword = async ({ email }: ForgotPasswordDto) => {
+const reinitializePassword = async (data: ForgotPasswordDto) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`,
-      { email }
+      data
     )
-    return response.data
+    return response
   } catch (error) {
     return error.response.data
   }

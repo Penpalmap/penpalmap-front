@@ -13,7 +13,8 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { resetPassword, verifyResetPasswordToken } from '../../api/auth/authApi'
+import { resetPassword } from '../../api/auth/authApi'
+import axios from 'axios'
 
 const ResetPassword = () => {
   const router = useRouter()
@@ -37,10 +38,9 @@ const ResetPassword = () => {
   const verifyToken = useCallback(
     async (token) => {
       try {
-        const verifyResult = await verifyResetPasswordToken(token)
-        if (!verifyResult.success) {
-          router.push('/home')
-        }
+        await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify-token-password?token=${token}`
+        )
       } catch (error) {
         console.error(error)
         router.push('/home')
