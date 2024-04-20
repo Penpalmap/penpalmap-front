@@ -38,13 +38,15 @@ export function useRoom() {
 
 export const RoomProvider = ({ children }: RoomProviderProps) => {
   const [rooms, setRooms] = useState<Room[]>([])
-  const [isUnreadMessages, setUnreadMessages] = useState<boolean>(false)
+  const [isUnreadMessages, setIsUnreadMessages] = useState<boolean>(false)
 
   const { user } = useSession()
   const [appData] = useContext(AppContext)
 
   const fetchUserRooms = useCallback(async () => {
     if (!user?.id) return
+
+    setRooms([])
     const roomsData = await getRooms({ userIds: [user.id] })
 
     const roomsArray: Room[] = []
@@ -121,7 +123,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     const hasUnreadMessages = rooms.some((room) => room.isUnreadMessages)
 
     // Update the state based on the result
-    setUnreadMessages(hasUnreadMessages)
+    setIsUnreadMessages(hasUnreadMessages)
   }, [rooms])
 
   useEffect(() => {
