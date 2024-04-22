@@ -98,8 +98,6 @@ export const SessionProvider = ({ children }) => {
     }
   }, [logout, router, status, user?.isNewUser])
 
-  //
-
   return (
     <SessionContext.Provider
       value={{

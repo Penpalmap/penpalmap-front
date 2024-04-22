@@ -13,8 +13,8 @@ import {
   AlertIcon,
   AlertTitle,
 } from '@chakra-ui/react'
-import { reinitializePassword } from '../../api/auth/authApi'
 import { useTranslation } from 'next-i18next'
+import axios from 'axios'
 
 const ForgotPassword = () => {
   const { register, handleSubmit } = useForm()
@@ -23,13 +23,25 @@ const ForgotPassword = () => {
   const [error, setError] = useState('')
   const { t } = useTranslation('common')
 
-  const onSubmit = async (data) => {
-    const response = await reinitializePassword(data.email)
-    if (response.success === true) {
-      setMessage(response.message)
+  const onSubmit = async (data, event) => {
+    event.preventDefault() // Empêche la soumission par défaut (rechargement de la page)
+    try {
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgot-password`,
+        data
+      )
+      setMessage(
+        'Un email vous a été envoyé pour réinitialiser votre mot de passe.'
+      )
       setError('')
-    } else {
-      setError(response.message)
+    } catch (error) {
+      if (error.response.data.message) {
+        setError(error.response.data.message)
+      } else {
+        setError(
+          'Une erreur est survenue. Veuillez essayer de nouveau plus tard.'
+        )
+      }
       setMessage('')
     }
   }

@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react'
 import ImagesUploadGrid from './ImagesUploadGrid'
 import ModalImageCropped from '../Image/ModalImageCropped'
 import useUploadUserImage from '../../hooks/useUploadUserImage'
-import { Alert, Icon, Text, VStack, useDisclosure } from '@chakra-ui/react'
+import { Alert, Text, VStack, useDisclosure } from '@chakra-ui/react'
 import {
   deleteProfileImage,
   reorderProfileImages,
 } from '../../api/user/userApi'
 import { useTranslation } from 'next-i18next'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   images: UserImage[]

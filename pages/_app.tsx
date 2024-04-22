@@ -9,6 +9,8 @@ import { appWithTranslation } from 'next-i18next'
 import { MobileViewProvider } from '../context/MobileViewContext'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import Head from 'next/head'
+import { GoogleTagManager } from '@next/third-parties/google'
+
 // import '../i18n' // Assurez-vous que votre configuration i18n est chargée ici
 
 function MyApp({ Component, pageProps: { ...pageProps } }) {
@@ -17,6 +19,7 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
     <>
       <Head>
         <title>Meetmapper</title>
+        <GoogleTagManager gtmId={process.env.GTM_ID as string} />
       </Head>
       <ChakraProvider theme={customTheme}>
         <GoogleOAuthProvider
