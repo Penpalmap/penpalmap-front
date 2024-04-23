@@ -48,7 +48,7 @@ const ProfileLocationInput = (props: Props) => {
   }
 
   return (
-    <Box w={'xl'} display={'flex'} flexDirection={'column'}>
+    <Box display={'flex'} flexDirection={'column'}>
       <Box h={['250px', 'md']} w={'100%'} mb={4}>
         <MapInput onCoordinatesChange={handleClicked} />
       </Box>
@@ -60,10 +60,8 @@ const ProfileLocationInput = (props: Props) => {
           display={'Flex'}
           justifyContent={'center'}
         >
-          <Text fontSize={'xl'} mr={2}>
-            {t('connect.youAreIn')}
-          </Text>
-          <Text as="span" color="#189AB4" fontSize="xl">
+          <Text mr={2}>{t('connect.youAreIn')}</Text>
+          <Text as="span" color="#189AB4">
             {countryName}
           </Text>
         </Box>

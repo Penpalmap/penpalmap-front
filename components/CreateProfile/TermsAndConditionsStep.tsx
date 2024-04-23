@@ -7,7 +7,7 @@ const TermsAndConditionsStep: React.FC = () => {
   const { t } = useTranslation('common')
 
   return (
-    <Box textAlign={'center'} maxW={'4xl'} overflowY={'scroll'}>
+    <Box>
       <Text>{t('connect.conditionsPart1')}</Text>
       <br />
       <Text>{t('connect.conditionsPart2')}</Text>
