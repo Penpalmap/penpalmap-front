@@ -79,9 +79,20 @@ const ImagesUploadGrid = ({
     for (let i = 0; i < numberEmptyImages; i++) {
       blockInput.push(
         <Flex
-          key={i}
-          w={'200px'}
-          h={'200px'}
+          w={{
+            base: '150px',
+            sm: '180px',
+            md: '200px',
+            lg: '250px',
+            xl: '300px',
+          }}
+          h={{
+            base: '150px',
+            sm: '180px',
+            md: '200px',
+            lg: '250px',
+            xl: '300px',
+          }}
           bg={'gray.100'}
           borderRadius={'lg'}
           display={'flex'}
@@ -93,16 +104,16 @@ const ImagesUploadGrid = ({
         >
           <Flex
             position={'absolute'}
-            bottom={4}
-            right={4}
-            background={'teal.400'}
-            padding={2}
-            w={'30px'}
-            h={'30px'}
+            bottom={2}
+            right={2}
+            bg={'teal.400'}
+            p={2}
+            w={{ base: '20px', sm: '25px', md: '30px', lg: '35px', xl: '40px' }}
+            h={{ base: '20px', sm: '25px', md: '30px', lg: '35px', xl: '40px' }}
             borderRadius={'md'}
             justifyContent={'center'}
             alignItems={'center'}
-            _hover={{ background: 'teal.500' }}
+            _hover={{ bg: 'teal.500' }}
           >
             <FontAwesomeIcon icon={faPlus} color="white" />
           </Flex>

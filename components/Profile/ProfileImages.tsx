@@ -9,7 +9,6 @@ import {
   deleteProfileImage,
   reorderProfileImages,
 } from '../../api/user/userApi'
-import { useTranslation } from 'next-i18next'
 
 type Props = {
   images: UserImage[]
@@ -20,8 +19,6 @@ const ProfileImage = ({ images }: Props) => {
   const [croppedImages, setCroppedImages] = useState<Array<UserImage>>([])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useSession()
-
-  const { t } = useTranslation('common')
 
   const { uploadImage, isLoading, error } = useUploadUserImage()
   useEffect(() => {
@@ -73,7 +70,7 @@ const ProfileImage = ({ images }: Props) => {
   }
 
   return (
-    <VStack maxW={'90%'}>
+    <VStack>
       <ModalImageCropped
         isOpen={isOpen}
         onClose={onClose}
@@ -93,12 +90,12 @@ const ProfileImage = ({ images }: Props) => {
           <Text fontSize="sm">{error}</Text>
         </Alert>
       )}
-
+      {/* 
       {croppedImages.length === 0 && (
         <Alert status="info" mt={4} my={4}>
           <Text fontSize="sm">{t('profil.imagesInfo')}</Text>
         </Alert>
-      )}
+      )} */}
     </VStack>
   )
 }

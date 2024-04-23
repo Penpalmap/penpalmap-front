@@ -160,13 +160,7 @@ const CreateProfile = () => {
   }, [toast, activeStep, setValue, selectedGender, register])
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{
-        height: '100%',
-        overflowX: 'hidden',
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       {loading ? (
         <Loading />
       ) : (
