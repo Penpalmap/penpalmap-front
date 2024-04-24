@@ -6,6 +6,7 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'next-i18next'
+import { useEffect, useState } from 'react'
 
 type LayoutCreationProfileProps = {
   activeStep: number
@@ -24,6 +25,19 @@ const LayoutCreationProfile = ({
   disabled,
   canBeSkipped,
 }: LayoutCreationProfileProps) => {
+  const [viewportHeight, setViewportHeight] = useState('100vh')
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(`${window.innerHeight}px`)
+    }
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const { t } = useTranslation('common')
 
   const steps = [
@@ -40,7 +54,7 @@ const LayoutCreationProfile = ({
     <Flex
       flexDirection={'column'}
       p={8}
-      height="100vh"
+      height={viewportHeight}
       maxW={['100%', 'xl']}
       mx={'auto'}
     >
