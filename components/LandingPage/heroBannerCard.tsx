@@ -10,11 +10,19 @@ import {
 } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { useTranslation } from 'next-i18next'
+import HeroBannerCardMobile from './heroBannerCardMobile'
 
-const HeroBannerCard = () => {
+const HeroBannerCard = ({ isMobile }) => {
   const scrollLeftToRight = keyframes`0% {transform: translateX(-50%);}100% {transform: translateX(0);}`
   const { t } = useTranslation('common')
 
+  if (isMobile) {
+    return (
+      <Box>
+        <HeroBannerCardMobile />
+      </Box>
+    )
+  }
   return (
     <Box
       h={['calc(95vh - 3.5rem)', '700px']}

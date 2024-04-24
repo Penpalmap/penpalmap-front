@@ -6,19 +6,15 @@ import MapInfoPart from '../components/LandingPage/mapInfoPart'
 import TestimonialsPart from '../components/LandingPage/testimonialsPart'
 import CallToAction from '../components/LandingPage/callToAction'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Head from 'next/head'
-import { useTranslation } from 'next-i18next'
+import { useMobileView } from '../context/MobileViewContext'
 
 export default function Home() {
-  const { t } = useTranslation('common')
+  const { isMobile } = useMobileView()
 
   return (
     <>
-      <Head>
-        <title>{t('title.index')}</title>
-      </Head>
-      <Box mx={{ base: 4, md: 'auto' }} maxW={'1800px'}>
-        <HeroBannerCard />
+      <Box height={'full'}>
+        <HeroBannerCard isMobile={isMobile} />
         <InformationsPart />
         <MapInfoPart />
         <WhereIsPart />
@@ -28,7 +24,7 @@ export default function Home() {
         backgroundSize={'cover'}
         pt={{ base: 20, md: 40 }}
       >
-        <Box mx={{ base: 4, md: 'auto' }} maxW={'1800px'}>
+        <Box>
           <TestimonialsPart />
           <CallToAction />
         </Box>
