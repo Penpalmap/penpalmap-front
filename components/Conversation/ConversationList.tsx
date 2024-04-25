@@ -71,9 +71,6 @@ const ConversationList = () => {
       w={{ base: 'full', md: 'xs' }}
       left={0}
       zIndex={1}
-      height={'full'}
-      overflowY={'auto'}
-      maxH={'calc(100vh - 56px)'}
       px={2}
       py={4}
       gap={2}

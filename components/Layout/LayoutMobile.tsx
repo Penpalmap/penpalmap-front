@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import NavigationBar from '../Elements/NavigationBar'
-import { Box } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { useMobileView } from '../../context/MobileViewContext'
 import Map from '../Map/Map'
 import ConversationList from '../Conversation/ConversationList'
@@ -27,14 +27,13 @@ const LayoutMobile = () => {
           content="width=device-width, user-scalable=no"
         ></meta>
       </Head>
-      <Box
+      <Flex
         w={'full'}
-        h={'full'}
-        display={'flex'}
+        h={'calc(100vh - 4rem)'}
         position={'relative'}
         flexDir={'column'}
       >
-        <Box flex={1}>
+        <Box flex={1} overflowY={'auto'}>
           {mobileView === 'home' && <Map />}
           {mobileView === 'conversations' && <ConversationList />}
           {mobileView === 'profile' && user && appData?.userTarget?.id && (
@@ -43,10 +42,12 @@ const LayoutMobile = () => {
           {mobileView === 'settings' && <Settings />}
           <Chat visible={mobileView === 'chat'} />
         </Box>
-        {mobileView !== 'chat' &&
-          mobileView !== 'profile' &&
-          mobileView !== 'settings' && <NavigationBar />}
-      </Box>
+        <Box>
+          {mobileView !== 'chat' &&
+            mobileView !== 'profile' &&
+            mobileView !== 'settings' && <NavigationBar />}
+        </Box>
+      </Flex>
     </>
   )
 }
