@@ -35,8 +35,6 @@ const OverlayProfileMap = ({ closeOverlay }: OverlayProfileMapProps) => {
   const [appData, setAppData] = useContext(AppContext)
 
   const { userTarget } = appData
-  console.log('userTarget images : ', userTarget?.userImages)
-  console.log('userTarget image : ', userTarget?.image)
 
   const { user } = useSession()
   const { country } = useLocation(
