@@ -15,10 +15,10 @@ const HeroBannerCardMobile = () => {
   const { t } = useTranslation('common')
 
   const countries = [
-    t('countriesISO.US'),
-    t('countriesISO.BR'),
+    t('countriesISO.TH'),
+    t('countriesISO.FR'),
     t('countriesISO.IN'),
-    t('countriesISO.JP'),
+    t('countriesISO.IT'),
     t('countriesISO.BR'),
     t('countriesISO.ID'),
   ]
@@ -47,7 +47,7 @@ const HeroBannerCardMobile = () => {
             aspectRatio="auto"
           /> */}
           </div>
-          <Box id="boutons" mt={'85%'}>
+          <Box id="boutons" mt={'90%'}>
             <HStack>
               <Link href="/auth/signup">
                 <Button
