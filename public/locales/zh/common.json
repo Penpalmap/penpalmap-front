@@ -122,7 +122,11 @@
     "startJourney": "开始 Penpalmap 之旅",
     "taglineBeforeFriends": "与来自全世界的 ",
     "taglineFriends": "朋友们",
-    "taglineAfterFriends": " 连接，无论您身在何处。"
+    "taglineAfterFriends": " 连接，无论您身在何处。",
+    "taglineBeforeCountries": "想在您的旅行之前见见人在",
+    "taglineAfterCountries": "使用我们的在线聊天！",
+    "taglineMeet": "见",
+    "taglineTrip": "旅行"
   },
   "footer": {
     "terms": "使用条款",

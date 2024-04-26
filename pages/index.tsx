@@ -15,8 +15,8 @@ export default function Home() {
     <>
       <Box height={'full'}>
         <HeroBannerCard isMobile={isMobile} />
-        {/* <InformationsPart /> */}
-        {/* <MapInfoPart /> */}
+        <InformationsPart />
+        <MapInfoPart />
         {/* <WhereIsPart /> */}
       </Box>
       <Box

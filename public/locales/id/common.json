@@ -122,7 +122,11 @@
     "isWorldwide": "Penpalmap adalah worldwide",
     "whatOurOthersSay": "Apa yang dikatakan pengguna kami",
     "letsCreateProfile": "Mari buat profil dan mulai bertemu orang",
-    "startJourney": "Mulai perjalanan Penpalmap"
+    "startJourney": "Mulai perjalanan Penpalmap",
+    "taglineBeforeCountries": "Ingin bertemu orang-orang sebelum perjalanan Anda di",
+    "taglineAfterCountries": "Gunakan obrolan online kami!",
+    "taglineMeet": "bertemu",
+    "taglineTrip": "perjalanan"
   },
   "footer": {
     "terms": "Syarat Penggunaan",

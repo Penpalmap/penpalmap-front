@@ -122,7 +122,11 @@
     "isWorldwide": "Penpalmap is wereldwijd",
     "whatOurOthersSay": "Wat anderen zeggen",
     "letsCreateProfile": "Laten we een profiel maken en mensen gaan ontmoeten",
-    "startJourney": "Begin de reis van Penpalmap"
+    "startJourney": "Begin de reis van Penpalmap",
+    "taglineBeforeCountries": "Wil je mensen ontmoeten voor je reis in",
+    "taglineAfterCountries": "Gebruik onze online chat!",
+    "taglineMeet": "ontmoeten",
+    "taglineTrip": "reis"
   },
   "footer": {
     "terms": "Gebruiksvoorwaarden",

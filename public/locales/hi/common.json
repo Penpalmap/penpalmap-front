@@ -122,7 +122,11 @@
     "isWorldwide": "Penpalmap विश्वव्यापी है",
     "whatOurOthersSay": "हमारे उपयोगकर्ताओं क्या कहते हैं",
     "letsCreateProfile": "एक प्रोफ़ाइल बनाएं और लोगों से मिलने की शुरुआत करें",
-    "startJourney": "Penpalmap की यात्रा शुरू करें"
+    "startJourney": "Penpalmap की यात्रा शुरू करें",
+    "taglineBeforeCountries": "क्या आप अपने {trip} से पहले लोगों से मिलना चाहते हैं",
+    "taglineAfterCountries": "हमारी ऑनलाइन चैट का उपयोग करें!",
+    "taglineMeet": "मिलना",
+    "taglineTrip": "यात्रा"
   },
   "footer": {
     "terms": "उपयोग की शर्तें",
