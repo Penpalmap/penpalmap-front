@@ -1,7 +1,6 @@
 import { Box } from '@chakra-ui/react'
 import HeroBannerCard from '../components/LandingPage/heroBannerCard'
 import InformationsPart from '../components/LandingPage/informationsPart'
-import WhereIsPart from '../components/LandingPage/whereIsPart'
 import MapInfoPart from '../components/LandingPage/mapInfoPart'
 import TestimonialsPart from '../components/LandingPage/testimonialsPart'
 import CallToAction from '../components/LandingPage/callToAction'
