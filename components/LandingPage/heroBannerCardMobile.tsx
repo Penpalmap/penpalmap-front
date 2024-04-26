@@ -8,11 +8,15 @@ import {
   Text,
   Highlight,
 } from '@chakra-ui/react'
+import { GoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import { ReactTyped } from 'react-typed'
+import { useSession } from '../../hooks/useSession'
 
 const HeroBannerCardMobile = () => {
   const { t } = useTranslation('common')
+  const { login } = useSession()
 
   const countries = [
     t('countriesISO.TH'),
@@ -49,19 +53,23 @@ const HeroBannerCardMobile = () => {
           </div>
           <Box id="boutons" mt={'90%'}>
             <HStack>
-              <Link href="/auth/signup">
-                <Button
-                  width="260px"
-                  variant="solid"
-                  borderRadius="full"
-                  bgColor="white"
-                  shadow="md"
-                  _hover={{ bg: 'teal.400', color: 'white' }}
-                  textTransform="capitalize"
-                >
-                  <Text>Google</Text>
-                </Button>
-              </Link>
+              <GoogleLogin
+                shape="circle"
+                width={'260px'}
+                onSuccess={async (credentialResponse) => {
+                  const response = await axios.post(
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/google`,
+                    {
+                      token: credentialResponse.credential,
+                    }
+                  )
+
+                  login(response.data)
+                }}
+                onError={() => {
+                  console.log('Login Failed')
+                }}
+              />
             </HStack>
             <HStack mt={2}>
               <Link href="/auth/signup">
