@@ -87,7 +87,7 @@ const HeroBannerCardMobile = () => {
         fontWeight={'bold'}
         ml="5"
         mr="5"
-        mb="15"
+        mb="30"
       >
         <Highlight
           query={[t('presentation.taglineMeet'), t('presentation.taglineTrip')]}
@@ -99,6 +99,13 @@ const HeroBannerCardMobile = () => {
         : <br />
         {t('presentation.taglineAfterCountries')}
       </Text>
+      <Image
+        src="/images/lp/HeroBannerHeroGroupes.png"
+        alt="PenpalMap"
+        width="full"
+        aspectRatio="auto"
+        mb={30}
+      />
     </Box>
   )
 }
