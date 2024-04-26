@@ -19,7 +19,7 @@ const HeroBannerCardMobile = () => {
     t('countriesISO.FR'),
     t('countriesISO.IN'),
     t('countriesISO.IT'),
-    t('countriesISO.BR'),
+    t('countriesISO.AU'),
     t('countriesISO.ID'),
   ]
   return (
