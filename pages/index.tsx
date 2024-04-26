@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <Box height={'full'}>
+      <Box>
         <HeroBannerCard isMobile={isMobile} />
         <InformationsPart />
         <MapInfoPart />
