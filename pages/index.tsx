@@ -17,7 +17,6 @@ export default function Home() {
         <HeroBannerCard isMobile={isMobile} />
         <InformationsPart />
         <MapInfoPart />
-        {/* <WhereIsPart /> */}
       </Box>
       <Box
         backgroundImage={'/images/lp/Vector 1.svg'}
