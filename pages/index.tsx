@@ -6,6 +6,7 @@ import TestimonialsPart from '../components/LandingPage/testimonialsPart'
 import CallToAction from '../components/LandingPage/callToAction'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useMobileView } from '../context/MobileViewContext'
+import WhereIsPart from '../components/LandingPage/whereIsPart'
 
 export default function Home() {
   const { isMobile } = useMobileView()
