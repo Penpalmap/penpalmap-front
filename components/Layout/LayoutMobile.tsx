@@ -8,7 +8,7 @@ import Profile from '../Profile'
 import { useSession } from './../../hooks/useSession'
 import Chat from '../Chat/Chat'
 import Settings from '../Settings/settings'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
 
 const LayoutMobile = () => {
@@ -17,6 +17,18 @@ const LayoutMobile = () => {
   const { user } = useSession()
 
   const [appData] = useContext(AppContext)
+  const [viewportHeight, setViewportHeight] = useState('100vh - 4rem')
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(`${window.innerHeight}px`)
+    }
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <>
@@ -29,7 +41,7 @@ const LayoutMobile = () => {
       </Head>
       <Flex
         w={'full'}
-        h={'calc(100vh - 4rem)'}
+        h={viewportHeight}
         position={'relative'}
         flexDir={'column'}
       >
