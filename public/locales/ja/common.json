@@ -122,7 +122,11 @@
     "isWorldwide": "Penpalmapは世界的です",
     "whatOurOthersSay": "他のユーザーの声",
     "letsCreateProfile": "プロフィールを作成して、人々との出会いを始めましょう",
-    "startJourney": "Penpalmapの旅を始める"
+    "startJourney": "Penpalmapの旅を始める",
+    "taglineBeforeCountries": "あなたの旅行前に人々に会いたいですか",
+    "taglineAfterCountries": "オンラインチャットをご利用ください！",
+    "taglineMeet": "会う",
+    "taglineTrip": "旅行"
   },
   "footer": {
     "terms": "利用規約",
