@@ -11,7 +11,7 @@ const MapInfoPart = () => {
       alignItems={'center'}
       justifyContent={'center'}
       mb={20}
-      mx={[0, 35]}
+      mx={[4, 35]}
     >
       <Image
         src={'/images/lp/user_map_info.webp'}

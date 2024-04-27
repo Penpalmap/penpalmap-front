@@ -65,7 +65,7 @@ const Testimonial = ({ name, text, image, country }) => {
 
 const TestimonialsPart = () => {
   return (
-    <Box mb={40} mx={[0, 35]}>
+    <Box mb={40} mx={[4, 35]}>
       <Text fontSize={'4xl'} textAlign={'center'} fontWeight={'bold'} mb={20}>
         What our users say
       </Text>
