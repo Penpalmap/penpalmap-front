@@ -28,6 +28,7 @@ export const SessionProvider = ({ children }) => {
     const user = await getUserById(decoded.userId)
     setUser(user)
     setStatus('authenticated')
+    router.push('/home')
   }
 
   // Fonction pour se déconnecter
