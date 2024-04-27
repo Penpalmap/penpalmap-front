@@ -122,7 +122,11 @@
     "isWorldwide": "펜팔맵은 전 세계적입니다",
     "whatOurOthersSay": "다른 사용자들이 말하는 것",
     "letsCreateProfile": "프로필을 작성하고 사람들을 만나 시작합시다",
-    "startJourney": "펜팔맵의 여정을 시작하세요"
+    "startJourney": "펜팔맵의 여정을 시작하세요",
+    "taglineBeforeCountries": "당신의 여행 전에 사람들을 만나고 싶나요",
+    "taglineAfterCountries": "온라인 채팅을 사용하세요!",
+    "taglineMeet": "만나다",
+    "taglineTrip": "여행"
   },
   "footer": {
     "terms": "이용 약관",

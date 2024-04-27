@@ -122,7 +122,11 @@
     "isWorldwide": "Meetmapper es mundial",
     "whatOurOthersSay": "Lo que dicen nuestros usuarios",
     "letsCreateProfile": "Creemos un perfil y comencemos a conocer gente",
-    "startJourney": "Comienza el viaje de Meetmapper"
+    "startJourney": "Comienza el viaje de Penpalmap",
+    "taglineBeforeCountries": "¿Quieres conocer gente antes de tu viaje en",
+    "taglineAfterCountries": "¡Usa nuestro chat en línea!",
+    "taglineMeet": "conocer",
+    "taglineTrip": "viaje"
   },
   "footer": {
     "terms": "Términos de uso",

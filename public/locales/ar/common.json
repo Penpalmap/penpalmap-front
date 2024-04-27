@@ -116,7 +116,11 @@
     "isWorldwide": "Meetmapper عالمية",
     "whatOurOthersSay": "ما يقوله مستخدمونا",
     "letsCreateProfile": "لنقم بإنشاء ملفك الشخصي ونبدأ في لقاء الناس",
-    "startJourney": "ابدأ رحلة Meetmapper"
+    "startJourney": "ابدأ رحلة Penpalmap",
+    "taglineBeforeCountries": "هل ترغب في لقاء الناس قبل رحلتك في",
+    "taglineAfterCountries": "استخدم دردشتنا عبر الإنترنت!",
+    "taglineMeet": "لقاء",
+    "taglineTrip": "رحلة"
   },
   "footer": {
     "terms": "شروط الاستخدام",
