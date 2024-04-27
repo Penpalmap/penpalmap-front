@@ -47,7 +47,7 @@ export const RoomProvider = ({ children }: RoomProviderProps) => {
     if (!user?.id) return
 
     setRooms([])
-    const roomsData = await getRooms({ userIds: [user.id] })
+    const roomsData = await getRooms({ userIds: [user.id], limit: 50 })
 
     const roomsArray: Room[] = []
     for (const room of roomsData.data) {

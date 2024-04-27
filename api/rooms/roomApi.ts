@@ -4,11 +4,15 @@ import { CreateRoomDto, QueryRoomDto, RoomDto, UpdateRoomDto } from './roomDto'
 
 const getRooms = async ({
   userIds,
+  limit = 20,
+  offset = 0,
 }: QueryRoomDto): Promise<PageDto<RoomDto>> => {
   try {
     const userParams = userIds?.join('&userIds[]=')
 
-    const rooms = await axiosInstance.get(`/api/rooms?userIds[]=${userParams}`)
+    const rooms = await axiosInstance.get(
+      `/api/rooms?userIds[]=${userParams}&limit=${limit}&offset=${offset}`
+    )
     return rooms.data
   } catch (error) {
     console.error('Error while getting users in map', error)

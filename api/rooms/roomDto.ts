@@ -2,6 +2,8 @@ import { User } from '../../types'
 
 export type QueryRoomDto = {
   userIds?: string[]
+  limit?: number
+  offset?: number
 }
 
 export type CreateRoomDto = {
