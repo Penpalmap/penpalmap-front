@@ -19,6 +19,10 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
     <>
       <Head>
         <title>Meetmapper</title>
+        <meta
+          name="google-site-verification"
+          content="QlAyp0JGmtN5vnuQvQyFpxa-57tzP6N8qfO56m9aH-c"
+        />
       </Head>
       <ChakraProvider theme={customTheme}>
         <GoogleOAuthProvider
