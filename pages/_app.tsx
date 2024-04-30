@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
     <>
       <Head>
         <title>Meetmapper</title>
-        <GoogleTagManager gtmId={process.env.GTM_ID as string} />
       </Head>
       <ChakraProvider theme={customTheme}>
         <GoogleOAuthProvider
@@ -32,6 +31,7 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
                 <RoomProvider>
                   <Layout>
                     <Component {...pageProps} />
+                    <GoogleTagManager gtmId={'G-M3FER3ZYN5'} />
                   </Layout>
                 </RoomProvider>
                 {/* </SessionProvider> */}
