@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
                 <RoomProvider>
                   <Layout>
                     <Component {...pageProps} />
-                    <GoogleTagManager gtmId={'G-M3FER3ZYN5'} />
+                    <GoogleTagManager gtmId={'GTM-5SSNCLR9'} />
                   </Layout>
                 </RoomProvider>
                 {/* </SessionProvider> */}
