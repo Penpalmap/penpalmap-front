@@ -8,31 +8,46 @@ import Profile from '../Profile'
 import { useSession } from './../../hooks/useSession'
 import Chat from '../Chat/Chat'
 import Settings from '../Settings/settings'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AppContext } from '../../context/AppContext'
+import { useRouter } from 'next/router'
+import Header from './header'
+import Footer from './footer'
 
 const LayoutMobile = () => {
   const { mobileView } = useMobileView()
-
   const { user } = useSession()
-
   const [appData] = useContext(AppContext)
+  const router = useRouter()
+
+  useEffect(() => {
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+
+    window.addEventListener('resize', setVH)
+    setVH() // Set the variable at the initial load
+
+    return () => window.removeEventListener('resize', setVH)
+  }, [])
 
   return (
     <>
       <Head>
         <title>MeetMapper</title>
-        <meta
-          name="viewport"
-          content="width=device-width, user-scalable=no"
-        ></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
       </Head>
       <Flex
         w={'full'}
-        h={'calc(100vh - 4rem)'}
         position={'relative'}
         flexDir={'column'}
+        h={'calc(var(--vh, 1vh) * 100)'}
       >
+        {router.pathname !== '/auth/signup' &&
+          router.pathname !== '/auth/signin' &&
+          mobileView !== 'chat' &&
+          router.pathname !== '/create-profile' && <Header />}
         <Box flex={1} overflowY={'auto'}>
           {mobileView === 'home' && <Map />}
           {mobileView === 'conversations' && <ConversationList />}
@@ -42,6 +57,10 @@ const LayoutMobile = () => {
           {mobileView === 'settings' && <Settings />}
           <Chat visible={mobileView === 'chat'} />
         </Box>
+        {router.pathname !== '/home' &&
+          router.pathname !== '/auth/signup' &&
+          router.pathname !== '/auth/signin' &&
+          router.pathname !== '/create-profile' && <Footer />}
         <Box>
           {mobileView !== 'chat' &&
             mobileView !== 'profile' &&

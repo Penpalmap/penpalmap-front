@@ -45,11 +45,16 @@ const ConversationList = () => {
 
   const conversationsRender = useMemo(
     () =>
-      // rooms.sort(sortRoomsByLastMessageDate).map((room, index) => (
       rooms
         .filter((room) => {
           return !user?.blockedUsers?.some((blockedUser) =>
             room.members?.some((member) => member.id === blockedUser.id)
+          )
+        })
+        .sort((a, b) => {
+          return (
+            new Date(b.lastMessage?.createdAt ?? 0).getTime() -
+            new Date(a.lastMessage?.createdAt ?? 0).getTime()
           )
         })
         .map((room, index) => (

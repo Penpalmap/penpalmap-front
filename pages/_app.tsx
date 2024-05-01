@@ -1,6 +1,5 @@
 // Import des dépendances nécessaires
 import { ChakraProvider } from '@chakra-ui/react'
-import Layout from '../components/Layout'
 import customTheme from '../styles/customTheme'
 import { SessionProvider } from './../context/SessionContext'
 import { AppProvider } from '../context/AppContext'
@@ -33,10 +32,8 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
               <MobileViewProvider>
                 {/* <SessionProvider> */}
                 <RoomProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                    <GoogleTagManager gtmId={'GTM-5SSNCLR9'} />
-                  </Layout>
+                  <Component {...pageProps} />
+                  <GoogleTagManager gtmId={'GTM-5SSNCLR9'} />
                 </RoomProvider>
                 {/* </SessionProvider> */}
               </MobileViewProvider>
