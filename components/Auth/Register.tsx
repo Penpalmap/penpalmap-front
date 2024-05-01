@@ -24,6 +24,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import RGPDNotice from '../Elements/rgpdNotice'
 import { RegisterDto } from '../../api/auth/authDto'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 const Register = () => {
   const [error, setError] = useState<string | null>(null)
@@ -129,6 +131,18 @@ const Register = () => {
           zIndex={2}
           boxShadow={'lg'}
         >
+          <Link href="/">
+            <Button
+              position="absolute"
+              top={4}
+              left={4}
+              variant="link"
+              color={'black'}
+              leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
+            >
+              {t('settings.back')}
+            </Button>
+          </Link>
           <Image
             src="/images/AnimatedLogo.gif"
             alt="MeetMapper Logo"

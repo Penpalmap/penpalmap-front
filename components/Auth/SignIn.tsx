@@ -22,6 +22,8 @@ import { useSession } from '../../hooks/useSession'
 import Input from '../Elements/Input'
 import RGPDNotice from '../Elements/rgpdNotice'
 import { useRouter } from 'next/router'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 interface LoginFormData {
   email: string
@@ -121,6 +123,18 @@ const SignIn = () => {
           boxShadow={'lg'}
           zIndex={2}
         >
+          <Link href="/">
+            <Button
+              position="absolute"
+              top={4}
+              left={4}
+              variant="link"
+              color={'black'}
+              leftIcon={<FontAwesomeIcon icon={faChevronLeft} />}
+            >
+              {t('settings.back')}
+            </Button>
+          </Link>
           <Image
             src="/images/AnimatedLogo.gif"
             alt="MeetMapper Logo"

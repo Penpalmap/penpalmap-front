@@ -6,12 +6,16 @@ import TestimonialsPart from '../components/LandingPage/testimonialsPart'
 import CallToAction from '../components/LandingPage/callToAction'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useMobileView } from '../context/MobileViewContext'
+import Header from '../components/Layout/header'
 
 export default function Home() {
   const { isMobile } = useMobileView()
 
   return (
     <>
+      <Box h={'4rem'}>
+        <Header />
+      </Box>
       <Box>
         <HeroBannerCard isMobile={isMobile} />
         <InformationsPart />
