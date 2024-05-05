@@ -7,9 +7,21 @@ import CallToAction from '../components/LandingPage/callToAction'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useMobileView } from '../context/MobileViewContext'
 import Header from '../components/Layout/header'
+import { useSession } from '../hooks/useSession'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const { isMobile } = useMobileView()
+
+  const { status } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/home')
+    }
+  }, [router, status])
 
   return (
     <>
