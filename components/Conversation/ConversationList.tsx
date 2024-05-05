@@ -1,5 +1,5 @@
 import { useContext, useMemo, useCallback } from 'react'
-import { Flex, Image, Text, VStack } from '@chakra-ui/react'
+import { Button, Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import ConversationItem from './ConversationItem'
@@ -73,9 +73,8 @@ const ConversationList = () => {
     <Flex
       flex={1}
       flexDirection={'column'}
+      overflow={'auto'}
       w={{ base: 'full', md: 'xs' }}
-      left={0}
-      zIndex={1}
       px={2}
       py={4}
       gap={2}

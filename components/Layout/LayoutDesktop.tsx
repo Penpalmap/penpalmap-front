@@ -21,11 +21,14 @@ const LayoutDesktop = () => {
       {router.pathname !== '/auth/signup' &&
         router.pathname !== '/auth/signin' &&
         router.pathname !== '/create-profile' && <Header />}
-      <Box w={'full'} h={'full'} display={'flex'} position={'relative'}>
-        <Box>
-          <ConversationList />
-        </Box>
-
+      <Box
+        w={'full'}
+        h={'calc(100vh - 4rem)'}
+        overflow={'hidden'}
+        display={'flex'}
+        position={'relative'}
+      >
+        <ConversationList />
         <Box flex={3}>
           <Map />
         </Box>
