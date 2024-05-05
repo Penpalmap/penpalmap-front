@@ -1,5 +1,5 @@
 import { useContext, useMemo, useCallback } from 'react'
-import { Button, Flex, Image, Text, VStack } from '@chakra-ui/react'
+import { Flex, Image, Text, VStack } from '@chakra-ui/react'
 import { AppContext } from '../../context/AppContext'
 import { useSession } from '../../hooks/useSession'
 import ConversationItem from './ConversationItem'
