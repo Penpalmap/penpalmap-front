@@ -155,7 +155,7 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
   ])
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size={'xl'}>
       <ModalOverlay
         bg="blackAlpha.600"
         backdropFilter="auto"
