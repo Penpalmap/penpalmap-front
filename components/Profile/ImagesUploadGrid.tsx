@@ -142,19 +142,17 @@ const ImagesUploadGrid = ({
             {images.map((image) => (
               <Box position={'relative'} key={image.src}>
                 <SortableItem key={image.src} id={image.src}>
-                  <Box position={'relative'}>
-                    <Image
-                      src={
-                        image instanceof File
-                          ? URL.createObjectURL(image)
-                          : image.src
-                      }
-                      w={'200px'}
-                      h={'200px'}
-                      borderRadius={'lg'}
-                      alt="Profile Image"
-                    />
-                  </Box>
+                  <Image
+                    src={
+                      image instanceof File
+                        ? URL.createObjectURL(image)
+                        : image.src
+                    }
+                    w={'100%'}
+                    h={'100%'}
+                    borderRadius={'lg'}
+                    alt="Profile Image"
+                  />
                 </SortableItem>
                 <Button
                   size={'sm'}
