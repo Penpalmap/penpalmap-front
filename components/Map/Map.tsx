@@ -8,10 +8,7 @@ import { useMobileView } from '../../context/MobileViewContext'
 
 const Map = () => {
   const { isMobile } = useMobileView()
-  const { mapContainerRef, mapObj, overlayRef } = useMap({
-    center: [0, 0],
-    zoom: 2,
-  })
+  const { mapContainerRef, mapObj, overlayRef } = useMap()
 
   const closeOverlay = useCallback(() => {
     if (mapObj.current && overlayRef) {

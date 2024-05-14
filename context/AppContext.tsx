@@ -1,9 +1,12 @@
-import React, { useState, createContext, ReactNode } from 'react'
+import React, { useState, createContext, ReactNode, useMemo } from 'react'
 import { ContextStateData } from '../types'
 
-export const AppContext = createContext<
-  [ContextStateData, React.Dispatch<React.SetStateAction<ContextStateData>>]
->([
+type AppContextType = [
+  ContextStateData,
+  React.Dispatch<React.SetStateAction<ContextStateData>>
+]
+
+export const AppContext = createContext<AppContextType>([
   {
     userTarget: null,
     chatData: { roomChatId: null, userChat: null },
@@ -29,9 +32,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     socket: null,
   })
 
+  const contextValue = useMemo(
+    (): AppContextType => [data, setData],
+    [data, setData]
+  )
+
   return (
-    <AppContext.Provider value={[data, setData]}>
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   )
 }
