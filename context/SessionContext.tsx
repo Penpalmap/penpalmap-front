@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { AuthContextType, User } from '../types'
 import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'next/router'
@@ -17,22 +23,22 @@ export const SessionProvider = ({ children }) => {
   const router = useRouter()
 
   // Fonction pour se connecter
-  const login = async (tokens: {
-    accessToken: string
-    refreshToken: string
-  }) => {
-    localStorage.setItem('accessToken', tokens.accessToken)
-    localStorage.setItem('refreshToken', tokens.refreshToken)
+  const login = useCallback(
+    async (tokens: { accessToken: string; refreshToken: string }) => {
+      localStorage.setItem('accessToken', tokens.accessToken)
+      localStorage.setItem('refreshToken', tokens.refreshToken)
 
-    const decoded: { userId: string } = jwtDecode(tokens.accessToken)
-    const user = await getUserById(decoded.userId)
-    setUser(user)
-    setStatus('authenticated')
-    router.push('/home')
-  }
+      const decoded: { userId: string } = jwtDecode(tokens.accessToken)
+      const user = await getUserById(decoded.userId)
+      setUser(user)
+      setStatus('authenticated')
+      router.push('/home')
+    },
+    [router]
+  )
 
   // Fonction pour se déconnecter
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     setUser(null)
@@ -40,14 +46,14 @@ export const SessionProvider = ({ children }) => {
     router.push('/auth/signin')
   }, [router])
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     if (user) {
       const data = await getUserById(user.id)
       setUser(data)
     }
-  }
+  }, [user])
 
-  const isAuthRoute = (pathname) => {
+  const isAuthRoute = (pathname: string) => {
     const paths = [
       '/auth/signin',
       '/auth/signup',
@@ -99,16 +105,13 @@ export const SessionProvider = ({ children }) => {
     }
   }, [logout, router, status, user?.isNewUser])
 
+  const session = useMemo(
+    (): AuthContextType => ({ user, status, login, logout, fetchUser }),
+    [user, status, login, logout, fetchUser]
+  )
+
   return (
-    <SessionContext.Provider
-      value={{
-        user,
-        status,
-        login,
-        logout,
-        fetchUser,
-      }}
-    >
+    <SessionContext.Provider value={session}>
       {children}
     </SessionContext.Provider>
   )

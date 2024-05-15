@@ -19,7 +19,8 @@
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
     "allowUnreachableCode": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "target": "ESNext"
   },
   "include": [
     "next-env.d.ts",

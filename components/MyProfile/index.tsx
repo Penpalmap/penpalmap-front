@@ -152,6 +152,8 @@ const MyProfile = ({ isOpen, onClose }: Props) => {
     user?.bio,
     user?.geom?.coordinates,
     user?.id,
+    user?.image,
+    user?.name,
   ])
 
   return (

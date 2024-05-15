@@ -20,8 +20,8 @@ const ConversationItem = ({
 }: ConversationItemProps) => {
   const user = room.members?.find((member) => member.id !== sessionUserId)
   const { flag } = useLocation(
-    user?.geom?.coordinates?.[1],
-    user?.geom?.coordinates?.[0]
+    user?.geom?.coordinates?.[1] ?? 0,
+    user?.geom?.coordinates?.[0] ?? 0
   )
   const { t } = useTranslation('common')
   const { genderFolder } = useGenderFolder(user?.gender || ' ')

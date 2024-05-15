@@ -83,8 +83,11 @@ export type UserLanguage = {
 export type AuthContextType = {
   user: User | null
   status: 'loading' | 'authenticated' | 'unauthenticated'
-  login: (tokens: { accessToken: string; refreshToken: string }) => void
-  logout: () => void
+  login: (tokens: {
+    accessToken: string
+    refreshToken: string
+  }) => Promise<void>
+  logout: () => Promise<void>
   // refreshTokenFunc: () => Promise<boolean>
-  fetchUser: () => void
+  fetchUser: () => Promise<void>
 }

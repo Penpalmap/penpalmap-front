@@ -17,18 +17,13 @@ import XYZ from 'ol/source/XYZ'
 import { useRoom } from '../context/RoomsContext'
 import { pulse } from '../styles/openlayer/pulseFunctions'
 
-interface UseMapOptions {
-  center: [number, number]
-  zoom: number
-}
-
 interface UseMapResult {
   mapObj: React.RefObject<OLMap>
   mapContainerRef: React.RefObject<HTMLDivElement>
   overlayRef: Overlay | null
 }
 
-const useMap = ({}: UseMapOptions): UseMapResult => {
+const useMap = (): UseMapResult => {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapObj = useRef<OLMap | null>(null)
   const [users, setUsers] = useState<UserMap[]>([])
@@ -157,8 +152,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
 
         mapObj.current.getView().animate({
           center: fromLonLat([
-            user.geom?.coordinates[0] || 0,
-            user.geom?.coordinates[1] || 0,
+            user.geom?.coordinates[0] ?? 0,
+            user.geom?.coordinates[1] ?? 0,
           ]),
           duration: 500,
         })
@@ -186,8 +181,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
       ],
       view: new View({
         center: fromLonLat([
-          currentUser?.geom?.coordinates?.[0] || 0,
-          currentUser?.geom?.coordinates?.[1] || 0,
+          currentUser?.geom?.coordinates?.[0] ?? 0,
+          currentUser?.geom?.coordinates?.[1] ?? 0,
         ]),
         zoom: 5.5,
         minZoom: 3,
@@ -211,7 +206,7 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
     mapObj.current = map
 
     return () => {
-      map.setTarget(undefined)
+      map.setTarget()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.geom?.coordinates?.[0], currentUser?.geom?.coordinates?.[1]])
@@ -274,8 +269,8 @@ const useMap = ({}: UseMapOptions): UseMapResult => {
       ? new Feature({
           geometry: new Point(
             fromLonLat([
-              filteredCurrentUser.geom.coordinates[0] || 0,
-              filteredCurrentUser.geom.coordinates[1] || 0,
+              filteredCurrentUser.geom.coordinates[0] ?? 0,
+              filteredCurrentUser.geom.coordinates[1] ?? 0,
             ])
           ),
           element: {

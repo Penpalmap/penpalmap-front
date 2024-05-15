@@ -4,7 +4,7 @@ import {
   getPositionDataByCoords,
 } from '../utils/location'
 
-const useLocation = (latitude, longitude) => {
+const useLocation = (latitude: number, longitude: number) => {
   const [country, setCountry] = useState<string | null>(null)
   const [city, setCity] = useState<string | null>(null)
   const [countryCode, setCountryCode] = useState<string | null>(null)

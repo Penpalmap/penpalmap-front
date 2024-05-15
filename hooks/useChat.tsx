@@ -43,7 +43,7 @@ const useChat = () => {
           order: 'DESC',
         })
 
-        setMessages(messagesData.data.reverse())
+        setMessages(messagesData.data.toReversed())
       }
     }
 
@@ -67,7 +67,7 @@ const useChat = () => {
       })
 
       setMessages((prevMessages) => [
-        ...messagesData.data.reverse(),
+        ...messagesData.data.toReversed(),
         ...prevMessages,
       ])
     }
@@ -114,7 +114,6 @@ const useChat = () => {
     },
     [
       appData?.chatData?.userChat,
-      appData?.socket,
       currentRoom,
       setRooms,
       updateLastMessageInRoom,
@@ -219,7 +218,14 @@ const useChat = () => {
         })
       }
     }
-  }, [appData?.chatOpen, appData?.socket, currentRoom?.id, messages, user?.id])
+  }, [
+    appData?.chatOpen,
+    appData?.socket,
+    currentRoom?.id,
+    messages,
+    setRooms,
+    user?.id,
+  ])
 
   return {
     messages: messages,
