@@ -81,17 +81,17 @@ const ImagesUploadGrid = ({
         <Flex
           w={{
             base: '150px',
-            sm: '180px',
-            md: '200px',
-            lg: '250px',
-            xl: '300px',
+            sm: '200px',
+            md: '175px',
+            lg: '200px',
+            xl: '225px',
           }}
           h={{
             base: '150px',
-            sm: '180px',
-            md: '200px',
-            lg: '250px',
-            xl: '300px',
+            sm: '200px',
+            md: '175px',
+            lg: '200px',
+            xl: '225px',
           }}
           bg={'gray.100'}
           borderRadius={'lg'}
@@ -148,8 +148,20 @@ const ImagesUploadGrid = ({
                         ? URL.createObjectURL(image)
                         : image.src
                     }
-                    w={'100%'}
-                    h={'100%'}
+                    w={{
+                      base: '150px',
+                      sm: '200px',
+                      md: '175px',
+                      lg: '200px',
+                      xl: '225px',
+                    }}
+                    h={{
+                      base: '150px',
+                      sm: '200px',
+                      md: '175px',
+                      lg: '200px',
+                      xl: '225px',
+                    }}
                     borderRadius={'lg'}
                     alt="Profile Image"
                   />
