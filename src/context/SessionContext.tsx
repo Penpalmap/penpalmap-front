@@ -28,8 +28,8 @@ export const SessionProvider = ({ children }) => {
       localStorage.setItem('accessToken', tokens.accessToken)
       localStorage.setItem('refreshToken', tokens.refreshToken)
 
-      const decoded: { userId: string } = jwtDecode(tokens.accessToken)
-      const user = await getUserById(decoded.userId)
+      const decoded: { sub: string } = jwtDecode(tokens.accessToken)
+      const user = await getUserById(decoded.sub)
       setUser(user)
       setStatus('authenticated')
       router.push('/home')
@@ -74,13 +74,13 @@ export const SessionProvider = ({ children }) => {
       const refreshToken = localStorage.getItem('refreshToken')
 
       if (accessToken && refreshToken) {
-        const decoded: { exp: number; userId: string } = jwtDecode(accessToken)
+        const decoded: { exp: number; sub: string } = jwtDecode(accessToken)
 
         if (decoded.exp * 1000 < Date.now()) {
           setStatus('unauthenticated')
         } else {
           try {
-            const userData = await getUserById(decoded.userId)
+            const userData = await getUserById(decoded.sub)
             setUser(userData)
             setStatus('authenticated')
           } catch (err) {
